@@ -3,6 +3,13 @@
 =====================================
 
 
+mlUnit 1.6.3 (2012-07-13)
+-------------------------
+
+  - Provide assert_equals methods that equal NaN values. #2873.
+  - Fix: Do not indent raw text in XML generation. #2874.
+
+
 mlUnit 1.6.2 (2012-07-12)
 -------------------------
 
