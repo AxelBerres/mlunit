@@ -1,46 +1,51 @@
-function assert_equals(expected, actual, msg)
-%assert_equals checks whether expected == actual and raises an error if not. 
+function assert_equals(expected, actual, msg, varargin)
+%ASSERT_EQUALS Raise an error if two expressions do not evaluate to the same.
+%  ASSERT_EQUALS(EXPECTED, ACTUAL) raises a MATLAB error if EXPECTED
+%  and ACTUAL are not the same.
 %
-%  Info / Example
-%  ==============
-%  A common call to assert_equals looks like this:
-%         Example: assert_equals(a, b);
-%  The assertion will fail, if a is not equal to b. 
-
-%  In addition, a message can be specified:
-%         Example: assert_equals(a, b, 'a is not equal to b.');
-%  The message is only used, if the assertion fails.
+%  ASSERT_EQUALS(EXPECTED, ACTUAL, MSG, varargin) does the same, but with
+%  the custom error message MSG. MSG may contain sprintf arguments, which
+%  can be expanded by subsequent arguments in varargin.
+%
+%  Examples
+%     % asserts string variable output being 'yes'
+%     assert_equals(output, 'yes');
+%
+%     % asserts variable arg being 3; specifies a custom message
+%     assert_equals(arg, 3, 'Input argument is not %d.', 3);
+%
+%  See also  FAIL, ASSERT_NOT_EQUALS
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: assert_equals.m 269 2007-04-02 19:54:39Z thomi $
+%  $Author$
+%  $Id: assert_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
-if (nargin < 2)
-    assert(0, 'assert_equals: Not enough input arguments.', 1);
-end;
-if (nargin == 2)
-    msg = '';
-end;
-if (isempty(msg))
-    if (isnumeric(expected) || islogical(expected))
-        exp_str = num2str(expected);
-    else
-        exp_str = expected;
-    end;
-    if (isnumeric(actual) || islogical(actual)) 
-        act_str = num2str(actual);
-    else
-        act_str = actual;
-    end;
-    msg_out = sprintf('Expected <%s>, but was <%s>.', ...
-        exp_str, ...
-        act_str);
-else
-    msg_out = msg;
-end;
-if (~isequal(actual, expected))
-    fail(msg_out, 1);
-end;
+if nargin < 2
+   fail('assert_equals: Not enough input arguments.');
+end
 
+if nargin < 3 || isempty(msg)
+   msg = sprintf('Expected <%s>, but was <%s>.', to_string(expected), to_string(actual));
+end
+
+if ~isequal(actual, expected)
+   fail(msg, varargin{:});
+end
+
+
+%% subfunction to_string
+function outstring = to_string(input)
+
+   if ischar(input)
+      outstring = input;
+   elseif isnumeric(input) || islogical(input)
+      outstring = num2str(input);
+   elseif isstruct(input)
+      outstring = 'MATLAB structure array';
+   elseif iscell(input)
+      outstring = 'MATLAB cell array';
+   else
+      outstring = 'unrecognized type';
+   end
