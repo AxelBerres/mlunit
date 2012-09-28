@@ -1,0 +1,41 @@
+=====================================
+   m l U n i t   C H A N G E L O G
+=====================================
+
+
+mlUnit 1.6.2 (2012-07-12)
+-------------------------
+
+  - Refactored XML generation.
+  - Fix: XML head tag.
+
+
+mlUnit 1.6.1 (2012-06-18)
+-------------------------
+
+  - Support for shallow and recursive path dependencies in Ant mlUnit task.
+  - Support for executing additional MATLAB commands from Ant mlUnit task.
+  - Fix: Empty relative directory yielded ugly dot.
+  - Fix: Empty default shallow directory property.
+
+
+mlUnit 1.6 (2012-06-13)
+-----------------------
+
+  - Added Ant build script. Lets other Ant scripts trigger recursive execution
+    of all test scripts they like to execute.
+  - Added assert_error.
+  - Added generation of jUnit compatible XML output
+  - Added recursive execution of all test script files in a specific folder and
+    all its subfolders
+  - Expanded mlUnit core test_case to return its function_name.
+
+
+mlUnit 1.5.2 (2012-06-06)
+-------------------------
+
+  - Added assert_empty, assert_not_empty.
+  - Fix: assert_equals, assert_not_equals failed when building strings from cell
+    or structure arrays.
+  - Simplified assert accessor functions. Made them consistent.
+
