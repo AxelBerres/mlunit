@@ -74,7 +74,7 @@ dialog and apply.
 Automatic Execution
 -------------------
 
-Execute recursive_test_run. Provide one input arguments: The full path to the
+Execute recursive_test_run. Provide one input argument: The full path to the
 test directory. Provide an optional second input argument: The full path to the
 target directory receiving the jUnit XML reports.
 

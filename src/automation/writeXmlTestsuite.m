@@ -23,7 +23,7 @@ function writeXmlTestsuite(suiteresult, targetdir)
    
    fid = fopen(source,'w');
    % default xml headline
-   fprintf(fid,'<?xml version=''1.0'' encoding=''UTF-8''?>\n');
+   fprintf(fid,'<?xml version="1.0" encoding="UTF-8"?>\n');
    % wrap this string in a '%s' call in order to prohibit fprintf to parse
    % it
    fprintf(fid, '%s', printXmlTestsuite(suiteresult));
@@ -41,28 +41,24 @@ function writeXmlTestsuite(suiteresult, targetdir)
 function xml = printXmlTestsuite(suiteresult)
 
    timestamp = datestr(now,'yyyy-mm-ddTHH:MM:SS');
-   newline = sprintf('\n');
-   
-   suitetag = ['<testsuite name="', suiteresult.name, '" ', ...
-                        'errors="', num2str(suiteresult.errors), '" ', ...
-                      'failures="', num2str(suiteresult.failures), '" ', ...
-                         'tests="', num2str(suiteresult.tests), '" ', ...
-                          'time="', num2str(suiteresult.time), '" ', ...
-                      'hostname="unknown" ', ...
-                     'timestamp="', timestamp,'">', ...
-                       newline];
-                       % 'hostname="unkown" ',...
-   proptag = ['  <properties/>' newline];
-   sysouttag = ['  <system-out/>' newline];
-   syserrtag = ['  <system-err/>' newline];
-   suiteclosetag = ['</testsuite>' newline];
-   
-   testcaseblock = '';
+   attributes = {'name', suiteresult.name, ...
+                 'errors', num2str(suiteresult.errors), ...
+                 'failures', num2str(suiteresult.failures), ...
+                 'tests', num2str(suiteresult.tests), ...
+                 'time', num2str(suiteresult.time), ...
+                 'hostname', 'unknown', ...
+                 'timestamp', timestamp, ...
+                };
+
+   content = '';
+   content = [content xmlTag('properties')];
    for tc = 1:length(suiteresult.testcaseList)
-      testcaseblock = [testcaseblock printXmlTestcase(suiteresult.testcaseList{tc})];
+      content = [content printXmlTestcase(suiteresult.testcaseList{tc})]; %#ok<AGROW>
    end
+   content = [content xmlTag('system-out')];
+   content = [content xmlTag('system-err')];
    
-   xml = [suitetag proptag testcaseblock sysouttag syserrtag suiteclosetag];
+   xml = xmlTag('testsuite', attributes, content);
 
 
 %% Return XML string for test case
@@ -76,44 +72,81 @@ function xml = printXmlTestsuite(suiteresult)
 function xml = printXmlTestcase(testcase)
 
    newline = sprintf('\n');
-   
-   fail = false;
-   error = '';
-   failure = '';
+
+   attributes = {'classname', testcase.classname, ...
+                 'name', testcase.name};
+                 % time not available:
+                 %'time', num2str(testcase.time), ...
+
+   content = '';
    if ~isempty(testcase.error)
-      fail = true;
-      error = ['    <error>', ...
-                 sanitizeHtml(testcase.error), ...
-                 newline, ...
-                 '    </error>', ...
-                 newline];
+      content = [content xmlTag('error', {}, [sanitizeHtml(testcase.error) newline])];
    end
    if ~isempty(testcase.failure)
-      fail = true;
-      failure = ['    <failure>', ...
-                  sanitizeHtml(testcase.failure), ...
-                  newline, ...
-                  '    </failure>', ...
-                  newline];
-   end
-   
-   casetag = ['  <testcase classname="', testcase.classname, '" ', ...
-                               'name="', testcase.name, '"'];
-                  % time not available: num2str(testcase.time)
-   
-   if fail
-      casetag = [casetag '>' newline];
-      caseclose = ['  </testcase>' newline];
-   else
-      casetag = [casetag '/>' newline];
-      caseclose = '';
+      content = [content xmlTag('failure', {}, [sanitizeHtml(testcase.failure) newline])];
    end
 
-   xml = [casetag error failure caseclose];
-
+   xml = xmlTag('testcase', attributes, content);
    
-%% sanitize HTML message
+   
+%% strip text off HTML characters
 function message = sanitizeHtml(message)
    
    message = strrep(message,'<','(');
    message = strrep(message,'>',')');
+
+
+%% Return XML formatted tag from
+%   - tagname string
+%   - attributes cell string array
+%   - content string
+function xml = xmlTag(tagname, attributes, content)
+
+   if nargin<2, attributes={}; end
+   if nargin<3, content=''; end
+
+   assert(nargin >= 1);
+   assert(ischar(tagname));
+   assert(isempty(attributes) || ...
+         (iscellstr(attributes) && mod(length(attributes), 2)==0));
+   assert(ischar(content));
+
+   
+   newline = sprintf('\n');
+
+   % start opening tag
+   xml = ['<' tagname];
+
+   % add attributes
+   for i=1:2:length(attributes)
+      xml = [xml ' ' attributes{i} '="' attributes{i+1} '"']; %#ok<AGROW>
+   end
+   
+   % fill up to tag closing
+   if isempty(content)
+      % just finish-close the opening tag in case of no content
+      xml = [xml '/>' newline];
+   else
+      % close opening tag
+      xml = [xml '>' newline];
+
+      % add content
+      xml = [xml indentLines(content)];
+
+      % add closing tag
+      xml = [xml '</' tagname '>' newline];
+   end
+
+
+%% Indent lines of a given multi-line string by an indentation string
+function indentedtext = indentLines(text, indentation)
+
+   if nargin<2, indentation='  '; end
+
+   assert(nargin >= 1);
+   assert(ischar(text));
+   assert(ischar(indentation));
+
+   % prepend every stream of non-newline characters by indentation
+   indentedtext = regexprep(text, '([^\n]*)', [indentation '$1']);
+
