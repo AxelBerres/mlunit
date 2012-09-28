@@ -3,6 +3,15 @@
 =====================================
 
 
+mlUnit 1.6.1 (2012-06-18)
+-------------------------
+
+  - Support for shallow and recursive path dependencies in Ant mlUnit task.
+  - Support for executing additional MATLAB commands from Ant mlUnit task.
+  - Fix: Empty relative directory yielded ugly dot.
+  - Fix: Empty default shallow directory property.
+
+
 mlUnit 1.6 (2012-06-13)
 -----------------------
 

@@ -133,4 +133,9 @@ function name = packageFromRelativeDir(reldir, testname)
    while ~isempty(name) && strcmp('.', name(end)), name(end) = []; end
    
    % append testname
-   name = [name '.' testname];
+   if isempty(name)
+      name = testname;
+   else
+      name = [name '.' testname];
+   end
+

@@ -10,7 +10,12 @@
     - "source.dirs" Reference. If you have multiple source directories,
         define a dirset collection with id "source.dirs". Do not define
         the source.dir property in that case. You also have to set the inheritRefs
-        attribute for the &lt;ant&gt; task to "true".
+        attribute for the &lt;ant&gt; task to "true" or define a nested
+        &lt;resource&gt; definition.
+    - "source.dir.shallow" The same as "source.dir", but does not work
+        recursively.
+    - "source.dirs.shallow" The same as "source.dirs" but does not work
+        recursively.
     - "test.dir" The location of your MATLAB test files.
     - "mlunit.dir" The location of this mlUnit installation. May be left
         empty if you have set the useNativeBasedir attribute to true. Have you?
@@ -34,6 +39,9 @@
   <dirset id="source.dirs" dir="${muc.basedir}" casesensitive="yes">
     <include name="src"/>
   </dirset>
+  <dirset id="source.dirs.shallow" dir="${muc.basedir}" casesensitive="yes">
+    <include name=""/>
+  </dirset>
 
 
   <!-- Test target -->
@@ -46,15 +54,19 @@
          inheritance may break. -->
     <property name="test.dir" location="${muc.basedir}/test/units"/>
     <property name="report.dir" location="${muc.basedir}/test/units"/>
+    <property name="additional.cmd" value=""/>
     <pathconvert property="source.dir" pathsep="'), genpath('" refid="source.dirs"/>
+    <pathconvert property="source.dir.shallow" pathsep="', '" refid="source.dirs.shallow"/>
 
     <tstamp>
       <format property="time.now" pattern="yyyy-MM-dd-HHmm"/>
     </tstamp>
     <property name="unittest.log" location="${report.dir}/tests-${time.now}.log"/>
     <property name="addsourcepathscmd" value="addpath(genpath('${source.dir}'))"/>
+    <property name="addshallowsourcepathscmd" value="addpath('${source.dir.shallow}')"/>
+    <property name="additionalusercmd" value="try;${additional.cmd};catch;disp(['Your additional MATLAB command failed with message: ' lasterr '.']);end"/>
 
-    <matlabcommand command.string="addpath(genpath('${mlunit.dir}'));${addsourcepathscmd};recursive_test_run('${test.dir}', '${report.dir}')"
+    <matlabcommand command.string="addpath(genpath('${mlunit.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};${additionalusercmd};recursive_test_run('${test.dir}', '${report.dir}')"
                    output.property="unittests.output"
                    success.property="unittests.success"
                    logfile="${unittest.log}"/>
