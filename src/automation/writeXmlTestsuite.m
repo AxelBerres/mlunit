@@ -148,5 +148,7 @@ function indentedtext = indentLines(text, indentation)
    assert(ischar(indentation));
 
    % prepend every stream of non-newline characters by indentation
-   indentedtext = regexprep(text, '([^\n]*)', [indentation '$1']);
+   % only prepend lines that start with a tag bracket
+   % this may break tags whose attributes span multiple lines
+   indentedtext = regexprep(text, '(\w*<[^\n]*)', [indentation '$1']);
 
