@@ -21,7 +21,7 @@ function suite = load_tests_from_mfile(self, name) %#ok
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: load_tests_from_mfile.m 177 2007-01-06 14:02:49Z thomi $
+%  $Id: load_tests_from_mfile.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
 if (nargin == 1)
     name = '';
@@ -64,7 +64,8 @@ for token = tokens
             fun_handle = fun_handle();
             suite = function_test_case(fun_handle,...
                 set_up_handle,...
-                tear_down_handle);
+                tear_down_handle, ...
+                test);
             break;
         end;
     elseif (~isempty(pos) && (pos(1) == 1))
@@ -72,7 +73,8 @@ for token = tokens
         fun_handle = fun_handle();
         suite = add_test(suite, function_test_case(fun_handle,...
             set_up_handle,...
-            tear_down_handle));
+            tear_down_handle, ...
+            test));
     end;
 end;
 
