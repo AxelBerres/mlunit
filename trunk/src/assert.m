@@ -1,47 +1,33 @@
-function assert(expr, msg, internal_call)
-%assert checks whether the expr is true or not and raises an error if not. 
+function assert(expr, varargin)
+%ASSERT Raise an error if expression does not evaluate to true.
+%  ASSERT(EXPR) evaluates EXPR and raises a MATLAB error if it does
+%  not yield MATLAB's notion of true, i.e. logical 1 or numericals > 0.
 %
-%  Info / Example
-%  ==============
-%  A common call to assert looks like this:
-%         Example: assert(a == b);
-%  The assertion will fail, if a is not equal to b. 
+%  ASSERT(EXPR, MSG, varargin) does the same, but with the custom
+%  error message MSG. MSG may contain sprintf arguments, which can be
+%  expanded by subsequent arguments in varargin.
 %
-%  In addition, a message can be specified:
-%         Example: assert(a == b, 'a is not equal to b.');
-%  The message is only used, if the assertion fails.
+%  ASSERT is actually the same as ASSERT_TRUE.
 %
-%  The parameter internal_call is used to trim the top entries of the stack
-%  trace, e.g. for user-defined assert methods (see the code of
-%  assert_equals for an example).
+%  Examples
+%     % asserts string variable arg being empty
+%     assert(isempty(arg));
+%
+%     % asserts variable arg being a cell array; specifies a custom message
+%     assert(iscell(arg), 'Input argument is no cell array');
+%
+%  See also  FAIL
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: assert.m 276 2007-04-06 15:32:12Z thomi $
+%  $Author$
+%  $Id: assert.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
-if (nargin == 1)
-    msg = 'no message.';
-    internal_call = 0;
-end;
-if (nargin == 2)
-    internal_call = 0;
-end;
-if (internal_call > 1)
-    internal_call = 1;
-end;
-if ((isempty(expr)) || (~expr))
-    stack = dbstack('-completenames');
-    stacktrace = '';
-    for i = 2 + internal_call:size(stack, 1)
-        stacktrace = sprintf('%s\n  In %s at line %d', ...
-            stacktrace, ...
-            stack(i).file, stack(i).line);
-    end;
-    stacktrace = sprintf('%s\n', stacktrace);
-    error(['MLUNIT FAILURE:Traceback (most recent call first): ', ...
-        stacktrace, ...
-        'AssertionError: ', ...
-        msg]);
+if nargin < 1
+   fail('assert: Not enough input arguments.');
+end
+
+if ~expr
+   fail(varargin{:});
 end;
