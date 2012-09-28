@@ -1,4 +1,4 @@
-function self = test_case(name, subclass)
+function self = test_case(name, subclass, function_name)
 %test_case constructor.
 %  The constructer creates an object of the class test_case running the 
 %  test method with given name. If no name is passed, the method 
@@ -42,23 +42,20 @@ function self = test_case(name, subclass)
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: test_case.m 33 2006-06-11 16:02:51Z thomi $
+%  $Id: test_case.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
-self.name = name;
-
-if (nargin == 1)
-    if (isempty(self.name))
-        self.name = 'run_test';
-    end;
-else
-    if (isempty(self.name))
-        self.name = 'run_test';
+if nargin == 0 || isempty(name)
+   name = 'run_test';
     else
         r = reflect(subclass);
         if (~method_exists(r, name))
             error(['Method ', name ' does not exists.']);
         end;
-    end;
-end;
+end
+
+if nargin < 3, function_name = ''; end
+
+self.name = name;
+self.function_name = function_name;
 
 self = class(self, 'test_case');

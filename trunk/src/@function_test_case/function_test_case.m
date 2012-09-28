@@ -1,4 +1,4 @@
-function self = function_test_case(test_function, set_up_function, tear_down_function)
+function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)
 %function_test_case contructor.
 %  The constructor creates an object of the class function_test_case.
 %  test_function must be a Matlab function handle to function with the
@@ -39,17 +39,14 @@ function self = function_test_case(test_function, set_up_function, tear_down_fun
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: function_test_case.m 21 2006-05-26 23:10:20Z thomi $
+%  $Id: function_test_case.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
-if (nargin == 1)
-    set_up_function = 0;
-    tear_down_function = 0;
-elseif (nargin == 2)
-    tear_down_function = 0;
-end;
+if nargin < 2, set_up_function = 0; end
+if nargin < 3, tear_down_function = 0; end
+if nargin < 4, function_name = ''; end
 
 self.test_function = test_function;
 self.set_up_function = set_up_function;
 self.tear_down_function = tear_down_function;
-t = test_case('', 'function_test_case');
+t = test_case('', 'function_test_case', function_name);
 self = class(self, 'function_test_case', t);

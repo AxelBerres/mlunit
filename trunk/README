@@ -1,12 +1,16 @@
-mlUnit - Testing Framework for Matlab .m language.
+=================
+   m l U n i t
+=================
 
-README
+mlUnit is a unit test framework for the MATLAB M language.
 
 ===========================================================================
 
+
 ABOUT
 
-mlUnit is a testing framework for the Matlab .m language, considering the 
+
+mlUnit is a testing framework for the MATLAB .m language, considering the 
 patterns of the xUnit family.
 
 This software and all associated files are released unter the GNU General 
@@ -14,6 +18,14 @@ Public License (GPL) as published by the Free Software Foundation (see
 LICENSE file).
 
 ===========================================================================
+
+
+PREPARATION
+
+
+mlUnit may be installed (paths registered in MATLAB), or employed dynamically
+on a per-use base.
+
 
 INSTALLATION
 
@@ -30,9 +42,61 @@ INSTALLATION
 
    >> addpath('$HOME/mlunit/src');
 
+
+DYNAMICAL EMPLOYMENT
+
+1. Add all source file directories to the MATLAB search path.
+2. Add mlUnit to the MATLAB search path, including sub directories.
+   Alternatively, call the setpath.m script in this directory.
+3. Add test file directories to the MATLAB search path. Necessary for test
+   scripts that call test function from other directories. Not needed else.
+   mlUnit will change the working directory for each test script to its
+   directory. That way, test scripts may use relative paths to refer to data in
+   sub directories, e.g. images.
+
 ===========================================================================
 
+
+USAGE
+
+
+Execute mlUnit manually or automatically from within MATLAB, or
+fully automatized from your Ant automation script.
+
+
+Manual Execution
+----------------
+
+Execute run(gui_test_runner). Provide the name of a test script file in the
+dialog and apply.
+
+
+Automatic Execution
+-------------------
+
+Execute recursive_test_run. Provide one input arguments: The full path to the
+test directory. Provide an optional second input argument: The full path to the
+target directory receiving the jUnit XML reports.
+
+
+Ant automation
+--------------
+
+You may skip all of the above steps, even preparation, and
+execute your unit tests with an Apache Ant script.
+
+In your own Ant script, define a property named matlab.exec that defines the
+location of the matlab.bat contained in the MATLAB installation you want to
+invoke. Make a call like <ant antfile="mlunit/build.xml"/> to execute all unit
+tests and receive the jUnit XML reports.
+
+Read build.xml's description for further instructions.
+
+===========================================================================
+
+
 HOW TO TEST
+
 
 As an example a test for the built-in sin function is written:
 
@@ -113,7 +177,9 @@ As an example a test for the built-in sin function is written:
 
 ===========================================================================
 
+
 MLUNIT TESTS
+
 
 As mlUnit was developed test-driven, there are a number of tests in the 
 test directory, which can be run by
@@ -121,9 +187,13 @@ test directory, which can be run by
 >> addpath('$MLUNIT\mlunit\test');
 >> mlunit_test;
 
+These tests were not maintained from 1.5.2 onwards and should be updated soon.
+
 ===========================================================================
 
+
 MORE DOCUMENTATION
+
 
 More documentation can be found online at <http://mlunit.sourceforge.net>.
 
@@ -132,5 +202,4 @@ More documentation can be found online at <http://mlunit.sourceforge.net>.
 QUESTIONS, COMMENTS, BUGS
 
 If you have a question, a comment or a bug report, please send an email to 
-thomas@dohmke.de. Usually I try to answer within 24 hours. Spam and other 
-crap goes automatically to the trash bin, so please use a precise subject.
+thomas@dohmke.de or any other of the maintainers.
