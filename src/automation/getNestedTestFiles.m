@@ -1,5 +1,7 @@
 function suitespecs = getNestedTestFiles(basedir)
-% GETNESTEDTESTFILES Return a list of all test_*.m files in all subdirectories.
+% GETNESTEDTESTFILES returns a list of all test_*.m files in all
+% subdirectories. The subdirectories are queried by genpath(). Therefore,
+% subdirectories beginning with @ will be excluded.
 %
 % GETNESTEDTESTFILES(BASEDIR) returns a list of all test_*.m files in
 % BASEDIR.

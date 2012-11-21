@@ -42,17 +42,22 @@ function self = test_case(name, subclass, function_name)
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: test_case.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
+%  $Id$
 
-if nargin == 0 || isempty(name)
+% name argument not given or empty, default to 'run_test'
+if nargin < 1 || isempty(name)
    name = 'run_test';
-    else
-        r = reflect(subclass);
-        if (~method_exists(r, name))
-            error(['Method ', name ' does not exists.']);
-        end;
 end
 
+% subclass argument given, reflect on it a bit
+if nargin >= 2
+   r = reflect(subclass);
+   if (~method_exists(r, name))
+      error(['Method ', name ' does not exists.']);
+   end;
+end
+
+% function_name argument not given, default to ''
 if nargin < 3, function_name = ''; end
 
 self.name = name;
