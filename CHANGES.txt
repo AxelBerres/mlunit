@@ -2,6 +2,18 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.6.4 (in development)
+-------------------------
+
+  - Fix: license strings
+  - Fix: stack trace filter for assert functions did not include newer
+    assert wrappers
+  - Fix: Failed on missing subclass argument.
+  - Fix: gui_test_runner failed on a callback invocation with empty handles for
+    MATLAB R2008b. Reported as [#15].
+
+    [#15] https://sourceforge.net/p/mlunit/bugs/15/
+
 
 mlUnit 1.6.3 (2012-07-13)
 -------------------------
