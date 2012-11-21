@@ -187,7 +187,10 @@ test directory, which can be run by
 >> addpath('$MLUNIT\mlunit\test');
 >> mlunit_test;
 
-These tests were not maintained from 1.5.2 onwards and should be updated soon.
+The function recursive_test_run uses genpath to build a list of
+subdirectories. Therefore, it can not be used to run the mlUnit internal
+test cases. The Ant automation won't work either, because it, in turn, uses
+the recursive_test_run function.
 
 ===========================================================================
 
