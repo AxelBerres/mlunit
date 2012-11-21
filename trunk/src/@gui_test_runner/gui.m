@@ -14,7 +14,7 @@ function varargout = gui(object, varargin)
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: gui.m 267 2007-03-10 12:38:34Z thomi $
+%  $Id$
 
 global self;
 
@@ -93,25 +93,33 @@ varargout{1} = handles.output;
 
 function gui_resize_callback(hobject, eventdata, handles) %#ok
 
-position = get(hobject, 'Position');
-if (position(4) < 20)
-    position(4) = 20;
-end;
-if (position(3) < 50)
-    position(3) = 50;
-end;
+% Since R2008b, MATLAB occasionally calls gui_resize_callback very early,
+% presumably to get or update some position values, maybe to obtain a default
+% size/position for the window, resulting in a callback invocation
+% with empty eventdata and empty handles. Don't really know, how to handle this. Let's
+% just not set the positions in that case.
+if nargin>=3 && ~isempty(handles)
+   position = get(hobject, 'Position');
+   if (position(4) < 20)
+       position(4) = 20;
+   end;
+   if (position(3) < 50)
+       position(3) = 50;
+   end;
 
-space = position(4) - 30.0;
-set(handles.gui_text_name, 'Position', [2.5 position(4) - 2.5 20.0 1]);
-set(handles.gui_test_case, 'Position', [2.5 position(4) - 4.5 position(3) - 15 1.6]);
-set(handles.gui_run, 'Position', [position(3) - 12.5 position(4) - 4.5 10.0 1.6]);
-set(handles.gui_show, 'Position', [position(3) - 12.5 position(4) - 28.8 - space 10.0 1.6]);
-set(handles.gui_progress_bar, 'Position', [2.5 position(4) - 7.5 position(3) - 5.0 1.6]);
-set(handles.gui_text_runs, 'Position', [2.5 position(4) - 9.5 40.0 1]);
-set(handles.gui_text_error_list, 'Position', [2.5 position(4) - 12 20.0 1]);
-set(handles.gui_error_list, 'Position', [2.5 position(4) - 19.5 - space / 2 position(3) - 5.0 7 + space / 2]);
-set(handles.gui_error, 'Position', [2.5 position(4) - 27 - space position(3) - 5.0 7 + space / 2]);
-set(handles.gui_text_time, 'Position', [2.5 1.0 48.0 1]);
+   space = position(4) - 30.0;
+
+   set(handles.gui_text_name, 'Position', [2.5 position(4) - 2.5 20.0 1]);
+   set(handles.gui_test_case, 'Position', [2.5 position(4) - 4.5 position(3) - 15 1.6]);
+   set(handles.gui_run, 'Position', [position(3) - 12.5 position(4) - 4.5 10.0 1.6]);
+   set(handles.gui_show, 'Position', [position(3) - 12.5 position(4) - 28.8 - space 10.0 1.6]);
+   set(handles.gui_progress_bar, 'Position', [2.5 position(4) - 7.5 position(3) - 5.0 1.6]);
+   set(handles.gui_text_runs, 'Position', [2.5 position(4) - 9.5 40.0 1]);
+   set(handles.gui_text_error_list, 'Position', [2.5 position(4) - 12 20.0 1]);
+   set(handles.gui_error_list, 'Position', [2.5 position(4) - 19.5 - space / 2 position(3) - 5.0 7 + space / 2]);
+   set(handles.gui_error, 'Position', [2.5 position(4) - 27 - space position(3) - 5.0 7 + space / 2]);
+   set(handles.gui_text_time, 'Position', [2.5 1.0 48.0 1]);
+end
 
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
