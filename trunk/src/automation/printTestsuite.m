@@ -9,6 +9,9 @@ function report = printTestsuite(suiteresult)
 %  time           the time used for executing the tests
 %  testcaseList   a list of all testcases with specific information
 
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
+%  
 %  $Author$
 %  $Id$
 

@@ -21,18 +21,15 @@
 % version testfunction
 %
 
-% ************************************************************************
-% Copyright:    Model Engineering Solutions GmbH, 2009-2010  
-% Date:         $Date: $
-% Revision:     $Rev: $
-% ************************************************************************
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
 
-% ***********************************************************
-% Author: Axel Berres  (axel.berres@model-engineers.com)
-% $Id:
+% Author: Axel Berres
+% $Id$
 % ------------------------------------------------------------
 % revision history:
 % 2010/25/08: - created
+
 function createUnitTest(s_scriptName, b_setup, s_funNames)
 
     % check input parameter

@@ -14,6 +14,9 @@ function writeXmlTestsuite(suiteresult, targetdir)
 %  Input argument targetdir defines the target directory for the XML
 %  report.
 
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
+%  
 %  $Author$
 %  $Id$
   

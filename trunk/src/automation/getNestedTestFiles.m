@@ -10,6 +10,9 @@ function suitespecs = getNestedTestFiles(basedir)
 %     reldir   the relative path of the containing directory, set back
 %              against the basedir input argument
 
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
+%  
 %  $Author$
 %  $Id$
 
