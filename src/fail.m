@@ -17,7 +17,7 @@ function fail(msg, varargin)
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  $Author$
-%  $Id: fail.m 175 2012-06-12 09:28:58Z alexander.roehnsch $
+%  $Id$
 
 % set empty message if left empty, or interpret sprintf arguments
 if (nargin == 0)

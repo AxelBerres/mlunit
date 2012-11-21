@@ -21,12 +21,12 @@
 % See also:
 %
 
-% *************************************************************************
-% Copyright:    Model Engineering Solutions GmbH, 2009 - 2010 
-% Date:         $Date:$
-% Revision:     $Rev:$
-% Author:       Axel Berres (axel.berres@model-engineers.com)
-% *************************************************************************
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
+
+% Author: Axel Berres
+% $Id$
+% ------------------------------------------------------------
 % history
 % 2010/14/09 - created
 

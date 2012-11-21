@@ -9,6 +9,9 @@ function recursive_test_run(basedir, targetdir)
 %
 %  See also GUI_TEST_RUNNER, TEXT_TEST_RUNNER
 
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
+%  
 %  $Author$
 %  $Id$
   
