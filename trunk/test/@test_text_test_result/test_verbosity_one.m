@@ -16,5 +16,5 @@ result = set_result(self, result);
 fseek(self.tmp_file, 0, -1);
 
 line = fgetl(self.tmp_file);
-assert(strcmp('.EF', line));
-assert(strcmp('text_test_result run=3 errors=1 failures=1', summary(result)));
+assert_true(strcmp('.EF', line));
+assert_true(strcmp('text_test_result run=3 errors=1 failures=1', summary(result)));

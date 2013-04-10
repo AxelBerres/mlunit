@@ -13,9 +13,9 @@ function self = test_get_test_case_names(self)
 
 t = test_loader;
 n = get_test_case_names(t, 'mock_test');
-assert(size(n, 1) > 0);
-assert(sum(strncmp(n, 'test', 4)) == size(n, 1));
+assert_true(size(n, 1) > 0);
+assert_true(sum(strncmp(n, 'test', 4)) == size(n, 1));
 
 n = get_test_case_names(t, 'mock_test_failed_set_up');
 % Number of methods is zero as inheritance is not supported by reflect
-assert(sum(strcmp(n, 'test_method')) == 0);
+assert_true(sum(strcmp(n, 'test_method')) == 0);

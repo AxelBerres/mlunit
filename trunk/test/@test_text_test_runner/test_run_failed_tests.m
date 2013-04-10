@@ -24,17 +24,17 @@ ignore_lines(self.tmp_file);
 line_summary = fgetl(self.tmp_file);
 pos = findstr('Ran 2 tests in ', line_summary);
 if (~isempty(pos))
-    assert(pos(1) == 1);
+    assert_equals(1, pos(1));
 else
     message = sprintf('Test result invalid, expected <Ran 2 tests>, but was <%s>.', line_summary);
-    assert(0, message);
+    fail(message);
 end;
 
 line_empty = fgetl(self.tmp_file);
-assert(size(line_empty, 2) == 0);
+assert_equals(0, size(line_empty, 2));
 
 line_ok = fgetl(self.tmp_file);
-assert(strcmp('FAILED (errors=1, failures=0)', line_ok));
+assert_true(strcmp('FAILED (errors=1, failures=0)', line_ok));
 
 fclose(self.tmp_file);
 

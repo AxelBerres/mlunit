@@ -12,8 +12,8 @@ function self = test_method_exists(self)
 %  $Id: test_method_exists.m 47 2006-06-11 19:26:32Z thomi $
 
 r = reflect('test_suite');
-assert(method_exists(r, 'run'));
-assert(~method_exists(r, 'foo'));
+assert_true(method_exists(r, 'run'));
+assert_true(~method_exists(r, 'foo'));
 
 r = reflect('mock_test');
-assert(~method_exists(r, 'foo'));
+assert_true(~method_exists(r, 'foo'));

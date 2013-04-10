@@ -15,6 +15,6 @@ test = mock_test_failed_set_up('test_method');
 try
     test = run(test, default_test_result(self));
 catch
-    assert(0);
+    assert_true(0);
 end;
-assert(strcmp('', get_log(test)));
+assert_true(strcmp('', get_log(test)));

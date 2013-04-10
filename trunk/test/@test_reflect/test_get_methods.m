@@ -12,8 +12,8 @@ function self = test_get_methods(self)
 
 r = reflect('test_case');
 m = get_methods(r);
-assert(size(m, 1) > 0);
-assert(~sum(strcmp(m, 'test_case')));
-assert(sum(strcmp(m, 'run')) == 1);
-assert(sum(strcmp(m, 'set_up')) == 1);
-assert(sum(strcmp(m, 'tear_down')) == 1);
+assert_true(size(m, 1) > 0);
+assert_true(~sum(strcmp(m, 'test_case')));
+assert_true(sum(strcmp(m, 'run')) == 1);
+assert_true(sum(strcmp(m, 'set_up')) == 1);
+assert_true(sum(strcmp(m, 'tear_down')) == 1);

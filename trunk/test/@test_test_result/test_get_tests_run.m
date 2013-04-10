@@ -14,4 +14,4 @@ function self = test_get_tests_run(self)
 self.result = start_test(self.result, mock_test('test_method'));
 self.result = add_success(self.result, mock_test('test_method'));
 self.result = stop_test(self.result, mock_test('test_method'));
-assert(1 == get_tests_run(self.result));
+assert_true(1 == get_tests_run(self.result));

@@ -16,4 +16,4 @@ set_result(self, result);
 fseek(self.tmp_file, 0, -1);
 
 line = fgetl(self.tmp_file);
-assert(-1 == line);
+assert_equals(-1, line);

@@ -11,7 +11,7 @@ function self = test_fixture(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_fixture.m 41 2006-06-11 18:31:37Z thomi $
 
-test = function_test_case(@() assert(1), 0, 0);
+test = function_test_case(@() assert_true(1), 0, 0);
 [test, result] = run(test);  %#ok
 assert_equals(1, get_tests_run(result));
 

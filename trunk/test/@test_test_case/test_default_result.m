@@ -12,4 +12,4 @@ function self = test_default_result(self)
 %  $Id: test_default_result.m 44 2006-06-11 18:54:09Z thomi $
 
 t = mock_test('test_method');
-assert(isa(default_test_result(t), 'test_result'));
+assert_true(isa(default_test_result(t), 'test_result'));

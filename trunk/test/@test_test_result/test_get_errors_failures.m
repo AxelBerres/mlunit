@@ -15,5 +15,5 @@ self.result = start_test(self.result, mock_test('test_method'));
 self.result = add_error(self.result, mock_test('test_method'), 'foo error');
 self.result = add_failure(self.result, mock_test('test_method'), 'foo failure');
 self.result = stop_test(self.result, mock_test('test_method'));
-assert(1 == get_errors(self.result));
-assert(1 == get_failures(self.result));
+assert_true(1 == get_errors(self.result));
+assert_true(1 == get_failures(self.result));

@@ -13,4 +13,4 @@ function self = test_result(self)
 
 test = mock_test('test_method');
 [test, self.result] = run(test, self.result); %#ok
-assert(strcmp('test_result run=1 errors=0 failures=0', summary(self.result)));
+assert_true(strcmp('test_result run=1 errors=0 failures=0', summary(self.result)));
