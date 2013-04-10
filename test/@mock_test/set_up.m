@@ -6,7 +6,7 @@ function self = set_up(self)
 %  =======
 %         test = mock_test('test_method');
 %         test = run(test, self.result);
-%         assert(strcmp(get_log(test), 'set_up test_method tear_down '));
+%         assert_true(strcmp(get_log(test), 'set_up test_method tear_down '));
 %
 %  See also MOCK_TEST, TEST_TEST_CASE.
 

@@ -5,17 +5,17 @@ function self = test_pass(self)
 %  =======
 %         run(gui_test_runner, 'test_assert(''test_pass'');');
 %
-%  See also ASSERT, ASSERT_EQUALS, ASSERT_NOT_EQUALS.
+%  See also ASSERT_TRUE, ASSERT_EQUALS, ASSERT_NOT_EQUALS.
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_pass.m 269 2007-04-02 19:54:39Z thomi $
 
 % Without message
-assert(true);
-assert(sin(pi/2) == cos(0));
+assert_true(true);
+assert_true(sin(pi/2) == cos(0));
 
 % With message
-assert(true, 'Assertion must pass, so message is never seen.');
+assert_true(true, 'Assertion must pass, so message is never seen.');
 
 % Equals
 assert_equals(1, 1);

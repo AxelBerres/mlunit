@@ -16,14 +16,14 @@ run(self.runner, test_test_case('test_template_method'));
 fseek(self.tmp_file, 0, -1);
 
 line_sep = fgetl(self.tmp_file);
-assert(strcmp('----------------------------------------------------------------------', line_sep));
+assert_true(strcmp('----------------------------------------------------------------------', line_sep));
 
 line_summary = fgetl(self.tmp_file); 
 pos = findstr('Ran 1 test in ', line_summary);
 if (~isempty(pos))
-    assert(pos(1) == 1);
+    assert_equals(1, pos(1));
 else
-    assert(0);
+    fail();
 end;
 
 assert_equals(0, size(fgetl(self.tmp_file), 2));

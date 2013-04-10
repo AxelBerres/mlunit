@@ -12,8 +12,8 @@ function self = test_count_test_cases(self)
 %  $Id: test_count_test_cases.m 47 2006-06-11 19:26:32Z thomi $
 
 suite = test_suite;
-assert(0 == count_test_cases(suite));
+assert_equals(0, count_test_cases(suite));
 suite = add_test(suite, mock_test('test_method'));
-assert(1 == count_test_cases(suite));
+assert_equals(1, count_test_cases(suite));
 suite = add_test(suite, mock_test('test_broken_method'));
-assert(2 == count_test_cases(suite));
+assert_equals(2, count_test_cases(suite));

@@ -17,29 +17,29 @@ print_errors(result);
 fseek(self.tmp_file, 0, -1);
 
 line = fgetl(self.tmp_file);
-assert(strcmp('mock_test(''test_method'') ... OK', line));
+assert_true(strcmp('mock_test(''test_method'') ... OK', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('mock_test(''test_method'') ... ERROR', line));
+assert_true(strcmp('mock_test(''test_method'') ... ERROR', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('mock_test(''test_method'') ... FAIL', line));
+assert_true(strcmp('mock_test(''test_method'') ... FAIL', line));
 
 line = fgetl(self.tmp_file);
-assert(strcmp('', line));
+assert_true(strcmp('', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('======================================================================', line));
+assert_true(strcmp('======================================================================', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('ERROR: mock_test(''test_method'')', line));
+assert_true(strcmp('ERROR: mock_test(''test_method'')', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('----------------------------------------------------------------------', line));
+assert_true(strcmp('----------------------------------------------------------------------', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('foo error', line));
+assert_true(strcmp('foo error', line));
 line_ignore = fgetl(self.tmp_file); %#ok
 line_ignore = fgetl(self.tmp_file); %#ok
 line = fgetl(self.tmp_file);
-assert(strcmp('======================================================================', line));
+assert_true(strcmp('======================================================================', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('FAIL: mock_test(''test_method'')', line));
+assert_true(strcmp('FAIL: mock_test(''test_method'')', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('----------------------------------------------------------------------', line));
+assert_true(strcmp('----------------------------------------------------------------------', line));
 line = fgetl(self.tmp_file);
-assert(strcmp('foo failure', line));
+assert_true(strcmp('foo failure', line));

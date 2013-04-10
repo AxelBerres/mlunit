@@ -8,9 +8,9 @@ function self = tear_down(self) %#ok
 %         try
 %             test = run(test, default_test_result(self));
 %         catch
-%             assert(0);
+%             fail();
 %         end;
-%         assert(strcmp('set_up test_method ', get_log(test)));
+%         assert_true(strcmp('set_up test_method ', get_log(test)));
 %
 %  See also TEST_TEST_CASE/TEST_FAILED_TEAR_DOWN.
 

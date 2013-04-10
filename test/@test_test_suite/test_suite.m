@@ -13,4 +13,4 @@ function self = test_suite(self)
 self.suite = add_test(self.suite, mock_test('test_method'));
 self.suite = add_test(self.suite, mock_test('test_broken_method'));
 [self.suite, self.result] = run(self.suite, self.result);
-assert(strcmp('test_result run=2 errors=1 failures=0', summary(self.result)));
+assert_true(strcmp('test_result run=2 errors=1 failures=0', summary(self.result)));

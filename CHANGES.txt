@@ -11,8 +11,11 @@ mlUnit 1.6.4 (in development)
   - Fix: Failed on missing subclass argument.
   - Fix: gui_test_runner failed on a callback invocation with empty handles for
     MATLAB R2008b. Reported as [#15].
+  - Fix: MATLAB shadow warning on assert function. Reported as [#17].
+    Testcases must be migrated to use assert_true instead.
 
     [#15] https://sourceforge.net/p/mlunit/bugs/15/
+    [#17] https://sourceforge.net/p/mlunit/bugs/17/
 
 
 mlUnit 1.6.3 (2012-07-13)

@@ -11,4 +11,4 @@ function self = test_count_test_cases(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_count_test_cases.m 44 2006-06-11 18:54:09Z thomi $
 
-assert(1 == count_test_cases(self));
+assert_true(1 == count_test_cases(self));

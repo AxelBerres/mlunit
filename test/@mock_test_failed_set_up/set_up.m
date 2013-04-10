@@ -8,9 +8,9 @@ function self = set_up(self) %#ok
 %         try
 %             test = run(test, default_test_result(self));
 %         catch
-%             assert(0);
+%             fail();
 %         end;
-%         assert(strcmp('', get_log(test)));
+%         assert_true(strcmp('', get_log(test)));
 %
 %  See also TEST_TEST_CASE/TEST_FAILED_SET_UP.
 
