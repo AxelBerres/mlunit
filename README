@@ -195,6 +195,16 @@ the recursive_test_run function.
 ===========================================================================
 
 
+MIGRATION
+
+From 1.6.4 onward, assert() is no mlUnit function anymore. Replace your assert()
+calls with calls to assert_true() in test cases. In places where you actually
+want to assert a constraint in production code rather than a test case, use the
+MATLAB built-in assert().
+
+===========================================================================
+
+
 MORE DOCUMENTATION
 
 
