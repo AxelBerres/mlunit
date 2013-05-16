@@ -7,6 +7,8 @@ function assert_true(expr, varargin)
 %  error message MSG. MSG may contain sprintf arguments, which can be
 %  expanded by subsequent arguments in varargin.
 %
+%  ASSERT_TRUE() just passes.
+%
 %  ASSERT_TRUE could also have been named ASSERT. But from MATLAB R2007b onward,
 %  this collides with MATLAB's built-in assert.
 %
@@ -25,10 +27,6 @@ function assert_true(expr, varargin)
 %  $Author$
 %  $Id: assert_true.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
-if nargin < 1
-   fail('assert_true: Not enough input arguments.');
-end
-
-if ~expr
+if nargin >= 1 && ~expr
    fail(varargin{:});
 end;

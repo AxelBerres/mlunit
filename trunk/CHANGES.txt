@@ -15,6 +15,8 @@ mlUnit 1.6.4 (in development)
     Testcases must be migrated to use assert_true instead.
   - Removed install.m script. Content not needed, since assert can not get
     shadowed anymore.
+  - assert_true and assert_false may be called without arguments, in which case
+    they pass or fail respectively.
 
     [#15] https://sourceforge.net/p/mlunit/bugs/15/
     [#17] https://sourceforge.net/p/mlunit/bugs/17/

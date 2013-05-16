@@ -7,6 +7,8 @@ function assert_false(expr, varargin)
 %  error message MSG. MSG may contain sprintf arguments, which can be
 %  expanded by subsequent arguments in varargin.
 %
+%  ASSERT_FALSE() raises a MATLAB error.
+%
 %  Examples
 %     % asserts string variable arg not being empty
 %     assert_false(isempty(arg));
@@ -22,10 +24,6 @@ function assert_false(expr, varargin)
 %  $Author$
 %  $Id: assert_false.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
-if nargin < 1
-   fail('assert_false: Not enough input arguments.');
-end
-
-if expr
+if nargin < 1 || expr
    fail(varargin{:});
 end;
