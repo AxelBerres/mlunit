@@ -34,11 +34,7 @@ INSTALLATION
 
    >> cd $HOME/mlunit/src
 
-3. Run install method:
-
-   >> install(mlunit);
-
-4. Add directory to MATLAB path:
+3. Add directory to MATLAB path:
 
    >> addpath('$HOME/mlunit/src');
 
