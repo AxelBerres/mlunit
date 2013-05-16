@@ -25,7 +25,7 @@ function self = function_test_case(test_function, set_up_function, tear_down_fun
 %             end
 %
 %             function test_method
-%                 assert(0 == sin(0));
+%                 assert_true(0 == sin(0));
 %             end
 %  The constructor of function_test_case is called implicitly with 
 %  load_test_from_mfile, which searches for the methods set_up and 

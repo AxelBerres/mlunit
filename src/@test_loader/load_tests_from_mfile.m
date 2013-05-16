@@ -11,7 +11,7 @@ function suite = load_tests_from_mfile(self, name) %#ok
 %         test = load_tests_from_mfile(test_loader);
 %
 %             function test_method
-%                 assert(0 == sin(0));
+%                 assert_true(0 == sin(0));
 %             end
 %         end
 %
