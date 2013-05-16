@@ -15,7 +15,7 @@ function assert_error(exprstring, expected_msg)
 %     % the same, with message check
 %     assert_error('error(''huh\nha'');', 'huh\nha');
 %
-%  See also  ISEMPTY, FAIL, ASSERT
+%  See also  ISEMPTY, FAIL, ASSERT_TRUE
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

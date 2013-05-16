@@ -6,7 +6,7 @@ function self = run_test(self)
 %  =======
 %  Usually run_test (as every test method) is not called directly, but
 %  through the method run. Example:
-%         test = function_test_case(@() assert(0 == sin(0)));
+%         test = function_test_case(@() assert_true(0 == sin(0)));
 %         [test, result] = run(test); 
 %         summary(result)
 %

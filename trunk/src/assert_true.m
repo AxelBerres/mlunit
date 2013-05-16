@@ -7,7 +7,8 @@ function assert_true(expr, varargin)
 %  error message MSG. MSG may contain sprintf arguments, which can be
 %  expanded by subsequent arguments in varargin.
 %
-%  ASSERT_TRUE is actually the same as ASSERT.
+%  ASSERT_TRUE could also have been named ASSERT. But from MATLAB R2007b onward,
+%  this collides with MATLAB's built-in assert.
 %
 %  Examples
 %     % asserts string variable arg being empty
@@ -16,7 +17,7 @@ function assert_true(expr, varargin)
 %     % asserts variable arg being a cell array; specifies a custom message
 %     assert_true(iscell(arg), 'Input argument is no cell array');
 %
-%  See also  FAIL, ASSERT, ASSERT_FALSE
+%  See also  FAIL, ASSERT_FALSE
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
