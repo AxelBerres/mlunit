@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_object</title>
+  <meta name="keywords" content="get_object">
+  <meta name="description" content="gui_test_runner/get_object returns the singleton object of the gui window.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@gui_test_runner</a> &gt; get_object.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@gui_test_runner&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>get_object
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>gui_test_runner/get_object returns the singleton object of the gui window.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = get_object(self) %#ok </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">gui_test_runner/get_object returns the singleton object of the gui window.
+
+  Example
+  =======
+         run(gui_test_runner, 'mlunit_all_tests');
+         runner = get_object(gui_test_runner)
+
+  See also <a href="gui_test_runner.html" class="code" title="function self = gui_test_runner(callback)">GUI_TEST_RUNNER</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="close.html" class="code" title="function self = close(self)">close</a>	gui_test_runner/close closes the graphical user interface of mlUnit.</li><li><a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	gui_test_runner/gui execute the graphical user interface of mlUnit.</li><li><a href="load.html" class="code" title="function load(self) %#ok">load</a>	gui_test_runner/loads starts the graphical user interface of mlUnit with saved parameters from the .mat-file mlunit.tmp.</li><li><a href="run.html" class="code" title="function self = run(self, test, dock, shorten)">run</a>	gui_test_runner/run is an alternative method to execute the graphical user interface of mlUnit.</li><li><a href="save.html" class="code" title="function save(self)">save</a>	gui_test_runner/save saves the parameters of the graphical user interface of mlUnit to a .mat-file with the name mlunit.tmp.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = get_object(self) </a><span class="comment">%#ok</span>
+0002 <span class="comment">%gui_test_runner/get_object returns the singleton object of the gui window.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  Example</span>
+0005 <span class="comment">%  =======</span>
+0006 <span class="comment">%         run(gui_test_runner, 'mlunit_all_tests');</span>
+0007 <span class="comment">%         runner = get_object(gui_test_runner)</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  See also GUI_TEST_RUNNER.</span>
+0010 
+0011 <span class="comment">%  This Software and all associated files are released unter the</span>
+0012 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0015 <span class="comment">%  $Id: get_object.m 158 2007-01-03 20:25:39Z thomi $</span>
+0016 
+0017 shh = get(0, <span class="string">'ShowHiddenHandles'</span>);
+0018 set(0, <span class="string">'ShowHiddenHandles'</span>, <span class="string">'on'</span>);
+0019 handle = findall(0, <span class="string">'Name'</span>, <span class="string">'mlUnit'</span>);
+0020 self = get(handle, <span class="string">'UserData'</span>);
+0021 set(0, <span class="string">'ShowHiddenHandles'</span>, shh);</pre></div>
+<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

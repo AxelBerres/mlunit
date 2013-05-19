@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of default_test_result</title>
+  <meta name="keywords" content="default_test_result">
+  <meta name="description" content="test_case/default_test_result returns s default test_result object.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_case</a> &gt; default_test_result.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@test_case&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>default_test_result
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>test_case/default_test_result returns s default test_result object.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function result = default_test_result(self) %#ok </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">test_case/default_test_result returns s default test_result object.
+
+  Example
+  =======
+  Usually default_test_result is used by the method test_case/run to
+  obtain a default test result. If the results of more than tests should
+  be collected within the same test result, default_test_result could be
+  called before the execution of the tests. Example:
+         test1 = my_test('test_foo1');
+         test2 = my_test('test_foo2');
+         result = default_test_result(test1);
+         [test1, result] = run(test1, result)
+         [test2, result] = run(test2, result)
+         summary(result)
+
+  See also <a href="test_case.html" class="code" title="function self = test_case(name, subclass)">TEST_CASE</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../src/@test_result/test_result.html" class="code" title="function self = test_result">test_result</a>	test_result contructor.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="run.html" class="code" title="function [self, result] = run(self, result)">run</a>	test_case/run executes the test case and saves the results in result.</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function result = default_test_result(self) </a><span class="comment">%#ok</span>
+0002 <span class="comment">%test_case/default_test_result returns s default test_result object.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  Example</span>
+0005 <span class="comment">%  =======</span>
+0006 <span class="comment">%  Usually default_test_result is used by the method test_case/run to</span>
+0007 <span class="comment">%  obtain a default test result. If the results of more than tests should</span>
+0008 <span class="comment">%  be collected within the same test result, default_test_result could be</span>
+0009 <span class="comment">%  called before the execution of the tests. Example:</span>
+0010 <span class="comment">%         test1 = my_test('test_foo1');</span>
+0011 <span class="comment">%         test2 = my_test('test_foo2');</span>
+0012 <span class="comment">%         result = default_test_result(test1);</span>
+0013 <span class="comment">%         [test1, result] = run(test1, result)</span>
+0014 <span class="comment">%         [test2, result] = run(test2, result)</span>
+0015 <span class="comment">%         summary(result)</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%  See also TEST_CASE.</span>
+0018 
+0019 <span class="comment">%  This Software and all associated files are released unter the</span>
+0020 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0023 <span class="comment">%  $Id: default_test_result.m 33 2006-06-11 16:02:51Z thomi $</span>
+0024 
+0025 result = <a href="../../src/@test_result/test_result.html" class="code" title="function self = test_result">test_result</a>;</pre></div>
+<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

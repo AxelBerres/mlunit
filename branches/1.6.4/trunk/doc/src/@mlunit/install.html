@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of install</title>
+  <meta name="keywords" content="install">
+  <meta name="description" content="mlunit/install installs mlUnit. The current version of this method only renames the assert method of mlUnit, if a built-in assert already exists (which is the case for MATLAB 6.6).">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit</a> &gt; install.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>install
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>mlunit/install installs mlUnit. The current version of this method only renames the assert method of mlUnit, if a built-in assert already exists (which is the case for MATLAB 6.6).</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = install(self) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">mlunit/install installs mlUnit. The current version of this method only
+renames the assert method of mlUnit, if a built-in assert already exists
+(which is the case for MATLAB 6.6).
+
+  EXAMPLE
+  =======
+         install(mlunit);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = install(self)</a>
+0002 <span class="comment">%mlunit/install installs mlUnit. The current version of this method only</span>
+0003 <span class="comment">%renames the assert method of mlUnit, if a built-in assert already exists</span>
+0004 <span class="comment">%(which is the case for MATLAB 6.6).</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  EXAMPLE</span>
+0007 <span class="comment">%  =======</span>
+0008 <span class="comment">%         install(mlunit);</span>
+0009 
+0010 <span class="comment">%  This Software and all associated files are released unter the</span>
+0011 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0014 <span class="comment">%  $Id: install.m 270 2007-04-02 21:02:33Z thomi $</span>
+0015 
+0016 which_assert = which(<span class="string">'assert'</span>, <span class="string">'-all'</span>);
+0017 assert_built_in = 0;
+0018 <span class="keyword">for</span> i = 1:length(which_assert)
+0019     <span class="keyword">if</span> (strfind(which_assert{i}, <span class="string">'built-in'</span>))
+0020         assert_built_in = 1;
+0021         <span class="keyword">break</span>;
+0022     <span class="keyword">end</span>;
+0023 <span class="keyword">end</span>;
+0024 <span class="keyword">if</span> (assert_built_in)
+0025     fprintf(1, <span class="string">'mlUnit has found a built-in assert functions.\n'</span>);
+0026     fprintf(1, <span class="string">'Trying to rename mlUnit assert.m...'</span>);
+0027     <span class="keyword">try</span>
+0028         <span class="keyword">if</span> (exist(<span class="string">'assert'</span>, <span class="string">'file'</span>))
+0029             movefile(<span class="string">'assert.m'</span>, <span class="string">'mlunit_assert.m'</span>, <span class="string">'f'</span>);
+0030             fprintf(1, <span class="string">'ok.\n'</span>);
+0031         <span class="keyword">else</span>
+0032             fprintf(1, <span class="string">'not found.\n'</span>);
+0033         <span class="keyword">end</span>;
+0034     <span class="keyword">catch</span>
+0035         fprintf(1, <span class="string">'error.\n'</span>);
+0036     <span class="keyword">end</span>;
+0037 <span class="keyword">end</span>;</pre></div>
+<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
