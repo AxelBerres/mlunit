@@ -65,10 +65,6 @@
           <!-- by default: spawn="false" failonerror="false" -->
           <arg value="-automation"/>
           <arg value="-nosplash"/>
-          <arg value="-nodesktop"/>
-          <!-- We may actually have that jvm at a later time... -->
-          <arg value="-nojvm"/>
-          <arg value="-wait"/>
           <arg value="-r"/>
           <arg value="addpath('@{command.dir}');try;@{command.string};catch;err=lasterror;disp('${error.signature}');disp(err.message);end;exit;"/>
           <arg value="-logfile"/>
@@ -86,8 +82,8 @@
           </not>
         </condition>
 
-        <!-- echo output on console to be logged in ${antlog} as well -->
-        <echo message="${@{output.property}}"/>
+        <!-- TODO: echo output on console to be logged in ${antlog} as well; only when using matlab.bat -->
+        <!--echo message="${@{output.property}}"/-->
     </sequential>
   </macrodef>
 
