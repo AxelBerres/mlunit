@@ -1,6 +1,5 @@
-function assert_equals_withequalnans(expected, actual, msg, varargin)
-%ASSERT_EQUALS_WITHEQUALNANS Raise an error if two expressions do not evaluate
-% to the same.
+function assert_equals_withequalnans(expected, actual, absolute_eps_or_msg, varargin)
+%ASSERT_EQUALS_WITHEQUALNANS Raise an error if two expressions differ.
 %  ASSERT_EQUALS_WITHEQUALNANS works exactly like ASSERT_EQUALS, but in the
 %  background uses isequalwithequalnans() rather than isequal() to determine
 %  equality. That is why NaN values will be considered equal.
@@ -17,12 +16,36 @@ if nargin < 2
    fail('assert_equals_withequalnans: Not enough input arguments.');
 end
 
-if nargin < 3 || isempty(msg)
-   msg = sprintf('Expected <%s>, but was <%s>.', to_string(expected), to_string(actual));
+% default values for msg and eps
+absolute_eps = 0;
+msg = sprintf('Expected <%s> unexpectedly was the same as actual <%s>.', to_string(expected), to_string(actual));
+msg_args = {};
+
+% Third argument can either be absolute_eps or msg. Handle input args carefully.
+if nargin >= 3 && isnumeric(absolute_eps_or_msg)
+   absolute_eps = absolute_eps_or_msg;
+   msg = [msg sprintf(' Tolerance was <%s>.', to_string(absolute_eps))];
+   % if third argument is eps, then the fourth may be the msg and all others the
+   % msg sprintf arguments
+   if nargin >= 4
+      msg = varargin{1};
+      msg_args = varargin(2:end);
+   end
+   
+elseif nargin >= 3 && ischar(absolute_eps_or_msg)
+   msg = absolute_eps_or_msg;
+   msg_args = varargin;
 end
 
-if ~isequalwithequalnans(actual, expected)
-   fail(msg, varargin{:});
+% determine equality
+if isnumeric(expected) && isnumeric(actual)
+    % only check against eps if expected and actual both are numeric
+    if abs(expected - actual) > absolute_eps
+        fail(msg, msg_args{:});
+    end
+% all non-numeric types or mixed numerics, non-numerics are checked by isequal
+elseif ~isequalwithequalnans(actual, expected)
+    fail(msg, msg_args{:});
 end
 
 
