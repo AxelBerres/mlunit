@@ -11,6 +11,7 @@ mlUnit 1.6.4 (in development)
     they pass or fail respectively.
   - assert_equals and assert_equals_withequalnans can receive an absolute
     tolerance to handle slight differences equally.
+  - assert_warning checks for a specific warning when executing a function.
 
   - Fix: license strings
   - Fix: stack trace filter for assert functions did not include newer
