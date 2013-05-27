@@ -24,6 +24,12 @@ assert_equals([1 2 3], [1 2 3]);
 assert_equals(sin(1), sin(1));
 assert_equals(true, true);
 
+% Equals with tolerance
+assert_equals(101, 106, 5);
+assert_equals(0.1+0.2, 0.3, eps(0.3));
+assert_equals(0.01, 1-0.99, eps(1));
+assert_equals('bar', 'bar', 5);
+
 % Not equals
 assert_not_equals(0, 1)
 assert_not_equals('Foo', 'Bar');
