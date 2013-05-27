@@ -5,6 +5,14 @@
 mlUnit 1.6.4 (in development)
 -------------------------
 
+  - Removed install.m script. Content not needed, since assert can not get
+    shadowed anymore.
+  - assert_true and assert_false may be called without arguments, in which case
+    they pass or fail respectively.
+  - assert_equals and assert_equals_withequalnans can receive an absolute
+    tolerance to handle slight differences equally.
+  - assert_warning checks for a specific warning when executing a function.
+
   - Fix: license strings
   - Fix: stack trace filter for assert functions did not include newer
     assert wrappers
@@ -13,10 +21,6 @@ mlUnit 1.6.4 (in development)
     MATLAB R2008b. Reported as [#15].
   - Fix: MATLAB shadow warning on assert function. Reported as [#17].
     Testcases must be migrated to use assert_true instead.
-  - Removed install.m script. Content not needed, since assert can not get
-    shadowed anymore.
-  - assert_true and assert_false may be called without arguments, in which case
-    they pass or fail respectively.
 
     [#15] https://sourceforge.net/p/mlunit/bugs/15/
     [#17] https://sourceforge.net/p/mlunit/bugs/17/
