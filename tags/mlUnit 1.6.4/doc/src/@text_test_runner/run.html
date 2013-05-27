@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of run</title>
+  <meta name="keywords" content="run">
+  <meta name="description" content="text_test_runner/run execute the test and writes the results to a stream">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@text_test_runner</a> &gt; run.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@text_test_runner&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>run
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>text_test_runner/run execute the test and writes the results to a stream</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function result = run(self, test) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">text_test_runner/run execute the test and writes the results to a stream 
+in textual form (using TextTestResult).
+
+  Example
+  =======
+      runner = text_test_runner(1, 1);
+      run(runner, mlunit_all_tests);
+
+  See also <a href="text_test_runner.html" class="code" title="function self = text_test_runner(stream, verbosity)">TEXT_TEST_RUNNER</a>, TEXT_TEST_RESULT.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="run.html" class="code" title="function result = run(self, test)">run</a>	text_test_runner/run execute the test and writes the results to a stream</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="run.html" class="code" title="function result = run(self, test)">run</a>	text_test_runner/run execute the test and writes the results to a stream</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function result = run(self, test)</a>
+0002 <span class="comment">%text_test_runner/run execute the test and writes the results to a stream</span>
+0003 <span class="comment">%in textual form (using TextTestResult).</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%  Example</span>
+0006 <span class="comment">%  =======</span>
+0007 <span class="comment">%      runner = text_test_runner(1, 1);</span>
+0008 <span class="comment">%      run(runner, mlunit_all_tests);</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  See also TEXT_TEST_RUNNER, TEXT_TEST_RESULT.</span>
+0011 
+0012 <span class="comment">%  This Software and all associated files are released unter the</span>
+0013 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0016 <span class="comment">%  $Id: run.m 149 2007-01-02 20:18:01Z thomi $</span>
+0017 
+0018 test_name = test;
+0019 
+0020 <span class="keyword">if</span> (ischar(test))
+0021     test = load_tests_from_test_case(test_loader, test);
+0022 <span class="keyword">end</span>;
+0023 
+0024 <span class="keyword">if</span> (strcmp(class(test), <span class="string">'double'</span>) &amp;&amp; (isempty(test)))
+0025     fprintf(self.stream, <span class="string">'Test %s not found.\n'</span>, test_name);
+0026     <span class="keyword">return</span>;
+0027 <span class="keyword">end</span>;
+0028 
+0029 result = text_test_result(self.stream, self.verbosity);
+0030 t = clock;
+0031 [test, result] = <a href="run.html" class="code" title="function result = run(self, test)">run</a>(test, result); <span class="comment">%#ok</span>
+0032 time = etime(clock, t);
+0033 print_errors(result);
+0034 fprintf(self.stream, <span class="string">'----------------------------------------------------------------------\n'</span>);
+0035 tests_run = get_tests_run(result);
+0036 <span class="keyword">if</span> (tests_run &gt; 1) 
+0037     fprintf(self.stream, <span class="string">'Ran %d tests in %.3fs\n'</span>, tests_run, time);
+0038 <span class="keyword">else</span>
+0039     fprintf(self.stream, <span class="string">'Ran %d test in %.3fs\n'</span>, tests_run, time);
+0040 <span class="keyword">end</span>;
+0041 fprintf(self.stream, <span class="string">'\n'</span>);
+0042 <span class="keyword">if</span> (was_successful(result))
+0043     fprintf(self.stream, <span class="string">'OK\n'</span>);
+0044 <span class="keyword">else</span>
+0045     fprintf(self.stream, <span class="string">'FAILED (errors=%d, failures=%d)\n'</span>, get_errors(result), get_failures(result));
+0046 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

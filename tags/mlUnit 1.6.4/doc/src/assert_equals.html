@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of assert_equals</title>
+  <meta name="keywords" content="assert_equals">
+  <meta name="description" content="ASSERT_EQUALS Raise an error if two expressions differ.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">src</a> &gt; assert_equals.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>assert_equals
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>ASSERT_EQUALS Raise an error if two expressions differ.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function assert_equals(expected, actual, absolute_eps_or_msg, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">ASSERT_EQUALS Raise an error if two expressions differ.
+  ASSERT_EQUALS(EXPECTED, ACTUAL) raises a MATLAB error if EXPECTED
+  and ACTUAL are not the same. If EXPECTED and ACTUAL are numeric, they both
+  have to be the very same number, down to the current platform's
+  int or floating-point accuracy.
+
+  ASSERT_EQUALS(EXPECTED, ACTUAL, MSG, varargin) does the same, but with
+  the custom error message MSG. MSG may contain sprintf arguments, which
+  can be expanded by subsequent arguments in varargin.
+
+  ASSERT_EQUALS(EXPECTED, ACTUAL, ABSOLUTE_EPS) and
+  ASSERT_EQUALS(EXPECTED, ACTUAL, ABSOLUTE_EPS, MSG, varargin) do the same,
+  except if EXPECTED and ACTUAL are numeric. Then they are considered equal,
+  if their absolute difference is smaller or equal to ABSOLUTE_EPS. This works
+  for any numerics.
+
+  Examples
+     % asserts string variable output being 'yes'
+     assert_equals(output, 'yes');
+
+     % asserts variable arg being 3; specifies a custom message
+     assert_equals(arg, 3, 'Input argument is not %d.', 3);
+
+     % asserts that 0.1+0.2 equals 0.3, within eps(0.3) tolerance
+     assert_equals(0.1+0.2, 0.3, eps(0.3));
+
+     % asserts that 101 equals 100, within tolerance of 5
+     assert_equals(101, 106, 5);
+
+  See also  <a href="fail.html" class="code" title="function fail(msg, varargin)">FAIL</a>, <a href="assert_not_equals.html" class="code" title="function assert_not_equals(expected, actual, msg, varargin)">ASSERT_NOT_EQUALS</a>, EPS</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>	FAIL Raise an error.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function outstring = to_string(input)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function assert_equals(expected, actual, absolute_eps_or_msg, varargin)</a>
+0002 <span class="comment">%ASSERT_EQUALS Raise an error if two expressions differ.</span>
+0003 <span class="comment">%  ASSERT_EQUALS(EXPECTED, ACTUAL) raises a MATLAB error if EXPECTED</span>
+0004 <span class="comment">%  and ACTUAL are not the same. If EXPECTED and ACTUAL are numeric, they both</span>
+0005 <span class="comment">%  have to be the very same number, down to the current platform's</span>
+0006 <span class="comment">%  int or floating-point accuracy.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  ASSERT_EQUALS(EXPECTED, ACTUAL, MSG, varargin) does the same, but with</span>
+0009 <span class="comment">%  the custom error message MSG. MSG may contain sprintf arguments, which</span>
+0010 <span class="comment">%  can be expanded by subsequent arguments in varargin.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%  ASSERT_EQUALS(EXPECTED, ACTUAL, ABSOLUTE_EPS) and</span>
+0013 <span class="comment">%  ASSERT_EQUALS(EXPECTED, ACTUAL, ABSOLUTE_EPS, MSG, varargin) do the same,</span>
+0014 <span class="comment">%  except if EXPECTED and ACTUAL are numeric. Then they are considered equal,</span>
+0015 <span class="comment">%  if their absolute difference is smaller or equal to ABSOLUTE_EPS. This works</span>
+0016 <span class="comment">%  for any numerics.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%  Examples</span>
+0019 <span class="comment">%     % asserts string variable output being 'yes'</span>
+0020 <span class="comment">%     assert_equals(output, 'yes');</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%     % asserts variable arg being 3; specifies a custom message</span>
+0023 <span class="comment">%     assert_equals(arg, 3, 'Input argument is not %d.', 3);</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%     % asserts that 0.1+0.2 equals 0.3, within eps(0.3) tolerance</span>
+0026 <span class="comment">%     assert_equals(0.1+0.2, 0.3, eps(0.3));</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%     % asserts that 101 equals 100, within tolerance of 5</span>
+0029 <span class="comment">%     assert_equals(101, 106, 5);</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%  See also  FAIL, ASSERT_NOT_EQUALS, EPS</span>
+0032 
+0033 <span class="comment">%  This Software and all associated files are released unter the</span>
+0034 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%  $Author$</span>
+0037 <span class="comment">%  $Id: assert_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
+0038 
+0039 <span class="keyword">if</span> nargin &lt; 2,
+0040    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'assert_equals: Not enough input arguments.'</span>);
+0041 <span class="keyword">end</span>
+0042 
+0043 <span class="comment">% default values for msg and eps</span>
+0044 absolute_eps = 0;
+0045 msg = sprintf(<span class="string">'Expected &lt;%s&gt;, but was &lt;%s&gt;.'</span>, <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(expected), <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(actual));
+0046 msg_args = {};
+0047 
+0048 <span class="comment">% Third argument can either be absolute_eps or msg. Handle input args carefully.</span>
+0049 <span class="keyword">if</span> nargin &gt;= 3 &amp;&amp; isnumeric(absolute_eps_or_msg)
+0050    absolute_eps = absolute_eps_or_msg;
+0051    msg = [msg sprintf(<span class="string">' Tolerance was &lt;%s&gt;.'</span>, <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(absolute_eps))];
+0052    <span class="comment">% if third argument is eps, then the fourth may be the msg and all others the</span>
+0053    <span class="comment">% msg sprintf arguments</span>
+0054    <span class="keyword">if</span> nargin &gt;= 4
+0055       msg = varargin{1};
+0056       msg_args = varargin(2:end);
+0057    <span class="keyword">end</span>
+0058    
+0059 <span class="keyword">elseif</span> nargin &gt;= 3 &amp;&amp; ischar(absolute_eps_or_msg)
+0060    msg = absolute_eps_or_msg;
+0061    msg_args = varargin;
+0062 <span class="keyword">end</span>
+0063 
+0064 <span class="comment">% determine equality</span>
+0065 <span class="keyword">if</span> isnumeric(expected) &amp;&amp; isnumeric(actual)
+0066     <span class="comment">% only check against eps if expected and actual both are numeric</span>
+0067     <span class="keyword">if</span> abs(expected - actual) &gt; absolute_eps
+0068         <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(msg, msg_args{:});
+0069     <span class="keyword">end</span>
+0070 <span class="comment">% all non-numeric types or mixed numerics, non-numerics are checked by isequal</span>
+0071 <span class="keyword">elseif</span> ~isequal(actual, expected),
+0072     <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(msg, msg_args{:});
+0073 <span class="keyword">end</span>
+0074 
+0075 
+0076 <span class="comment">%% subfunction to_string</span>
+0077 <a name="_sub1" href="#_subfunctions" class="code">function outstring = to_string(input)</a>
+0078 
+0079    <span class="keyword">if</span> ischar(input)
+0080       outstring = input;
+0081    <span class="keyword">elseif</span> isnumeric(input) || islogical(input)
+0082       outstring = num2str(input);
+0083    <span class="keyword">elseif</span> isstruct(input)
+0084       outstring = <span class="string">'MATLAB structure array'</span>;
+0085    <span class="keyword">elseif</span> iscell(input)
+0086       outstring = <span class="string">'MATLAB cell array'</span>;
+0087    <span class="keyword">else</span>
+0088       outstring = <span class="string">'unrecognized type'</span>;
+0089    <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
