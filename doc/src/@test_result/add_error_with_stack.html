@@ -4,15 +4,15 @@
 <head>
   <title>Description of add_error_with_stack</title>
   <meta name="keywords" content="add_error_with_stack">
-  <meta name="description" content="test_result/add_error_with_stack adds an error for the test to the list of errors using the struct members of lasterror (file and stack) to generate a more detailed error report.">
+  <meta name="description" content="test_result/add_error_with_stack adds an error for the test to the list of">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_result</a> &gt; add_error_with_stack.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_result</a> &gt; add_error_with_stack.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@test_result&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -21,7 +21,7 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>test_result/add_error_with_stack adds an error for the test to the list of errors using the struct members of lasterror (file and stack) to generate a more detailed error report.</strong></div>
+<div class="box"><strong>test_result/add_error_with_stack adds an error for the test to the list of</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function self = add_error_with_stack(self, test, err) </strong></div>
@@ -41,11 +41,12 @@ a more detailed error report.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_result/add_error.html" class="code" title="function self = add_error(self, test, error)">add_error</a>	gui_test_result/add_error calls the inherited method from test_result and the update method, which updates the different gui objects.</li><li><a href="add_error.html" class="code" title="function self = add_error(self, test, error)">add_error</a>	test_result/add_error adds an error for the test to the list of errors.</li><li><a href="parse_error.html" class="code" title="function [error, stacktrace] = parse_error(self, error, stacktrace) %#ok<INUSL>">parse_error</a>	test_result/parse_error parses special errors to extract further information for the stacktrace.</li><li><a href="../../src/@text_test_result/add_error.html" class="code" title="function self = add_error(self, test, error)">add_error</a>	text_test_result/add_error calls the inherited method from test_result and writes out an 'E' (verbosity == 1) or 'ERROR' (verbosity == 2) to the stream.</li></ul>
+<li><a href="add_error.html" class="code" title="function self = add_error(self, test, error)">add_error</a>	test_result/add_error adds an error for the test to the list of errors.</li><li><a href="parse_error.html" class="code" title="function [error, stacktrace] = parse_error(self, error, stacktrace) %#ok<INUSL>">parse_error</a>	test_result/parse_error parses special errors to extract further</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_runner/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	gui_test_runner/gui execute the graphical user interface of mlUnit.</li><li><a href="../../src/@test_case/run.html" class="code" title="function [self, result] = run(self, result)">run</a>	test_case/run executes the test case and saves the results in result.</li></ul>
+</ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -80,6 +81,6 @@ This function is called by:
 0029     stacktrace, <span class="keyword">...</span><span class="comment">,</span>
 0030     <span class="string">'Error: '</span>, <span class="keyword">...</span>
 0031     message]);</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

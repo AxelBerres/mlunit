@@ -6,13 +6,13 @@
   <meta name="keywords" content="run">
   <meta name="description" content="test_case/run executes the test case and saves the results in result.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_case</a> &gt; run.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_case</a> &gt; run.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@test_case&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -39,17 +39,18 @@
      paramater, which allows to collect the result of a number of tests
      within one test result.
 
-  See also <a href="test_case.html" class="code" title="function self = test_case(name, subclass)">TEST_CASE</a>.</pre></div>
+  See also <a href="test_case.html" class="code" title="function self = test_case(name, subclass, function_name)">TEST_CASE</a>.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@function_test_case/set_up.html" class="code" title="function self = set_up(self)">set_up</a>	function_test_case/set_up calls the set_up_function by the function handle to set up the fixture and is called everytime before a test is executed.</li><li><a href="../../src/@function_test_case/tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>	test_case/tear_down called calls the tear_down_function by the function handle everytime after a test is executed for cleaning up the fixture.</li><li><a href="../../src/@gui_test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	gui_test_result/add_failure calls the inherited method from test_result and the update method, which updates the different gui objects.</li><li><a href="../../src/@gui_test_result/add_success.html" class="code" title="function self = add_success(self, test)">add_success</a>	gui_test_result/add_success calls the inherited method from test_result and the update method, which updates the different gui objects.</li><li><a href="../../src/@gui_test_result/start_test.html" class="code" title="function self = start_test(self, test)">start_test</a>	gui_test_result/start_test calls the inherited method from test_result.</li><li><a href="default_test_result.html" class="code" title="function result = default_test_result(self) %#ok">default_test_result</a>	test_case/default_test_result returns s default test_result object.</li><li><a href="set_up.html" class="code" title="function self = set_up(self)">set_up</a>	test_case/set_up sets up the fixture and is called everytime before a test is executed.</li><li><a href="tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>	test_case/tear_down called everytime after a test is executed for cleaning up the fixture.</li><li><a href="../../src/@test_result/add_error_with_stack.html" class="code" title="function self = add_error_with_stack(self, test, err)">add_error_with_stack</a>	test_result/add_error_with_stack adds an error for the test to the list of errors using the struct members of lasterror (file and stack) to generate a more detailed error report.</li><li><a href="../../src/@test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	test_result/add_failure adds a failure for the test to the list of failures.</li><li><a href="../../src/@test_result/add_success.html" class="code" title="function self = add_success(self, test) %#ok">add_success</a>	test_result/add_success is an empty method for classes, which might do some action on a successful test.</li><li><a href="../../src/@test_result/start_test.html" class="code" title="function self = start_test(self, test) %#ok">start_test</a>	test_result/start_test indicates that a test will be started.</li><li><a href="../../src/@test_result/stop_test.html" class="code" title="function self = stop_test(self, test) %#ok">stop_test</a>	test_result/stop_test indicates that a test has been finished.</li><li><a href="../../src/@text_test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	text_test_result/add_failure calls the inherited method from test_result and writes out an 'F' (verbosity == 1) or 'FAILURE' (verbosity == 2) to the stream.</li><li><a href="../../src/@text_test_result/add_success.html" class="code" title="function self = add_success(self, test)">add_success</a>	text_test_result/add_success calls the inherited method from test_result and writes out an '.' (verbosity == 1) or 'OK' (verbosity == 2) to the stream.</li><li><a href="../../src/@text_test_result/start_test.html" class="code" title="function self = start_test(self, test)">start_test</a>	text_test_result/start_test calls the inherited method from test_result and writes out the name of the test (both only at verbosity == 2) to the stream.</li></ul>
+<li><a href="default_test_result.html" class="code" title="function result = default_test_result(self) %#ok">default_test_result</a>	test_case/default_test_result returns s default test_result object.</li><li><a href="set_up.html" class="code" title="function self = set_up(self)">set_up</a>	test_case/set_up sets up the fixture and is called everytime before</li><li><a href="tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>	test_case/tear_down called everytime after a test is executed for</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_runner/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	gui_test_runner/gui execute the graphical user interface of mlUnit.</li><li><a href="../../src/@gui_test_runner/load.html" class="code" title="function load(self) %#ok">load</a>	gui_test_runner/loads starts the graphical user interface of mlUnit with saved parameters from the .mat-file mlunit.tmp.</li><li><a href="../../src/@mlunit/run.html" class="code" title="function self = run(self, dock)">run</a>	mlunit/run executes the the graphical user interface of mlUnit.</li><li><a href="../../src/@test_suite/run.html" class="code" title="function [self, result] = run(self, result)">run</a>	test_suite/run executes the test suite and saves the results in result.</li><li><a href="../../src/@text_test_runner/run.html" class="code" title="function result = run(self, test)">run</a>	text_test_runner/run execute the test and writes the results to a stream in textual form (using TextTestResult).</li></ul>
+</ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -78,12 +79,12 @@ This function is called by:
 0023     result = <a href="default_test_result.html" class="code" title="function result = default_test_result(self) %#ok">default_test_result</a>(self);
 0024 <span class="keyword">end</span>;
 0025 
-0026 result = <a href="../../src/@gui_test_result/start_test.html" class="code" title="function self = start_test(self, test)">start_test</a>(result, self);
+0026 result = start_test(result, self);
 0027 <span class="keyword">try</span>
 0028     <span class="keyword">try</span>
 0029         self = <a href="set_up.html" class="code" title="function self = set_up(self)">set_up</a>(self);
 0030     <span class="keyword">catch</span>
-0031         result = <a href="../../src/@test_result/add_error_with_stack.html" class="code" title="function self = add_error_with_stack(self, test, err)">add_error_with_stack</a>(result, self, lasterror);
+0031         result = add_error_with_stack(result, self, lasterror);
 0032         <span class="keyword">return</span>;
 0033     <span class="keyword">end</span>;
 0034     
@@ -97,7 +98,7 @@ This function is called by:
 0042         errmsg = err.message;
 0043         failure = strfind(errmsg, <span class="string">'MLUNIT FAILURE'</span>);
 0044         <span class="keyword">if</span> (size(failure) &gt; 0)
-0045             result = <a href="../../src/@gui_test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>(result, <span class="keyword">...</span>
+0045             result = add_failure(result, <span class="keyword">...</span>
 0046                 self, <span class="keyword">...</span>
 0047                 errmsg(failure(1) + 15:length(errmsg)));
 0048         <span class="keyword">else</span>
@@ -107,24 +108,24 @@ This function is called by:
 0052                 err.stack = vertcat(err.stack, dbstack(<span class="string">'-completenames'</span>));
 0053             <span class="keyword">end</span>;
 0054             
-0055             result = <a href="../../src/@test_result/add_error_with_stack.html" class="code" title="function self = add_error_with_stack(self, test, err)">add_error_with_stack</a>(result, self, err);
+0055             result = add_error_with_stack(result, self, err);
 0056         <span class="keyword">end</span>;
 0057     <span class="keyword">end</span>;
 0058     
 0059     <span class="keyword">try</span>
 0060         self = <a href="tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>(self);    
 0061     <span class="keyword">catch</span>
-0062         result = <a href="../../src/@test_result/add_error_with_stack.html" class="code" title="function self = add_error_with_stack(self, test, err)">add_error_with_stack</a>(result, self, lasterror);
+0062         result = add_error_with_stack(result, self, lasterror);
 0063         ok = 0;
 0064     <span class="keyword">end</span>;
 0065 
 0066     <span class="keyword">if</span> (ok)
-0067         result = <a href="../../src/@gui_test_result/add_success.html" class="code" title="function self = add_success(self, test)">add_success</a>(result, self);
+0067         result = add_success(result, self);
 0068     <span class="keyword">end</span>;
 0069 <span class="keyword">catch</span>
 0070 <span class="keyword">end</span>;
-0071 result = <a href="../../src/@test_result/stop_test.html" class="code" title="function self = stop_test(self, test) %#ok">stop_test</a>(result, self);
+0071 result = stop_test(result, self);
 0072</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

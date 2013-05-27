@@ -4,15 +4,15 @@
 <head>
   <title>Description of add_failure</title>
   <meta name="keywords" content="add_failure">
-  <meta name="description" content="text_test_result/add_failure calls the inherited method from test_result and writes out an 'F' (verbosity == 1) or 'FAILURE' (verbosity == 2) to the stream.">
+  <meta name="description" content="text_test_result/add_failure calls the inherited method from test_result">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@text_test_result</a> &gt; add_failure.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@text_test_result</a> &gt; add_failure.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@text_test_result&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -21,7 +21,7 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>text_test_result/add_failure calls the inherited method from test_result and writes out an 'F' (verbosity == 1) or 'FAILURE' (verbosity == 2) to the stream.</strong></div>
+<div class="box"><strong>text_test_result/add_failure calls the inherited method from test_result</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function self = add_failure(self, test, failure) </strong></div>
@@ -43,11 +43,12 @@ the stream.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	gui_test_result/add_failure calls the inherited method from test_result and the update method, which updates the different gui objects.</li><li><a href="../../src/@test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	test_result/add_failure adds a failure for the test to the list of failures.</li><li><a href="add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	text_test_result/add_failure calls the inherited method from test_result and writes out an 'F' (verbosity == 1) or 'FAILURE' (verbosity == 2) to the stream.</li></ul>
+<li><a href="add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	text_test_result/add_failure calls the inherited method from test_result</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_result/add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	gui_test_result/add_failure calls the inherited method from test_result and the update method, which updates the different gui objects.</li><li><a href="../../src/@test_case/run.html" class="code" title="function [self, result] = run(self, result)">run</a>	test_case/run executes the test case and saves the results in result.</li><li><a href="add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	text_test_result/add_failure calls the inherited method from test_result and writes out an 'F' (verbosity == 1) or 'FAILURE' (verbosity == 2) to the stream.</li></ul>
+<li><a href="add_failure.html" class="code" title="function self = add_failure(self, test, failure)">add_failure</a>	text_test_result/add_failure calls the inherited method from test_result</li></ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -76,6 +77,6 @@ This function is called by:
 0023 <span class="keyword">elseif</span> (self.show_all)
 0024     fprintf(self.stream, <span class="string">'FAIL\n'</span>);
 0025 <span class="keyword">end</span>;</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

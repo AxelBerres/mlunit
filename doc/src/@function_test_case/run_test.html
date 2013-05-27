@@ -4,15 +4,15 @@
 <head>
   <title>Description of run_test</title>
   <meta name="keywords" content="run_test">
-  <meta name="description" content="function_test_case/run_test calls the test_function by the function handle.">
+  <meta name="description" content="function_test_case/run_test calls the test_function by the function">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@function_test_case</a> &gt; run_test.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@function_test_case</a> &gt; run_test.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@function_test_case&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -21,7 +21,7 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function_test_case/run_test calls the test_function by the function handle.</strong></div>
+<div class="box"><strong>function_test_case/run_test calls the test_function by the function</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function self = run_test(self) </strong></div>
@@ -34,11 +34,11 @@ handle.
   =======
   Usually run_test (as every test method) is not called directly, but
   through the method run. Example:
-         test = function_test_case(@() assert(0 == sin(0)));
+         test = function_test_case(@() assert_true(0 == sin(0)));
          [test, result] = run(test); 
          summary(result)
 
-  See also TEST_CASE, <a href="function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function)">FUNCTION_TEST_CASE</a>.</pre></div>
+  See also TEST_CASE, <a href="function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">FUNCTION_TEST_CASE</a>.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -51,6 +51,7 @@ This function is called by:
 <!-- crossreference -->
 
 
+
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = run_test(self)</a>
 0002 <span class="comment">%function_test_case/run_test calls the test_function by the function</span>
@@ -60,7 +61,7 @@ This function is called by:
 0006 <span class="comment">%  =======</span>
 0007 <span class="comment">%  Usually run_test (as every test method) is not called directly, but</span>
 0008 <span class="comment">%  through the method run. Example:</span>
-0009 <span class="comment">%         test = function_test_case(@() assert(0 == sin(0)));</span>
+0009 <span class="comment">%         test = function_test_case(@() assert_true(0 == sin(0)));</span>
 0010 <span class="comment">%         [test, result] = run(test);</span>
 0011 <span class="comment">%         summary(result)</span>
 0012 <span class="comment">%</span>
@@ -73,6 +74,6 @@ This function is called by:
 0019 <span class="comment">%  $Id: run_test.m 33 2006-06-11 16:02:51Z thomi $</span>
 0020 
 0021 self.test_function();</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

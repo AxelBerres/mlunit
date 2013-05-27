@@ -2,7 +2,7 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.6.4 (in development)
+mlUnit 1.6.4 (2013-05-27)
 -------------------------
 
   - Removed install.m script. Content not needed, since assert can not get
@@ -12,6 +12,7 @@ mlUnit 1.6.4 (in development)
   - assert_equals and assert_equals_withequalnans can receive an absolute
     tolerance to handle slight differences equally.
   - assert_warning checks for a specific warning when executing a function.
+  - Updated m2html documentation.
 
   - Fix: license strings
   - Fix: stack trace filter for assert functions did not include newer
