@@ -6,13 +6,13 @@
   <meta name="keywords" content="add_tests">
   <meta name="description" content="test_suite/add_test adds a cell array of tests to the test suite.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_suite</a> &gt; add_tests.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_suite</a> &gt; add_tests.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@test_suite&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -42,11 +42,12 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="tests.html" class="code" title="function t = tests(self)">tests</a>	</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -68,12 +69,12 @@ This function is called by:
 0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0017 <span class="comment">%  $Id: add_tests.m 36 2006-06-11 16:45:23Z thomi $</span>
 0018 
-0019 <span class="keyword">if</span> (iscell(tests))
+0019 <span class="keyword">if</span> (iscell(<a href="tests.html" class="code" title="function t = tests(self)">tests</a>))
 0020     last = length(self.tests);
-0021     <span class="keyword">for</span> i = 1:length(tests)
-0022         self.tests{last + i} = tests{i};
+0021     <span class="keyword">for</span> i = 1:length(<a href="tests.html" class="code" title="function t = tests(self)">tests</a>)
+0022         self.tests{last + i} = <a href="tests.html" class="code" title="function t = tests(self)">tests</a>{i};
 0023     <span class="keyword">end</span>;
 0024 <span class="keyword">end</span>;</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

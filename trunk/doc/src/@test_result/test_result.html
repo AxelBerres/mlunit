@@ -6,13 +6,13 @@
   <meta name="keywords" content="test_result">
   <meta name="description" content="test_result contructor.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_result</a> &gt; test_result.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_result</a> &gt; test_result.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@test_result&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -35,14 +35,14 @@
   The class test_result collects test results of executed tests. As in
   the other testing frameworks of the xUnit family the framework
   differs between failure and error. A failure is raised by an assertion,
-  that means by the method assert, while an error is raised by the Matlab 
+  e.g. by the method assert_true, while an error is raised by the Matlab 
   environment, for example through a syntax error.
 
   Example
   =======
          result = test_result;
   
-  See also ASSERT, ASSERT_EQUALS, ASSERT_NOT_EQUALS, TEXT_TEST_RESULT.</pre></div>
+  See also ASSERT_TRUE, ASSERT_EQUALS, ASSERT_NOT_EQUALS, TEXT_TEST_RESULT.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -51,8 +51,9 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_result/gui_test_result.html" class="code" title="function self = gui_test_result(progress_bar, text_runs, error_listbox, max_number_of_tests)">gui_test_result</a>	gui_test_result contructor.</li><li><a href="../../src/@test_case/default_test_result.html" class="code" title="function result = default_test_result(self) %#ok">default_test_result</a>	test_case/default_test_result returns s default test_result object.</li><li><a href="../../src/@text_test_result/text_test_result.html" class="code" title="function self = text_test_result(stream, verbosity)">text_test_result</a>	text_test_result contructor.</li></ul>
+</ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -65,20 +66,20 @@ This function is called by:
 0007 <span class="comment">%  The class test_result collects test results of executed tests. As in</span>
 0008 <span class="comment">%  the other testing frameworks of the xUnit family the framework</span>
 0009 <span class="comment">%  differs between failure and error. A failure is raised by an assertion,</span>
-0010 <span class="comment">%  that means by the method assert, while an error is raised by the Matlab</span>
+0010 <span class="comment">%  e.g. by the method assert_true, while an error is raised by the Matlab</span>
 0011 <span class="comment">%  environment, for example through a syntax error.</span>
 0012 <span class="comment">%</span>
 0013 <span class="comment">%  Example</span>
 0014 <span class="comment">%  =======</span>
 0015 <span class="comment">%         result = test_result;</span>
 0016 <span class="comment">%</span>
-0017 <span class="comment">%  See also ASSERT, ASSERT_EQUALS, ASSERT_NOT_EQUALS, TEXT_TEST_RESULT.</span>
+0017 <span class="comment">%  See also ASSERT_TRUE, ASSERT_EQUALS, ASSERT_NOT_EQUALS, TEXT_TEST_RESULT.</span>
 0018 
 0019 self.tests_run = 0;
 0020 self.errors = {};
 0021 self.failures = {};
 0022 self.should_stop = 0;
 0023 self = class(self, <span class="string">'test_result'</span>);</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

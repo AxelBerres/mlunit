@@ -4,15 +4,15 @@
 <head>
   <title>Description of count_test_cases</title>
   <meta name="keywords" content="count_test_cases">
-  <meta name="description" content="test_suite/count_test_cases returns the number of test cases executed by run.">
+  <meta name="description" content="test_suite/count_test_cases returns the number of test cases executed">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_suite</a> &gt; count_test_cases.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_suite</a> &gt; count_test_cases.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@test_suite&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -21,7 +21,7 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>test_suite/count_test_cases returns the number of test cases executed by run.</strong></div>
+<div class="box"><strong>test_suite/count_test_cases returns the number of test cases executed</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function count = count_test_cases(self) </strong></div>
@@ -41,11 +41,12 @@ by run.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@test_case/count_test_cases.html" class="code" title="function count = count_test_cases(self) %#ok">count_test_cases</a>	test_case/count_test_cases returns the number of test cases executed by run.</li><li><a href="count_test_cases.html" class="code" title="function count = count_test_cases(self)">count_test_cases</a>	test_suite/count_test_cases returns the number of test cases executed by run.</li></ul>
+<li><a href="count_test_cases.html" class="code" title="function count = count_test_cases(self)">count_test_cases</a>	test_suite/count_test_cases returns the number of test cases executed</li><li><a href="tests.html" class="code" title="function t = tests(self)">tests</a>	</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@gui_test_runner/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	gui_test_runner/gui execute the graphical user interface of mlUnit.</li><li><a href="count_test_cases.html" class="code" title="function count = count_test_cases(self)">count_test_cases</a>	test_suite/count_test_cases returns the number of test cases executed by run.</li></ul>
+<li><a href="count_test_cases.html" class="code" title="function count = count_test_cases(self)">count_test_cases</a>	test_suite/count_test_cases returns the number of test cases executed</li></ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -66,11 +67,11 @@ This function is called by:
 0015 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0016 <span class="comment">%  $Id: count_test_cases.m 36 2006-06-11 16:45:23Z thomi $</span>
 0017 
-0018 tests = length(self.tests);
+0018 <a href="tests.html" class="code" title="function t = tests(self)">tests</a> = length(self.tests);
 0019 count = 0;
-0020 <span class="keyword">for</span> i = 1:tests
+0020 <span class="keyword">for</span> i = 1:<a href="tests.html" class="code" title="function t = tests(self)">tests</a>
 0021     count = count + <a href="count_test_cases.html" class="code" title="function count = count_test_cases(self)">count_test_cases</a>(self.tests{i});
 0022 <span class="keyword">end</span>;</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

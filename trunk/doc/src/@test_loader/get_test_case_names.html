@@ -4,15 +4,15 @@
 <head>
   <title>Description of get_test_case_names</title>
   <meta name="keywords" content="get_test_case_names">
-  <meta name="description" content="test_loader/get_test_case_names returns a list of string with all test* methods from the test_case_class.">
+  <meta name="description" content="test_loader/get_test_case_names returns a list of string with all">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_loader</a> &gt; get_test_case_names.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_loader</a> &gt; get_test_case_names.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@test_loader&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -21,7 +21,7 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>test_loader/get_test_case_names returns a list of string with all test* methods from the test_case_class.</strong></div>
+<div class="box"><strong>test_loader/get_test_case_names returns a list of string with all</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function names = get_test_case_names(self, test_case_class) %#ok </strong></div>
@@ -42,11 +42,12 @@ test* methods from the test_case_class.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@reflect/get_methods.html" class="code" title="function methds = get_methods(self)">get_methods</a>	reflect/get_methods returns the list of methods of the 'reflected' class.</li><li><a href="../../src/@reflect/reflect.html" class="code" title="function self = reflect(class_name)">reflect</a>	reflect constructer.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all test* methods from a test_case.</li></ul>
+<li><a href="load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all</li></ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -68,8 +69,8 @@ This function is called by:
 0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0017 <span class="comment">%  $Id: get_test_case_names.m 148 2007-01-02 20:08:23Z thomi $</span>
 0018 
-0019 t = <a href="../../src/@reflect/reflect.html" class="code" title="function self = reflect(class_name)">reflect</a>(test_case_class);
-0020 names = <a href="../../src/@reflect/get_methods.html" class="code" title="function methds = get_methods(self)">get_methods</a>(t);
+0019 t = reflect(test_case_class);
+0020 names = get_methods(t);
 0021 <span class="keyword">for</span> i = size(names, 1):-1:1
 0022     <span class="keyword">if</span> (~strncmp(names(i), <span class="string">'test'</span>, 4))
 0023         names(i) = [];
@@ -90,6 +91,6 @@ This function is called by:
 0038 <span class="keyword">if</span> (~isa(t, <span class="string">'test_case'</span>))
 0039     names = [];
 0040 <span class="keyword">end</span>;</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

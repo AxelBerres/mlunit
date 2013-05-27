@@ -4,15 +4,15 @@
 <head>
   <title>Description of texts</title>
   <meta name="keywords" content="texts">
-  <meta name="description" content="gui_test_result/texts creates the text area with the number of tests ran, the number of errors and the number of failures.">
+  <meta name="description" content="gui_test_result/texts creates the text area with the number of tests ran, the">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">mlUnit</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@gui_test_result</a> &gt; texts.m</div>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@gui_test_result</a> &gt; texts.m</div>
 
 <!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
 <td align="right"><a href="index.html">Index for src\@gui_test_result&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
@@ -21,7 +21,7 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>gui_test_result/texts creates the text area with the number of tests ran, the number of errors and the number of failures.</strong></div>
+<div class="box"><strong>gui_test_result/texts creates the text area with the number of tests ran, the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function texts(self) </strong></div>
@@ -41,11 +41,12 @@ number of errors and the number of failures.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@test_result/get_errors.html" class="code" title="function errors = get_errors(self)">get_errors</a>	test_result/get_errors returns the number of errors.</li><li><a href="../../src/@test_result/get_failures.html" class="code" title="function failures = get_failures(self)">get_failures</a>	test_result/get_errors returns the number of failures.</li><li><a href="../../src/@test_result/get_tests_run.html" class="code" title="function tests_run = get_tests_run(self)">get_tests_run</a>	test_result/tests_run returns the number of tests executed.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="update.html" class="code" title="function self = update(self)">update</a>	gui_test_result/update update the different gui object: the progress bar, the text area with the number of test ran etc., and the listbox with all errors and failures.</li></ul>
+<li><a href="update.html" class="code" title="function self = update(self)">update</a>	gui_test_result/update update the different gui object: the progress bar,</li></ul>
 <!-- crossreference -->
+
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -66,9 +67,9 @@ This function is called by:
 0015 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0016 <span class="comment">%  $Id: texts.m 28 2006-06-11 15:11:59Z thomi $</span>
 0017 
-0018 set(self.text_runs, <span class="string">'String'</span>, [<span class="string">'Runs: '</span>, num2str(<a href="../../src/@test_result/get_tests_run.html" class="code" title="function tests_run = get_tests_run(self)">get_tests_run</a>(self)), <span class="keyword">...</span>
-0019     <span class="string">' / Errors: '</span>, num2str(<a href="../../src/@test_result/get_errors.html" class="code" title="function errors = get_errors(self)">get_errors</a>(self)), <span class="keyword">...</span>
-0020     <span class="string">' / Failures: '</span>, num2str(<a href="../../src/@test_result/get_failures.html" class="code" title="function failures = get_failures(self)">get_failures</a>(self))]);</pre></div>
-<br><br><address>Generated on Fri 06-Apr-2007 17:48:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+0018 set(self.text_runs, <span class="string">'String'</span>, [<span class="string">'Runs: '</span>, num2str(get_tests_run(self)), <span class="keyword">...</span>
+0019     <span class="string">' / Errors: '</span>, num2str(get_errors(self)), <span class="keyword">...</span>
+0020     <span class="string">' / Failures: '</span>, num2str(get_failures(self))]);</pre></div>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
