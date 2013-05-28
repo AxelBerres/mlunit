@@ -1,11 +1,19 @@
-function assert_not_equals(expected, actual, msg, varargin)
+function assert_not_equals(expected, actual, varargin)
 %ASSERT_NOT_EQUALS Raise an error if two expressions evaluate to the same.
 %  ASSERT_NOT_EQUALS(EXPECTED, ACTUAL) raises a MATLAB error if EXPECTED
-%  and ACTUAL are the same.
+%  and ACTUAL are the same. If EXPECTED and ACTUAL are numeric, they both
+%  have to be the very same number, down to the current platform's
+%  int or floating-point accuracy.
 %
 %  ASSERT_NOT_EQUALS(EXPECTED, ACTUAL, MSG, varargin) does the same, but
 %  with the custom error message MSG. MSG may contain sprintf arguments,
 %  which can be expanded by subsequent arguments in varargin.
+%
+%  ASSERT_NOT_EQUALS(EXPECTED, ACTUAL, ABSOLUTE_EPS) and
+%  ASSERT_NOT_EQUALS(EXPECTED, ACTUAL, ABSOLUTE_EPS, MSG, varargin) do the same,
+%  except if EXPECTED and ACTUAL are numeric. Then they are considered equal,
+%  if their absolute difference is smaller or equal to ABSOLUTE_EPS. This works
+%  for any numerics.
 %
 %  Examples
 %     % asserts string variable output being not 'no'
@@ -26,26 +34,4 @@ if nargin < 2
    fail('assert_not_equals: Not enough input arguments.');
 end
 
-if nargin < 3 || isempty(msg)
-   msg = sprintf('Expected same <%s> was not <%s>.', to_string(expected), to_string(actual));
-end
-
-if isequal(actual, expected)
-   fail(msg, varargin{:});
-end
-
-
-%% subfunction to_string
-function outstring = to_string(input)
-
-   if ischar(input)
-      outstring = input;
-   elseif isnumeric(input) || islogical(input)
-      outstring = num2str(input);
-   elseif isstruct(input)
-      outstring = 'MATLAB structure array';
-   elseif iscell(input)
-      outstring = 'MATLAB cell array';
-   else
-      outstring = 'unrecognized type';
-   end
+abstract_assert_equals(false, false, expected, actual, varargin{:});
