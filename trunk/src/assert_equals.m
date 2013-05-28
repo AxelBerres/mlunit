@@ -62,9 +62,12 @@ elseif nargin >= 3 && ischar(absolute_eps_or_msg)
 end
 
 % determine equality
-if isnumeric(expected) && isnumeric(actual)
-    % only check against eps if expected and actual both are numeric
-    if abs(expected - actual) > absolute_eps
+if isnumeric(expected) && isequal(class(expected), class(actual))
+    % only check against eps if expected and actual both are numeric and have
+    % the same type, else MATLAB complains about incompatible types used for
+    % subtraction.
+    % Be prepared for vectors and matrixes coming in expected and actual.
+    if any(abs(expected - actual) > absolute_eps)
         fail(msg, msg_args{:});
     end
 % all non-numeric types or mixed numerics, non-numerics are checked by isequal
