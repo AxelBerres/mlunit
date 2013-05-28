@@ -5,6 +5,8 @@
 mlUnit 1.6.5 (in development)
 -----------------------------
 
+  - Refactored implementation of assert_(not_)equals(_withequalnans).
+
   - Fix: eps comparison for vectors yields undetermined results
   - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
     uint8. Changed assert_equals to compare eps only for equal numeric types.
