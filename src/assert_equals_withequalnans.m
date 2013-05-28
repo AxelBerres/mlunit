@@ -18,7 +18,7 @@ end
 
 % default values for msg and eps
 absolute_eps = 0;
-msg = sprintf('Expected <%s> unexpectedly was the same as actual <%s>.', to_string(expected), to_string(actual));
+msg = sprintf('Expected <%s>, but was <%s>.', to_string(expected), to_string(actual));
 msg_args = {};
 
 % Third argument can either be absolute_eps or msg. Handle input args carefully.
@@ -38,9 +38,12 @@ elseif nargin >= 3 && ischar(absolute_eps_or_msg)
 end
 
 % determine equality
-if isnumeric(expected) && isnumeric(actual)
-    % only check against eps if expected and actual both are numeric
-    if abs(expected - actual) > absolute_eps
+if isnumeric(expected) && isequal(class(expected), class(actual))
+    % only check against eps if expected and actual both are numeric and have
+    % the same type, else MATLAB complains about incompatible types used for
+    % subtraction.
+    % Be prepared for vectors and matrixes coming in expected and actual.
+    if any(abs(expected - actual) > absolute_eps)
         fail(msg, msg_args{:});
     end
 % all non-numeric types or mixed numerics, non-numerics are checked by isequal

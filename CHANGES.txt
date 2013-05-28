@@ -2,6 +2,14 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.6.5 (in development)
+-----------------------------
+
+  - Fix: eps comparison for vectors yields undetermined results
+  - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
+    uint8. Changed assert_equals to compare eps only for equal numeric types.
+
+
 mlUnit 1.6.4 (2013-05-27)
 -------------------------
 
