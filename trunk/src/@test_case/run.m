@@ -23,6 +23,10 @@ if (nargin == 1)
     result = default_test_result(self);
 end;
 
+% reload test case file if modified in the same GUI session, e.g. during
+% debugging
+rehash;
+
 result = start_test(result, self);
 try
     try
