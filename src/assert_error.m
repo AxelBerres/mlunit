@@ -31,9 +31,11 @@ try
 catch
    bCaught = true;
    err = lasterror;
-   % Eat first line that should read 'Error using ==> assert_error'. The actual
-   % message comes after it.
-   actual_msg = strrep(err.message, sprintf('Error using ==> assert_error\n'), '');
+   % Eat first line that should read 'Error using ==> assert_error', terminated
+   % by a newline. The actual message comes after it. Filter the offending line
+   % with a regular expression rather than a simple strrep, because after '==>',
+   % MATLAB puts an HTML statement from R2007b on, and plain text before.
+   actual_msg = regexprep(err.message, 'Error using ==> .*\n', '', 'dotexceptnewline');
    if nargin < 2 || strcmp(actual_msg, expected_msg)
       bMsgMatches = true;
    else
