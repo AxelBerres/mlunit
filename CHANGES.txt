@@ -12,6 +12,8 @@ in development
   - Fix: eps comparison for vectors yields undetermined results
   - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
     uint8. Changed assert_equals to compare eps only for equal numeric types.
+  - Fix: Rerunning a testcase from the mlUnit GUI does not update the test's
+    implementation.
 
 
 mlUnit 1.6.4 (2013-05-27)
