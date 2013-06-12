@@ -54,18 +54,35 @@ elseif nargin >= 5 && ischar(absolute_eps_or_msg)
    msg_args = varargin;
 end
 
+% only check against eps if expected and actual both are numeric and have the
+% same type, else MATLAB complains about incompatible types when using
+% subtraction during eps checking later on
 are_compatible_numerics = isnumeric(expected) && isequal(class(expected), class(actual));
-check_eps_with_nans = ~equal_nans || (isfinite(expected) && isfinite(actual));
 
 % determine equality
-if are_compatible_numerics && check_eps_with_nans
-   % only check against eps if expected and actual both are numeric and have
-   % the same type, else MATLAB complains about incompatible types used for
-   % subtraction.
-   % Be prepared for vectors and matrixes coming in expected and actual.
-   equals = all(abs(expected - actual) <= absolute_eps);
-% all non-numeric types, or mixed types, or variables containing NaNs if
-% NaNs are to be treated equal are checked by isequal.
+if are_compatible_numerics
+   
+   % compare all values by default
+   indices = logical(ones(size(expected)));
+   if equal_nans
+      % select only indices for comparison where not both expected and actual
+      % are NaN
+      indices = ~(isnan(expected) & isnan(actual));
+   end
+
+   % Build matrix of expected/actual differences. If at one position expected or
+   % actual have a NaN, that position's difference will be NaN and fail the eps
+   % test, as it should. If at one position both have a NaN, then they will have
+   % been filtered before if NaNs are to be treated equal, or their difference
+   % will yield a NaN as well if NaNs are to be treated different. If both have
+   % an actual value other than NaN, their difference will be compared with eps
+   % for real.
+   diffs = expected(indices) - actual(indices);
+   
+   % all absolute differences must be smaller than or equal to eps
+   equals = all(abs(diffs) <= absolute_eps);
+
+% all non-numeric types, or mixed types are checked by isequal.
 elseif equal_nans
    equals = isequalwithequalnans(actual, expected);
 else
