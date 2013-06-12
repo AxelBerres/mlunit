@@ -8,6 +8,7 @@ in development
   - Refactored implementation of assert_(not_)equals(_withequalnans).
   - Absolute tolerance for equalling distinct differences now in place for all
     assert_(not_)equals(_withequalnans) functions.
+  - Equality tolerance can be checked with NaN value matrices as well.
 
   - Fix: eps comparison for vectors yields undetermined results
   - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
