@@ -9,16 +9,19 @@ in development
   - Absolute tolerance for equalling distinct differences now in place for all
     assert_(not_)equals(_withequalnans) functions.
   - Equality tolerance can be checked with NaN value matrices as well.
+  - NaN equality is now an mlUnit parameter named equal_nans, eliminating
+    functions named assert_(not_)equals_withequalnans. [F#13]
 
   - Fix: eps comparison for vectors yields undetermined results
   - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
     uint8. Changed assert_equals to compare eps only for equal numeric types.
   - Fix: Rerunning a testcase from the mlUnit GUI does not update the test's
-    implementation. [#22]
-  - Fix: assert_error fails on R2007b and later. [#21}
+    implementation. [B#22]
+  - Fix: assert_error fails on R2007b and later. [B#21]
 
-  [#21] https://sourceforge.net/p/mlunit/bugs/21/
-  [#22] https://sourceforge.net/p/mlunit/bugs/22/
+  [F#13] https://sourceforge.net/p/mlunit/feature-requests/13/
+  [B#21] https://sourceforge.net/p/mlunit/bugs/21/
+  [B#22] https://sourceforge.net/p/mlunit/bugs/22/
 
 
 mlUnit 1.6.4 (2013-05-27)
