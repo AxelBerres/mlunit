@@ -40,4 +40,4 @@ if nargin < 2,
    fail('assert_equals: Not enough input arguments.');
 end
 
-abstract_assert_equals(false, true, expected, actual, varargin{:});
+abstract_assert_equals(true, expected, actual, varargin{:});
