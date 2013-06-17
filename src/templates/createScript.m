@@ -37,7 +37,7 @@ function createScript(s_fileName)
 
     % check if the desired file already exists 
     if exist(s_fileName,'file'),
-        warning('MXRAY:warning', 'file already exist');
+        warning('file already exist');
         return;
     end
 
