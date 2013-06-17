@@ -1,20 +1,15 @@
-function abstract_assert_equals(equal_nans, pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)
+function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)
 %ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.
-%  ABSTRACT_ASSERT_EQUALS(EQUAL_NANS, PASS_IF_EQUAL, EXPECTED, ACTUAL)
+%  ABSTRACT_ASSERT_EQUALS(PASS_IF_EQUAL, EXPECTED, ACTUAL)
 %  raises a MATLAB error if PASS_IF_EQUALS is true and EXPECTED and ACTUAL
 %  are not the same. Also raises a MATLAB error if PASS_IF_EQUALS is false
 %  and EXPECTED and ACTUAL are the same.
-%  If EQUAL_NANS is false, compare using isequal, if EQUAL_NANS is true,
-%  compare using isequalwithequalnans.
 %
-%  ABSTRACT_ASSERT_EQUALS(EQUAL_NANS, PASS_IF_EQUAL, EXPECTED, ACTUAL, ...
+%  ABSTRACT_ASSERT_EQUALS(PASS_IF_EQUAL, EXPECTED, ACTUAL, ...
 %  ABSOLUTE_ESP) does the same, except if EXPECTED and ACTUAL are numeric
 %  and of the same type. Then they are considered equal, if their absolute
 %  difference is smaller or equal to ABSOLUTE_EPS. This works for any
-%  numerics, but is incompatible with equal NaN handling. If EQUAL_NANS is
-%  true, eps checking will only occur when all elements of EXPECTED and
-%  ACTUAL are finite (not NaN and not Inf), else eps checking will be
-%  omitted and isequalwithequalnans used instead.
+%  numerics, but is incompatible with equal NaN handling.
 %  
 %  ABSTRACT_ASSERT_EQUALS(..., MSG, varargin) does the same, but with
 %  the custom error message MSG. MSG may contain sprintf arguments, which
@@ -27,11 +22,12 @@ function abstract_assert_equals(equal_nans, pass_if_equal, expected, actual, abs
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  $Author$
-%  $Id: assert_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
+%  $Id$
 
-if nargin < 4, error('Not enough input arguments.'); end
-if ~islogical(equal_nans), error('equal_nans must be a logical'); end
+if nargin < 3, error('Not enough input arguments.'); end
 if ~islogical(pass_if_equal), error('pass_if_equal must be a logical'); end
+
+equal_nans = mlunit_param('equal_nans');
 
 % default values for msg and eps
 absolute_eps = 0;
@@ -39,17 +35,17 @@ msg = sprintf('Expected <%s>, but was <%s>.', to_string(expected), to_string(act
 msg_args = {};
 
 % Fourth argument can either be absolute_eps or msg. Handle input args carefully.
-if nargin >= 5 && isnumeric(absolute_eps_or_msg)
+if nargin >= 4 && isnumeric(absolute_eps_or_msg)
    absolute_eps = absolute_eps_or_msg;
    msg = [msg sprintf(' Tolerance was <%s>.', to_string(absolute_eps))];
-   % if third argument is eps, then the fourth may be the msg and all others the
+   % if fourth argument is eps, then the fifth may be the msg and all others the
    % msg sprintf arguments
-   if nargin >= 6
+   if nargin >= 5
       msg = varargin{1};
       msg_args = varargin(2:end);
    end
    
-elseif nargin >= 5 && ischar(absolute_eps_or_msg)
+elseif nargin >= 4 && ischar(absolute_eps_or_msg)
    msg = absolute_eps_or_msg;
    msg_args = varargin;
 end
