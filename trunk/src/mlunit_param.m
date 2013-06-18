@@ -9,10 +9,7 @@ function outvalue = mlunit_param(name, invalue)
     if nargin == 0 || isempty(name)
         error('Provide the parameter name as first argument.');
     end
-    if ~isvarname(name)
-        error('The parameter name must be a valid MATLAB variable name. See isvarname.');
-    end
-
+    
     % get and initialize parameters
     persistent parameters;
     if isempty(parameters)
@@ -20,15 +17,16 @@ function outvalue = mlunit_param(name, invalue)
     end
 
     % return parameter value before its new value is set
-    if isfield(parameters, name)
-        outvalue = parameters.(name);
+    clean_name = genvarname(name);
+    if isfield(parameters, clean_name)
+        outvalue = parameters.(clean_name);
     else
         outvalue = default_value(name);
     end
 
     % set value
     if nargin >= 2
-        parameters.(name) = invalue;
+        parameters.(clean_name) = invalue;
     end
 
 
