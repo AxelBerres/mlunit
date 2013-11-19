@@ -32,7 +32,6 @@ equal_nans = mlunit_param('equal_nans');
 % default values for msg and eps
 absolute_eps = 0;
 msg = sprintf('Expected <%s>, but was <%s>.', to_string(expected), to_string(actual));
-msg_args = {};
 
 % Fourth argument can either be absolute_eps or msg. Handle input args carefully.
 if nargin >= 4 && isnumeric(absolute_eps_or_msg)
@@ -41,13 +40,11 @@ if nargin >= 4 && isnumeric(absolute_eps_or_msg)
    % if fourth argument is eps, then the fifth may be the msg and all others the
    % msg sprintf arguments
    if nargin >= 5
-      msg = varargin{1};
-      msg_args = varargin(2:end);
+      msg = sprintf(varargin{1}, varargin{2:end});
    end
    
 elseif nargin >= 4 && ischar(absolute_eps_or_msg)
-   msg = absolute_eps_or_msg;
-   msg_args = varargin;
+   msg = sprintf(absolute_eps_or_msg, varargin{:});
 end
 
 % only check against eps if expected and actual both are numeric and have the
@@ -89,8 +86,7 @@ end
 % fail if fail on equal requested, and is equal
 % else, pass quietly
 if xor(pass_if_equal, equals)
-   % delay msg_args expansion until now, to only expand them in case of failure
-   fail(msg, msg_args{:});
+   fail(msg);
 end
 
 %% subfunction to_string

@@ -14,7 +14,7 @@ function recursive_test_run(basedir, targetdir)
 %  
 %  $Author$
 %  $Id$
-  
+   
    if nargin < 1, basedir = pwd; end
    if nargin < 2, targetdir = basedir; end
 
@@ -75,7 +75,7 @@ function suiteresult = runTestsuite(suitespec)
    suiteresult.tests = get_tests_run(result_obj);
    
    errorList = get_error_list(result_obj);
-	failureList = get_failure_list(result_obj);
+   failureList = get_failure_list(result_obj);
    
    % iterate list of test cases in suite
    suiteresult.testcaseList = [];
