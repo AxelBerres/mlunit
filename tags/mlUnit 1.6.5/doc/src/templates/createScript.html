@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of createScript</title>
+  <meta name="keywords" content="createScript">
+  <meta name="description" content="Generates an empty file with a default header.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">templates</a> &gt; createScript.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\templates&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>createScript
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Generates an empty file with a default header.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function createScript(s_fileName) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Generates an empty file with a default header.
+
+ Description:
+ Generates an empty file with a default header. The file name string is
+ specified without the ending .m and the file will be generated in the
+ current directory.
+
+ Syntax: 
+    &gt;&gt; createScript(s_fileName)
+
+ INPUT PARAMETERS:
+    s_fileName - file name string without file extension
+
+ OUTPUT PARAMETERS:</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function loc_writeHeader(fid)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Generates an empty file with a default header.</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% Description:</span>
+0004 <span class="comment">% Generates an empty file with a default header. The file name string is</span>
+0005 <span class="comment">% specified without the ending .m and the file will be generated in the</span>
+0006 <span class="comment">% current directory.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% Syntax:</span>
+0009 <span class="comment">%    &gt;&gt; createScript(s_fileName)</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% INPUT PARAMETERS:</span>
+0012 <span class="comment">%    s_fileName - file name string without file extension</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% OUTPUT PARAMETERS:</span>
+0015 
+0016 <span class="comment">%</span>
+0017 <span class="comment">% EXAMPLES:</span>
+0018 <span class="comment">%    &gt;&gt; createScript('newFile')</span>
+0019 <span class="comment">%   creates the file newFile.m with the default header.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% See also:</span>
+0022 <span class="comment">%</span>
+0023 
+0024 <span class="comment">%  This Software and all associated files are released unter the</span>
+0025 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0026 
+0027 <span class="comment">% Author: Axel Berres</span>
+0028 <span class="comment">% $Id: createScript.m 15 2012-11-21 09:18:51Z hetu $</span>
+0029 <span class="comment">% ------------------------------------------------------------</span>
+0030 <span class="comment">% history</span>
+0031 <span class="comment">% 2010/14/09 - created</span>
+0032 
+0033 <a name="_sub0" href="#_subfunctions" class="code">function createScript(s_fileName)</a>
+0034 
+0035     <span class="comment">% define a default file in case of a missing filename</span>
+0036     <span class="keyword">if</span> nargin &lt; 1, s_fileName = <span class="string">'file'</span>; <span class="keyword">end</span>;
+0037 
+0038     <span class="comment">% check if the desired file already exists</span>
+0039     <span class="keyword">if</span> exist(s_fileName,<span class="string">'file'</span>),
+0040         warning(<span class="string">'MXRAY:warning'</span>, <span class="string">'file already exist'</span>);
+0041         <span class="keyword">return</span>;
+0042     <span class="keyword">end</span>
+0043 
+0044     <span class="comment">% create file an write the header</span>
+0045     fid = fopen([s_fileName,<span class="string">'.m'</span>],<span class="string">'w+'</span>);
+0046     <a href="#_sub1" class="code" title="subfunction loc_writeHeader(fid)">loc_writeHeader</a>(fid);
+0047 
+0048     <span class="comment">% close file</span>
+0049     fclose(fid);
+0050 
+0051 <span class="comment">%% fill header info</span>
+0052 <a name="_sub1" href="#_subfunctions" class="code">function loc_writeHeader(fid)</a>
+0053 
+0054     s_date = datestr(now, <span class="string">'yyyy/dd/mm'</span>);
+0055     
+0056     fprintf(fid, <span class="string">'%% TODO: short description\n'</span>);
+0057     fprintf(fid, <span class="string">'%%\n'</span>);
+0058     fprintf(fid, <span class="string">'%% Description:\n'</span>);
+0059     fprintf(fid, <span class="string">'%%    TODO: description\n'</span>);
+0060     fprintf(fid, <span class="string">'%%\n'</span>);
+0061     fprintf(fid, <span class="string">'%% Syntax: \n'</span>);
+0062     fprintf(fid, <span class="string">'%%    &gt;&gt; TODO: add function syntax\n'</span>);
+0063     fprintf(fid, <span class="string">'%%\n'</span>);
+0064     fprintf(fid, <span class="string">'%% INPUT PARAMETERS:\n'</span>);
+0065     fprintf(fid, <span class="string">'%%    TODO: add input parameter and options\n'</span>);
+0066     fprintf(fid, <span class="string">'%%\n'</span>);
+0067     fprintf(fid, <span class="string">'%% OUTPUT PARAMETERS:\n'</span>);
+0068     fprintf(fid, <span class="string">'%%    TODO: add output parameter\n'</span>);
+0069     fprintf(fid, <span class="string">'%%\n'</span>);
+0070     fprintf(fid, <span class="string">'%% EXAMPLES:\n'</span>);
+0071     fprintf(fid, <span class="string">'%%    &gt;&gt; TODO: add examples with description\n'</span>);
+0072     fprintf(fid, <span class="string">'%%\n'</span>);
+0073     fprintf(fid, <span class="string">'%% See also:\n'</span>);
+0074     fprintf(fid, <span class="string">'%%    TODO: add cross reference\n'</span>);
+0075     fprintf(fid, <span class="string">'\n'</span>);
+0076     fprintf(fid, <span class="string">'%% *************************************************************************\n'</span>);
+0077     fprintf(fid, <span class="string">'%% Copyright:    Model Engineering Solutions GmbH, 2009 - 2010 \n'</span>);
+0078     fprintf(fid, <span class="string">'%% Date:         $Date:$\n'</span>);
+0079     fprintf(fid, <span class="string">'%% Revision:     $Rev:$\n'</span>);
+0080     fprintf(fid, <span class="string">'%% Author:       Axel Berres (axel.berres@model-engineers.com)\n'</span>);
+0081     fprintf(fid, <span class="string">'%% *************************************************************************\n'</span>);
+0082     fprintf(fid, <span class="string">'%% history\n'</span>);
+0083     fprintf(fid, <span class="string">'%% %s - created\n'</span>, s_date);
+0084</pre></div>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

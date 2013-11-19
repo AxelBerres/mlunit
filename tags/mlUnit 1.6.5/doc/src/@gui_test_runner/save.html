@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of save</title>
+  <meta name="keywords" content="save">
+  <meta name="description" content="gui_test_runner/save saves the parameters of the graphical user interface">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@gui_test_runner</a> &gt; save.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@gui_test_runner&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>save
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>gui_test_runner/save saves the parameters of the graphical user interface</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function save(self) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">gui_test_runner/save saves the parameters of the graphical user interface
+of mlUnit to a .mat-file with the name mlunit.tmp. 
+
+  Example
+  =======
+         save(gui_test_runner);
+
+  See also <a href="gui_test_runner.html" class="code" title="function self = gui_test_runner(callback)">GUI_TEST_RUNNER</a>, GUI_TEST_RUNNER/LOAD.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>	gui_test_runner/get_object returns the singleton object of the gui window.</li><li><a href="save.html" class="code" title="function save(self)">save</a>	gui_test_runner/save saves the parameters of the graphical user interface</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="save.html" class="code" title="function save(self)">save</a>	gui_test_runner/save saves the parameters of the graphical user interface</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function save(self)</a>
+0002 <span class="comment">%gui_test_runner/save saves the parameters of the graphical user interface</span>
+0003 <span class="comment">%of mlUnit to a .mat-file with the name mlunit.tmp.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%  Example</span>
+0006 <span class="comment">%  =======</span>
+0007 <span class="comment">%         save(gui_test_runner);</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  See also GUI_TEST_RUNNER, GUI_TEST_RUNNER/LOAD.</span>
+0010 
+0011 <span class="comment">%  This Software and all associated files are released unter the</span>
+0012 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0015 <span class="comment">%  $Id: save.m 166 2007-01-04 21:19:31Z thomi $</span>
+0016 
+0017 object = <a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>(self);
+0018 <span class="keyword">if</span> (strcmp(class(object), <span class="string">'gui_test_runner'</span>)) 
+0019     dock = object.dock; <span class="comment">%#ok</span>
+0020     shorten = object.shorten; <span class="comment">%#ok</span>
+0021     test_case_name = get(object.handles.gui_test_case, <span class="string">'String'</span>); <span class="comment">%#ok</span>
+0022     <a href="save.html" class="code" title="function save(self)">save</a>(<span class="string">'mlunit.tmp'</span>, <span class="string">'dock'</span>, <span class="string">'shorten'</span>, <span class="string">'test_case_name'</span>);
+0023 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
