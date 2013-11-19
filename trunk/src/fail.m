@@ -2,7 +2,8 @@ function fail(msg, varargin)
 %FAIL Raise an error.
 %  FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing
 %  the fail message. MSG may contain sprintf arguments, which can be
-%  expanded by subsequent arguments in varargin.
+%  expanded by subsequent arguments in varargin. MSG will only be sprintf-
+%  evaluated if subsequent arguments are actually provided.
 %
 %  The resulting error message will also contain a stack trace.
 %
@@ -19,10 +20,13 @@ function fail(msg, varargin)
 %  $Author$
 %  $Id$
 
-% set empty message if left empty, or interpret sprintf arguments
-if (nargin == 0)
+% set empty message if left empty, take msg, or interpret sprintf arguments
+switch nargin
+case 0
    msg_string = '';
-else
+case 1
+   msg_string = msg;
+otherwise
    % avoid multiple sprintf calls on msg in case msg contains masked
    % sprintf control sequences that should not be interpreted
    msg_string = sprintf(['\nAssertionError message: ' msg], varargin{:});
