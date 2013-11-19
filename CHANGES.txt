@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-in development
---------------
+mlUnit 1.6.5 (2013-11-19)
+-------------------------
 
   - Refactored implementation of assert_(not_)equals(_withequalnans).
   - Absolute tolerance for equalling distinct differences now in place for all
