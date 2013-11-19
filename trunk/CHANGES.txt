@@ -18,6 +18,7 @@ in development
   - Fix: Rerunning a testcase from the mlUnit GUI does not update the test's
     implementation. [B#22]
   - Fix: assert_error fails on R2007b and later. [B#21]
+  - Fix: normal assertion strings get sprintf evaluated.
 
   [F#13] https://sourceforge.net/p/mlunit/feature-requests/13/
   [B#21] https://sourceforge.net/p/mlunit/bugs/21/
