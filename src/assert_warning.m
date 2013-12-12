@@ -1,14 +1,14 @@
-function assert_warning(warnid, func)
+function assert_warning(func, warnid)
 %ASSERT_WARNING Raise an error if a function does not issue a specific warning.
 %
-%  ASSERT_WARNING(WARNID, FUNC) calls the function handle FUNC and catches the
+%  ASSERT_WARNING(FUNC, WARNID) calls the function handle FUNC and catches the
 %  specific warning given as WARNID. Raises a MATLAB error if the function
 %  returned without issuing that specific warning. FUNC will be called without
 %  input arguments.
 %
 %  Examples
 %     >> wrongpath = 'arbitrary/path/that/should/not/exist';
-%     >> assert_warning('MATLAB:rmpath:DirNotFound', @() rmpath(wrongpath));
+%     >> assert_warning(@() rmpath(wrongpath), 'MATLAB:rmpath:DirNotFound');
 %
 %  See also  FAIL, ASSERT_ERROR
 
@@ -18,9 +18,8 @@ function assert_warning(warnid, func)
 %  $Author$
 %  $Id$
 
+% makes sense with both arguments only
 error(nargchk(2, 2, nargin, 'struct'));
-if nargin < 1, warnid = ''; end
-if nargin < 2, func = @()[]; end
 
 % set warning state to error in order to catch in try-catch-statement
 prevwarn = warning('error', warnid);
