@@ -8,6 +8,8 @@ mlUnit development snapshot
   - assert_error may take a function handle or an eval string for execution
   - assert_error can check for the error identifier or even the stack
 
+  - Fix: wrong assert_* usage yields a failure, but should yield an error
+
 
 mlUnit 1.6.5 (2013-11-19)
 -------------------------

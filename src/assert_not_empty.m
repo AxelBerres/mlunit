@@ -27,7 +27,7 @@ function assert_not_empty(expr, varargin)
 %  $Id$
 
 if nargin < 1
-   fail('assert_not_empty: Not enough input arguments.');
+   error('assert_not_empty: Not enough input arguments.');
 end
 
 if isempty(expr)
