@@ -9,6 +9,7 @@ mlUnit development snapshot
   - assert_error can check for the error identifier or even the stack
 
   - Fix: wrong assert_* usage yields a failure, but should yield an error
+  - Fix: calling assert_warning without arguments is confusing
 
 
 mlUnit 1.6.5 (2013-11-19)
