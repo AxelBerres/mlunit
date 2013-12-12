@@ -37,7 +37,7 @@ function assert_equals(expected, actual, varargin)
 %  $Id: assert_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
 if nargin < 2,
-   fail('assert_equals: Not enough input arguments.');
+   error('assert_equals: Not enough input arguments.');
 end
 
 abstract_assert_equals(true, expected, actual, varargin{:});
