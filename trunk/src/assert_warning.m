@@ -3,7 +3,8 @@ function assert_warning(warnid, func)
 %
 %  ASSERT_WARNING(WARNID, FUNC) calls the function handle FUNC and catches the
 %  specific warning given as WARNID. Raises a MATLAB error if the function
-%  returned without issuing that specific warning.
+%  returned without issuing that specific warning. FUNC will be called without
+%  input arguments.
 %
 %  Examples
 %     >> wrongpath = 'arbitrary/path/that/should/not/exist';
@@ -17,6 +18,7 @@ function assert_warning(warnid, func)
 %  $Author$
 %  $Id$
 
+error(nargchk(2, 2, nargin, 'struct'));
 if nargin < 1, warnid = ''; end
 if nargin < 2, func = @()[]; end
 
