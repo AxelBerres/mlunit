@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit development snapshot
----------------------------
+mlUnit 1.6.6 (2013-12-13)
+-------------------------
 
   - assert_error may take a function handle or an eval string for execution
   - assert_error can check for the error identifier or even the stack
