@@ -24,7 +24,7 @@
 <div class="box"><strong>reflect/get_methods returns the list of methods of the 'reflected' class.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function methds = get_methods(self) </strong></div>
+<div class="box"><strong>function meths = get_methods(self) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">reflect/get_methods returns the list of methods of the 'reflected' class.
@@ -50,7 +50,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function methds = get_methods(self)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function meths = get_methods(self)</a>
 0002 <span class="comment">%reflect/get_methods returns the list of methods of the 'reflected' class.</span>
 0003 <span class="comment">%</span>
 0004 <span class="comment">%  Example</span>
@@ -67,16 +67,9 @@ This function is called by:
 0015 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0016 <span class="comment">%  $Id: get_methods.m 23 2006-05-26 23:32:58Z thomi $</span>
 0017 
-0018 methds = [];
-0019 <span class="keyword">if</span> (length(self.class_name) &gt; 0)
-0020     d = methods(self.class_name);
-0021     <span class="keyword">for</span> i = 1:size(d, 1)
-0022         method = cellstr(d(i));
-0023         <span class="keyword">if</span> (~strcmp(self.class_name, method))
-0024             methds = [methds; method];
-0025         <span class="keyword">end</span>;
-0026     <span class="keyword">end</span>;
-0027 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0018 meths = methods(self.class_name);
+0019 <span class="comment">% delete constructor method</span>
+0020 meths(strcmp(self.class_name, meths)) = [];</pre></div>
+<hr><address>Generated on Fri 13-Dec-2013 21:45:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

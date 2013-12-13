@@ -123,7 +123,7 @@ This function is called by:
 0042 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0043 <span class="comment">%</span>
 0044 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0045 <span class="comment">%  $Id: test_case.m 16 2012-11-21 13:44:11Z hetu $</span>
+0045 <span class="comment">%  $Id: test_case.m 66 2013-12-13 19:52:12Z hetu $</span>
 0046 
 0047 <span class="comment">% name argument not given or empty, default to 'run_test'</span>
 0048 <span class="keyword">if</span> nargin &lt; 1 || isempty(name)
@@ -138,13 +138,15 @@ This function is called by:
 0057    <span class="keyword">end</span>;
 0058 <span class="keyword">end</span>
 0059 
-0060 <span class="comment">% function_name argument not given, default to ''</span>
-0061 <span class="keyword">if</span> nargin &lt; 3, <a href="function_name.html" class="code" title="function n = function_name(self)">function_name</a> = <span class="string">''</span>; <span class="keyword">end</span>
-0062 
-0063 self.name = name;
-0064 self.function_name = <a href="function_name.html" class="code" title="function n = function_name(self)">function_name</a>;
-0065 
-0066 self = class(self, <span class="string">'test_case'</span>);</pre></div>
-<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0060 <span class="comment">% function_name argument not given, default to name</span>
+0061 <span class="comment">% This will mainly hit for class-based test cases deriving directly from</span>
+0062 <span class="comment">% test_case. function_test_case based cases set this argument</span>
+0063 <span class="keyword">if</span> nargin &lt; 3, <a href="function_name.html" class="code" title="function n = function_name(self)">function_name</a> = name; <span class="keyword">end</span>
+0064 
+0065 self.name = name;
+0066 self.function_name = <a href="function_name.html" class="code" title="function n = function_name(self)">function_name</a>;
+0067 
+0068 self = class(self, <span class="string">'test_case'</span>);</pre></div>
+<hr><address>Generated on Fri 13-Dec-2013 21:45:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
