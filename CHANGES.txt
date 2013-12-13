@@ -14,6 +14,10 @@ mlUnit development snapshot
   - Fix: calling assert_warning without arguments is confusing
   - Fix: test_add_error_with_stack depends on specific line numbers and
     frequently fails without reason.
+  - Fix: recursive_test_run omits class-based test implementations. [B#16]
+    Added dirset function from Zyndric's pathtools.
+
+  [B#16] https://sourceforge.net/p/mlunit/bugs/16/
 
 
 mlUnit 1.6.5 (2013-11-19)
