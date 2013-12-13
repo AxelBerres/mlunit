@@ -59,8 +59,12 @@ function suiteresult = runTestsuite(suitespec)
 
    suiteresult = struct();
    
-   % get the mlUnit object for the test case
-   testsuite_obj = eval(suitespec.testname);
+   if isclassdir(suitespec.testname)
+       testsuite_obj = load_tests_from_test_case(test_loader, clean_classname(suitespec.testname));
+   else
+       % get the mlUnit object for the test case
+       testsuite_obj = eval(suitespec.testname);
+   end
    
    % run test suite with time measure
    result_obj = test_result;
@@ -142,3 +146,13 @@ function name = packageFromRelativeDir(reldir, testname)
       name = [name '.' testname];
    end
 
+
+function bIsClass = isclassdir(name)
+
+    bIsClass = ~isempty(name) && strcmp(name(1), '@');
+
+function name = clean_classname(name)
+
+    if ~isempty(name)
+        name = name(2:end);
+    end

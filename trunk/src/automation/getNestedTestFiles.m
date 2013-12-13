@@ -19,9 +19,7 @@ function suitespecs = getNestedTestFiles(basedir)
 %  $Id$
 
    % get list of directories
-   dirstring = genpath(basedir);
-   dirlist = textscan(dirstring, '%s', 'Delimiter', ';');
-   dirlist = dirlist{1};
+   dirlist = dirset(basedir);
    
    % build relative dir name for each directory name
    reldirlist = strrep(dirlist, basedir, '');     % crop basedir
@@ -34,6 +32,20 @@ function suitespecs = getNestedTestFiles(basedir)
    
    % get files from each directory
    for iDir = 1:numel(dirlist)
+      
+      % get test class item
+      [classpath classname classext] = fileparts(dirlist{iDir});
+      if isclassdir(classname)
+          if isequal(1, strmatch(search_prefix, clean_classname(classname)))
+              spec = struct();
+              spec.testname = classname;
+              spec.reldir = strrep(classpath, basedir, '');
+              spec.fulldir = classpath;
+              suitespecs{end+1} = spec;
+          end
+          continue;
+      end
+       
       % get list of test files
       files = dir(dirlist{iDir});
       ids = strmatch(search_prefix, {files.name});
@@ -52,3 +64,14 @@ function suitespecs = getNestedTestFiles(basedir)
          end
       end
    end
+
+   
+function bIsClass = isclassdir(name)
+
+    bIsClass = ~isempty(name) && strcmp(name(1), '@');
+
+function name = clean_classname(name)
+
+    if ~isempty(name)
+        name = name(2:end);
+    end
