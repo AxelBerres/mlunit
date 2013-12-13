@@ -1,4 +1,4 @@
-function methds = get_methods(self)
+function meths = get_methods(self)
 %reflect/get_methods returns the list of methods of the 'reflected' class.
 %
 %  Example
@@ -15,13 +15,6 @@ function methds = get_methods(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: get_methods.m 23 2006-05-26 23:32:58Z thomi $
 
-methds = [];
-if (length(self.class_name) > 0)
-    d = methods(self.class_name);
-    for i = 1:size(d, 1)
-        method = cellstr(d(i));
-        if (~strcmp(self.class_name, method))
-            methds = [methds; method];
-        end;
-    end;
-end;
+meths = methods(self.class_name);
+% delete constructor method
+meths(strcmp(self.class_name, meths)) = [];
