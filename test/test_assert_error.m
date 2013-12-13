@@ -3,15 +3,15 @@ function test = test_assert_error
 test = load_tests_from_mfile(test_loader);
 
 
-function test_proper_errors
+function test_proper_errors %#ok<DEFNU>
 
     % any error, resulting from wrong error call
     assert_error('error');
-    assert_error(@() error());
+    assert_error(@() error()); %#ok<LTARG>
 
     % by id, resulting from wrong error call
     assert_error('error', 'MATLAB:minrhs');
-    assert_error(@() error(), 'MATLAB:minrhs');
+    assert_error(@() error(), 'MATLAB:minrhs'); %#ok<LTARG>
 
     % by id, resulting from valid error call
     assert_error('error(''huh:ha'', '''');', 'huh:ha');
@@ -30,7 +30,7 @@ function test_proper_errors
     assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');
 
 
-function test_noargs
+function test_noargs %#ok<DEFNU>
 
     bCaught = false;
 
@@ -45,12 +45,12 @@ function test_noargs
     if ~bCaught, fail(); end
 
 
-function test_wrong_id
+function test_wrong_id %#ok<DEFNU>
 
     bCaught = false;
 
     try
-        assert_error(@() error(), 'wrong:id');
+        assert_error(@() error(), 'wrong:id'); %#ok<LTARG>
     catch
         bCaught = true;
         l = lasterror();
@@ -60,7 +60,7 @@ function test_wrong_id
     if ~bCaught, fail(); end
 
 
-function test_field_mismatch
+function test_field_mismatch %#ok<DEFNU>
 
     bCaught = false;
 
