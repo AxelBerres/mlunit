@@ -30,7 +30,8 @@
 <div class="fragment"><pre class="comment">FAIL Raise an error.
   FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing
   the fail message. MSG may contain sprintf arguments, which can be
-  expanded by subsequent arguments in varargin.
+  expanded by subsequent arguments in varargin. MSG will only be sprintf-
+  evaluated if subsequent arguments are actually provided.
 
   The resulting error message will also contain a stack trace.
 
@@ -48,7 +49,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="assert_empty.html" class="code" title="function assert_empty(expr, varargin)">assert_empty</a>	ASSERT_EMPTY Raise an error if expression does not evaluate to empty.</li><li><a href="assert_equals.html" class="code" title="function assert_equals(expected, actual, absolute_eps_or_msg, varargin)">assert_equals</a>	ASSERT_EQUALS Raise an error if two expressions differ.</li><li><a href="assert_equals_withequalnans.html" class="code" title="function assert_equals_withequalnans(expected, actual, absolute_eps_or_msg, varargin)">assert_equals_withequalnans</a>	ASSERT_EQUALS_WITHEQUALNANS Raise an error if two expressions differ.</li><li><a href="assert_error.html" class="code" title="function assert_error(exprstring, expected_msg)">assert_error</a>	ASSERT_ERROR Raise an error if evaluation of expression does not throw an</li><li><a href="assert_false.html" class="code" title="function assert_false(expr, varargin)">assert_false</a>	ASSERT_FALSE Raise an error if expression evaluates to true.</li><li><a href="assert_not_empty.html" class="code" title="function assert_not_empty(expr, varargin)">assert_not_empty</a>	ASSERT_NOT_EMPTY Raise an error if expression evaluates to empty.</li><li><a href="assert_not_equals.html" class="code" title="function assert_not_equals(expected, actual, msg, varargin)">assert_not_equals</a>	ASSERT_NOT_EQUALS Raise an error if two expressions evaluate to the same.</li><li><a href="assert_not_equals_withequalnans.html" class="code" title="function assert_not_equals_withequalnans(expected, actual, msg, varargin)">assert_not_equals_withequalnans</a>	ASSERT_NOT_EQUALS_WITHEQUALNANS Raise an error if two expressions evaluate</li><li><a href="assert_true.html" class="code" title="function assert_true(expr, varargin)">assert_true</a>	ASSERT_TRUE Raise an error if expression does not evaluate to true.</li><li><a href="assert_warning.html" class="code" title="function assert_warning(warnid, func)">assert_warning</a>	ASSERT_WARNING Raise an error if a function does not issue a specific warning.</li></ul>
+<li><a href="assert_empty.html" class="code" title="function assert_empty(expr, varargin)">assert_empty</a>	ASSERT_EMPTY Raise an error if expression does not evaluate to empty.</li><li><a href="assert_error.html" class="code" title="function assert_error(func, errspec)">assert_error</a>	ASSERT_ERROR Raise an error if a call does not throw an error.</li><li><a href="assert_false.html" class="code" title="function assert_false(expr, varargin)">assert_false</a>	ASSERT_FALSE Raise an error if expression evaluates to true.</li><li><a href="assert_not_empty.html" class="code" title="function assert_not_empty(expr, varargin)">assert_not_empty</a>	ASSERT_NOT_EMPTY Raise an error if expression evaluates to empty.</li><li><a href="assert_true.html" class="code" title="function assert_true(expr, varargin)">assert_true</a>	ASSERT_TRUE Raise an error if expression does not evaluate to true.</li><li><a href="assert_warning.html" class="code" title="function assert_warning(func, warnid)">assert_warning</a>	ASSERT_WARNING Raise an error if a function does not issue a specific warning.</li></ul>
 <!-- crossreference -->
 
 
@@ -58,74 +59,77 @@ This function is called by:
 0002 <span class="comment">%FAIL Raise an error.</span>
 0003 <span class="comment">%  FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing</span>
 0004 <span class="comment">%  the fail message. MSG may contain sprintf arguments, which can be</span>
-0005 <span class="comment">%  expanded by subsequent arguments in varargin.</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">%  The resulting error message will also contain a stack trace.</span>
-0008 <span class="comment">%</span>
-0009 <span class="comment">%  Examples</span>
-0010 <span class="comment">%     % raises a failure with a simple message</span>
-0011 <span class="comment">%     fail('Test failed.');</span>
-0012 <span class="comment">%</span>
-0013 <span class="comment">%     % raises a failure with a sprintf message, expanded by a variable</span>
-0014 <span class="comment">%     fail('Test failed, because 3 was not %d.', number);</span>
-0015 
-0016 <span class="comment">%  This Software and all associated files are released unter the</span>
-0017 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
-0018 <span class="comment">%</span>
-0019 <span class="comment">%  $Author: hetu $</span>
-0020 <span class="comment">%  $Id: fail.m 35 2013-05-27 15:28:11Z hetu $</span>
-0021 
-0022 <span class="comment">% set empty message if left empty, or interpret sprintf arguments</span>
-0023 <span class="keyword">if</span> (nargin == 0)
-0024    msg_string = <span class="string">''</span>;
-0025 <span class="keyword">else</span>
-0026    <span class="comment">% avoid multiple sprintf calls on msg in case msg contains masked</span>
-0027    <span class="comment">% sprintf control sequences that should not be interpreted</span>
-0028    msg_string = sprintf([<span class="string">'\nAssertionError message: '</span> msg], varargin{:});
-0029 <span class="keyword">end</span>
-0030 
-0031 <span class="comment">% get calling stack with absolute file names</span>
-0032 stack = dbstack(<span class="string">'-completenames'</span>);
-0033 <span class="comment">% But also extract the file names only. The resulting stack.filename are</span>
-0034 <span class="comment">% the names of the files each function call occurred, stack.name are the</span>
-0035 <span class="comment">% names of each (sub)function, which we do not know or want to filter by.</span>
-0036 [filepaths filenames] = cellfun(@fileparts, {stack.file}, <span class="string">'UniformOutput'</span>, 0);
-0037 [stack.filename] = filenames{:};
-0038 <span class="comment">% Pop all internal delegating assert calls from the stack. Assumes that we</span>
-0039 <span class="comment">% are getting called through a chain of files named assert, assert_* or</span>
-0040 <span class="comment">% fail. Stop at the first item not one of the list names.</span>
-0041 filtered_files = {<span class="string">'assert_true'</span>, <span class="keyword">...</span>
-0042                   <span class="string">'assert_false'</span>, <span class="keyword">...</span>
-0043                   <span class="string">'assert_equals'</span>, <span class="keyword">...</span>
-0044                   <span class="string">'assert_not_equals'</span>, <span class="keyword">...</span>
-0045                   <span class="string">'assert_empty'</span>, <span class="keyword">...</span>
-0046                   <span class="string">'assert_not_empty'</span>, <span class="keyword">...</span>
-0047                   <span class="string">'assert_error'</span>, <span class="keyword">...</span>
-0048                   <span class="string">'assert_warning'</span>, <span class="keyword">...</span>
-0049                   <span class="string">'assert_equals_withequalnans'</span>, <span class="keyword">...</span>
-0050                   <span class="string">'assert_not_equals_withequalnans'</span>, <span class="keyword">...</span>
-0051                   <span class="string">'fail'</span>};
-0052 <span class="keyword">while</span> ~isempty(stack) &amp;&amp; any(strcmpi(stack(1).filename, filtered_files))
-0053     stack(1)=[];
-0054 <span class="keyword">end</span>
-0055 
-0056 <span class="comment">% might also have been called from the MATLAB console</span>
-0057 <span class="keyword">if</span> isempty(stack)
-0058    stack(1).file = <span class="string">'MATLABConsole'</span>;
-0059    stack(1).line = NaN;
-0060 <span class="keyword">end</span>
-0061 
-0062 <span class="comment">% Build up the stack trace from here.</span>
-0063 stacktrace = <span class="string">''</span>;
-0064 <span class="keyword">for</span> i = 1:length(stack)
-0065     stacktrace = [stacktrace, <span class="keyword">...</span>
-0066         sprintf(<span class="string">'\n  In %s at line %d.'</span>, stack(i).file, stack(i).line)];  <span class="comment">%#ok&lt;AGROW&gt;</span>
-0067 <span class="keyword">end</span>;
-0068 
-0069 <span class="comment">% throw error</span>
-0070 error([<span class="string">'MLUNIT FAILURE:Traceback (most recent call first):'</span>, <span class="keyword">...</span>
-0071    stacktrace, <span class="keyword">...</span>
-0072    msg_string]);</pre></div>
-<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0005 <span class="comment">%  expanded by subsequent arguments in varargin. MSG will only be sprintf-</span>
+0006 <span class="comment">%  evaluated if subsequent arguments are actually provided.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  The resulting error message will also contain a stack trace.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  Examples</span>
+0011 <span class="comment">%     % raises a failure with a simple message</span>
+0012 <span class="comment">%     fail('Test failed.');</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     % raises a failure with a sprintf message, expanded by a variable</span>
+0015 <span class="comment">%     fail('Test failed, because 3 was not %d.', number);</span>
+0016 
+0017 <span class="comment">%  This Software and all associated files are released unter the</span>
+0018 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%  $Author: hetu $</span>
+0021 <span class="comment">%  $Id: fail.m 56 2013-12-12 21:56:48Z hetu $</span>
+0022 
+0023 <span class="comment">% set empty message if left empty, take msg, or interpret sprintf arguments</span>
+0024 <span class="keyword">switch</span> nargin
+0025 <span class="keyword">case</span> 0
+0026    msg_string = <span class="string">''</span>;
+0027 <span class="keyword">case</span> 1
+0028    msg_string = msg;
+0029 <span class="keyword">otherwise</span>
+0030    <span class="comment">% avoid multiple sprintf calls on msg in case msg contains masked</span>
+0031    <span class="comment">% sprintf control sequences that should not be interpreted</span>
+0032    msg_string = sprintf([<span class="string">'\nAssertionError message: '</span> msg], varargin{:});
+0033 <span class="keyword">end</span>
+0034 
+0035 <span class="comment">% get calling stack with absolute file names</span>
+0036 stack = dbstack(<span class="string">'-completenames'</span>);
+0037 <span class="comment">% But also extract the file names only. The resulting stack.filename are</span>
+0038 <span class="comment">% the names of the files each function call occurred, stack.name are the</span>
+0039 <span class="comment">% names of each (sub)function, which we do not know or want to filter by.</span>
+0040 [filepaths filenames] = cellfun(@fileparts, {stack.file}, <span class="string">'UniformOutput'</span>, 0);
+0041 [stack.filename] = filenames{:};
+0042 <span class="comment">% Pop all internal delegating assert calls from the stack. Assumes that we</span>
+0043 <span class="comment">% are getting called through a chain of files named assert, assert_* or</span>
+0044 <span class="comment">% fail. Stop at the first item not one of the list names.</span>
+0045 filtered_files = {<span class="string">'assert_true'</span>, <span class="keyword">...</span>
+0046                   <span class="string">'assert_false'</span>, <span class="keyword">...</span>
+0047                   <span class="string">'assert_equals'</span>, <span class="keyword">...</span>
+0048                   <span class="string">'assert_not_equals'</span>, <span class="keyword">...</span>
+0049                   <span class="string">'assert_empty'</span>, <span class="keyword">...</span>
+0050                   <span class="string">'assert_not_empty'</span>, <span class="keyword">...</span>
+0051                   <span class="string">'assert_error'</span>, <span class="keyword">...</span>
+0052                   <span class="string">'assert_warning'</span>, <span class="keyword">...</span>
+0053                   <span class="string">'abstract_assert_equals'</span>, <span class="keyword">...</span>
+0054                   <span class="string">'fail'</span>};
+0055 <span class="keyword">while</span> ~isempty(stack) &amp;&amp; any(strcmpi(stack(1).filename, filtered_files))
+0056     stack(1)=[];
+0057 <span class="keyword">end</span>
+0058 
+0059 <span class="comment">% might also have been called from the MATLAB console</span>
+0060 <span class="keyword">if</span> isempty(stack)
+0061    stack(1).file = <span class="string">'MATLABConsole'</span>;
+0062    stack(1).line = NaN;
+0063 <span class="keyword">end</span>
+0064 
+0065 <span class="comment">% Build up the stack trace from here.</span>
+0066 stacktrace = <span class="string">''</span>;
+0067 <span class="keyword">for</span> i = 1:length(stack)
+0068     stacktrace = [stacktrace, <span class="keyword">...</span>
+0069         sprintf(<span class="string">'\n  In %s at line %d.'</span>, stack(i).file, stack(i).line)];  <span class="comment">%#ok&lt;AGROW&gt;</span>
+0070 <span class="keyword">end</span>;
+0071 
+0072 <span class="comment">% throw error</span>
+0073 error([<span class="string">'MLUNIT FAILURE:Traceback (most recent call first):'</span>, <span class="keyword">...</span>
+0074    stacktrace, <span class="keyword">...</span>
+0075    msg_string]);</pre></div>
+<hr><address>Generated on Fri 13-Dec-2013 21:45:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

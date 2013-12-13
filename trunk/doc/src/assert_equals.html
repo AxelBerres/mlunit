@@ -24,7 +24,7 @@
 <div class="box"><strong>ASSERT_EQUALS Raise an error if two expressions differ.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function assert_equals(expected, actual, absolute_eps_or_msg, varargin) </strong></div>
+<div class="box"><strong>function assert_equals(expected, actual, varargin) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment">ASSERT_EQUALS Raise an error if two expressions differ.
@@ -56,24 +56,22 @@
      % asserts that 101 equals 100, within tolerance of 5
      assert_equals(101, 106, 5);
 
-  See also  <a href="fail.html" class="code" title="function fail(msg, varargin)">FAIL</a>, <a href="assert_not_equals.html" class="code" title="function assert_not_equals(expected, actual, msg, varargin)">ASSERT_NOT_EQUALS</a>, EPS</pre></div>
+  See also  <a href="fail.html" class="code" title="function fail(msg, varargin)">FAIL</a>, <a href="assert_not_equals.html" class="code" title="function assert_not_equals(expected, actual, varargin)">ASSERT_NOT_EQUALS</a>, EPS</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>	FAIL Raise an error.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
 <!-- crossreference -->
 
-<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function outstring = to_string(input)</a></li></ul>
+
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function assert_equals(expected, actual, absolute_eps_or_msg, varargin)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function assert_equals(expected, actual, varargin)</a>
 0002 <span class="comment">%ASSERT_EQUALS Raise an error if two expressions differ.</span>
 0003 <span class="comment">%  ASSERT_EQUALS(EXPECTED, ACTUAL) raises a MATLAB error if EXPECTED</span>
 0004 <span class="comment">%  and ACTUAL are not the same. If EXPECTED and ACTUAL are numeric, they both</span>
@@ -112,56 +110,10 @@ This function is called by:
 0037 <span class="comment">%  $Id: assert_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
 0038 
 0039 <span class="keyword">if</span> nargin &lt; 2,
-0040    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'assert_equals: Not enough input arguments.'</span>);
+0040    error(<span class="string">'assert_equals: Not enough input arguments.'</span>);
 0041 <span class="keyword">end</span>
 0042 
-0043 <span class="comment">% default values for msg and eps</span>
-0044 absolute_eps = 0;
-0045 msg = sprintf(<span class="string">'Expected &lt;%s&gt;, but was &lt;%s&gt;.'</span>, <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(expected), <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(actual));
-0046 msg_args = {};
-0047 
-0048 <span class="comment">% Third argument can either be absolute_eps or msg. Handle input args carefully.</span>
-0049 <span class="keyword">if</span> nargin &gt;= 3 &amp;&amp; isnumeric(absolute_eps_or_msg)
-0050    absolute_eps = absolute_eps_or_msg;
-0051    msg = [msg sprintf(<span class="string">' Tolerance was &lt;%s&gt;.'</span>, <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(absolute_eps))];
-0052    <span class="comment">% if third argument is eps, then the fourth may be the msg and all others the</span>
-0053    <span class="comment">% msg sprintf arguments</span>
-0054    <span class="keyword">if</span> nargin &gt;= 4
-0055       msg = varargin{1};
-0056       msg_args = varargin(2:end);
-0057    <span class="keyword">end</span>
-0058    
-0059 <span class="keyword">elseif</span> nargin &gt;= 3 &amp;&amp; ischar(absolute_eps_or_msg)
-0060    msg = absolute_eps_or_msg;
-0061    msg_args = varargin;
-0062 <span class="keyword">end</span>
-0063 
-0064 <span class="comment">% determine equality</span>
-0065 <span class="keyword">if</span> isnumeric(expected) &amp;&amp; isnumeric(actual)
-0066     <span class="comment">% only check against eps if expected and actual both are numeric</span>
-0067     <span class="keyword">if</span> abs(expected - actual) &gt; absolute_eps
-0068         <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(msg, msg_args{:});
-0069     <span class="keyword">end</span>
-0070 <span class="comment">% all non-numeric types or mixed numerics, non-numerics are checked by isequal</span>
-0071 <span class="keyword">elseif</span> ~isequal(actual, expected),
-0072     <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(msg, msg_args{:});
-0073 <span class="keyword">end</span>
-0074 
-0075 
-0076 <span class="comment">%% subfunction to_string</span>
-0077 <a name="_sub1" href="#_subfunctions" class="code">function outstring = to_string(input)</a>
-0078 
-0079    <span class="keyword">if</span> ischar(input)
-0080       outstring = input;
-0081    <span class="keyword">elseif</span> isnumeric(input) || islogical(input)
-0082       outstring = num2str(input);
-0083    <span class="keyword">elseif</span> isstruct(input)
-0084       outstring = <span class="string">'MATLAB structure array'</span>;
-0085    <span class="keyword">elseif</span> iscell(input)
-0086       outstring = <span class="string">'MATLAB cell array'</span>;
-0087    <span class="keyword">else</span>
-0088       outstring = <span class="string">'unrecognized type'</span>;
-0089    <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0043 abstract_assert_equals(true, expected, actual, varargin{:});</pre></div>
+<hr><address>Generated on Fri 13-Dec-2013 21:45:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
