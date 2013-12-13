@@ -23,3 +23,7 @@ suite = add_test(suite, load_tests_from_test_case(loader, 'test_test_suite'));
 suite = add_test(suite, load_tests_from_test_case(loader, 'test_test_loader'));
 suite = add_test(suite, load_tests_from_test_case(loader, 'test_text_test_runner'));
 suite = add_test(suite, load_tests_from_test_case(loader, 'test_text_test_result'));
+suite = add_test(suite, load_tests_from_test_case(loader, 'test_gui_test_runner'));
+suite = add_test(suite, test_assert_equals_withequalnans);
+suite = add_test(suite, test_assert_error);
+suite = add_test(suite, test_assert_warning);
