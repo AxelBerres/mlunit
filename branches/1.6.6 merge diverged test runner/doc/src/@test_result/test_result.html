@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of test_result</title>
+  <meta name="keywords" content="test_result">
+  <meta name="description" content="test_result contructor.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_result</a> &gt; test_result.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@test_result&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>test_result
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>test_result contructor.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = test_result </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">test_result contructor.
+  The constructor creates an object of the class test_result.
+
+  Class Info
+  ==========
+  The class test_result collects test results of executed tests. As in
+  the other testing frameworks of the xUnit family the framework
+  differs between failure and error. A failure is raised by an assertion,
+  e.g. by the method assert_true, while an error is raised by the Matlab 
+  environment, for example through a syntax error.
+
+  Example
+  =======
+         result = test_result;
+  
+  See also ASSERT_TRUE, ASSERT_EQUALS, ASSERT_NOT_EQUALS, TEXT_TEST_RESULT.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = test_result</a>
+0002 <span class="comment">%test_result contructor.</span>
+0003 <span class="comment">%  The constructor creates an object of the class test_result.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%  Class Info</span>
+0006 <span class="comment">%  ==========</span>
+0007 <span class="comment">%  The class test_result collects test results of executed tests. As in</span>
+0008 <span class="comment">%  the other testing frameworks of the xUnit family the framework</span>
+0009 <span class="comment">%  differs between failure and error. A failure is raised by an assertion,</span>
+0010 <span class="comment">%  e.g. by the method assert_true, while an error is raised by the Matlab</span>
+0011 <span class="comment">%  environment, for example through a syntax error.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  Example</span>
+0014 <span class="comment">%  =======</span>
+0015 <span class="comment">%         result = test_result;</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%  See also ASSERT_TRUE, ASSERT_EQUALS, ASSERT_NOT_EQUALS, TEXT_TEST_RESULT.</span>
+0018 
+0019 self.tests_run = 0;
+0020 self.errors = {};
+0021 self.failures = {};
+0022 self.should_stop = 0;
+0023 self = class(self, <span class="string">'test_result'</span>);</pre></div>
+<hr><address>Generated on Mon 27-May-2013 17:32:21 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
