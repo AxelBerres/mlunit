@@ -16,6 +16,6 @@ test = mock_test('test_unbalanced_parentheses');
 error_list = get_error_list(result);
 error_lines = strread(char(error_list(2)), '%s', 'delimiter', '\n');
 assert_equals('Traceback (most recent call first): ', char(error_lines(1)));
-assert_false(isempty(findstr('test_unbalanced_parentheses.m at line 14', char(error_lines(2)))));
-assert_false(isempty(findstr('run.m at line 38', char(error_lines(3)))));
+assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(error_lines(2)))));
+assert_false(isempty(findstr('run.m at line', char(error_lines(3)))));
 assert_equals('Error: Unbalanced or misused parentheses or brackets.', char(error_lines(end - 1)));
