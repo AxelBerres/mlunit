@@ -13,4 +13,4 @@ function ver(self) %#ok
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: ver.m 226 2007-01-21 15:20:53Z thomi $
 
-fprintf(1, 'mlUnit Version 1.6.5\n');
+fprintf(1, 'mlUnit Version 1.6.6\n');
