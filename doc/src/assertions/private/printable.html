@@ -8,25 +8,25 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
-  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
 </head>
 <body>
 <a name="_top"></a>
-<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">private</a> &gt; printable.m</div>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; printable.m</div>
 
-<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
-<td align="right"><a href="index.html">Index for src\private&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
 
 <h1>printable
 </h1>
 
-<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>PRINTABLE Convert any type into a string suitable for embedding into messages.</strong></div>
 
-<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function outstring = printable(input) </strong></div>
 
-<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">PRINTABLE Convert any type into a string suitable for embedding into messages.
   S=PRINTABLE(V) yields a message printable string from value V of any type.
   Message printable means strings being surrounded by apostrophes, vectors by
@@ -41,20 +41,20 @@
   See also MAT2STR</pre></div>
 
 <!-- crossreference -->
-<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
-<ul style="list-style-image:url(../../matlabicon.gif)">
+<ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="strjoin.html" class="code" title="function result = strjoin(stringcell, separator)">strjoin</a>	STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
 This function is called by:
-<ul style="list-style-image:url(../../matlabicon.gif)">
+<ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
 <!-- crossreference -->
 
-<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<ul style="list-style-image:url(../../matlabicon.gif)">
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="#_sub1" class="code">function fieldstrings = fieldname_value_strings(s)</a></li></ul>
 
-<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function outstring = printable(input)</a>
 0002 <span class="comment">%PRINTABLE Convert any type into a string suitable for embedding into messages.</span>
 0003 <span class="comment">%  S=PRINTABLE(V) yields a message printable string from value V of any type.</span>
@@ -96,6 +96,6 @@ This function is called by:
 0039 
 0040     name_value_pair = @(fieldname) [fieldname <span class="string">':'</span> <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(s.(fieldname))];
 0041     fieldstrings = cellfun(name_value_pair, fieldnames(s), <span class="string">'UniformOutput'</span>, false);</pre></div>
-<hr><address>Generated on Fri 13-Dec-2013 21:45:18 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
