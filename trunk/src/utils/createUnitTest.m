@@ -32,13 +32,8 @@
 
 function createUnitTest(s_scriptName, b_setup, s_funNames)
 
-    % check input parameter
-    if nargin < 1, 
-        warning('MXRAY:warning', 'missing script name'); 
-        return; 
-    end
-
     % set default values of input parameter
+    if nargin < 1, s_scriptName = 'no_name'; end
     if nargin < 2, b_setup = 1; end
     if nargin < 3, s_funNames = {'test'}; end;
         
@@ -47,8 +42,7 @@ function createUnitTest(s_scriptName, b_setup, s_funNames)
 
     % check if the desired file already exists 
     if exist(s_testName,'file'),
-        warning('MXRAY:warning', 'file already exist');
-        return;
+        error('MLUNIT:clobber', 'File already exist. Won''t overwrite.');
     end
     
     % create file an write the header
@@ -82,16 +76,12 @@ function loc_writeHeader(fid, s_scriptName)
 
     fprintf(fid, 'function test = test_%s\n', s_scriptName);
     fprintf(fid, '\n');
-    fprintf(fid, '%% Testcase: unit test for %s\n\n',s_scriptName);
+    fprintf(fid, '%% Testcase: unit test for %s\n',s_scriptName);
+    fprintf(fid, '\n');
     fprintf(fid, '%% *************************************************************************\n');
-    fprintf(fid, '%% Copyright:    Model Engineering Solutions GmbH, 2009 - 2010\n');
     fprintf(fid, '%% Date:         $Date: $\n');
     fprintf(fid, '%% Revision:     $Rev: $\n');
-    fprintf(fid, '%% Author: Axel Berres axel.berres@model-engineers.com\n');
-%     fprintf(fid, '%% Author: %s (%s)\n',s_user, s_mail);
     fprintf(fid, '%% *************************************************************************\n');
-    fprintf(fid, '%% revision history:\n');
-    fprintf(fid, '%% %s - created\n', s_date);
     fprintf(fid, '\n');
     fprintf(fid, 'test = load_tests_from_mfile(test_loader);\n');
     fprintf(fid, '\n');
