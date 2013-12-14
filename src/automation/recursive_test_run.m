@@ -18,6 +18,12 @@ function recursive_test_run(basedir, targetdir)
    if nargin < 1, basedir = pwd; end
    if nargin < 2, targetdir = basedir; end
 
+   % start time for calculating execution time
+   start_time = clock;
+   
+   % print header
+   disp(printHeader(basedir));
+   
    % Get test files. They may be in basedir or its subdirectories.
    suitespecs = getNestedTestFiles(basedir);
    
@@ -26,16 +32,22 @@ function recursive_test_run(basedir, targetdir)
    
    % Execute each test suite file.
    count_suites = numel(suitespecs);
+   suiteresults = cell(size(suitespecs));
    for suite=1:count_suites
       % Change to test case directory. Test cases may expect their own
       % directory to be the working directory.
       cd(suitespecs{suite}.fulldir);
       
       suiteresult = runTestsuite(suitespecs{suite});
+      suiteresults{suite} = suiteresult;
       
       disp(printTestsuite(suiteresult));
       writeXmlTestsuite(suiteresult, targetdir);
    end
+
+   % print summary
+   execution_time = etime(clock, start_time);
+   disp(printSummary(suiteresults, execution_time));
    
    % Restore previous working directory
    cd(prevpwd);
@@ -145,6 +157,17 @@ function name = packageFromRelativeDir(reldir, testname)
    else
       name = [name '.' testname];
    end
+   
+
+function report = printHeader(basedir)
+
+    % start with gap to any previous output
+    report = sprintf('\n');
+    report = [report sprintf('----------------------------------------------------------------------\n')];
+    report = [report sprintf('mlUnit %s\n', ver(mlunit, true))];
+    report = [report sprintf('Started: %s.\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'))];
+    report = [report sprintf('Test directory: %s\n', basedir)];
+    report = [report sprintf('----------------------------------------------------------------------\n')];
 
 
 function bIsClass = isclassdir(name)

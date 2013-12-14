@@ -1,4 +1,4 @@
-function ver(self) %#ok
+function version = ver(self, only_verstring) %#ok
 %mlunit/ver prints the version string of mlUnit to the standard output.
 %
 %  EXAMPLE
@@ -13,4 +13,8 @@ function ver(self) %#ok
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: ver.m 226 2007-01-21 15:20:53Z thomi $
 
-fprintf(1, 'mlUnit Version 1.6.6\n');
+version = '1.6.6';
+
+if nargin < 2 || ~only_verstring
+    fprintf(1, 'mlUnit Version %s\n', version);
+end
