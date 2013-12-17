@@ -5,6 +5,8 @@
 mlUnit development snapshot
 ---------------------------
 
+  - Added assert_matfile_equals: Raise an error if two mat Files differ.
+
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
 
