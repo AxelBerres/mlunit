@@ -32,14 +32,20 @@
     - "matlab.exec" The location of the matlab.bat of the MATLAB installation
         to be run. If left empty, be sure that MATLAB is on your cmd shell's search
         path or prepare for Java stack traces coming your way.
+
+  For testing mlUnit, call Ant with this very build script and provide just the
+  matlab.exec property, like this:
+
+    - ant -Dmatlab.exec="C:\Program Files\MATLAB\R2007b\bin\matlab.bat"
   </description>
     
   <!-- Pull in MATLAB executor -->
   <import file="matlabcommand.xml"/>
   
   <property name="mlunit.dir" location="${basedir}"/>
+  <property name="mlunit.src.dir" location="${mlunit.dir}/src"/>
   <!-- Needed for calculating MUC dependent default values. -->
-  <property name="muc.basedir" location="../.."/>
+  <property name="muc.basedir" location=".."/>
 
   <!-- References must be defined outside the targets, in order to let them be
        overridded by calling instances. They must be used inside the target, on
@@ -61,8 +67,8 @@
          test MUC itself.
          These must be defined in the target, not outside of it. Else, the
          inheritance may break. -->
-    <property name="test.dir" location="${muc.basedir}/test/units"/>
-    <property name="report.dir" location="${muc.basedir}/test/units"/>
+    <property name="test.dir" location="${muc.basedir}/test"/>
+    <property name="report.dir" location="${muc.basedir}/test/reports"/>
     <property name="additional.cmd" value=""/>
     <pathconvert property="source.dir" pathsep="'), genpath('" refid="source.dirs"/>
     <pathconvert property="source.dir.shallow" pathsep="', '" refid="source.dirs.shallow"/>
@@ -75,7 +81,9 @@
     <property name="addshallowsourcepathscmd" value="addpath('${source.dir.shallow}')"/>
     <property name="additionalusercmd" value="try;${additional.cmd};catch;disp(['Your additional MATLAB command failed with message: ' lasterr '.']);end"/>
 
-    <matlabcommand command.string="addpath(genpath('${mlunit.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};${additionalusercmd};recursive_test_run('${test.dir}', '${report.dir}')"
+    <mkdir dir="${report.dir}"/>
+
+    <matlabcommand command.string="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};${additionalusercmd};recursive_test_run('${test.dir}', '${report.dir}')"
                    output.property="unittests.output"
                    success.property="unittests.success"
                    logfile="${unittest.log}"/>
