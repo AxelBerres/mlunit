@@ -2,6 +2,13 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit development snapshot
+---------------------------
+
+  - Fix: build.xml did not execute mlUnit tests; report directory was not being
+    created; MATLAB automation options conflicted; MATLAB property check failed.
+
+
 mlUnit 1.6.6 (2013-12-13)
 -------------------------
 
