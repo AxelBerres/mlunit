@@ -10,10 +10,11 @@
 <project name="mlUnit execution" default="test">
   <description>
   Provides mlUnit test execution.
-  Use the &lt;ant&gt; task to call this buile file's default target.
-  Set the "useNativeBasedir" attribute to "true".
+  Either call Ant directly on this file, or use the &lt;ant&gt; task to add
+  an mlUnit build step to your Ant script. When using the &lt;ant&gt; task,
+  set the "useNativeBasedir" attribute to "true".
   Check twice.
-  Define these properties for mlUnit configuration:
+  Configure mlUnit by defining these properties:
   
     - "source.dir" The location of your MATLAB source files that want testing.
     - "source.dirs" Reference. If you have multiple source directories,
