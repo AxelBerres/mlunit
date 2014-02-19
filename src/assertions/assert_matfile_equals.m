@@ -53,21 +53,6 @@ function checkVariable( variableName, expectedFile, actualFile)
    actualVariable = load( actualFile, variableName);
    expectedVariable = load( expectedFile, variableName);
    if ~isequal( actualVariable, expectedVariable)
-      fail('Expected variable ''%s'' to be <%s>, but was <%s>.', variableName, to_string(expectedVariable), to_string(actualVariable));
+      fail('Variable ''%s'' expected to be %s, but actually was %s.', variableName, printable(expectedVariable), printable(actualVariable));
    end   
 %end of function
-
-%% subfunction to_string
-function outstring = to_string(input)
-
-   if ischar(input)
-      outstring = input;
-   elseif isnumeric(input) || islogical(input)
-      outstring = num2str(input);
-   elseif isstruct(input)
-      outstring = 'MATLAB structure array';
-   elseif iscell(input)
-      outstring = 'MATLAB cell array';
-   else
-      outstring = 'unrecognized type';
-   end

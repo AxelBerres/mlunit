@@ -31,12 +31,12 @@ equal_nans = mlunit_param('equal_nans');
 
 % default values for msg and eps
 absolute_eps = 0;
-msg = sprintf('Expected <%s>, but was <%s>.', to_string(expected), to_string(actual));
+msg = sprintf('Expected %s actually was %s.', printable(expected), printable(actual));
 
 % Fourth argument can either be absolute_eps or msg. Handle input args carefully.
 if nargin >= 4 && isnumeric(absolute_eps_or_msg)
    absolute_eps = absolute_eps_or_msg;
-   msg = [msg sprintf(' Tolerance was <%s>.', to_string(absolute_eps))];
+   msg = [msg sprintf(' Tolerance was %s.', printable(absolute_eps))];
    % if fourth argument is eps, then the fifth may be the msg and all others the
    % msg sprintf arguments
    if nargin >= 5
@@ -88,18 +88,3 @@ end
 if xor(pass_if_equal, equals)
    fail(msg);
 end
-
-%% subfunction to_string
-function outstring = to_string(input)
-
-   if ischar(input)
-      outstring = input;
-   elseif isnumeric(input) || islogical(input)
-      outstring = num2str(input);
-   elseif isstruct(input)
-      outstring = 'MATLAB structure array';
-   elseif iscell(input)
-      outstring = 'MATLAB cell array';
-   else
-      outstring = 'unrecognized type';
-   end
