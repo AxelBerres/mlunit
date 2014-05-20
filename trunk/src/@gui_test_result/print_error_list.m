@@ -24,8 +24,8 @@ if (nargin == 3)
     reset_list = 0;
 end;
 
-list = get(self.error_listbox, 'String');
-data = get(self.error_listbox, 'UserData');
+list = builtin('get', self.error_listbox, 'String');
+data = builtin('get', self.error_listbox, 'UserData');
 if ((isempty(list)) || (reset_list == 1))
     list = cell(0);
     data = cell(0);
