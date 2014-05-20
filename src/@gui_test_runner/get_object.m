@@ -14,8 +14,8 @@ function self = get_object(self) %#ok
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: get_object.m 158 2007-01-03 20:25:39Z thomi $
 
-shh = get(0, 'ShowHiddenHandles');
+shh = builtin('get', 0, 'ShowHiddenHandles');
 set(0, 'ShowHiddenHandles', 'on');
 handle = findall(0, 'Name', 'mlUnit');
-self = get(handle, 'UserData');
+self = builtin('get', handle, 'UserData');
 set(0, 'ShowHiddenHandles', shh);
