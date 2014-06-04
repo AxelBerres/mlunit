@@ -6,7 +6,7 @@ function s = str(self)
 %  =======
 %  If a test method is defined as follows
 %           function test_method
-%               assert(0 == sin(0));
+%               assert_true(0 == sin(0));
 %           end
 %  and a function_test_case is created for this example
 %           test = function_test_case(@test_method);

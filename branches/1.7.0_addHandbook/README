@@ -34,11 +34,7 @@ INSTALLATION
 
    >> cd $HOME/mlunit/src
 
-3. Run install method:
-
-   >> install(mlunit);
-
-4. Add directory to MATLAB path:
+3. Add directory to MATLAB path:
 
    >> addpath('$HOME/mlunit/src');
 
@@ -61,7 +57,7 @@ USAGE
 
 
 Execute mlUnit manually or automatically from within MATLAB, or
-fully automatized from your Ant automation script.
+fully automatized from your Ant automation script or the Windows console.
 
 
 Manual Execution
@@ -82,15 +78,19 @@ target directory receiving the jUnit XML reports.
 Ant automation
 --------------
 
-You may skip all of the above steps, even preparation, and
-execute your unit tests with an Apache Ant script.
+You may skip all of the above steps, even preparation, and execute
+your unit tests with an Apache Ant script, or on the Windows console.
 
 In your own Ant script, define a property named matlab.exec that defines the
 location of the matlab.bat contained in the MATLAB installation you want to
 invoke. Make a call like <ant antfile="mlunit/build.xml"/> to execute all unit
-tests and receive the jUnit XML reports.
+tests and receive the jUnit XML reports. Read build.xml's description for
+further instructions.
 
-Read build.xml's description for further instructions.
+On the console, make sure to have Ant on your path. Then call Ant with the
+matlab.exec property set to your MATLAB executable. E.g.:
+
+    ant -Dmatlab.exec="C:\Program Files\MATLAB\R2007b\bin\win32\MATLAB.exe"
 
 ===========================================================================
 
@@ -215,4 +215,4 @@ More documentation can be found online at <http://mlunit.sourceforge.net>.
 QUESTIONS, COMMENTS, BUGS
 
 If you have a question, a comment or a bug report, please send an email to 
-thomas@dohmke.de or any other of the maintainers.
+any of the maintainers.

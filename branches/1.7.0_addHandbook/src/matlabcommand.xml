@@ -67,8 +67,8 @@
           <arg value="-nosplash"/>
           <arg value="-nodesktop"/>
           <!-- We may actually have that jvm at a later time... -->
-          <arg value="-nojvm"/>
-          <arg value="-wait"/>
+          <!--arg value="-nojvm"/  yields options conflict with, presumably, -automation-->
+          <!--arg value="-wait"/  not supported under Windows-->
           <arg value="-r"/>
           <arg value="addpath('@{command.dir}');try;@{command.string};catch;err=lasterror;disp('${error.signature}');disp(err.message);end;exit;"/>
           <arg value="-logfile"/>
@@ -87,7 +87,8 @@
         </condition>
 
         <!-- echo output on console to be logged in ${antlog} as well -->
-        <echo message="${@{output.property}}"/>
+        <!-- only necessary when calling matlab.bat, not matlab.exe -->
+        <!--echo message="${@{output.property}}"/-->
     </sequential>
   </macrodef>
 
@@ -96,14 +97,18 @@
 
   <target name="checkmatlab" description="Asserts that matlab.exec property is valid.">
     <!-- fail if matlab.executable is given, but not available -->
+    <fail message="MATLAB executable was not defined. Define matlab.exec property and run again.">
+      <condition>
+        <not>
+          <isset property="matlab.exec"/>
+        </not>
+      </condition>
+    </fail>
     <fail message="MATLAB executable was defined but could not be found: matlab.exec=&quot;${matlab.exec}&quot;">
       <condition>
-        <and>
-          <isset property="matlab.exec"/>
-          <not>
-            <available file="${matlab.exec}" type="file"/>
-          </not>
-        </and>
+        <not>
+          <available file="${matlab.exec}" type="file"/>
+        </not>
       </condition>
     </fail>
   </target>

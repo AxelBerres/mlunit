@@ -57,8 +57,10 @@ if nargin >= 2
    end;
 end
 
-% function_name argument not given, default to ''
-if nargin < 3, function_name = ''; end
+% function_name argument not given, default to name
+% This will mainly hit for class-based test cases deriving directly from
+% test_case. function_test_case based cases set this argument
+if nargin < 3, function_name = name; end
 
 self.name = name;
 self.function_name = function_name;

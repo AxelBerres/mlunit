@@ -18,6 +18,6 @@ object = get_object(self);
 if (strcmp(class(object), 'gui_test_runner')) 
     dock = object.dock; %#ok
     shorten = object.shorten; %#ok
-    test_case_name = get(object.handles.gui_test_case, 'String'); %#ok
+    test_case_name = builtin('get', object.handles.gui_test_case, 'String'); %#ok
     save('mlunit.tmp', 'dock', 'shorten', 'test_case_name');
 end;
