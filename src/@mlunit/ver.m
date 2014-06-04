@@ -13,7 +13,7 @@ function version = ver(self, only_verstring) %#ok
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: ver.m 226 2007-01-21 15:20:53Z thomi $
 
-version = '1.7.0-SNAPSHOT';
+version = '1.6.7-SNAPSHOT';
 
 if nargin < 2 || ~only_verstring
     fprintf(1, 'mlUnit Version %s\n', version);

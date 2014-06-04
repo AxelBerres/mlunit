@@ -14,10 +14,16 @@ function recursive_test_run(basedir, targetdir)
 %  
 %  $Author$
 %  $Id$
-  
+   
    if nargin < 1, basedir = pwd; end
    if nargin < 2, targetdir = basedir; end
 
+   % start time for calculating execution time
+   start_time = clock;
+   
+   % print header
+   disp(printHeader(basedir));
+   
    % Get test files. They may be in basedir or its subdirectories.
    suitespecs = getNestedTestFiles(basedir);
    
@@ -26,16 +32,22 @@ function recursive_test_run(basedir, targetdir)
    
    % Execute each test suite file.
    count_suites = numel(suitespecs);
+   suiteresults = cell(size(suitespecs));
    for suite=1:count_suites
       % Change to test case directory. Test cases may expect their own
       % directory to be the working directory.
       cd(suitespecs{suite}.fulldir);
       
       suiteresult = runTestsuite(suitespecs{suite});
+      suiteresults{suite} = suiteresult;
       
       disp(printTestsuite(suiteresult));
       writeXmlTestsuite(suiteresult, targetdir);
    end
+
+   % print summary
+   execution_time = etime(clock, start_time);
+   disp(printSummary(suiteresults, execution_time));
    
    % Restore previous working directory
    cd(prevpwd);
@@ -59,8 +71,12 @@ function suiteresult = runTestsuite(suitespec)
 
    suiteresult = struct();
    
-   % get the mlUnit object for the test case
-   testsuite_obj = eval(suitespec.testname);
+   if isclassdir(suitespec.testname)
+       testsuite_obj = load_tests_from_test_case(test_loader, clean_classname(suitespec.testname));
+   else
+       % get the mlUnit object for the test case
+       testsuite_obj = eval(suitespec.testname);
+   end
    
    % run test suite with time measure
    result_obj = test_result;
@@ -75,7 +91,7 @@ function suiteresult = runTestsuite(suitespec)
    suiteresult.tests = get_tests_run(result_obj);
    
    errorList = get_error_list(result_obj);
-	failureList = get_failure_list(result_obj);
+   failureList = get_failure_list(result_obj);
    
    % iterate list of test cases in suite
    suiteresult.testcaseList = [];
@@ -141,4 +157,25 @@ function name = packageFromRelativeDir(reldir, testname)
    else
       name = [name '.' testname];
    end
+   
 
+function report = printHeader(basedir)
+
+    % start with gap to any previous output
+    report = sprintf('\n');
+    report = [report sprintf('----------------------------------------------------------------------\n')];
+    report = [report sprintf('mlUnit %s\n', ver(mlunit, true))];
+    report = [report sprintf('Started: %s.\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'))];
+    report = [report sprintf('Test directory: %s\n', basedir)];
+    report = [report sprintf('----------------------------------------------------------------------\n')];
+
+
+function bIsClass = isclassdir(name)
+
+    bIsClass = ~isempty(name) && strcmp(name(1), '@');
+
+function name = clean_classname(name)
+
+    if ~isempty(name)
+        name = name(2:end);
+    end
