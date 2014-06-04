@@ -10,6 +10,12 @@ mlUnit development snapshot
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
 
+mlUnit 1.7.0 (2014-06-05)
+-------------------------
+  
+  - add content file to show the version typing ver command
+  - clean workspace after setpath during installation
+
 
 mlUnit 1.6.6 (2013-12-13)
 -------------------------
