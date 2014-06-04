@@ -9,5 +9,4 @@
 
 runner = text_test_runner(1, 1);
 suite = mlunit_all_tests;
-suite = add_test(suite, load_tests_from_test_case(test_loader, 'test_gui_test_runner'));
 run(runner, suite);

@@ -23,7 +23,7 @@ if ((object.callback ~= 1) && (isempty(self) || (isempty(get_object(self)))))
 elseif ((object.callback == 1) && (isempty(self)))
     handles = guidata(gcbo);
     try
-        self = get(handles.gui_window, 'UserData');
+        self = builtin('get', handles.gui_window, 'UserData');
     catch
     end;
 end;
@@ -99,7 +99,7 @@ function gui_resize_callback(hobject, eventdata, handles) %#ok
 % with empty eventdata and empty handles. Don't really know, how to handle this. Let's
 % just not set the positions in that case.
 if nargin>=3 && ~isempty(handles)
-   position = get(hobject, 'Position');
+   position = builtin('get', hobject, 'Position');
    if (position(4) < 20)
        position(4) = 20;
    end;
@@ -123,13 +123,13 @@ end
 
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
-if (double(get(handles.gui_window, 'CurrentCharacter')) == 13)
+if (double(builtin('get', handles.gui_window, 'CurrentCharacter')) == 13)
     gui_run_callback(hobject, eventdata, handles);
 end;
 
 function gui_test_case_createfcn(hobject, eventdata, handles) %#ok
 
-if ispc && isequal(get(hobject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'defaultUicontrolBackgroundColor'))
     set(hobject,'BackgroundColor','white');
 end
 
@@ -142,7 +142,7 @@ set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
-test_case = get(handles.gui_test_case, 'String');
+test_case = builtin('get', handles.gui_test_case, 'String');
 
 if (isempty(test_case))
     result = gui_test_result(handles.gui_progress_bar, ...
@@ -194,8 +194,8 @@ function gui_error_list_callback(hobject, eventdata, handles) %#ok
 
 global self;
 
-data = get(handles.gui_error_list, 'UserData');
-selected = get(handles.gui_error_list, 'Value');
+data = builtin('get', handles.gui_error_list, 'UserData');
+selected = builtin('get', handles.gui_error_list, 'Value');
 
 if (length(data) > 0)
     set(handles.gui_error, 'String', shorten_error_text(self, data{selected}));
@@ -210,13 +210,13 @@ end;
 
 function gui_error_list_createfcn(hobject, eventdata, handles) %#ok
 
-if ispc && isequal(get(hobject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'defaultUicontrolBackgroundColor'))
     set(hobject,'BackgroundColor','white');
 end
 
 function gui_error_createfcn(hobject, eventdata, handles) %#ok
 
-if ispc && isequal(get(hobject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'defaultUicontrolBackgroundColor'))
     set(hobject,'BackgroundColor','white');
 end
 
@@ -224,7 +224,7 @@ function gui_dock_callback(hObject, eventdata, handles) %#ok
 
 global self;
 
-docked = get(handles.gui_window, 'WindowStyle');
+docked = builtin('get', handles.gui_window, 'WindowStyle');
 if (strcmp(docked, 'docked'))
     set(handles.gui_window, 'WindowStyle', 'Normal');
     set(self.handles.menu_dock, 'Label', 'Dock Window');
@@ -253,10 +253,10 @@ gui_error_list_callback(hObject, eventdata, self.handles);
 
 function gui_show_Callback(hObject, eventdata, handles) %#ok
 
-tokens = get(hObject, 'UserData');
+tokens = builtin('get', hObject, 'UserData');
 if ((length(tokens) == 3) && (etime(clock, tokens{3}) < 1))
-    data = get(handles.gui_error_list, 'UserData');
-    selected = get(handles.gui_error_list, 'Value');
+    data = builtin('get', handles.gui_error_list, 'UserData');
+    selected = builtin('get', handles.gui_error_list, 'Value');
     [tokens] = regexp(data{selected}, get_line_expression(self), 'tokens', 'once'); %, 'dotexceptnewline');
     if (length(tokens) > 1)
         second = tokens{2};

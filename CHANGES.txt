@@ -2,8 +2,69 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.6.4 (in development)
+mlUnit development snapshot
+---------------------------
+
+  - Added assert_matfile_equals: Raise an error if two mat Files differ.
+
+  - Fix: build.xml did not execute mlUnit tests; report directory was not being
+    created; MATLAB automation options conflicted; MATLAB property check failed.
+
+
+mlUnit 1.6.6 (2013-12-13)
 -------------------------
+
+  - assert_error may take a function handle or an eval string for execution
+  - assert_error can check for the error identifier or even the stack
+  - Changed assert_warning's argument order, to be consistent with assert_error
+    order.
+  - Let recursive_test_run print test result overview. [F#14]
+
+  - Fix: wrong assert_* usage yields a failure, but should yield an error
+  - Fix: calling assert_warning without arguments is confusing
+  - Fix: test_add_error_with_stack depends on specific line numbers and
+    frequently fails without reason.
+  - Fix: recursive_test_run omits class-based test implementations. [B#16]
+    Added dirset function from Zyndric's pathtools.
+
+  [F#14] https://sourceforge.net/p/mlunit/feature-requests/14/
+  [B#16] https://sourceforge.net/p/mlunit/bugs/16/
+
+
+mlUnit 1.6.5 (2013-11-19)
+-------------------------
+
+  - Refactored implementation of assert_(not_)equals(_withequalnans).
+  - Absolute tolerance for equalling distinct differences now in place for all
+    assert_(not_)equals(_withequalnans) functions.
+  - Equality tolerance can be checked with NaN value matrices as well.
+  - NaN equality is now an mlUnit parameter named equal_nans, eliminating
+    functions named assert_(not_)equals_withequalnans. [F#13]
+
+  - Fix: eps comparison for vectors yields undetermined results
+  - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
+    uint8. Changed assert_equals to compare eps only for equal numeric types.
+  - Fix: Rerunning a testcase from the mlUnit GUI does not update the test's
+    implementation. [B#22]
+  - Fix: assert_error fails on R2007b and later. [B#21]
+  - Fix: normal assertion strings get sprintf evaluated.
+
+  [F#13] https://sourceforge.net/p/mlunit/feature-requests/13/
+  [B#21] https://sourceforge.net/p/mlunit/bugs/21/
+  [B#22] https://sourceforge.net/p/mlunit/bugs/22/
+
+
+mlUnit 1.6.4 (2013-05-27)
+-------------------------
+
+  - Removed install.m script. Content not needed, since assert can not get
+    shadowed anymore.
+  - assert_true and assert_false may be called without arguments, in which case
+    they pass or fail respectively.
+  - assert_equals and assert_equals_withequalnans can receive an absolute
+    tolerance to handle slight differences equally.
+  - assert_warning checks for a specific warning when executing a function.
+  - Updated m2html documentation.
 
   - Fix: license strings
   - Fix: stack trace filter for assert functions did not include newer

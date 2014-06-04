@@ -5,7 +5,7 @@ function s = str(self)
 %  =======
 %  If a test method is defined as follows
 %           function test_method
-%               assert(0 == sin(0));
+%               assert_true(0 == sin(0));
 %           end
 %  belonging to a class my_test, which is instantiated for example
 %           test = my_test('test_method');
