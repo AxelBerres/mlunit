@@ -10,7 +10,7 @@ function assert_warning(func, warnid)
 %     >> wrongpath = 'arbitrary/path/that/should/not/exist';
 %     >> assert_warning(@() rmpath(wrongpath), 'MATLAB:rmpath:DirNotFound');
 %
-%  See also  FAIL, ASSERT_ERROR
+%  See also  MLUNIT_FAIL, ASSERT_ERROR
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -43,5 +43,5 @@ end
 warning(prevwarn);
 
 if ~bCaught
-   fail(failmsg);
+   mlunit_fail(failmsg);
 end

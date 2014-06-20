@@ -22,7 +22,7 @@ function assert_not_equals(expected, actual, varargin)
 %     % asserts variable arg being not 0; specifies a custom message
 %     assert_not_equals(arg, 0, 'Input argument is %d, but should not.', 0);
 %
-%  See also  FAIL, ASSERT_EQUALS
+%  See also  MLUNIT_FAIL, ASSERT_EQUALS
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
