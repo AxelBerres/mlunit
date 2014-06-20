@@ -33,7 +33,12 @@ otherwise
 end
 
 % get calling stack with absolute file names
-stack = dbstack('-completenames');
+if ismatlab()
+   stack = dbstack('-completenames');
+else
+   % Octave does not know the -completenames flag
+   stack = dbstack;
+end
 % But also extract the file names only. The resulting stack.filename are
 % the names of the files each function call occurred, stack.name are the
 % names of each (sub)function, which we do not know or want to filter by.
