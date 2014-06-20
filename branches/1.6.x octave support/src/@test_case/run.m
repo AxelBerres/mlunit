@@ -53,7 +53,13 @@ try
             if (~isfield(err, 'stack'))
                 err.stack(1).file = char(which(self.name));
                 err.stack(1).line = '1';
-                err.stack = vertcat(err.stack, dbstack('-completenames'));
+                if ismatlab()
+                    stack = dbstack('-completenames');
+                else
+                    % Octave does not know the -completenames flag
+                    stack = dbstack;
+                end
+                err.stack = vertcat(err.stack, stack);
             end;
             
             result = add_error_with_stack(result, self, err);
