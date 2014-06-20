@@ -28,55 +28,54 @@ end;
 rehash;
 
 result = start_test(result, self);
-try
-    try
-        self = set_up(self);
-    catch
-        result = add_error_with_stack(result, self, lasterror);
-        return;
-    end;
-    
-    ok = 0;
-    try
-        method = self.name;
-        self = eval([method, '(self)']);
-        ok = 1;
-    catch
-        err = lasterror;
-        errmsg = err.message;
-        failure = strfind(errmsg, 'MLUNIT FAILURE');
-        if (size(failure) > 0)
-            result = add_failure(result, ...
-                self, ...
-                errmsg(failure(1) + 15:length(errmsg)));
-        else
-            if (~isfield(err, 'stack'))
-                err.stack(1).file = char(which(self.name));
-                err.stack(1).line = '1';
-                if ismatlab()
-                    stack = dbstack('-completenames');
-                else
-                    % Octave does not know the -completenames flag
-                    stack = dbstack;
-                end
-                err.stack = vertcat(err.stack, stack);
-            end;
-            
-            result = add_error_with_stack(result, self, err);
-        end;
-    end;
-    
-    try
-        self = tear_down(self);    
-    catch
-        result = add_error_with_stack(result, self, lasterror);
-        ok = 0;
-    end;
 
-    if (ok)
-        result = add_success(result, self);
-    end;
+try
+    self = set_up(self);
 catch
+    result = add_error_with_stack(result, self, lasterror);
+    return;
 end;
+
+ok = 0;
+try
+    method = self.name;
+    self = eval([method, '(self)']);
+    ok = 1;
+catch
+    err = lasterror;
+    errmsg = err.message;
+    failure = strfind(errmsg, 'MLUNIT FAILURE');
+    if (size(failure) > 0)
+        result = add_failure(result, ...
+            self, ...
+            errmsg(failure(1) + 15:length(errmsg)));
+    else
+        if (~isfield(err, 'stack'))
+            err.stack(1).file = char(which(self.name));
+            err.stack(1).line = '1';
+            if ismatlab()
+                stack = dbstack('-completenames');
+            else
+                % Octave does not know the -completenames flag
+                stack = dbstack;
+            end
+            err.stack = vertcat(err.stack, stack);
+        end;
+        
+        result = add_error_with_stack(result, self, err);
+    end;
+end;
+
+try
+    self = tear_down(self);    
+catch
+    result = add_error_with_stack(result, self, lasterror);
+    ok = 0;
+end;
+
+if (ok)
+    result = add_success(result, self);
+end;
+
 result = stop_test(result, self);
 
