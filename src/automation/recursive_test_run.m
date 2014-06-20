@@ -81,7 +81,7 @@ function suiteresult = runTestsuite(suitespec)
    % run test suite with time measure
    result_obj = test_result;
    tic
-   [testsuite_obj, result_obj] = run(testsuite_obj, result_obj);
+   [testsuite_obj, result_obj] = run_test_suite(testsuite_obj, result_obj);
    suiteresult.time = toc;
    
    % obtain other test suite attributes

@@ -1,4 +1,4 @@
-function [self, result] = run(self, result)
+function [self, result] = run_test_suite(self, result)
 %test_suite/run executes the test suite and saves the results in result.
 %
 %  Example
@@ -6,7 +6,7 @@ function [self, result] = run(self, result)
 %  Running a test suite is done the same way as a single test. Example:
 %         suite = ...; % Create test_suite, e.g. with test_loader.
 %         result = test_result;
-%         [suite, result] = run(suite, result);
+%         [suite, result] = run_test_suite(suite, result);
 %         summary(result)
 %
 %  See also TEST_SUITE.
