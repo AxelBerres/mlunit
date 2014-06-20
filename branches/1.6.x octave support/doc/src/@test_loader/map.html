@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of map</title>
+  <meta name="keywords" content="map">
+  <meta name="description" content="test_loader/map returns a list of objects instantiated from the class">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@test_loader</a> &gt; map.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@test_loader&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>map
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>test_loader/map returns a list of objects instantiated from the class</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function tests = map(self, test_case_class, test_names) %#ok </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">test_loader/map returns a list of objects instantiated from the class
+test_case_class and the methods in test_names.
+
+  Example
+  =======
+  If you have for example a test_case my_test with two methods test_foo1
+  and test_foo2, then
+         map(test_loader, 'my_test', {'test_foo1' 'test_foo2'})
+  returns a list with two objects of my_tests, one instantiated with
+  test_foo1, the other with test_foo2.
+
+  See also TEST_LOADER/LOAD_TESTS_FROM_MFILE.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function tests = map(self, test_case_class, test_names) </a><span class="comment">%#ok</span>
+0002 <span class="comment">%test_loader/map returns a list of objects instantiated from the class</span>
+0003 <span class="comment">%test_case_class and the methods in test_names.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%  Example</span>
+0006 <span class="comment">%  =======</span>
+0007 <span class="comment">%  If you have for example a test_case my_test with two methods test_foo1</span>
+0008 <span class="comment">%  and test_foo2, then</span>
+0009 <span class="comment">%         map(test_loader, 'my_test', {'test_foo1' 'test_foo2'})</span>
+0010 <span class="comment">%  returns a list with two objects of my_tests, one instantiated with</span>
+0011 <span class="comment">%  test_foo1, the other with test_foo2.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  See also TEST_LOADER/LOAD_TESTS_FROM_MFILE.</span>
+0014 
+0015 <span class="comment">%  This Software and all associated files are released unter the</span>
+0016 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0019 <span class="comment">%  $Id: map.m 35 2006-06-11 16:37:12Z thomi $</span>
+0020 
+0021 tests = {};
+0022 <span class="keyword">for</span> i = 1:length(test_names)
+0023     test = eval([test_case_class, <span class="string">'('''</span>, char(test_names(i)), <span class="string">''')'</span>]);
+0024     tests{i} = test;
+0025 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

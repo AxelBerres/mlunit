@@ -1,0 +1,124 @@
+=====================================
+   m l U n i t   C H A N G E L O G
+=====================================
+
+mlUnit development snapshot
+---------------------------
+
+  - Added assert_matfile_equals: Raise an error if two mat Files differ.
+
+  - Fix: build.xml did not execute mlUnit tests; report directory was not being
+    created; MATLAB automation options conflicted; MATLAB property check failed.
+
+
+mlUnit 1.6.6 (2013-12-13)
+-------------------------
+
+  - assert_error may take a function handle or an eval string for execution
+  - assert_error can check for the error identifier or even the stack
+  - Changed assert_warning's argument order, to be consistent with assert_error
+    order.
+  - Let recursive_test_run print test result overview. [F#14]
+
+  - Fix: wrong assert_* usage yields a failure, but should yield an error
+  - Fix: calling assert_warning without arguments is confusing
+  - Fix: test_add_error_with_stack depends on specific line numbers and
+    frequently fails without reason.
+  - Fix: recursive_test_run omits class-based test implementations. [B#16]
+    Added dirset function from Zyndric's pathtools.
+
+  [F#14] https://sourceforge.net/p/mlunit/feature-requests/14/
+  [B#16] https://sourceforge.net/p/mlunit/bugs/16/
+
+
+mlUnit 1.6.5 (2013-11-19)
+-------------------------
+
+  - Refactored implementation of assert_(not_)equals(_withequalnans).
+  - Absolute tolerance for equalling distinct differences now in place for all
+    assert_(not_)equals(_withequalnans) functions.
+  - Equality tolerance can be checked with NaN value matrices as well.
+  - NaN equality is now an mlUnit parameter named equal_nans, eliminating
+    functions named assert_(not_)equals_withequalnans. [F#13]
+
+  - Fix: eps comparison for vectors yields undetermined results
+  - Fix: eps comparison fails for vectors of incompatible types, e.g. double and
+    uint8. Changed assert_equals to compare eps only for equal numeric types.
+  - Fix: Rerunning a testcase from the mlUnit GUI does not update the test's
+    implementation. [B#22]
+  - Fix: assert_error fails on R2007b and later. [B#21]
+  - Fix: normal assertion strings get sprintf evaluated.
+
+  [F#13] https://sourceforge.net/p/mlunit/feature-requests/13/
+  [B#21] https://sourceforge.net/p/mlunit/bugs/21/
+  [B#22] https://sourceforge.net/p/mlunit/bugs/22/
+
+
+mlUnit 1.6.4 (2013-05-27)
+-------------------------
+
+  - Removed install.m script. Content not needed, since assert can not get
+    shadowed anymore.
+  - assert_true and assert_false may be called without arguments, in which case
+    they pass or fail respectively.
+  - assert_equals and assert_equals_withequalnans can receive an absolute
+    tolerance to handle slight differences equally.
+  - assert_warning checks for a specific warning when executing a function.
+  - Updated m2html documentation.
+
+  - Fix: license strings
+  - Fix: stack trace filter for assert functions did not include newer
+    assert wrappers
+  - Fix: Failed on missing subclass argument.
+  - Fix: gui_test_runner failed on a callback invocation with empty handles for
+    MATLAB R2008b. Reported as [#15].
+  - Fix: MATLAB shadow warning on assert function. Reported as [#17].
+    Testcases must be migrated to use assert_true instead.
+
+    [#15] https://sourceforge.net/p/mlunit/bugs/15/
+    [#17] https://sourceforge.net/p/mlunit/bugs/17/
+
+
+mlUnit 1.6.3 (2012-07-13)
+-------------------------
+
+  - Provide assert_equals methods that equal NaN values. #2873.
+  - Fix: Do not indent raw text in XML generation. #2874.
+
+
+mlUnit 1.6.2 (2012-07-12)
+-------------------------
+
+  - Refactored XML generation.
+  - Fix: XML head tag.
+
+
+mlUnit 1.6.1 (2012-06-18)
+-------------------------
+
+  - Support for shallow and recursive path dependencies in Ant mlUnit task.
+  - Support for executing additional MATLAB commands from Ant mlUnit task.
+  - Fix: Empty relative directory yielded ugly dot.
+  - Fix: Empty default shallow directory property.
+
+
+mlUnit 1.6 (2012-06-13)
+-----------------------
+
+  - Added Ant build script. Lets other Ant scripts trigger recursive execution
+    of all test scripts they like to execute.
+  - Added assert_error.
+  - Added generation of jUnit compatible XML output
+  - Added recursive execution of all test script files in a specific folder and
+    all its subfolders
+  - Expanded mlUnit core test_case to return its function_name.
+
+
+mlUnit 1.5.2 (2012-06-06)
+-------------------------
+
+  - Added assert_empty, assert_not_empty.
+  - Fix: assert_equals, assert_not_equals failed when building strings from cell
+    or structure arrays.
+  - Simplified assert accessor functions. Made them consistent.
+
