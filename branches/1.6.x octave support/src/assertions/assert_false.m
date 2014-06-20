@@ -16,7 +16,7 @@ function assert_false(expr, varargin)
 %     % asserts variable arg not being a cell array
 %     assert_false(iscell(arg), 'Input argument should not be a cell array');
 %
-%  See also  FAIL, ASSERT_TRUE
+%  See also  MLUNIT_FAIL, ASSERT_TRUE
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -25,5 +25,5 @@ function assert_false(expr, varargin)
 %  $Id: assert_false.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
 if nargin < 1 || expr
-   fail(varargin{:});
+   mlunit_fail(varargin{:});
 end;

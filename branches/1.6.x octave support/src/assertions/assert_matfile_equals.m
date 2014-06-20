@@ -31,10 +31,10 @@ end
    
 function checkFile( file)   
    if ~ischar( file)
-      fail( '%s input needs to be a string pointing to a file!',inputname(1));
+      mlunit_fail( '%s input needs to be a string pointing to a file!',inputname(1));
    end
    if ~(exist( file, 'file') == 2)
-      fail('Argument given for variable ''%s'' does not point to a file (%s)', inputname(1), file);
+      mlunit_fail('Argument given for variable ''%s'' does not point to a file (%s)', inputname(1), file);
    end
 %end of function   
 
@@ -45,7 +45,7 @@ function expectedVariables = checkMember( reference, toCheck )
    isMemberOfToCheck = ismember( expectedVariables, toCheckVariables);
    if ~isempty( isMemberOfToCheck) && ~(all( isMemberOfToCheck))
         missingVariables = expectedVariables( ~isMemberOfToCheck);
-        fail('Files differ because Variable(s): %s are not present in %s File',sprintf(' %s,', missingVariables{:}), inputname(1));
+        mlunit_fail('Files differ because Variable(s): %s are not present in %s File',sprintf(' %s,', missingVariables{:}), inputname(1));
    end
 %end of function
 
@@ -53,6 +53,6 @@ function checkVariable( variableName, expectedFile, actualFile)
    actualVariable = load( actualFile, variableName);
    expectedVariable = load( expectedFile, variableName);
    if ~isequal( actualVariable, expectedVariable)
-      fail('Variable ''%s'' expected to be %s, but actually was %s.', variableName, printable(expectedVariable), printable(actualVariable));
+      mlunit_fail('Variable ''%s'' expected to be %s, but actually was %s.', variableName, printable(expectedVariable), printable(actualVariable));
    end   
 %end of function
