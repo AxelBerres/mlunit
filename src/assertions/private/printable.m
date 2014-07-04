@@ -28,6 +28,10 @@ elseif isstruct(input)
     print_scalar_struct = @(s) ['{' strjoin(fieldname_value_strings(s), '; ') '}'];
     items = arrayfun(print_scalar_struct, input, 'UniformOutput', false);
     outstring = ['[' strjoin(items) ']'];
+elseif ischar(input)
+    % Octave's mat2str does not process char arrays
+    % this line here works for simple strings, however, breaks for multi-line character arrays
+    outstring = input;
 else
     % mat2str takes care of everything else or throws an error
     outstring = mat2str(input);
