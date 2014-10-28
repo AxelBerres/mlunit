@@ -25,10 +25,21 @@ function test_proper_errors %#ok<DEFNU>
     % btw, error() without id does not sprintf its message, but error() with id does:
     assert_error(@() error('my:id', 'huh\nha'), struct('message', sprintf('huh\nha'), 'identifier', 'my:id'));
 
+    % by other field message, resulting from valid error call that is nested somewhat deeper
+    assert_error(@proxy_deep_stack_error, struct('message', 'Still waters run deep.'));
+
     % with variable injection
     v1 = 3; v2 = {};
     assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');
 
+
+function proxy_deep_stack_error
+
+    proxy_deep_stack_error_nested();
+
+function proxy_deep_stack_error_nested
+
+    error('Still waters run deep.');
 
 function test_noargs %#ok<DEFNU>
 
