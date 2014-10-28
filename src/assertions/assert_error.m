@@ -12,8 +12,10 @@ function assert_error(func, errspec)
 %  ASSERT_ERROR(FUNC, ERRSTRUCT) does the same, but with a typical error
 %  structure as argument. Set any of fields 'identifier', 'message', 'stack' in
 %  ERRSTRUCT to let each be compared to the actual error's fields. Only set
-%  fields will be compared. In theory, this enables you to compare the call
-%  stack, but no one tested that so far.
+%  fields will be compared. This enables you to compare the call stack. You
+%  can limit the comparison to some parts of a call stack's fields. The fields
+%  are: file, name, line. By providing only one or two of them in your expected
+%  call stack structure, only those fields will be compared.
 %  
 %  ASSERT_ERROR(EXPRSTRING, ERRID/ERRSTRUCT) evaluates the string EXPRSTRING
 %  and raises an error if the evaluation did not raise an error itself. Use this
@@ -101,6 +103,14 @@ function diff = error_struct_diff(expected, actual)
          % with a regular expression rather than a simple strrep, because after '==>',
          % MATLAB puts an HTML statement from R2007b on, and plain text before.
          actual.message = regexprep(actual.message, 'Error using .*\n', '', 'dotexceptnewline');
+      end
+
+      % filter actual stack fields to include only expected outputs
+      if strcmp(fields{f}, 'stack')
+         surplus_fields_actual = setdiff(fieldnames(actual.stack), fieldnames(expected.stack));
+         surplus_fields_expected = setdiff(fieldnames(expected.stack), fieldnames(actual.stack));
+         actual.stack = rmfield(actual.stack, surplus_fields_actual);
+         expected.stack = rmfield(expected.stack, surplus_fields_expected);
       end
       
       if ~isequal(expected.(fields{f}), actual.(fields{f}))
