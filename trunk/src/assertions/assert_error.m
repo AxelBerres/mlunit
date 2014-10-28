@@ -100,7 +100,7 @@ function diff = error_struct_diff(expected, actual)
          % by a newline. The actual message comes after it. Filter the offending line
          % with a regular expression rather than a simple strrep, because after '==>',
          % MATLAB puts an HTML statement from R2007b on, and plain text before.
-         actual.message = regexprep(actual.message, 'Error using ==> .*\n', '', 'dotexceptnewline');
+         actual.message = regexprep(actual.message, 'Error using .*\n', '', 'dotexceptnewline');
       end
       
       if ~isequal(expected.(fields{f}), actual.(fields{f}))
