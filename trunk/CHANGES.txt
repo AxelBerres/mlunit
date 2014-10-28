@@ -6,9 +6,11 @@ mlUnit development snapshot
 ---------------------------
 
   - Added assert_matfile_equals: Raise an error if two mat Files differ.
+  - Added support for partial stack comparison in assert_error.
 
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
+  - Fix: Error prelude not filtered for newer MATLABs (around R2011b)
 
 
 mlUnit 1.6.6 (2013-12-13)
