@@ -7,10 +7,14 @@ mlUnit development snapshot
 
   - Added assert_matfile_equals: Raise an error if two mat Files differ.
   - Added support for partial stack comparison in assert_error.
+  - Test suite functions may declare their host function on the first or
+    succeeding lines.
 
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
   - Fix: Error prelude not filtered for newer MATLABs (around R2011b)
+  - Fix: Test suite functions whose host function is not declared on the very
+    first line lead to an unintelligible error.
 
 
 mlUnit 1.6.6 (2013-12-13)
