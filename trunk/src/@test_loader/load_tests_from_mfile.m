@@ -32,8 +32,10 @@ stack = dbstack;
 str = textread(stack(2).file, '%s', 'whitespace', '', 'delimiter', '\n' );
 idx = regexp(str, '^\s*function\s+\w*', 'start');
 is_func = not(cellfun('isempty', idx));
-is_func(1) = 0;
- 
+
+% remove very first function item, which should be the host function
+is_func(find(is_func, 1)) = 0;
+
 tokens = transpose(regexp(str(is_func),...
     '^\s*function\s+(\w*)\s*\%*.*',...
     'tokens'));
