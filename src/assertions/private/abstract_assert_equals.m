@@ -52,8 +52,14 @@ end
 % subtraction during eps checking later on
 are_compatible_numerics = isnumeric(expected) && isequal(class(expected), class(actual));
 
+% short circuit, if sizes of expected and actual differ
+sizes_differ = ~isequal(size(expected), size(actual));
+
 % determine equality
-if are_compatible_numerics
+if sizes_differ
+   equals = false;
+% check contents only for arguments of equal size
+elseif are_compatible_numerics
    
    % compare all values by default
    indices = logical(ones(size(expected)));
