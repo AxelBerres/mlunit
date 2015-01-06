@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of abstract_assert_equals</title>
+  <meta name="keywords" content="abstract_assert_equals">
+  <meta name="description" content="ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; abstract_assert_equals.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>abstract_assert_equals
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.
+  ABSTRACT_ASSERT_EQUALS(PASS_IF_EQUAL, EXPECTED, ACTUAL)
+  raises a MATLAB error if PASS_IF_EQUALS is true and EXPECTED and ACTUAL
+  are not the same. Also raises a MATLAB error if PASS_IF_EQUALS is false
+  and EXPECTED and ACTUAL are the same.
+
+  ABSTRACT_ASSERT_EQUALS(PASS_IF_EQUAL, EXPECTED, ACTUAL, ...
+  ABSOLUTE_ESP) does the same, except if EXPECTED and ACTUAL are numeric
+  and of the same type. Then they are considered equal, if their absolute
+  difference is smaller or equal to ABSOLUTE_EPS. This works for any
+  numerics, but is incompatible with equal NaN handling.
+  
+  ABSTRACT_ASSERT_EQUALS(..., MSG, varargin) does the same, but with
+  the custom error message MSG. MSG may contain sprintf arguments, which
+  can be expanded by subsequent arguments in varargin.
+
+  See also  ASSERT_EQUALS, ASSERT_NOT_EQUALS, ASSERT_EQUALS_WITHEQUALNANS,
+  ASSERT_NOT_EQUALS_WITHEQUALNANS</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function outstring = to_string(input)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)</a>
+0002 <span class="comment">%ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</span>
+0003 <span class="comment">%  ABSTRACT_ASSERT_EQUALS(PASS_IF_EQUAL, EXPECTED, ACTUAL)</span>
+0004 <span class="comment">%  raises a MATLAB error if PASS_IF_EQUALS is true and EXPECTED and ACTUAL</span>
+0005 <span class="comment">%  are not the same. Also raises a MATLAB error if PASS_IF_EQUALS is false</span>
+0006 <span class="comment">%  and EXPECTED and ACTUAL are the same.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  ABSTRACT_ASSERT_EQUALS(PASS_IF_EQUAL, EXPECTED, ACTUAL, ...</span>
+0009 <span class="comment">%  ABSOLUTE_ESP) does the same, except if EXPECTED and ACTUAL are numeric</span>
+0010 <span class="comment">%  and of the same type. Then they are considered equal, if their absolute</span>
+0011 <span class="comment">%  difference is smaller or equal to ABSOLUTE_EPS. This works for any</span>
+0012 <span class="comment">%  numerics, but is incompatible with equal NaN handling.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  ABSTRACT_ASSERT_EQUALS(..., MSG, varargin) does the same, but with</span>
+0015 <span class="comment">%  the custom error message MSG. MSG may contain sprintf arguments, which</span>
+0016 <span class="comment">%  can be expanded by subsequent arguments in varargin.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%  See also  ASSERT_EQUALS, ASSERT_NOT_EQUALS, ASSERT_EQUALS_WITHEQUALNANS,</span>
+0019 <span class="comment">%  ASSERT_NOT_EQUALS_WITHEQUALNANS</span>
+0020 
+0021 <span class="comment">%  This Software and all associated files are released unter the</span>
+0022 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%  $Author$</span>
+0025 <span class="comment">%  $Id$</span>
+0026 
+0027 <span class="keyword">if</span> nargin &lt; 3, error(<span class="string">'Not enough input arguments.'</span>); <span class="keyword">end</span>
+0028 <span class="keyword">if</span> ~islogical(pass_if_equal), error(<span class="string">'pass_if_equal must be a logical'</span>); <span class="keyword">end</span>
+0029 
+0030 equal_nans = mlunit_param(<span class="string">'equal_nans'</span>);
+0031 
+0032 <span class="comment">% default values for msg and eps</span>
+0033 absolute_eps = 0;
+0034 msg = sprintf(<span class="string">'Expected &lt;%s&gt;, but was &lt;%s&gt;.'</span>, <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(expected), <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(actual));
+0035 
+0036 <span class="comment">% Fourth argument can either be absolute_eps or msg. Handle input args carefully.</span>
+0037 <span class="keyword">if</span> nargin &gt;= 4 &amp;&amp; isnumeric(absolute_eps_or_msg)
+0038    absolute_eps = absolute_eps_or_msg;
+0039    msg = [msg sprintf(<span class="string">' Tolerance was &lt;%s&gt;.'</span>, <a href="#_sub1" class="code" title="subfunction outstring = to_string(input)">to_string</a>(absolute_eps))];
+0040    <span class="comment">% if fourth argument is eps, then the fifth may be the msg and all others the</span>
+0041    <span class="comment">% msg sprintf arguments</span>
+0042    <span class="keyword">if</span> nargin &gt;= 5
+0043       msg = sprintf(varargin{1}, varargin{2:end});
+0044    <span class="keyword">end</span>
+0045    
+0046 <span class="keyword">elseif</span> nargin &gt;= 4 &amp;&amp; ischar(absolute_eps_or_msg)
+0047    msg = sprintf(absolute_eps_or_msg, varargin{:});
+0048 <span class="keyword">end</span>
+0049 
+0050 <span class="comment">% only check against eps if expected and actual both are numeric and have the</span>
+0051 <span class="comment">% same type, else MATLAB complains about incompatible types when using</span>
+0052 <span class="comment">% subtraction during eps checking later on</span>
+0053 are_compatible_numerics = isnumeric(expected) &amp;&amp; isequal(class(expected), class(actual));
+0054 
+0055 <span class="comment">% determine equality</span>
+0056 <span class="keyword">if</span> are_compatible_numerics
+0057    
+0058    <span class="comment">% compare all values by default</span>
+0059    indices = logical(ones(size(expected)));
+0060    <span class="keyword">if</span> equal_nans
+0061       <span class="comment">% select only indices for comparison where not both expected and actual</span>
+0062       <span class="comment">% are NaN</span>
+0063       indices = ~(isnan(expected) &amp; isnan(actual));
+0064    <span class="keyword">end</span>
+0065 
+0066    <span class="comment">% Build matrix of expected/actual differences. If at one position expected or</span>
+0067    <span class="comment">% actual have a NaN, that position's difference will be NaN and fail the eps</span>
+0068    <span class="comment">% test, as it should. If at one position both have a NaN, then they will have</span>
+0069    <span class="comment">% been filtered before if NaNs are to be treated equal, or their difference</span>
+0070    <span class="comment">% will yield a NaN as well if NaNs are to be treated different. If both have</span>
+0071    <span class="comment">% an actual value other than NaN, their difference will be compared with eps</span>
+0072    <span class="comment">% for real.</span>
+0073    diffs = expected(indices) - actual(indices);
+0074    
+0075    <span class="comment">% all absolute differences must be smaller than or equal to eps</span>
+0076    equals = all(abs(diffs) &lt;= absolute_eps);
+0077 
+0078 <span class="comment">% all non-numeric types, or mixed types are checked by isequal.</span>
+0079 <span class="keyword">elseif</span> equal_nans
+0080    equals = isequalwithequalnans(actual, expected);
+0081 <span class="keyword">else</span>
+0082    equals = isequal(actual, expected);
+0083 <span class="keyword">end</span>
+0084 
+0085 <span class="comment">% fail if pass on equal requested, but is not equal</span>
+0086 <span class="comment">% fail if fail on equal requested, and is equal</span>
+0087 <span class="comment">% else, pass quietly</span>
+0088 <span class="keyword">if</span> xor(pass_if_equal, equals)
+0089    fail(msg);
+0090 <span class="keyword">end</span>
+0091 
+0092 <span class="comment">%% subfunction to_string</span>
+0093 <a name="_sub1" href="#_subfunctions" class="code">function outstring = to_string(input)</a>
+0094 
+0095    <span class="keyword">if</span> ischar(input)
+0096       outstring = input;
+0097    <span class="keyword">elseif</span> isnumeric(input) || islogical(input)
+0098       outstring = num2str(input);
+0099    <span class="keyword">elseif</span> isstruct(input)
+0100       outstring = <span class="string">'MATLAB structure array'</span>;
+0101    <span class="keyword">elseif</span> iscell(input)
+0102       outstring = <span class="string">'MATLAB cell array'</span>;
+0103    <span class="keyword">else</span>
+0104       outstring = <span class="string">'unrecognized type'</span>;
+0105    <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
