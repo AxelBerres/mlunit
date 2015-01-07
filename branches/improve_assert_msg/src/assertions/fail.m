@@ -51,10 +51,19 @@ filtered_files = {'assert_true', ...
                   'assert_error', ...
                   'assert_warning', ...
                   'abstract_assert_equals', ...
-                  'fail'};
+                  'fail', ...
+                  };
 while ~isempty(stack) && any(strcmpi(stack(1).filename, filtered_files))
     stack(1)=[];
 end
+
+% Pop all internal managing calls from the stack. These are at the back, i.e.
+% higher in the call chain. For failures, these are of no interest and only
+% muddle the output. Delete everything after the last/highest-up occurrence of
+% the test file. Use the test file in order to account for test functions, but
+% also tear_down and set_up.
+first_handler_idx = find(strcmp({stack.filename}, 'run_test'), 1, 'first');
+stack(first_handler_idx:end) = [];
 
 % might also have been called from the MATLAB console
 if isempty(stack)

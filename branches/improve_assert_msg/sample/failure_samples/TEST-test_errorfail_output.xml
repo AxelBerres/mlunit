@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.02042" hostname="unknown" timestamp="2015-01-06T17:42:45">
+<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.0053797" hostname="unknown" timestamp="2015-01-06T18:00:41">
   <properties/>
   <testcase classname="test_errorfail_output" name="test_success">
     <error>
@@ -14,11 +14,6 @@ In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at
     <failure>
 (No failure message provided)
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_errorfail_output.m at line 9.
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <system-out/>
