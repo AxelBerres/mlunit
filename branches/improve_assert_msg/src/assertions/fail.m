@@ -66,7 +66,7 @@ end
 stacktrace = '';
 for i = 1:length(stack)
     stacktrace = [stacktrace, ...
-        sprintf('\n  In %s at line %d.', stack(i).file, stack(i).line)];  %#ok<AGROW>
+        sprintf('\nIn %s at line %d.', stack(i).file, stack(i).line)];  %#ok<AGROW>
 end;
 
 % throw error; 'MLUNIT FAILURE' string is used for masking actual error message
