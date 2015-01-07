@@ -31,7 +31,7 @@ equal_nans = mlunit_param('equal_nans');
 
 % default values for msg and eps
 absolute_eps = 0;
-msg = sprintf('Expected %s actually was %s.', printable(expected), printable(actual));
+msg = sprintf('Data not equal:\n  %-9s: %s\n  %-9s: %s.', 'Expected', printable(expected), 'Actual', printable(actual));
 
 % Fourth argument can either be absolute_eps or msg. Handle input args carefully.
 if nargin >= 4 && isnumeric(absolute_eps_or_msg)

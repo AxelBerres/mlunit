@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="17" tests="18" time="0.082083" hostname="unknown" timestamp="2015-01-06T18:00:41">
+<testsuite name="test_failure_output" errors="1" failures="17" tests="18" time="0.093803" hostname="unknown" timestamp="2015-01-07T09:37:03">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure>
@@ -33,49 +33,65 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_ou
   </testcase>
   <testcase classname="test_failure_output" name="test_equals">
     <failure>
-Expected 3 actually was 4.
+Data not equal:
+  Expected : 3
+  Actual   : 4.
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 37.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_array">
     <failure>
-Expected [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16] actually was [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15].
+Data not equal:
+  Expected : [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
+  Actual   : [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15].
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 43.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_arraymatrix">
     <failure>
-Expected [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16] actually was [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16].
+Data not equal:
+  Expected : [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16]
+  Actual   : [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16].
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 51.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_string">
     <failure>
-Expected 'foo' actually was 'fOo'.
+Data not equal:
+  Expected : 'foo'
+  Actual   : 'fOo'.
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 56.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_cell">
     <failure>
-Expected {3, 'foo'} actually was {3, 'fOo'}.
+Data not equal:
+  Expected : {3, 'foo'}
+  Actual   : {3, 'fOo'}.
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 63.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_struct">
     <failure>
-Expected [{foo:{'hi', 'ho'}; bar:[3 4]}] actually was [{foo:{'ho', 'hi'}; bar:[3 4]}].
+Data not equal:
+  Expected : [{foo:{'hi', 'ho'}; bar:[3 4]}]
+  Actual   : [{foo:{'ho', 'hi'}; bar:[3 4]}].
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_structarray">
     <failure>
-Expected [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}] actually was [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
+Data not equal:
+  Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
+  Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 79.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_equals">
     <failure>
-Expected 3 actually was 3.
+Data not equal:
+  Expected : 3
+  Actual   : 3.
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 84.
     </failure>
   </testcase>
