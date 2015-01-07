@@ -23,7 +23,7 @@ function fail(msg, varargin)
 % set empty message if left empty, take msg, or interpret sprintf arguments
 switch nargin
 case 0
-   msg_string = '';
+   msg_string = '(No failure message provided)';
 case 1
    msg_string = msg;
 otherwise
