@@ -69,7 +69,10 @@ for i = 1:length(stack)
         sprintf('\n  In %s at line %d.', stack(i).file, stack(i).line)];  %#ok<AGROW>
 end;
 
-% throw error
-error(['MLUNIT FAILURE:Traceback (most recent call first):', ...
-   stacktrace, ...
-   msg_string]);
+% throw error; 'MLUNIT FAILURE' string is used for masking actual error message
+errmsg = ['MLUNIT FAILURE:', ...
+   msg_string, ...
+   stacktrace];
+
+% raise typed error, mask message string in order to prevent further sprintf expansion
+error('MLUNIT:Failure', '%s', errmsg);
