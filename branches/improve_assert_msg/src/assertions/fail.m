@@ -29,7 +29,7 @@ case 1
 otherwise
    % avoid multiple sprintf calls on msg in case msg contains masked
    % sprintf control sequences that should not be interpreted
-   msg_string = sprintf(['\nAssertionError message: ' msg], varargin{:});
+   msg_string = sprintf(msg, varargin{:});
 end
 
 % get calling stack with absolute file names
