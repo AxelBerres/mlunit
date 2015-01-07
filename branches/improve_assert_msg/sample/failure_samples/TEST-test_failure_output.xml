@@ -1,205 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="17" tests="18" time="0.093462" hostname="unknown" timestamp="2015-01-06T16:26:43">
+<testsuite name="test_failure_output" errors="1" failures="17" tests="18" time="0.090834" hostname="unknown" timestamp="2015-01-06T17:42:45">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 13.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
+(No failure message provided)
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 13.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_empty">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 18.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
+(No failure message provided)
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 18.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_false">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 23.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
+(No failure message provided)
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 23.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_true">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 28.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
+(No failure message provided)
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 28.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_fail">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 32.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.This some custom fail message
+This some custom fail message
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 32.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 37.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected 3 actually was 4.
+Expected 3 actually was 4.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 37.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_array">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 43.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16] actually was [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15].
+Expected [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16] actually was [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15].
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 43.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_arraymatrix">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 51.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16] actually was [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16].
+Expected [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16] actually was [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16].
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 51.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_string">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 56.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected 'foo' actually was 'fOo'.
+Expected 'foo' actually was 'fOo'.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 56.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_cell">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 63.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected {3, 'foo'} actually was {3, 'fOo'}.
+Expected {3, 'foo'} actually was {3, 'fOo'}.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 63.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_struct">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected [{foo:{'hi', 'ho'}; bar:[3 4]}] actually was [{foo:{'ho', 'hi'}; bar:[3 4]}].
+Expected [{foo:{'hi', 'ho'}; bar:[3 4]}] actually was [{foo:{'ho', 'hi'}; bar:[3 4]}].
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_structarray">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 79.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}] actually was [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
+Expected [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}] actually was [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 79.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_equals">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Expected 3 actually was 3.
+Expected 3 actually was 3.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_error">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 89.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Error expected, but none occurred.
+Error expected, but none occurred.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 89.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_typed_error">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 94.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Error expected, but none occurred.
+Error expected, but none occurred.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 94.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_wrong_typed_error">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
+Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_warning">
     <failure>
-Traceback (most recent call first):
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 104.
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.No warning MATLAB:rmpath:DirNotFound when executing function @()3.
+No warning MATLAB:rmpath:DirNotFound when executing function @()3.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 104.
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21.
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42.
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_implementation_fault">
     <error>
-Traceback (most recent call first): 
-  In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 108
-  In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-  In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42
-  In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84
-  In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41
-Error: Undefined function or variable 'unknown_function_call'.
-
-
+Undefined function or variable 'unknown_function_call'.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 108
+In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
+In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42
+In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41
     </error>
   </testcase>
   <system-out/>
