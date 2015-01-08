@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of assert_false</title>
+  <meta name="keywords" content="assert_false">
+  <meta name="description" content="ASSERT_FALSE Raise an error if expression evaluates to true.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">assertions</a> &gt; assert_false.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\assertions&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>assert_false
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>ASSERT_FALSE Raise an error if expression evaluates to true.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function assert_false(expr, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">ASSERT_FALSE Raise an error if expression evaluates to true.
+  ASSERT_FALSE(EXPR) evaluates EXPR and raises a MATLAB error if it yields
+  MATLAB's notion of true, i.e. logical 1 or numericals &gt; 0.
+
+  ASSERT_FALSE(EXPR, MSG, varargin) does the same, but with the custom
+  error message MSG. MSG may contain sprintf arguments, which can be
+  expanded by subsequent arguments in varargin.
+
+  ASSERT_FALSE() raises a MATLAB error.
+
+  Examples
+     % asserts string variable arg not being empty
+     assert_false(isempty(arg));
+
+     % asserts variable arg not being a cell array
+     assert_false(iscell(arg), 'Input argument should not be a cell array');
+
+  See also  <a href="fail.html" class="code" title="function fail(msg, varargin)">FAIL</a>, <a href="assert_true.html" class="code" title="function assert_true(expr, varargin)">ASSERT_TRUE</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>	FAIL Raise an error.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function assert_false(expr, varargin)</a>
+0002 <span class="comment">%ASSERT_FALSE Raise an error if expression evaluates to true.</span>
+0003 <span class="comment">%  ASSERT_FALSE(EXPR) evaluates EXPR and raises a MATLAB error if it yields</span>
+0004 <span class="comment">%  MATLAB's notion of true, i.e. logical 1 or numericals &gt; 0.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  ASSERT_FALSE(EXPR, MSG, varargin) does the same, but with the custom</span>
+0007 <span class="comment">%  error message MSG. MSG may contain sprintf arguments, which can be</span>
+0008 <span class="comment">%  expanded by subsequent arguments in varargin.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  ASSERT_FALSE() raises a MATLAB error.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%  Examples</span>
+0013 <span class="comment">%     % asserts string variable arg not being empty</span>
+0014 <span class="comment">%     assert_false(isempty(arg));</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%     % asserts variable arg not being a cell array</span>
+0017 <span class="comment">%     assert_false(iscell(arg), 'Input argument should not be a cell array');</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%  See also  FAIL, ASSERT_TRUE</span>
+0020 
+0021 <span class="comment">%  This Software and all associated files are released unter the</span>
+0022 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%  $Author$</span>
+0025 <span class="comment">%  $Id: assert_false.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
+0026 
+0027 <span class="keyword">if</span> nargin &lt; 1 || expr
+0028    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(varargin{:});
+0029 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
