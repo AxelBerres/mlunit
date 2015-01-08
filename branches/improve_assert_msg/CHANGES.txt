@@ -21,6 +21,8 @@ mlUnit development snapshot
     the actual error message.
   - Sample directory for assert failure outputs.
   - Enable (admittedly hacked) unit testing for private functions.
+  - assert_equals now only displays differences when comparing structs,
+    instead of slapping a wall of text in your face
 
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
