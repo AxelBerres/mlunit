@@ -79,6 +79,16 @@ function test_equals_nested_struct
     assert_equals(s, s);
     assert_equals(s, s2);
 
+function test_equals_nested_struct_multiple_differences
+
+    s = struct('foo', {{'hi', 'ho'}}, 'bar', {[3 4]});
+    s.tee = s;
+    s2 = s;
+    s2.tee.foo = {'ho', 'hi'};
+    s2.tee.bar = [3 5];
+    assert_equals(s, s);
+    assert_equals(s, s2);
+
 function test_equals_structarray
 
     s = struct('foo', {{'hi', 'ho'}}, 'bar', {3 4});

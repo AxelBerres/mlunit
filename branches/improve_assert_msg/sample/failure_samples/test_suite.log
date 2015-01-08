@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.7-SNAPSHOT
-Started: 2015-01-07 14:14:59.
+Started: 2015-01-07 21:25:14.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -69,31 +69,36 @@ Running suite test_failure_output <<< FAILED
       Expected : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'hi', 'ho'}; bar:[3 4]}]}]
       Actual   : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'ho', 'hi'}; bar:[3 4]}]}]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 80.
+  test_equals_nested_struct_multiple_differences fail:
+    Data not equal:
+      Expected : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'hi', 'ho'}; bar:[3 4]}]}]
+      Actual   : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'ho', 'hi'}; bar:[3 5]}]}]
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 90.
   test_equals_structarray fail:
     Data not equal:
       Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
       Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 88.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
   test_not_equals fail:
     Data not equal:
       Expected : 3
       Actual   : 3
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 93.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 103.
   test_error fail:
     Error expected, but none occurred.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 108.
   test_typed_error fail:
     Error expected, but none occurred.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 103.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 113.
   test_wrong_typed_error fail:
     Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 107.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 117.
   test_warning fail:
     No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 113.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 123.
   test_implementation_fault error:
     Undefined function or variable 'unknown_function_call'.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 117
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 127
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42
     In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24
@@ -101,15 +106,15 @@ Running suite test_failure_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41
   test_nested_functions fail:
     Nested function test.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 125.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 121.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 135.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 131.
 
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 22 tests in 0.22s
+Executed 23 tests in 0.19s
 
-20 tests FAILED
+21 tests FAILED
 2 tests had ERRORS
 ======================================================================
 
