@@ -70,6 +70,15 @@ function test_equals_struct
     assert_equals(s, s);
     assert_equals(s, s2);
 
+function test_equals_nested_struct
+
+    s = struct('foo', {{'hi', 'ho'}}, 'bar', {[3 4]});
+    s.tee = s;
+    s2 = s;
+    s2.tee.foo = {'ho', 'hi'};
+    assert_equals(s, s);
+    assert_equals(s, s2);
+
 function test_equals_structarray
 
     s = struct('foo', {{'hi', 'ho'}}, 'bar', {3 4});
@@ -106,3 +115,11 @@ function test_warning
 function test_implementation_fault
 
     unknown_function_call();
+
+function test_nested_functions
+
+    loc_delegated_assert();
+
+function loc_delegated_assert
+
+    fail('Nested function test.');

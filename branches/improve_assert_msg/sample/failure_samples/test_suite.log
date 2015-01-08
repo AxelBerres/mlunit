@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.7-SNAPSHOT
-Started: 2015-01-07 09:37:03.
+Started: 2015-01-07 13:33:28.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -64,43 +64,52 @@ Running suite test_failure_output <<< FAILED
       Expected : [{foo:{'hi', 'ho'}; bar:[3 4]}]
       Actual   : [{foo:{'ho', 'hi'}; bar:[3 4]}].
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71.
+  test_equals_nested_struct fail:
+    Data not equal:
+      Expected : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'hi', 'ho'}; bar:[3 4]}]}]
+      Actual   : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'ho', 'hi'}; bar:[3 4]}]}].
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 80.
   test_equals_structarray fail:
     Data not equal:
       Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
       Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 79.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 88.
   test_not_equals fail:
     Data not equal:
       Expected : 3
       Actual   : 3.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 84.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 93.
   test_error fail:
     Error expected, but none occurred.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 89.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
   test_typed_error fail:
     Error expected, but none occurred.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 94.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 103.
   test_wrong_typed_error fail:
     Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 107.
   test_warning fail:
     No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 104.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 113.
   test_implementation_fault error:
     Undefined function or variable 'unknown_function_call'.
-    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 108
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 117
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42
     In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24
     In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84
     In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41
+  test_nested_functions fail:
+    Nested function test.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 125.
+    In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 121.
 
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 20 tests in 0.15s
+Executed 22 tests in 1.89s
 
-18 tests FAILED
+20 tests FAILED
 2 tests had ERRORS
 ======================================================================
 

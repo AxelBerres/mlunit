@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="17" tests="18" time="0.093803" hostname="unknown" timestamp="2015-01-07T09:37:03">
+<testsuite name="test_failure_output" errors="1" failures="19" tests="20" time="0.56918" hostname="unknown" timestamp="2015-01-07T13:33:30">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure>
@@ -79,12 +79,20 @@ Data not equal:
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71.
     </failure>
   </testcase>
+  <testcase classname="test_failure_output" name="test_equals_nested_struct">
+    <failure>
+Data not equal:
+  Expected : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'hi', 'ho'}; bar:[3 4]}]}]
+  Actual   : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'ho', 'hi'}; bar:[3 4]}]}].
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 80.
+    </failure>
+  </testcase>
   <testcase classname="test_failure_output" name="test_equals_structarray">
     <failure>
 Data not equal:
   Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
   Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 79.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 88.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_equals">
@@ -92,43 +100,50 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_ou
 Data not equal:
   Expected : 3
   Actual   : 3.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 84.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 93.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_error">
     <failure>
 Error expected, but none occurred.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 89.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_typed_error">
     <failure>
 Error expected, but none occurred.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 94.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 103.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_wrong_typed_error">
     <failure>
 Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 107.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_warning">
     <failure>
 No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 104.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 113.
     </failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_implementation_fault">
     <error>
 Undefined function or variable 'unknown_function_call'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 108
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 117
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 42
 In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24
 In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84
 In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41
     </error>
+  </testcase>
+  <testcase classname="test_failure_output" name="test_nested_functions">
+    <failure>
+Nested function test.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 125.
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 121.
+    </failure>
   </testcase>
   <system-out/>
   <system-err/>
