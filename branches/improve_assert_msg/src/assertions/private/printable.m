@@ -31,7 +31,7 @@ elseif isstruct(input)
 elseif ischar(input) && isempty(input)
     % mat2str blunders when being given a 1x0 char and returns logical instead.
     % We also need to make sure to preserve the size (0x0 vs 1x0) of the input.
-    outstring = input;
+    outstring = ['''' input ''''];
 else
     % mat2str takes care of everything else or throws an error
     outstring = mat2str(input);
