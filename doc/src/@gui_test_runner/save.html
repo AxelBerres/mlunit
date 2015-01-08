@@ -69,9 +69,9 @@ This function is called by:
 0018 <span class="keyword">if</span> (strcmp(class(object), <span class="string">'gui_test_runner'</span>)) 
 0019     dock = object.dock; <span class="comment">%#ok</span>
 0020     shorten = object.shorten; <span class="comment">%#ok</span>
-0021     test_case_name = get(object.handles.gui_test_case, <span class="string">'String'</span>); <span class="comment">%#ok</span>
+0021     test_case_name = builtin(<span class="string">'get'</span>, object.handles.gui_test_case, <span class="string">'String'</span>); <span class="comment">%#ok</span>
 0022     <a href="save.html" class="code" title="function save(self)">save</a>(<span class="string">'mlunit.tmp'</span>, <span class="string">'dock'</span>, <span class="string">'shorten'</span>, <span class="string">'test_case_name'</span>);
 0023 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -47,7 +47,7 @@ This function calls:
 <li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="strjoin.html" class="code" title="function result = strjoin(stringcell, separator)">strjoin</a>	STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+<li><a href="abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>	ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -85,17 +85,21 @@ This function is called by:
 0028     print_scalar_struct = @(s) [<span class="string">'{'</span> <a href="strjoin.html" class="code" title="function result = strjoin(stringcell, separator)">strjoin</a>(<a href="#_sub1" class="code" title="subfunction fieldstrings = fieldname_value_strings(s)">fieldname_value_strings</a>(s), <span class="string">'; '</span>) <span class="string">'}'</span>];
 0029     items = arrayfun(print_scalar_struct, input, <span class="string">'UniformOutput'</span>, false);
 0030     outstring = [<span class="string">'['</span> <a href="strjoin.html" class="code" title="function result = strjoin(stringcell, separator)">strjoin</a>(items) <span class="string">']'</span>];
-0031 <span class="keyword">else</span>
-0032     <span class="comment">% mat2str takes care of everything else or throws an error</span>
-0033     outstring = mat2str(input);
-0034 <span class="keyword">end</span>
-0035 
-0036 
-0037 <span class="comment">% Works on a scalar structure only.</span>
-0038 <a name="_sub1" href="#_subfunctions" class="code">function fieldstrings = fieldname_value_strings(s)</a>
+0031 <span class="keyword">elseif</span> ischar(input) &amp;&amp; isempty(input)
+0032     <span class="comment">% mat2str blunders when being given a 1x0 char and returns logical instead.</span>
+0033     <span class="comment">% We also need to make sure to preserve the size (0x0 vs 1x0) of the input.</span>
+0034     outstring = [<span class="string">''''</span> input <span class="string">''''</span>];
+0035 <span class="keyword">else</span>
+0036     <span class="comment">% mat2str takes care of everything else or throws an error</span>
+0037     outstring = mat2str(input);
+0038 <span class="keyword">end</span>
 0039 
-0040     name_value_pair = @(fieldname) [fieldname <span class="string">':'</span> <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(s.(fieldname))];
-0041     fieldstrings = cellfun(name_value_pair, fieldnames(s), <span class="string">'UniformOutput'</span>, false);</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0040 
+0041 <span class="comment">% Works on a scalar structure only.</span>
+0042 <a name="_sub1" href="#_subfunctions" class="code">function fieldstrings = fieldname_value_strings(s)</a>
+0043 
+0044     name_value_pair = @(fieldname) [fieldname <span class="string">':'</span> <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(s.(fieldname))];
+0045     fieldstrings = cellfun(name_value_pair, fieldnames(s), <span class="string">'UniformOutput'</span>, false);</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

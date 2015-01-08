@@ -24,7 +24,7 @@
 <div class="box"><strong>mlunit/ver prints the version string of mlUnit to the standard output.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function ver(self) %#ok </strong></div>
+<div class="box"><strong>function version = ver(self, only_verstring) %#ok </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">mlunit/ver prints the version string of mlUnit to the standard output.
@@ -48,7 +48,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ver(self) </a><span class="comment">%#ok</span>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function version = ver(self, only_verstring) </a><span class="comment">%#ok</span>
 0002 <span class="comment">%mlunit/ver prints the version string of mlUnit to the standard output.</span>
 0003 <span class="comment">%</span>
 0004 <span class="comment">%  EXAMPLE</span>
@@ -63,7 +63,11 @@ This function is called by:
 0013 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0014 <span class="comment">%  $Id: ver.m 226 2007-01-21 15:20:53Z thomi $</span>
 0015 
-0016 fprintf(1, <span class="string">'mlUnit Version 1.6.6\n'</span>);</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0016 version = <span class="string">'1.6.7-SNAPSHOT'</span>;
+0017 
+0018 <span class="keyword">if</span> nargin &lt; 2 || ~only_verstring
+0019     fprintf(1, <span class="string">'mlUnit Version %s\n'</span>, version);
+0020 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
