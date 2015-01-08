@@ -60,7 +60,7 @@ function test_proper_error_by_stack
 
     expected_stack = struct('name', names);
 
-    assert_error(@proxy_deep_stack_error, struct('stack', expected_stack));
+    assert_error(@proxy_deep_stack_error, struct('stack', expected_stack), 'This may fail when not called via recursive_test_run. E.g. fails when being called by mlunit_test(), which is ok.');
 
 
 function test_noargs %#ok<DEFNU>

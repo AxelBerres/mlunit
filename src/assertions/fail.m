@@ -23,13 +23,13 @@ function fail(msg, varargin)
 % set empty message if left empty, take msg, or interpret sprintf arguments
 switch nargin
 case 0
-   msg_string = '';
+   msg_string = '(No failure message provided)';
 case 1
    msg_string = msg;
 otherwise
    % avoid multiple sprintf calls on msg in case msg contains masked
    % sprintf control sequences that should not be interpreted
-   msg_string = sprintf(['\nAssertionError message: ' msg], varargin{:});
+   msg_string = sprintf(msg, varargin{:});
 end
 
 % get calling stack with absolute file names
@@ -51,10 +51,19 @@ filtered_files = {'assert_true', ...
                   'assert_error', ...
                   'assert_warning', ...
                   'abstract_assert_equals', ...
-                  'fail'};
+                  'fail', ...
+                  };
 while ~isempty(stack) && any(strcmpi(stack(1).filename, filtered_files))
     stack(1)=[];
 end
+
+% Pop all internal managing calls from the stack. These are at the back, i.e.
+% higher in the call chain. For failures, these are of no interest and only
+% muddle the output. Delete everything after the last/highest-up occurrence of
+% the test file. Use the test file in order to account for test functions, but
+% also tear_down and set_up.
+first_handler_idx = find(strcmp({stack.filename}, 'run_test'), 1, 'first');
+stack(first_handler_idx:end) = [];
 
 % might also have been called from the MATLAB console
 if isempty(stack)
@@ -66,10 +75,13 @@ end
 stacktrace = '';
 for i = 1:length(stack)
     stacktrace = [stacktrace, ...
-        sprintf('\n  In %s at line %d.', stack(i).file, stack(i).line)];  %#ok<AGROW>
+        sprintf('\nIn %s at line %d.', stack(i).file, stack(i).line)];  %#ok<AGROW>
 end;
 
-% throw error
-error(['MLUNIT FAILURE:Traceback (most recent call first):', ...
-   stacktrace, ...
-   msg_string]);
+% throw error; 'MLUNIT FAILURE' string is used for masking actual error message
+errmsg = ['MLUNIT FAILURE:', ...
+   msg_string, ...
+   stacktrace];
+
+% raise typed error, mask message string in order to prevent further sprintf expansion
+error('MLUNIT:Failure', '%s', errmsg);

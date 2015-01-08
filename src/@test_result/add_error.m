@@ -17,7 +17,7 @@ function self = add_error(self, test, error)
 
 newlines = sprintf('\n\n');
 if (size(strfind(error, newlines)) == 0)
-    error = sprintf('%s\n\n', error);
+    error = sprintf('%s', error);
 end;
 last = size(self.errors, 1);
 self.errors{last + 1, 1} = test;

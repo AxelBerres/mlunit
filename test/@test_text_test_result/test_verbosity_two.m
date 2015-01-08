@@ -33,8 +33,6 @@ line = fgetl(self.tmp_file);
 assert_true(strcmp('----------------------------------------------------------------------', line));
 line = fgetl(self.tmp_file);
 assert_true(strcmp('foo error', line));
-line_ignore = fgetl(self.tmp_file); %#ok
-line_ignore = fgetl(self.tmp_file); %#ok
 line = fgetl(self.tmp_file);
 assert_true(strcmp('======================================================================', line));
 line = fgetl(self.tmp_file);
