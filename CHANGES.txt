@@ -16,6 +16,7 @@ mlUnit development snapshot
   - Fix: Test suite functions whose host function is not declared on the very
     first line lead to an unintelligible error.
   - Fix: some numeric arrays deemed equal, even if of different size
+  - Fix: printable returns logical for 1x0 char strings
 
 
 mlUnit 1.6.6 (2013-12-13)
