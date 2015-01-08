@@ -24,7 +24,7 @@
 <div class="box"><strong>ASSERT_ERROR Raise an error if a call does not throw an error.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function assert_error(func, errspec) </strong></div>
+<div class="box"><strong>function assert_error(func, errspec, msg) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">ASSERT_ERROR Raise an error if a call does not throw an error.
@@ -37,11 +37,17 @@
   ASSERT_ERROR(FUNC, ERRID) does the same. Also raises an error when the
   identifier of FUNC's error does not equal string ERRID.
 
+  ASSERT_ERROR(FUNC, ERRID, MSG) does the same. Adds a custom message to the
+  front of the failure message. The MSG argument may also be used with the
+  following signatures.
+
   ASSERT_ERROR(FUNC, ERRSTRUCT) does the same, but with a typical error
   structure as argument. Set any of fields 'identifier', 'message', 'stack' in
   ERRSTRUCT to let each be compared to the actual error's fields. Only set
-  fields will be compared. In theory, this enables you to compare the call
-  stack, but no one tested that so far.
+  fields will be compared. This enables you to compare the call stack. You
+  can limit the comparison to some parts of a call stack's fields. The fields
+  are: file, name, line. By providing only one or two of them in your expected
+  call stack structure, only those fields will be compared.
   
   ASSERT_ERROR(EXPRSTRING, ERRID/ERRSTRUCT) evaluates the string EXPRSTRING
   and raises an error if the evaluation did not raise an error itself. Use this
@@ -76,7 +82,7 @@ This function is called by:
 <li><a href="#_sub1" class="code">function diff = error_struct_diff(expected, actual)</a></li><li><a href="#_sub2" class="code">function string = diff2string(diff)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function assert_error(func, errspec)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function assert_error(func, errspec, msg)</a>
 0002 <span class="comment">%ASSERT_ERROR Raise an error if a call does not throw an error.</span>
 0003 <span class="comment">%  ASSERT_ERROR(FUNC) calls the function handle FUNC and raises an error if the</span>
 0004 <span class="comment">%  function returns without error. Use it to assert that a certain function</span>
@@ -87,111 +93,134 @@ This function is called by:
 0009 <span class="comment">%  ASSERT_ERROR(FUNC, ERRID) does the same. Also raises an error when the</span>
 0010 <span class="comment">%  identifier of FUNC's error does not equal string ERRID.</span>
 0011 <span class="comment">%</span>
-0012 <span class="comment">%  ASSERT_ERROR(FUNC, ERRSTRUCT) does the same, but with a typical error</span>
-0013 <span class="comment">%  structure as argument. Set any of fields 'identifier', 'message', 'stack' in</span>
-0014 <span class="comment">%  ERRSTRUCT to let each be compared to the actual error's fields. Only set</span>
-0015 <span class="comment">%  fields will be compared. In theory, this enables you to compare the call</span>
-0016 <span class="comment">%  stack, but no one tested that so far.</span>
-0017 <span class="comment">%</span>
-0018 <span class="comment">%  ASSERT_ERROR(EXPRSTRING, ERRID/ERRSTRUCT) evaluates the string EXPRSTRING</span>
-0019 <span class="comment">%  and raises an error if the evaluation did not raise an error itself. Use this</span>
-0020 <span class="comment">%  to rather call arbitrary MATLAB expressions instead of single functions. Same</span>
-0021 <span class="comment">%  rules for ERRID/ERRSTRUCT arguments as above apply.</span>
-0022 <span class="comment">%</span>
-0023 <span class="comment">%  Examples</span>
-0024 <span class="comment">%     % asserts variable arg being empty</span>
-0025 <span class="comment">%     assert_error('error');</span>
-0026 <span class="comment">%</span>
-0027 <span class="comment">%     % the same, with message check</span>
-0028 <span class="comment">%     assert_error('error(''huh\nha'');', 'huh\nha');</span>
-0029 <span class="comment">%</span>
-0030 <span class="comment">%     % use an anonymous function for injecting variable values</span>
-0031 <span class="comment">%     v1 = 3; v2 = {};</span>
-0032 <span class="comment">%     assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');</span>
-0033 <span class="comment">%</span>
-0034 <span class="comment">%  See also  FAIL, ASSERT_TRUE, ASSERT_WARNING</span>
-0035 
-0036 <span class="comment">%  This Software and all associated files are released unter the</span>
-0037 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
-0038 <span class="comment">%</span>
-0039 <span class="comment">%  $Author$</span>
-0040 <span class="comment">%  $Id$</span>
+0012 <span class="comment">%  ASSERT_ERROR(FUNC, ERRID, MSG) does the same. Adds a custom message to the</span>
+0013 <span class="comment">%  front of the failure message. The MSG argument may also be used with the</span>
+0014 <span class="comment">%  following signatures.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%  ASSERT_ERROR(FUNC, ERRSTRUCT) does the same, but with a typical error</span>
+0017 <span class="comment">%  structure as argument. Set any of fields 'identifier', 'message', 'stack' in</span>
+0018 <span class="comment">%  ERRSTRUCT to let each be compared to the actual error's fields. Only set</span>
+0019 <span class="comment">%  fields will be compared. This enables you to compare the call stack. You</span>
+0020 <span class="comment">%  can limit the comparison to some parts of a call stack's fields. The fields</span>
+0021 <span class="comment">%  are: file, name, line. By providing only one or two of them in your expected</span>
+0022 <span class="comment">%  call stack structure, only those fields will be compared.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%  ASSERT_ERROR(EXPRSTRING, ERRID/ERRSTRUCT) evaluates the string EXPRSTRING</span>
+0025 <span class="comment">%  and raises an error if the evaluation did not raise an error itself. Use this</span>
+0026 <span class="comment">%  to rather call arbitrary MATLAB expressions instead of single functions. Same</span>
+0027 <span class="comment">%  rules for ERRID/ERRSTRUCT arguments as above apply.</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">%  Examples</span>
+0030 <span class="comment">%     % asserts variable arg being empty</span>
+0031 <span class="comment">%     assert_error('error');</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">%     % the same, with message check</span>
+0034 <span class="comment">%     assert_error('error(''huh\nha'');', 'huh\nha');</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%     % use an anonymous function for injecting variable values</span>
+0037 <span class="comment">%     v1 = 3; v2 = {};</span>
+0038 <span class="comment">%     assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%  See also  FAIL, ASSERT_TRUE, ASSERT_WARNING</span>
 0041 
-0042 error(nargchk(1, 2, nargin, <span class="string">'struct'</span>));
-0043 
-0044 <span class="comment">% determine what to check for</span>
-0045 <span class="keyword">if</span> nargin &lt; 2
-0046    <span class="comment">% checks for any error at all</span>
-0047    errcomp = struct();
-0048 <span class="keyword">elseif</span> ischar(errspec)
-0049    <span class="comment">% checks for identifier</span>
-0050    errcomp = struct(<span class="string">'identifier'</span>, {errspec});
-0051 <span class="keyword">elseif</span> isstruct(errspec)
-0052    <span class="comment">% checks for anything the user specified</span>
-0053    errcomp = errspec;
-0054 <span class="keyword">else</span>
-0055    error(<span class="string">'assert_error: ERRSPEC argument must be either an error id string or a error struct.'</span>);
-0056 <span class="keyword">end</span>
-0057 
-0058 <span class="comment">% execute function/evalstring</span>
-0059 bCaught = false;
-0060 <span class="keyword">try</span>
-0061    <span class="keyword">if</span> isa(func, <span class="string">'function_handle'</span>)
-0062       func();
-0063    <span class="keyword">else</span>
-0064       eval(func);
-0065    <span class="keyword">end</span>
-0066 <span class="keyword">catch</span>
-0067    bCaught = true;
-0068    <span class="comment">% use lasterror instead of catch for R2006b compatibility</span>
-0069    differences = <a href="#_sub1" class="code" title="subfunction diff = error_struct_diff(expected, actual)">error_struct_diff</a>(errcomp, lasterror());
-0070    <span class="comment">% we have a match when there are no relevant differences</span>
-0071    bErrorMatch = isempty(fieldnames(differences));
-0072 <span class="keyword">end</span>
-0073 
-0074 <span class="comment">% evaluate findings</span>
-0075 <span class="keyword">if</span> ~bCaught
-0076    <span class="comment">% no error at all is a failed expectation</span>
-0077    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'Error expected, but none occurred.'</span>);
-0078 <span class="keyword">elseif</span> ~bErrorMatch
-0079    <span class="comment">% don't use sprintf %s expansion here, in order to preserve special</span>
-0080    <span class="comment">% characters in the strings</span>
-0081    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>([<span class="string">'Error occurred, but did not match criteria. '</span> <a href="#_sub2" class="code" title="subfunction string = diff2string(diff)">diff2string</a>(differences)]);
-0082 <span class="keyword">end</span>
-0083 
-0084 
-0085 <span class="comment">% Return a structure with only those fields that do not equal throughout error</span>
-0086 <span class="comment">% structures expected and actual. Only compares fields that both structures</span>
-0087 <span class="comment">% have. Each of the returned structure's field's values themselves is a structure</span>
-0088 <span class="comment">% with fields 'expected' and 'actual'.</span>
-0089 <a name="_sub1" href="#_subfunctions" class="code">function diff = error_struct_diff(expected, actual)</a>
-0090 
-0091    diff = struct();
-0092    
-0093    <span class="comment">% compare those error details</span>
-0094    fields = intersect(fieldnames(expected), fieldnames(actual));
-0095    <span class="comment">% compare each and every field for equality</span>
-0096    <span class="keyword">for</span> f = 1:length(fields)
-0097       <span class="comment">% actual error message needs to be cleaned from assert_error specific stuff</span>
-0098       <span class="keyword">if</span> strcmp(fields{f}, <span class="string">'message'</span>)
-0099          <span class="comment">% Eat first line that should read 'Error using ==&gt; assert_error', terminated</span>
-0100          <span class="comment">% by a newline. The actual message comes after it. Filter the offending line</span>
-0101          <span class="comment">% with a regular expression rather than a simple strrep, because after '==&gt;',</span>
-0102          <span class="comment">% MATLAB puts an HTML statement from R2007b on, and plain text before.</span>
-0103          actual.message = regexprep(actual.message, <span class="string">'Error using ==&gt; .*\n'</span>, <span class="string">''</span>, <span class="string">'dotexceptnewline'</span>);
-0104       <span class="keyword">end</span>
-0105       
-0106       <span class="keyword">if</span> ~isequal(expected.(fields{f}), actual.(fields{f}))
-0107          diff.(fields{f}) = struct(<span class="string">'expected'</span>, {expected.(fields{f})}, <span class="string">'actual'</span>, {actual.(fields{f})});
-0108       <span class="keyword">end</span>
-0109    <span class="keyword">end</span>
-0110 
-0111 
-0112 <a name="_sub2" href="#_subfunctions" class="code">function string = diff2string(diff)</a>
-0113 
-0114    diffstring = @(field) [<span class="string">'Expected error '</span> field <span class="string">' '</span> printable(diff.(field).expected) <span class="string">' actually was '</span> printable(diff.(field).actual) <span class="string">'.'</span>];
-0115    diffstrings = cellfun(diffstring, fieldnames(diff), <span class="string">'UniformOutput'</span>, false);
-0116    string = strjoin(diffstrings, sprintf(<span class="string">'\n'</span>));</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0042 <span class="comment">%  This Software and all associated files are released unter the</span>
+0043 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">%  $Author$</span>
+0046 <span class="comment">%  $Id$</span>
+0047 
+0048 error(nargchk(1, 3, nargin, <span class="string">'struct'</span>));
+0049 
+0050 <span class="comment">% determine what to check for</span>
+0051 <span class="keyword">if</span> nargin &lt; 2
+0052    <span class="comment">% checks for any error at all</span>
+0053    errcomp = struct();
+0054 <span class="keyword">elseif</span> ischar(errspec)
+0055    <span class="comment">% checks for identifier</span>
+0056    errcomp = struct(<span class="string">'identifier'</span>, {errspec});
+0057 <span class="keyword">elseif</span> isstruct(errspec)
+0058    <span class="comment">% checks for anything the user specified</span>
+0059    errcomp = errspec;
+0060 <span class="keyword">else</span>
+0061    error(<span class="string">'assert_error: ERRSPEC argument must be either an error id string or a error struct.'</span>);
+0062 <span class="keyword">end</span>
+0063 
+0064 <span class="keyword">if</span> nargin &lt; 3
+0065     msg = <span class="string">''</span>;
+0066 <span class="keyword">end</span>
+0067 
+0068 <span class="keyword">if</span> ~isempty(msg)
+0069     <span class="comment">% append separator if msg given</span>
+0070     msg = [msg <span class="string">' '</span>];
+0071 <span class="keyword">end</span>
+0072 
+0073 <span class="comment">% execute function/evalstring</span>
+0074 bCaught = false;
+0075 <span class="keyword">try</span>
+0076    <span class="keyword">if</span> isa(func, <span class="string">'function_handle'</span>)
+0077       func();
+0078    <span class="keyword">else</span>
+0079       evalin(<span class="string">'caller'</span>, func);
+0080    <span class="keyword">end</span>
+0081 <span class="keyword">catch</span>
+0082    bCaught = true;
+0083    <span class="comment">% use lasterror instead of catch for R2006b compatibility</span>
+0084    differences = <a href="#_sub1" class="code" title="subfunction diff = error_struct_diff(expected, actual)">error_struct_diff</a>(errcomp, lasterror());
+0085    <span class="comment">% we have a match when there are no relevant differences</span>
+0086    bErrorMatch = isempty(fieldnames(differences));
+0087 <span class="keyword">end</span>
+0088 
+0089 <span class="comment">% evaluate findings</span>
+0090 <span class="keyword">if</span> ~bCaught
+0091    <span class="comment">% no error at all is a failed expectation</span>
+0092    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'%sError expected, but none occurred.'</span>, msg);
+0093 <span class="keyword">elseif</span> ~bErrorMatch
+0094    <span class="comment">% don't use sprintf %s expansion here, in order to preserve special</span>
+0095    <span class="comment">% characters in the strings</span>
+0096    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'%sError occurred, but did not match criteria. %s'</span>, msg, <a href="#_sub2" class="code" title="subfunction string = diff2string(diff)">diff2string</a>(differences));
+0097 <span class="keyword">end</span>
+0098 
+0099 
+0100 <span class="comment">% Return a structure with only those fields that do not equal throughout error</span>
+0101 <span class="comment">% structures expected and actual. Only compares fields that both structures</span>
+0102 <span class="comment">% have. Each of the returned structure's field's values themselves is a structure</span>
+0103 <span class="comment">% with fields 'expected' and 'actual'.</span>
+0104 <a name="_sub1" href="#_subfunctions" class="code">function diff = error_struct_diff(expected, actual)</a>
+0105 
+0106    diff = struct();
+0107    
+0108    <span class="comment">% compare those error details</span>
+0109    fields = intersect(fieldnames(expected), fieldnames(actual));
+0110    <span class="comment">% compare each and every field for equality</span>
+0111    <span class="keyword">for</span> f = 1:length(fields)
+0112       <span class="comment">% actual error message needs to be cleaned from assert_error specific stuff</span>
+0113       <span class="keyword">if</span> strcmp(fields{f}, <span class="string">'message'</span>)
+0114          <span class="comment">% Eat first line that should read 'Error using ==&gt; assert_error', terminated</span>
+0115          <span class="comment">% by a newline. The actual message comes after it. Filter the offending line</span>
+0116          <span class="comment">% with a regular expression rather than a simple strrep, because after '==&gt;',</span>
+0117          <span class="comment">% MATLAB puts an HTML statement from R2007b on, and plain text before.</span>
+0118          actual.message = regexprep(actual.message, <span class="string">'Error using .*\n'</span>, <span class="string">''</span>, <span class="string">'dotexceptnewline'</span>);
+0119       <span class="keyword">end</span>
+0120 
+0121       <span class="comment">% filter actual stack fields to include only expected outputs</span>
+0122       <span class="keyword">if</span> strcmp(fields{f}, <span class="string">'stack'</span>)
+0123          surplus_fields_actual = setdiff(fieldnames(actual.stack), fieldnames(expected.stack));
+0124          surplus_fields_expected = setdiff(fieldnames(expected.stack), fieldnames(actual.stack));
+0125          actual.stack = rmfield(actual.stack, surplus_fields_actual);
+0126          expected.stack = rmfield(expected.stack, surplus_fields_expected);
+0127       <span class="keyword">end</span>
+0128       
+0129       <span class="keyword">if</span> ~isequal(expected.(fields{f}), actual.(fields{f}))
+0130          diff.(fields{f}) = struct(<span class="string">'expected'</span>, {expected.(fields{f})}, <span class="string">'actual'</span>, {actual.(fields{f})});
+0131       <span class="keyword">end</span>
+0132    <span class="keyword">end</span>
+0133 
+0134 
+0135 <a name="_sub2" href="#_subfunctions" class="code">function string = diff2string(diff)</a>
+0136 
+0137    diffstring = @(field) [<span class="string">'Expected error '</span> field <span class="string">' '</span> printable(diff.(field).expected) <span class="string">' actually was '</span> printable(diff.(field).actual) <span class="string">'.'</span>];
+0138    diffstrings = cellfun(diffstring, fieldnames(diff), <span class="string">'UniformOutput'</span>, false);
+0139    string = strjoin(diffstrings, sprintf(<span class="string">'\n'</span>));</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

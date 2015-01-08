@@ -100,36 +100,38 @@ This function is called by:
 0044     <span class="keyword">catch</span>
 0045         err = lasterror;
 0046         errmsg = err.message;
-0047         failure = strfind(errmsg, <span class="string">'MLUNIT FAILURE'</span>);
-0048         <span class="keyword">if</span> (size(failure) &gt; 0)
-0049             result = add_failure(result, <span class="keyword">...</span>
-0050                 self, <span class="keyword">...</span>
-0051                 errmsg(failure(1) + 15:length(errmsg)));
-0052         <span class="keyword">else</span>
-0053             <span class="keyword">if</span> (~isfield(err, <span class="string">'stack'</span>))
-0054                 err.stack(1).file = char(which(self.name));
-0055                 err.stack(1).line = <span class="string">'1'</span>;
-0056                 err.stack = vertcat(err.stack, dbstack(<span class="string">'-completenames'</span>));
-0057             <span class="keyword">end</span>;
-0058             
-0059             result = add_error_with_stack(result, self, err);
-0060         <span class="keyword">end</span>;
-0061     <span class="keyword">end</span>;
-0062     
-0063     <span class="keyword">try</span>
-0064         self = <a href="tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>(self);    
-0065     <span class="keyword">catch</span>
-0066         result = add_error_with_stack(result, self, lasterror);
-0067         ok = 0;
-0068     <span class="keyword">end</span>;
-0069 
-0070     <span class="keyword">if</span> (ok)
-0071         result = add_success(result, self);
-0072     <span class="keyword">end</span>;
-0073 <span class="keyword">catch</span>
-0074 <span class="keyword">end</span>;
-0075 result = stop_test(result, self);
-0076</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0047         failure = strcmp(err.identifier, <span class="string">'MLUNIT:Failure'</span>);
+0048         <span class="keyword">if</span> (failure)
+0049             <span class="comment">% filter up to 'MLUNIT FAILURE' string, which is used for masking actual error message</span>
+0050             failurepos = strfind(errmsg, <span class="string">'MLUNIT FAILURE:'</span>);
+0051             result = add_failure(result, <span class="keyword">...</span>
+0052                 self, <span class="keyword">...</span>
+0053                 errmsg(failurepos(1) + 15:length(errmsg)));
+0054         <span class="keyword">else</span>
+0055             <span class="keyword">if</span> (~isfield(err, <span class="string">'stack'</span>))
+0056                 err.stack(1).file = char(which(self.name));
+0057                 err.stack(1).line = <span class="string">'1'</span>;
+0058                 err.stack = vertcat(err.stack, dbstack(<span class="string">'-completenames'</span>));
+0059             <span class="keyword">end</span>;
+0060             
+0061             result = add_error_with_stack(result, self, err);
+0062         <span class="keyword">end</span>;
+0063     <span class="keyword">end</span>;
+0064     
+0065     <span class="keyword">try</span>
+0066         self = <a href="tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>(self);    
+0067     <span class="keyword">catch</span>
+0068         result = add_error_with_stack(result, self, lasterror);
+0069         ok = 0;
+0070     <span class="keyword">end</span>;
+0071 
+0072     <span class="keyword">if</span> (ok)
+0073         result = add_success(result, self);
+0074     <span class="keyword">end</span>;
+0075 <span class="keyword">catch</span>
+0076 <span class="keyword">end</span>;
+0077 result = stop_test(result, self);
+0078</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

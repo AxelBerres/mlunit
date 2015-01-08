@@ -65,11 +65,11 @@ This function is called by:
 0014 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
 0015 <span class="comment">%  $Id: get_object.m 158 2007-01-03 20:25:39Z thomi $</span>
 0016 
-0017 shh = get(0, <span class="string">'ShowHiddenHandles'</span>);
+0017 shh = builtin(<span class="string">'get'</span>, 0, <span class="string">'ShowHiddenHandles'</span>);
 0018 set(0, <span class="string">'ShowHiddenHandles'</span>, <span class="string">'on'</span>);
 0019 handle = findall(0, <span class="string">'Name'</span>, <span class="string">'mlUnit'</span>);
-0020 self = get(handle, <span class="string">'UserData'</span>);
+0020 self = builtin(<span class="string">'get'</span>, handle, <span class="string">'UserData'</span>);
 0021 set(0, <span class="string">'ShowHiddenHandles'</span>, shh);</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

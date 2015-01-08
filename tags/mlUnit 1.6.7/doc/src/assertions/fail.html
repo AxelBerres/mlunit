@@ -49,7 +49,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="assert_empty.html" class="code" title="function assert_empty(expr, varargin)">assert_empty</a>	ASSERT_EMPTY Raise an error if expression does not evaluate to empty.</li><li><a href="assert_error.html" class="code" title="function assert_error(func, errspec)">assert_error</a>	ASSERT_ERROR Raise an error if a call does not throw an error.</li><li><a href="assert_false.html" class="code" title="function assert_false(expr, varargin)">assert_false</a>	ASSERT_FALSE Raise an error if expression evaluates to true.</li><li><a href="assert_not_empty.html" class="code" title="function assert_not_empty(expr, varargin)">assert_not_empty</a>	ASSERT_NOT_EMPTY Raise an error if expression evaluates to empty.</li><li><a href="assert_true.html" class="code" title="function assert_true(expr, varargin)">assert_true</a>	ASSERT_TRUE Raise an error if expression does not evaluate to true.</li><li><a href="assert_warning.html" class="code" title="function assert_warning(func, warnid)">assert_warning</a>	ASSERT_WARNING Raise an error if a function does not issue a specific warning.</li></ul>
+<li><a href="assert_empty.html" class="code" title="function assert_empty(expr, varargin)">assert_empty</a>	ASSERT_EMPTY Raise an error if expression does not evaluate to empty.</li><li><a href="assert_error.html" class="code" title="function assert_error(func, errspec, msg)">assert_error</a>	ASSERT_ERROR Raise an error if a call does not throw an error.</li><li><a href="assert_false.html" class="code" title="function assert_false(expr, varargin)">assert_false</a>	ASSERT_FALSE Raise an error if expression evaluates to true.</li><li><a href="assert_matfile_equals.html" class="code" title="function assert_matfile_equals(expected, actual)">assert_matfile_equals</a>	ASSERT_MATFILE_EQUALS Raise an error if two mat Files differ.</li><li><a href="assert_not_empty.html" class="code" title="function assert_not_empty(expr, varargin)">assert_not_empty</a>	ASSERT_NOT_EMPTY Raise an error if expression evaluates to empty.</li><li><a href="assert_true.html" class="code" title="function assert_true(expr, varargin)">assert_true</a>	ASSERT_TRUE Raise an error if expression does not evaluate to true.</li><li><a href="assert_warning.html" class="code" title="function assert_warning(func, warnid)">assert_warning</a>	ASSERT_WARNING Raise an error if a function does not issue a specific warning.</li></ul>
 <!-- crossreference -->
 
 
@@ -75,18 +75,18 @@ This function is called by:
 0018 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0019 <span class="comment">%</span>
 0020 <span class="comment">%  $Author: hetu $</span>
-0021 <span class="comment">%  $Id: fail.m 56 2013-12-12 21:56:48Z hetu $</span>
+0021 <span class="comment">%  $Id: fail.m 132 2015-01-08 13:12:51Z hetu $</span>
 0022 
 0023 <span class="comment">% set empty message if left empty, take msg, or interpret sprintf arguments</span>
 0024 <span class="keyword">switch</span> nargin
 0025 <span class="keyword">case</span> 0
-0026    msg_string = <span class="string">''</span>;
+0026    msg_string = <span class="string">'(No failure message provided)'</span>;
 0027 <span class="keyword">case</span> 1
 0028    msg_string = msg;
 0029 <span class="keyword">otherwise</span>
 0030    <span class="comment">% avoid multiple sprintf calls on msg in case msg contains masked</span>
 0031    <span class="comment">% sprintf control sequences that should not be interpreted</span>
-0032    msg_string = sprintf([<span class="string">'\nAssertionError message: '</span> msg], varargin{:});
+0032    msg_string = sprintf(msg, varargin{:});
 0033 <span class="keyword">end</span>
 0034 
 0035 <span class="comment">% get calling stack with absolute file names</span>
@@ -108,28 +108,40 @@ This function is called by:
 0051                   <span class="string">'assert_error'</span>, <span class="keyword">...</span>
 0052                   <span class="string">'assert_warning'</span>, <span class="keyword">...</span>
 0053                   <span class="string">'abstract_assert_equals'</span>, <span class="keyword">...</span>
-0054                   <span class="string">'fail'</span>};
-0055 <span class="keyword">while</span> ~isempty(stack) &amp;&amp; any(strcmpi(stack(1).filename, filtered_files))
-0056     stack(1)=[];
-0057 <span class="keyword">end</span>
-0058 
-0059 <span class="comment">% might also have been called from the MATLAB console</span>
-0060 <span class="keyword">if</span> isempty(stack)
-0061    stack(1).file = <span class="string">'MATLABConsole'</span>;
-0062    stack(1).line = NaN;
-0063 <span class="keyword">end</span>
-0064 
-0065 <span class="comment">% Build up the stack trace from here.</span>
-0066 stacktrace = <span class="string">''</span>;
-0067 <span class="keyword">for</span> i = 1:length(stack)
-0068     stacktrace = [stacktrace, <span class="keyword">...</span>
-0069         sprintf(<span class="string">'\n  In %s at line %d.'</span>, stack(i).file, stack(i).line)];  <span class="comment">%#ok&lt;AGROW&gt;</span>
-0070 <span class="keyword">end</span>;
-0071 
-0072 <span class="comment">% throw error</span>
-0073 error([<span class="string">'MLUNIT FAILURE:Traceback (most recent call first):'</span>, <span class="keyword">...</span>
-0074    stacktrace, <span class="keyword">...</span>
-0075    msg_string]);</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0054                   <span class="string">'fail'</span>, <span class="keyword">...</span>
+0055                   };
+0056 <span class="keyword">while</span> ~isempty(stack) &amp;&amp; any(strcmpi(stack(1).filename, filtered_files))
+0057     stack(1)=[];
+0058 <span class="keyword">end</span>
+0059 
+0060 <span class="comment">% Pop all internal managing calls from the stack. These are at the back, i.e.</span>
+0061 <span class="comment">% higher in the call chain. For failures, these are of no interest and only</span>
+0062 <span class="comment">% muddle the output. Delete everything after the last/highest-up occurrence of</span>
+0063 <span class="comment">% the test file. Use the test file in order to account for test functions, but</span>
+0064 <span class="comment">% also tear_down and set_up.</span>
+0065 first_handler_idx = find(strcmp({stack.filename}, <span class="string">'run_test'</span>), 1, <span class="string">'first'</span>);
+0066 stack(first_handler_idx:end) = [];
+0067 
+0068 <span class="comment">% might also have been called from the MATLAB console</span>
+0069 <span class="keyword">if</span> isempty(stack)
+0070    stack(1).file = <span class="string">'MATLABConsole'</span>;
+0071    stack(1).line = NaN;
+0072 <span class="keyword">end</span>
+0073 
+0074 <span class="comment">% Build up the stack trace from here.</span>
+0075 stacktrace = <span class="string">''</span>;
+0076 <span class="keyword">for</span> i = 1:length(stack)
+0077     stacktrace = [stacktrace, <span class="keyword">...</span>
+0078         sprintf(<span class="string">'\nIn %s at line %d.'</span>, stack(i).file, stack(i).line)];  <span class="comment">%#ok&lt;AGROW&gt;</span>
+0079 <span class="keyword">end</span>;
+0080 
+0081 <span class="comment">% throw error; 'MLUNIT FAILURE' string is used for masking actual error message</span>
+0082 errmsg = [<span class="string">'MLUNIT FAILURE:'</span>, <span class="keyword">...</span>
+0083    msg_string, <span class="keyword">...</span>
+0084    stacktrace];
+0085 
+0086 <span class="comment">% raise typed error, mask message string in order to prevent further sprintf expansion</span>
+0087 error(<span class="string">'MLUNIT:Failure'</span>, <span class="string">'%s'</span>, errmsg);</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
