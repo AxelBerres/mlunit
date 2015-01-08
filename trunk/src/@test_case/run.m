@@ -44,11 +44,13 @@ try
     catch
         err = lasterror;
         errmsg = err.message;
-        failure = strfind(errmsg, 'MLUNIT FAILURE');
-        if (size(failure) > 0)
+        failure = strcmp(err.identifier, 'MLUNIT:Failure');
+        if (failure)
+            % filter up to 'MLUNIT FAILURE' string, which is used for masking actual error message
+            failurepos = strfind(errmsg, 'MLUNIT FAILURE:');
             result = add_failure(result, ...
                 self, ...
-                errmsg(failure(1) + 15:length(errmsg)));
+                errmsg(failurepos(1) + 15:length(errmsg)));
         else
             if (~isfield(err, 'stack'))
                 err.stack(1).file = char(which(self.name));

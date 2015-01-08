@@ -1,4 +1,4 @@
-function assert_error(func, errspec)
+function assert_error(func, errspec, msg)
 %ASSERT_ERROR Raise an error if a call does not throw an error.
 %  ASSERT_ERROR(FUNC) calls the function handle FUNC and raises an error if the
 %  function returns without error. Use it to assert that a certain function
@@ -8,6 +8,10 @@ function assert_error(func, errspec)
 %
 %  ASSERT_ERROR(FUNC, ERRID) does the same. Also raises an error when the
 %  identifier of FUNC's error does not equal string ERRID.
+%
+%  ASSERT_ERROR(FUNC, ERRID, MSG) does the same. Adds a custom message to the
+%  front of the failure message. The MSG argument may also be used with the
+%  following signatures.
 %
 %  ASSERT_ERROR(FUNC, ERRSTRUCT) does the same, but with a typical error
 %  structure as argument. Set any of fields 'identifier', 'message', 'stack' in
@@ -41,7 +45,7 @@ function assert_error(func, errspec)
 %  $Author$
 %  $Id$
 
-error(nargchk(1, 2, nargin, 'struct'));
+error(nargchk(1, 3, nargin, 'struct'));
 
 % determine what to check for
 if nargin < 2
@@ -55,6 +59,15 @@ elseif isstruct(errspec)
    errcomp = errspec;
 else
    error('assert_error: ERRSPEC argument must be either an error id string or a error struct.');
+end
+
+if nargin < 3
+    msg = '';
+end
+
+if ~isempty(msg)
+    % append separator if msg given
+    msg = [msg ' '];
 end
 
 % execute function/evalstring
@@ -76,11 +89,11 @@ end
 % evaluate findings
 if ~bCaught
    % no error at all is a failed expectation
-   fail('Error expected, but none occurred.');
+   fail('%sError expected, but none occurred.', msg);
 elseif ~bErrorMatch
    % don't use sprintf %s expansion here, in order to preserve special
    % characters in the strings
-   fail(['Error occurred, but did not match criteria. ' diff2string(differences)]);
+   fail('%sError occurred, but did not match criteria. %s', msg, diff2string(differences));
 end
 
 
