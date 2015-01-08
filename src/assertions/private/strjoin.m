@@ -18,3 +18,9 @@ assert(ischar(separator));
 
 if isempty(stringcell), result = ''; return; end
 result = [sprintf(['%s' separator], stringcell{1:end-1}), stringcell{end}];
+
+% The sprintf statement may produce 1x0 or 0x0 empty results, which MATLAB
+% does not see as being equal. Normalize to 0x0.
+if isempty(result)
+   result = '';
+end
