@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.7-SNAPSHOT
-Started: 2015-01-07 13:33:28.
+Started: 2015-01-07 14:14:59.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -37,47 +37,47 @@ Running suite test_failure_output <<< FAILED
   test_equals fail:
     Data not equal:
       Expected : 3
-      Actual   : 4.
+      Actual   : 4
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 37.
   test_equals_array fail:
     Data not equal:
       Expected : [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
-      Actual   : [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15].
+      Actual   : [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 43.
   test_equals_arraymatrix fail:
     Data not equal:
       Expected : [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16]
-      Actual   : [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16].
+      Actual   : [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 51.
   test_equals_string fail:
     Data not equal:
       Expected : 'foo'
-      Actual   : 'fOo'.
+      Actual   : 'fOo'
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 56.
   test_equals_cell fail:
     Data not equal:
       Expected : {3, 'foo'}
-      Actual   : {3, 'fOo'}.
+      Actual   : {3, 'fOo'}
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 63.
   test_equals_struct fail:
     Data not equal:
       Expected : [{foo:{'hi', 'ho'}; bar:[3 4]}]
-      Actual   : [{foo:{'ho', 'hi'}; bar:[3 4]}].
+      Actual   : [{foo:{'ho', 'hi'}; bar:[3 4]}]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71.
   test_equals_nested_struct fail:
     Data not equal:
       Expected : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'hi', 'ho'}; bar:[3 4]}]}]
-      Actual   : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'ho', 'hi'}; bar:[3 4]}]}].
+      Actual   : [{foo:{'hi', 'ho'}; bar:[3 4]; tee:[{foo:{'ho', 'hi'}; bar:[3 4]}]}]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 80.
   test_equals_structarray fail:
     Data not equal:
       Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
-      Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}].
+      Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 88.
   test_not_equals fail:
     Data not equal:
       Expected : 3
-      Actual   : 3.
+      Actual   : 3
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 93.
   test_error fail:
     Error expected, but none occurred.
@@ -107,7 +107,7 @@ Running suite test_failure_output <<< FAILED
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 22 tests in 1.89s
+Executed 22 tests in 0.22s
 
 20 tests FAILED
 2 tests had ERRORS
