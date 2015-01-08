@@ -92,53 +92,55 @@ This function is called by:
 0032 str = textread(stack(2).file, <span class="string">'%s'</span>, <span class="string">'whitespace'</span>, <span class="string">''</span>, <span class="string">'delimiter'</span>, <span class="string">'\n'</span> );
 0033 idx = regexp(str, <span class="string">'^\s*function\s+\w*'</span>, <span class="string">'start'</span>);
 0034 is_func = not(cellfun(<span class="string">'isempty'</span>, idx));
-0035 is_func(1) = 0;
-0036  
-0037 tokens = transpose(regexp(str(is_func),<span class="keyword">...</span>
-0038     <span class="string">'^\s*function\s+(\w*)\s*\%*.*'</span>,<span class="keyword">...</span>
-0039     <span class="string">'tokens'</span>));
-0040 
-0041 set_up_handle = 0;
-0042 tear_down_handle = 0;
-0043 
-0044 <span class="keyword">for</span> token = tokens
-0045     fun = token{1}{:};
-0046     <span class="keyword">if</span> (strcmp(fun, <span class="string">'set_up'</span>))
-0047         set_up_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, char(fun)]);
-0048         set_up_handle = set_up_handle();
-0049     <span class="keyword">end</span>;
-0050     <span class="keyword">if</span> (strcmp(fun, <span class="string">'tear_down'</span>))
-0051         tear_down_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, char(fun)]);
-0052         tear_down_handle = tear_down_handle();
-0053     <span class="keyword">end</span>;
-0054 <span class="keyword">end</span>;
-0055 
-0056 suite = test_suite;
-0057 suite = set_name(suite, stack(2).name);
-0058 <span class="keyword">for</span> token = tokens
-0059     test = char(token{1}{:});
-0060     pos = findstr(<span class="string">'test'</span>, test);
-0061     <span class="keyword">if</span> (~isempty(name))
-0062         <span class="keyword">if</span> (strcmp(name, test))
-0063             fun_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, test, <span class="string">''</span>]);
-0064             fun_handle = fun_handle();
-0065             suite = function_test_case(fun_handle,<span class="keyword">...</span>
-0066                 set_up_handle,<span class="keyword">...</span>
-0067                 tear_down_handle, <span class="keyword">...</span>
-0068                 test);
-0069             <span class="keyword">break</span>;
-0070         <span class="keyword">end</span>;
-0071     <span class="keyword">elseif</span> (~isempty(pos) &amp;&amp; (pos(1) == 1))
-0072         fun_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, test, <span class="string">''</span>]);
-0073         fun_handle = fun_handle();
-0074         suite = add_test(suite, function_test_case(fun_handle,<span class="keyword">...</span>
-0075             set_up_handle,<span class="keyword">...</span>
-0076             tear_down_handle, <span class="keyword">...</span>
-0077             test));
-0078     <span class="keyword">end</span>;
-0079 <span class="keyword">end</span>;
-0080 
-0081</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0035 
+0036 <span class="comment">% remove very first function item, which should be the host function</span>
+0037 is_func(find(is_func, 1)) = 0;
+0038 
+0039 tokens = transpose(regexp(str(is_func),<span class="keyword">...</span>
+0040     <span class="string">'^\s*function\s+(\w*)\s*\%*.*'</span>,<span class="keyword">...</span>
+0041     <span class="string">'tokens'</span>));
+0042 
+0043 set_up_handle = 0;
+0044 tear_down_handle = 0;
+0045 
+0046 <span class="keyword">for</span> token = tokens
+0047     fun = token{1}{:};
+0048     <span class="keyword">if</span> (strcmp(fun, <span class="string">'set_up'</span>))
+0049         set_up_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, char(fun)]);
+0050         set_up_handle = set_up_handle();
+0051     <span class="keyword">end</span>;
+0052     <span class="keyword">if</span> (strcmp(fun, <span class="string">'tear_down'</span>))
+0053         tear_down_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, char(fun)]);
+0054         tear_down_handle = tear_down_handle();
+0055     <span class="keyword">end</span>;
+0056 <span class="keyword">end</span>;
+0057 
+0058 suite = test_suite;
+0059 suite = set_name(suite, stack(2).name);
+0060 <span class="keyword">for</span> token = tokens
+0061     test = char(token{1}{:});
+0062     pos = findstr(<span class="string">'test'</span>, test);
+0063     <span class="keyword">if</span> (~isempty(name))
+0064         <span class="keyword">if</span> (strcmp(name, test))
+0065             fun_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, test, <span class="string">''</span>]);
+0066             fun_handle = fun_handle();
+0067             suite = function_test_case(fun_handle,<span class="keyword">...</span>
+0068                 set_up_handle,<span class="keyword">...</span>
+0069                 tear_down_handle, <span class="keyword">...</span>
+0070                 test);
+0071             <span class="keyword">break</span>;
+0072         <span class="keyword">end</span>;
+0073     <span class="keyword">elseif</span> (~isempty(pos) &amp;&amp; (pos(1) == 1))
+0074         fun_handle = evalin(<span class="string">'caller'</span>, [<span class="string">'@() @'</span>, test, <span class="string">''</span>]);
+0075         fun_handle = fun_handle();
+0076         suite = add_test(suite, function_test_case(fun_handle,<span class="keyword">...</span>
+0077             set_up_handle,<span class="keyword">...</span>
+0078             tear_down_handle, <span class="keyword">...</span>
+0079             test));
+0080     <span class="keyword">end</span>;
+0081 <span class="keyword">end</span>;
+0082 
+0083</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

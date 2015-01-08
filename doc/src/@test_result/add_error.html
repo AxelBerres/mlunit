@@ -69,11 +69,11 @@ This function is called by:
 0017 
 0018 newlines = sprintf(<span class="string">'\n\n'</span>);
 0019 <span class="keyword">if</span> (size(strfind(error, newlines)) == 0)
-0020     error = sprintf(<span class="string">'%s\n\n'</span>, error);
+0020     error = sprintf(<span class="string">'%s'</span>, error);
 0021 <span class="keyword">end</span>;
 0022 last = size(self.errors, 1);
 0023 self.errors{last + 1, 1} = test;
 0024 self.errors{last + 1, 2} = error;</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

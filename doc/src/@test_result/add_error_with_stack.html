@@ -69,18 +69,15 @@ This function is called by:
 0017 
 0018 stacktrace = <span class="string">''</span>;
 0019 <span class="keyword">for</span> i = 1:size(err.stack, 1)
-0020     stacktrace = sprintf(<span class="string">'%s\n  In %s at line %d'</span>, <span class="keyword">...</span>
+0020     stacktrace = sprintf(<span class="string">'%s\nIn %s at line %d'</span>, <span class="keyword">...</span>
 0021         stacktrace, <span class="keyword">...</span>
 0022         err.stack(i).file, err.stack(i).line);
 0023 <span class="keyword">end</span>;
 0024 [message, stacktrace] = <a href="parse_error.html" class="code" title="function [error, stacktrace] = parse_error(self, error, stacktrace) %#ok<INUSL>">parse_error</a>(self, err.message, stacktrace);
-0025 stacktrace = sprintf(<span class="string">'%s\n'</span>, stacktrace);
-0026 self = <a href="add_error.html" class="code" title="function self = add_error(self, test, error)">add_error</a>(self, <span class="keyword">...</span>
-0027     test, <span class="keyword">...</span>
-0028     [<span class="string">'Traceback (most recent call first): '</span>, <span class="keyword">...</span>
-0029     stacktrace, <span class="keyword">...</span><span class="comment">,</span>
-0030     <span class="string">'Error: '</span>, <span class="keyword">...</span>
-0031     message]);</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0025 self = <a href="add_error.html" class="code" title="function self = add_error(self, test, error)">add_error</a>(self, <span class="keyword">...</span>
+0026     test, <span class="keyword">...</span>
+0027     [message, <span class="keyword">...</span>
+0028     stacktrace]);</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

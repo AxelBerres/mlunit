@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of find_struct_differences</title>
+  <meta name="keywords" content="find_struct_differences">
+  <meta name="description" content="Determine differences between two given structs. Recursively.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; find_struct_differences.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>find_struct_differences
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Determine differences between two given structs. Recursively.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function struct_diffs = find_struct_differences(sa, sb, fieldpath) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Determine differences between two given structs. Recursively.
+ Can only process struct arrays of size 1x1.
+ Results are given as struct array, whose elements each provide information on
+ one distinct difference. Each element has these fields:
+
+     fieldpath: the path of fieldnames of this difference, e.g. '.foo.bar'
+     missingin: 'expected' or 'actual', or '' if prevalent in both
+     expected: value of the field, [] if missingin=='expected'
+     actual: value of the field, [] if missingin=='actual'</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>	ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</li><li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function type = diff_type(fieldpath, missingin, expected, actual)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% Determine differences between two given structs. Recursively.</span>
+0002 <span class="comment">% Can only process struct arrays of size 1x1.</span>
+0003 <span class="comment">% Results are given as struct array, whose elements each provide information on</span>
+0004 <span class="comment">% one distinct difference. Each element has these fields:</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%     fieldpath: the path of fieldnames of this difference, e.g. '.foo.bar'</span>
+0007 <span class="comment">%     missingin: 'expected' or 'actual', or '' if prevalent in both</span>
+0008 <span class="comment">%     expected: value of the field, [] if missingin=='expected'</span>
+0009 <span class="comment">%     actual: value of the field, [] if missingin=='actual'</span>
+0010 <a name="_sub0" href="#_subfunctions" class="code">function struct_diffs = find_struct_differences(sa, sb, fieldpath)</a>
+0011 
+0012     assert(nargin &gt;= 2);
+0013     assert(isstruct(sa));
+0014     assert(isstruct(sb));
+0015     assert(numel(sa) == 1);
+0016     assert(numel(sb) == 1);
+0017     
+0018     <span class="keyword">if</span> nargin &lt; 3
+0019         fieldpath = <span class="string">''</span>;
+0020     <span class="keyword">end</span>
+0021 
+0022     <span class="comment">% start from empty and growable, therefore properly typed, struct</span>
+0023     struct_diffs = repmat(<a href="#_sub1" class="code" title="subfunction type = diff_type(fieldpath, missingin, expected, actual)">diff_type</a>(), [0 0]);
+0024     
+0025     sa_fields = fieldnames(sa);
+0026     sb_fields = fieldnames(sb);
+0027 
+0028     <span class="comment">% fields missing in sb/actual</span>
+0029     excess_sa = setdiff(sa_fields, sb_fields);
+0030     <span class="keyword">for</span> i=1:numel(excess_sa)
+0031         struct_diffs(end+1) = <a href="#_sub1" class="code" title="subfunction type = diff_type(fieldpath, missingin, expected, actual)">diff_type</a>([fieldpath <span class="string">'.'</span> excess_sa{i}], <span class="string">'actual'</span>, sa.(excess_sa{i}), []); <span class="comment">%#ok&lt;AGROW&gt;</span>
+0032     <span class="keyword">end</span>
+0033     
+0034     <span class="comment">% fields missing in sa/expected</span>
+0035     excess_sb = setdiff(sb_fields, sa_fields);
+0036     <span class="keyword">for</span> i=1:numel(excess_sb)
+0037         struct_diffs(end+1) = <a href="#_sub1" class="code" title="subfunction type = diff_type(fieldpath, missingin, expected, actual)">diff_type</a>([fieldpath <span class="string">'.'</span> excess_sb{i}], <span class="string">'expected'</span>, [], sb.(excess_sb{i})); <span class="comment">%#ok&lt;AGROW&gt;</span>
+0038     <span class="keyword">end</span>
+0039 
+0040     <span class="comment">% fields that differ</span>
+0041     common_fields = intersect(sa_fields, sb_fields);
+0042     <span class="keyword">for</span> i=1:numel(common_fields)
+0043         
+0044         sa_value = sa.(common_fields{i});
+0045         sb_value = sb.(common_fields{i});
+0046         appended_fieldpath = [fieldpath <span class="string">'.'</span> common_fields{i}];
+0047         
+0048         <span class="comment">% only handle fields having differences</span>
+0049         <span class="keyword">if</span> isequal(sa_value, sb_value)
+0050             <span class="keyword">continue</span>;
+0051         <span class="keyword">end</span>
+0052         
+0053         <span class="comment">% only recurse for non-empty, scalar structs in sa as well as sb</span>
+0054         <span class="keyword">if</span> isstruct(sa_value) &amp;&amp; isscalar(sa_value) &amp;&amp; isstruct(sb_value) &amp;&amp; isscalar(sb_value)
+0055             nested_diffs = <a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>(sa_value, sb_value, appended_fieldpath);
+0056             struct_diffs = horzcat(struct_diffs, nested_diffs);
+0057         <span class="keyword">else</span>
+0058             struct_diffs(end+1) = <a href="#_sub1" class="code" title="subfunction type = diff_type(fieldpath, missingin, expected, actual)">diff_type</a>(appended_fieldpath, <span class="string">''</span>, sa_value, sb_value); <span class="comment">%#ok&lt;AGROW&gt;</span>
+0059         <span class="keyword">end</span>
+0060     <span class="keyword">end</span>
+0061 
+0062 <span class="comment">% Defines a struct with always these fields:</span>
+0063 <span class="comment">%   fieldpath: string, '' if empty</span>
+0064 <span class="comment">%   missingin: 'expected' or 'actual', or '' if in both</span>
+0065 <span class="comment">%   expected: any value, [] if missingin=='expected'</span>
+0066 <span class="comment">%   actual: any value, [] if missingin=='actual'</span>
+0067 <a name="_sub1" href="#_subfunctions" class="code">function type = diff_type(fieldpath, missingin, expected, actual)</a>
+0068 
+0069     <span class="comment">% no arguments, then construct empty 0x0 struct with types</span>
+0070     <span class="keyword">if</span> nargin==0
+0071         type = struct( <span class="keyword">...</span>
+0072             <span class="string">'fieldpath'</span>, {}, <span class="keyword">...</span>
+0073             <span class="string">'missingin'</span>, {}, <span class="keyword">...</span>
+0074             <span class="string">'expected'</span>, {}, <span class="keyword">...</span>
+0075             <span class="string">'actual'</span>, {});
+0076         <span class="keyword">return</span>;
+0077     <span class="keyword">end</span>
+0078 
+0079     assert(nargin &gt;= 1 &amp;&amp; ischar(fieldpath));
+0080     <span class="keyword">if</span> nargin&lt;2, missingin = <span class="string">''</span>; <span class="keyword">end</span>
+0081     <span class="keyword">if</span> nargin&lt;3, expected = []; <span class="keyword">end</span>
+0082     <span class="keyword">if</span> nargin&lt;4, actual = []; <span class="keyword">end</span>
+0083 
+0084     type = struct( <span class="keyword">...</span>
+0085         <span class="string">'fieldpath'</span>, {fieldpath}, <span class="keyword">...</span>
+0086         <span class="string">'missingin'</span>, {missingin}, <span class="keyword">...</span>
+0087         <span class="string">'expected'</span>, {expected}, <span class="keyword">...</span>
+0088         <span class="string">'actual'</span>, {actual});</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

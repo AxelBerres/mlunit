@@ -69,7 +69,7 @@ This function is called by:
 0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0015 <span class="comment">%</span>
 0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0017 <span class="comment">%  $Id: gui.m 17 2012-11-21 13:45:19Z hetu $</span>
+0017 <span class="comment">%  $Id: gui.m 81 2014-05-20 08:44:31Z hetu $</span>
 0018 
 0019 <span class="keyword">global</span> self;
 0020 
@@ -78,7 +78,7 @@ This function is called by:
 0023 <span class="keyword">elseif</span> ((object.callback == 1) &amp;&amp; (isempty(self)))
 0024     handles = guidata(gcbo);
 0025     <span class="keyword">try</span>
-0026         self = get(handles.gui_window, <span class="string">'UserData'</span>);
+0026         self = builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'UserData'</span>);
 0027     <span class="keyword">catch</span>
 0028     <span class="keyword">end</span>;
 0029 <span class="keyword">end</span>;
@@ -154,7 +154,7 @@ This function is called by:
 0099 <span class="comment">% with empty eventdata and empty handles. Don't really know, how to handle this. Let's</span>
 0100 <span class="comment">% just not set the positions in that case.</span>
 0101 <span class="keyword">if</span> nargin&gt;=3 &amp;&amp; ~isempty(handles)
-0102    position = get(hobject, <span class="string">'Position'</span>);
+0102    position = builtin(<span class="string">'get'</span>, hobject, <span class="string">'Position'</span>);
 0103    <span class="keyword">if</span> (position(4) &lt; 20)
 0104        position(4) = 20;
 0105    <span class="keyword">end</span>;
@@ -178,13 +178,13 @@ This function is called by:
 0123 
 0124 <a name="_sub4" href="#_subfunctions" class="code">function gui_test_case_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
 0125 
-0126 <span class="keyword">if</span> (double(get(handles.gui_window, <span class="string">'CurrentCharacter'</span>)) == 13)
+0126 <span class="keyword">if</span> (double(builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'CurrentCharacter'</span>)) == 13)
 0127     <a href="#_sub6" class="code" title="subfunction gui_run_callback(hobject, eventdata, handles) ">gui_run_callback</a>(hobject, eventdata, handles);
 0128 <span class="keyword">end</span>;
 0129 
 0130 <a name="_sub5" href="#_subfunctions" class="code">function gui_test_case_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
 0131 
-0132 <span class="keyword">if</span> ispc &amp;&amp; isequal(get(hobject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0132 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
 0133     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
 0134 <span class="keyword">end</span>
 0135 
@@ -197,7 +197,7 @@ This function is called by:
 0142 set(handles.gui_error, <span class="string">'String'</span>, <span class="string">''</span>);
 0143 set(handles.gui_error, <span class="string">'String'</span>, <span class="string">''</span>);
 0144 set(handles.gui_text_time, <span class="string">'String'</span>, <span class="string">''</span>);
-0145 test_case = get(handles.gui_test_case, <span class="string">'String'</span>);
+0145 test_case = builtin(<span class="string">'get'</span>, handles.gui_test_case, <span class="string">'String'</span>);
 0146 
 0147 <span class="keyword">if</span> (isempty(test_case))
 0148     result = gui_test_result(handles.gui_progress_bar, <span class="keyword">...</span>
@@ -249,8 +249,8 @@ This function is called by:
 0194 
 0195 <span class="keyword">global</span> self;
 0196 
-0197 data = get(handles.gui_error_list, <span class="string">'UserData'</span>);
-0198 selected = get(handles.gui_error_list, <span class="string">'Value'</span>);
+0197 data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
+0198 selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
 0199 
 0200 <span class="keyword">if</span> (length(data) &gt; 0)
 0201     set(handles.gui_error, <span class="string">'String'</span>, <a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>(self, data{selected}));
@@ -265,13 +265,13 @@ This function is called by:
 0210 
 0211 <a name="_sub8" href="#_subfunctions" class="code">function gui_error_list_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
 0212 
-0213 <span class="keyword">if</span> ispc &amp;&amp; isequal(get(hobject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0213 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
 0214     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
 0215 <span class="keyword">end</span>
 0216 
 0217 <a name="_sub9" href="#_subfunctions" class="code">function gui_error_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
 0218 
-0219 <span class="keyword">if</span> ispc &amp;&amp; isequal(get(hobject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0219 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
 0220     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
 0221 <span class="keyword">end</span>
 0222 
@@ -279,7 +279,7 @@ This function is called by:
 0224 
 0225 <span class="keyword">global</span> self;
 0226 
-0227 docked = get(handles.gui_window, <span class="string">'WindowStyle'</span>);
+0227 docked = builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'WindowStyle'</span>);
 0228 <span class="keyword">if</span> (strcmp(docked, <span class="string">'docked'</span>))
 0229     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Normal'</span>);
 0230     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Dock Window'</span>);
@@ -308,10 +308,10 @@ This function is called by:
 0253 
 0254 <a name="_sub12" href="#_subfunctions" class="code">function gui_show_Callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
 0255 
-0256 tokens = get(hObject, <span class="string">'UserData'</span>);
+0256 tokens = builtin(<span class="string">'get'</span>, hObject, <span class="string">'UserData'</span>);
 0257 <span class="keyword">if</span> ((length(tokens) == 3) &amp;&amp; (etime(clock, tokens{3}) &lt; 1))
-0258     data = get(handles.gui_error_list, <span class="string">'UserData'</span>);
-0259     selected = get(handles.gui_error_list, <span class="string">'Value'</span>);
+0258     data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
+0259     selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
 0260     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
 0261     <span class="keyword">if</span> (length(tokens) &gt; 1)
 0262         second = tokens{2};
@@ -322,6 +322,6 @@ This function is called by:
 0267     tokens{3} = clock;
 0268     set(hObject, <span class="string">'UserData'</span>, tokens);
 0269 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

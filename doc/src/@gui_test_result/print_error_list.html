@@ -81,8 +81,8 @@ This function is called by:
 0024     reset_list = 0;
 0025 <span class="keyword">end</span>;
 0026 
-0027 list = get(self.error_listbox, <span class="string">'String'</span>);
-0028 data = get(self.error_listbox, <span class="string">'UserData'</span>);
+0027 list = builtin(<span class="string">'get'</span>, self.error_listbox, <span class="string">'String'</span>);
+0028 data = builtin(<span class="string">'get'</span>, self.error_listbox, <span class="string">'UserData'</span>);
 0029 <span class="keyword">if</span> ((isempty(list)) || (reset_list == 1))
 0030     list = cell(0);
 0031     data = cell(0);
@@ -99,6 +99,6 @@ This function is called by:
 0042 set(self.error_listbox, <span class="string">'String'</span>, list);
 0043 set(self.error_listbox, <span class="string">'UserData'</span>, data);
 0044 set(self.error_listbox, <span class="string">'Value'</span>, 1);</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

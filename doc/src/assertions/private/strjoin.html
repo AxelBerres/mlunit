@@ -39,7 +39,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+<li><a href="abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>	ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
 <!-- crossreference -->
 
 
@@ -59,8 +59,18 @@ This function is called by:
 0012 
 0013 <span class="keyword">if</span> nargin &lt; 1, stringcell = {}; <span class="keyword">end</span>
 0014 <span class="keyword">if</span> nargin &lt; 2, separator = <span class="string">', '</span>; <span class="keyword">end</span>
-0015 <span class="keyword">if</span> isempty(stringcell), result = <span class="string">''</span>; <span class="keyword">return</span>; <span class="keyword">end</span>
-0016 result = [sprintf([<span class="string">'%s'</span> separator], stringcell{1:end-1}), stringcell{end}];</pre></div>
-<hr><address>Generated on Sat 14-Dec-2013 11:38:24 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0015 
+0016 assert(iscellstr(stringcell));
+0017 assert(ischar(separator));
+0018 
+0019 <span class="keyword">if</span> isempty(stringcell), result = <span class="string">''</span>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0020 result = [sprintf([<span class="string">'%s'</span> separator], stringcell{1:end-1}), stringcell{end}];
+0021 
+0022 <span class="comment">% The sprintf statement may produce 1x0 or 0x0 empty results, which MATLAB</span>
+0023 <span class="comment">% does not see as being equal. Normalize to 0x0.</span>
+0024 <span class="keyword">if</span> isempty(result)
+0025    result = <span class="string">''</span>;
+0026 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
