@@ -12,5 +12,9 @@ function result = strjoin(stringcell, separator)
 
 if nargin < 1, stringcell = {}; end
 if nargin < 2, separator = ', '; end
+
+assert(iscellstr(stringcell));
+assert(ischar(separator));
+
 if isempty(stringcell), result = ''; return; end
 result = [sprintf(['%s' separator], stringcell{1:end-1}), stringcell{end}];
