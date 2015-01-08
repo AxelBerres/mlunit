@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.7-SNAPSHOT
-Started: 2015-01-07 21:25:14.
+Started: 2015-01-07 21:36:09.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -80,9 +80,7 @@ Running suite test_failure_output <<< FAILED
       Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 98.
   test_not_equals fail:
-    Data not equal:
-      Expected : 3
-      Actual   : 3
+    Expected and actual are equal.
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 103.
   test_error fail:
     Error expected, but none occurred.
@@ -112,7 +110,7 @@ Running suite test_failure_output <<< FAILED
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 23 tests in 0.19s
+Executed 23 tests in 0.20s
 
 21 tests FAILED
 2 tests had ERRORS

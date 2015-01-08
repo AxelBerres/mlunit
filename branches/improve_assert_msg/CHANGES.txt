@@ -27,6 +27,7 @@ mlUnit development snapshot
   - Fix: Test suite functions whose host function is not declared on the very
     first line lead to an unintelligible error.
   - Fix: some numeric arrays deemed equal, even if of different size
+  - Fix: assert_not_equals failure message suggests having used assert_equals.
 
   [F#12] http://sourceforge.net/p/mlunit/feature-requests/12/
   [F#14] http://sourceforge.net/p/mlunit/feature-requests/14/
