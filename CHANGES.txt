@@ -9,6 +9,7 @@ mlUnit development snapshot
   - Added support for partial stack comparison in assert_error.
   - Test suite functions may declare their host function on the first or
     succeeding lines.
+  - Enable (admittedly hacked) unit testing for private functions.
 
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
