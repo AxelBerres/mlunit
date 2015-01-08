@@ -76,7 +76,7 @@ try
    if isa(func, 'function_handle')
       func();
    else
-      eval(func);
+      evalin('caller', func);
    end
 catch
    bCaught = true;

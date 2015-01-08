@@ -33,6 +33,7 @@ mlUnit development snapshot
   - Fix: assert_not_equals failure message suggests having used assert_equals.
   - Fix: printable returns logical for 1x0 char strings
   - Fix: empty 1x0 and 0x0 char strings deemed different
+  - Fix: assert_error executes functions given as string in its own workspace
 
   [F#12] http://sourceforge.net/p/mlunit/feature-requests/12/
   [F#14] http://sourceforge.net/p/mlunit/feature-requests/14/
