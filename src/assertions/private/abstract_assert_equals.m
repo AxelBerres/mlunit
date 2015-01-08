@@ -56,8 +56,9 @@ are_compatible_numerics = isnumeric(expected) && isequal(class(expected), class(
 sizes_differ = ~isequal(size(expected), size(actual));
 
 % determine equality
-if sizes_differ
+if are_compatible_numerics && sizes_differ
    equals = false;
+
 % check contents only for arguments of equal size
 elseif are_compatible_numerics
    
