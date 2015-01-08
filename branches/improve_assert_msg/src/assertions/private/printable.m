@@ -28,6 +28,10 @@ elseif isstruct(input)
     print_scalar_struct = @(s) ['{' strjoin(fieldname_value_strings(s), '; ') '}'];
     items = arrayfun(print_scalar_struct, input, 'UniformOutput', false);
     outstring = ['[' strjoin(items) ']'];
+elseif ischar(input) && isempty(input)
+    % mat2str blunders when being given a 1x0 char and returns logical instead.
+    % We also need to make sure to preserve the size (0x0 vs 1x0) of the input.
+    outstring = input;
 else
     % mat2str takes care of everything else or throws an error
     outstring = mat2str(input);

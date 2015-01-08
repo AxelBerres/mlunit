@@ -20,6 +20,7 @@ mlUnit development snapshot
   - Failures now recognized by typed error. Still needs magic string for masking
     the actual error message.
   - Sample directory for assert failure outputs.
+  - Enable (admittedly hacked) unit testing for private functions.
 
   - Fix: build.xml did not execute mlUnit tests; report directory was not being
     created; MATLAB automation options conflicted; MATLAB property check failed.
@@ -28,6 +29,8 @@ mlUnit development snapshot
     first line lead to an unintelligible error.
   - Fix: some numeric arrays deemed equal, even if of different size
   - Fix: assert_not_equals failure message suggests having used assert_equals.
+  - Fix: printable returns logical for 1x0 char strings
+  - Fix: empty 1x0 and 0x0 char strings deemed different
 
   [F#12] http://sourceforge.net/p/mlunit/feature-requests/12/
   [F#14] http://sourceforge.net/p/mlunit/feature-requests/14/
