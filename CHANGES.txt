@@ -2,8 +2,9 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit development snapshot
----------------------------
+
+mlUnit 1.6.7 (2015-01-08)
+-------------------------
 
   - Added assert_matfile_equals: Raise an error if two mat Files differ. [F#12]
   - Added support for partial stack comparison in assert_error.
