@@ -10,3 +10,5 @@ basepath = fileparts(mfilename('fullpath'));
 
 % add mlunit automation tools
 addpath(genpath(basepath), '-end');
+
+clear basepath;
