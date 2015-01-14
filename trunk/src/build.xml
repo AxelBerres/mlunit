@@ -21,11 +21,12 @@
         define a dirset collection with id "source.dirs". Do not define
         the source.dir property in that case. You also have to set the inheritRefs
         attribute for the &lt;ant&gt; task to "true" or define a nested
-        &lt;resource&gt; definition.
+        &lt;resource&gt; definition. Defaults to mlUnit's source directory.
+        If you need to have it empty, use exclude="**".
     - "source.dir.shallow" The same as "source.dir", but does not work
         recursively.
     - "source.dirs.shallow" The same as "source.dirs" but does not work
-        recursively.
+        recursively. Defaults to empty, having no effect.
     - "test.dir" The location of your MATLAB test files.
     - "mlunit.dir" The location of this mlUnit installation. May be left
         empty if you have set the useNativeBasedir attribute to true. Have you?
@@ -33,6 +34,8 @@
     - "matlab.exec" The location of the matlab.bat of the MATLAB installation
         to be run. If left empty, be sure that MATLAB is on your cmd shell's search
         path or prepare for Java stack traces coming your way.
+    - "additional.cmd" Any MATLAB command you wish to execute just before mlUnit
+        execution.
 
   For testing mlUnit, call Ant with this very build script and provide just the
   matlab.exec property, like this:
