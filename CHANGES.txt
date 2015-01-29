@@ -13,6 +13,8 @@ mlUnit development snapshot
   - Fix: assert() calls break R2006b compatibility.
   - Fix: mat2str displays strings differently on R2006b and probably before.
   - Fix: function stringification contains whitespace on R2006b, but not later.
+  - Fix: errors in a set_up fixture prevent execution of the tear_down
+    fixture and mlunit_param reversion
 
 
 mlUnit 1.6.7 (2015-01-08)
