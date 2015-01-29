@@ -92,11 +92,10 @@ function xml = printXmlTestcase(testcase)
    xml = xmlTag('testcase', attributes, content);
    
    
-%% strip text off HTML characters
+%% provide HTML-safe version of a message
 function message = sanitizeHtml(message)
    
-   message = strrep(message,'<','(');
-   message = strrep(message,'>',')');
+   message = ['<![CDATA[' message ']]>'];
 
 
 %% Return XML formatted tag from
