@@ -1,7 +1,14 @@
 function test = test_assert_matfile_equalsShould	
    test = load_tests_from_mfile(test_loader);
-   addpath('Data4_assert_matfile_equals')
-% end of function
+   
+function set_up
+    basepath = fileparts(mfilename('fullpath'));
+    addpath(fullfile(basepath, 'Data4_assert_matfile_equals'));
+    
+function tear_down
+    basepath = fileparts(mfilename('fullpath'));
+    rmpath(fullfile(basepath, 'Data4_assert_matfile_equals'));
+
 
 function test_failIfNoFilesAreGiven
     assert_error('assert_matfile_equals(''du'',''testFile1.mat'')');
