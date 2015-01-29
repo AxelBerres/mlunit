@@ -108,12 +108,13 @@ function xml = xmlTag(tagname, attributes, content)
    if nargin<2, attributes={}; end
    if nargin<3, content=''; end
 
-   internal_assert(nargin >= 1);
-   internal_assert(ischar(tagname));
-   internal_assert(isempty(attributes) || ...
-                  (iscellstr(attributes) && mod(length(attributes), 2)==0));
-   internal_assert(ischar(content));
-
+   error(nargchk(1, 3, nargin, 'struct'));
+   if ~ischar(tagname), error('tagname need be char'); end
+   if ~ischar(content), error('content need be char'); end
+   if ~(isempty(attributes) || (iscellstr(attributes) && mod(length(attributes), 2)==0))
+      error('attributes need be empty, or cellstr of even length');
+   end
+   
    
    newline = sprintf('\n');
 
@@ -146,25 +147,11 @@ function indentedtext = indentLines(text, indentation)
 
    if nargin<2, indentation='  '; end
 
-   internal_assert(nargin >= 1);
-   internal_assert(ischar(text));
-   internal_assert(ischar(indentation));
+   error(nargchk(1, 2, nargin, 'struct'));
+   if ~ischar(text), error('text need be char'); end
+   if ~ischar(indentation), error('indentation need be char'); end
 
    % prepend every stream of non-newline characters by indentation
    % only prepend lines that start with a tag bracket
    % this may break tags whose attributes span multiple lines
    indentedtext = regexprep(text, '(\w*<[^\n]*)', [indentation '$1']);
-
-
-% for backward compatibility with R2006b
-function internal_assert(expression, varargin)
-   % use built-in assert if available
-   if exist('assert', 'builtin') == 5
-      assert(expression, varargin{:});
-   elseif nargin > 1 && ~expression
-      if isempty(varargin) || isempty(varargin{1})
-         error('AssertionError', varargin{:});
-      else
-         error(varargin{:});
-      end
-   end

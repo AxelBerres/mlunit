@@ -119,7 +119,7 @@ end
 
 function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
 
-    assert(nargin == 2);
+    error(nargchk(2, 2, nargin, 'struct'));
     
     first_n_items = 3;
 

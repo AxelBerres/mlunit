@@ -9,11 +9,11 @@
 %     actual: value of the field, [] if missingin=='actual'
 function struct_diffs = find_struct_differences(sa, sb, fieldpath)
 
-    assert(nargin >= 2);
-    assert(isstruct(sa));
-    assert(isstruct(sb));
-    assert(numel(sa) == 1);
-    assert(numel(sb) == 1);
+    error(nargchk(2, 3, nargin, 'struct'));
+    if ~isstruct(sa), error('sa need be struct'); end
+    if ~isstruct(sb), error('sb need be struct'); end
+    if numel(sa)~=1, error('sa need be scalar, i.e. of size [1 1]'); end
+    if numel(sb)~=1, error('sb need be scalar, i.e. of size [1 1]'); end
     
     if nargin < 3
         fieldpath = '';
@@ -76,7 +76,8 @@ function type = diff_type(fieldpath, missingin, expected, actual)
         return;
     end
 
-    assert(nargin >= 1 && ischar(fieldpath));
+    error(nargchk(1, 4, nargin, 'struct'));
+    if ~ischar(fieldpath), error('fieldpath need be char'); end
     if nargin<2, missingin = ''; end
     if nargin<3, expected = []; end
     if nargin<4, actual = []; end
