@@ -21,7 +21,7 @@ try
 	failed = false;
 catch
 end;
-assert_true(failed, 'assert(false) fails to fail.');
+assert_true(failed, 'assert_true(0) fails to fail.');
 
 
 function test_logical_false_without_message
@@ -32,7 +32,7 @@ try
 	failed = false;
 catch
 end;
-assert_true(failed, 'assert(false) fails to fail.');
+assert_true(failed, 'assert_true(false) fails to fail.');
 
 
 function test_logical_false
