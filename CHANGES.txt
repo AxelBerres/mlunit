@@ -15,6 +15,9 @@ mlUnit development snapshot
   - Fix: function stringification contains whitespace on R2006b, but not later.
   - Fix: errors in a set_up fixture prevent execution of the tear_down
     fixture and mlunit_param reversion
+  - Fix: Invalid jUnit XML from hapless MATLAB error message [B#20]
+
+  [B#20] https://sourceforge.net/p/mlunit/bugs/20/
 
 
 mlUnit 1.6.7 (2015-01-08)
