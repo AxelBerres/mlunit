@@ -69,29 +69,10 @@ function set_up
     testdir = fullfile(assertdir, 'private');
     
     % buffer current path
-    loc_path_capsule(pwd);
-    
+    mlunit_param('usertest_find_struct', pwd);
     cd(testdir);
 
 function tear_down
 
     % reset to previous dir
-    cd(loc_path_capsule());
-
-% Return last stored path string. Empty string if none stored.
-% Provide path string argument for storage. If used with argument,
-% the returned path is the previous path.
-function pout = loc_path_capsule(pin)
-
-    assert(nargin==0 || ischar(pin));
-
-    persistent stored_path;
-    if isempty(stored_path)
-        stored_path = '';
-    end
-    
-    pout = stored_path;
-    
-    if nargin >= 1
-        stored_path = pin;
-    end
+    cd(mlunit_param('usertest_find_struct'));
