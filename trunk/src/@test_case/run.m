@@ -29,13 +29,18 @@ rehash;
 
 result = start_test(result, self);
 try
+    % buffer parameter configuration
+    previous_config = mlunit_param();
+
+    % execute set_up fixture
     try
         self = set_up(self);
     catch
         result = add_error_with_stack(result, self, lasterror);
         return;
     end;
-    
+
+    % execute test   
     ok = 0;
     try
         method = self.name;
@@ -62,12 +67,16 @@ try
         end;
     end;
     
+    % execute tear_down fixture
     try
         self = tear_down(self);    
     catch
         result = add_error_with_stack(result, self, lasterror);
         ok = 0;
     end;
+
+    % restore previous parameter configuration after test and fixtures finished
+    mlunit_param(previous_config);
 
     if (ok)
         result = add_success(result, self);

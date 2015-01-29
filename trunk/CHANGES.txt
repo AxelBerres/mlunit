@@ -3,6 +3,14 @@
 =====================================
 
 
+mlUnit development snapshot
+---------------------------
+
+  - mlUnit parameter changes in test of fixture functions will be reverted
+    after each test's tear_down execution
+  - Expanded mlunit_param to get and set the whole parameter configuration.
+
+
 mlUnit 1.6.7 (2015-01-08)
 -------------------------
 

@@ -39,36 +39,17 @@ function test_wrong_separator_type
     assert_error(@() strjoin({'abc'}, {','}), 'MATLAB:assert:failed');
 
 
-%% boilerplate code to enable testing the private strjoin
+%% boilerplate code for testing functions that are private to assert functions
 function set_up
 
     assertdir = fileparts(which('assert_error'));
     testdir = fullfile(assertdir, 'private');
     
     % buffer current path
-    loc_path_capsule(pwd);
-    
+    mlunit_param('usertest_strjoin', pwd);
     cd(testdir);
 
 function tear_down
 
     % reset to previous dir
-    cd(loc_path_capsule());
-
-% Return last stored path string. Empty string if none stored.
-% Provide path string argument for storage. If used with argument,
-% the returned path is the previous path.
-function pout = loc_path_capsule(pin)
-
-    assert(nargin==0 || ischar(pin));
-
-    persistent stored_path;
-    if isempty(stored_path)
-        stored_path = '';
-    end
-    
-    pout = stored_path;
-    
-    if nargin >= 1
-        stored_path = pin;
-    end
+    cd(mlunit_param('usertest_strjoin'));

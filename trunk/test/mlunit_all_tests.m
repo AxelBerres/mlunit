@@ -34,3 +34,4 @@ suite = add_test(suite, test_fail);
 suite = add_test(suite, test_pass);
 suite = add_test(suite, test_find_struct_differences);
 suite = add_test(suite, test_strjoin);
+suite = add_test(suite, test_mlunit_param);
