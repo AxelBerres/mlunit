@@ -40,7 +40,9 @@ function test_wrong_id %#ok<DEFNU>
         bCaught = true;
         warning(prevwarn);
         l = lasterror();
-        assert_not_empty(strfind(l.message, 'No warning wrong:id when executing function @()rmpath(wrongpath).'));
+        % function string contains a whitespace after '@()' on R2006b,
+        % but does not on R2007b and later.
+        assert_not_empty(regexp(l.message, 'No warning wrong:id when executing function @\(\)[ ]?rmpath\(wrongpath\)\.'));
     end
 
     if ~bCaught, fail(); end
