@@ -11,12 +11,12 @@ function test_equality
 function test_equality_emptystruct
 
     s = struct('foo', {});
-    assert_error(@() find_struct_differences(s, s), 'MATLAB:assert:failed');
+    assert_error(@() find_struct_differences(s, s));
 
 function test_equality_emptystruct_nofields
 
     s = struct([]);
-    assert_error(@() find_struct_differences(s, s), 'MATLAB:assert:failed');
+    assert_error(@() find_struct_differences(s, s));
 
 function test_differentFieldOrder
 
@@ -30,7 +30,7 @@ function test_equalStructArrays
     x = struct('field1', {1 2}, 'field2', {'a', 'c'});
     y = struct('field1', {1 2}, 'field2', {'a', 'c'});
 
-    assert_error(@() find_struct_differences(x, y), 'MATLAB:assert:failed');
+    assert_error(@() find_struct_differences(x, y));
 
 function test_differentFieldnames
 
