@@ -32,6 +32,11 @@ elseif ischar(input) && isempty(input)
     % mat2str blunders when being given a 1x0 char and returns logical instead.
     % We also need to make sure to preserve the size (0x0 vs 1x0) of the input.
     outstring = ['''' input ''''];
+elseif ischar(input) && ndims(input) <= 2
+    % On R2006b, mat2str prints strings awkwardly. Enforce new style:
+    % ['foo';'bar'] for character arrays, 'foobar' for single strings
+    % Only works on char arrays with ndims<=2, as mat2str does, BTW.
+    outstring = mat2str_char(input);
 else
     % mat2str takes care of everything else or throws an error
     outstring = mat2str(input);

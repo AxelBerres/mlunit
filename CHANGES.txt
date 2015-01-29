@@ -11,6 +11,7 @@ mlUnit development snapshot
   - Expanded mlunit_param to get and set the whole parameter configuration.
 
   - Fix: assert() calls break R2006b compatibility.
+  - Fix: mat2str displays strings differently on R2006b and probably before.
 
 
 mlUnit 1.6.7 (2015-01-08)
