@@ -33,41 +33,44 @@ try
     previous_config = mlunit_param();
 
     % execute set_up fixture
-    try
-        self = set_up(self);
-    catch
-        result = add_error_with_stack(result, self, lasterror);
-        return;
-    end;
-
-    % execute test   
     ok = 0;
     try
-        method = self.name;
-        self = eval([method, '(self)']);
+        self = set_up(self);
         ok = 1;
     catch
-        err = lasterror;
-        errmsg = err.message;
-        failure = strcmp(err.identifier, 'MLUNIT:Failure');
-        if (failure)
-            % filter up to 'MLUNIT FAILURE' string, which is used for masking actual error message
-            failurepos = strfind(errmsg, 'MLUNIT FAILURE:');
-            result = add_failure(result, ...
-                self, ...
-                errmsg(failurepos(1) + 15:length(errmsg)));
-        else
-            if (~isfield(err, 'stack'))
-                err.stack(1).file = char(which(self.name));
-                err.stack(1).line = '1';
-                err.stack = vertcat(err.stack, dbstack('-completenames'));
+        result = add_error_with_stack(result, self, lasterror);
+    end;
+
+    % execute test, only if set_up prevailed
+    if ok
+        ok = 0;
+        try
+            method = self.name;
+            self = eval([method, '(self)']);
+            ok = 1;
+        catch
+            err = lasterror;
+            errmsg = err.message;
+            failure = strcmp(err.identifier, 'MLUNIT:Failure');
+            if (failure)
+                % filter up to 'MLUNIT FAILURE' string, which is used for masking actual error message
+                failurepos = strfind(errmsg, 'MLUNIT FAILURE:');
+                result = add_failure(result, ...
+                    self, ...
+                    errmsg(failurepos(1) + 15:length(errmsg)));
+            else
+                if (~isfield(err, 'stack'))
+                    err.stack(1).file = char(which(self.name));
+                    err.stack(1).line = '1';
+                    err.stack = vertcat(err.stack, dbstack('-completenames'));
+                end;
+
+                result = add_error_with_stack(result, self, err);
             end;
-            
-            result = add_error_with_stack(result, self, err);
         end;
     end;
     
-    % execute tear_down fixture
+    % execute tear_down fixture in any case, even if set_up or test failed
     try
         self = tear_down(self);    
     catch

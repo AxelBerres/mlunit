@@ -17,4 +17,4 @@ try
 catch
     assert_true(0);
 end;
-assert_true(strcmp('', get_log(test)));
+assert_true(strcmp('tear_down ', get_log(test)));
