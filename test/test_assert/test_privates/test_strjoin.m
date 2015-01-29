@@ -28,15 +28,15 @@ function test_multichar_separator
 
 function test_wrong_list_type
 
-    assert_error(@() strjoin('abc'), 'MATLAB:assert:failed');
-    assert_error(@() strjoin(3), 'MATLAB:assert:failed');
-    assert_error(@() strjoin([]), 'MATLAB:assert:failed');
+    assert_error(@() strjoin('abc'));
+    assert_error(@() strjoin(3));
+    assert_error(@() strjoin([]));
 
 function test_wrong_separator_type
 
-    assert_error(@() strjoin({'abc'}, 3), 'MATLAB:assert:failed');
-    assert_error(@() strjoin({'abc'}, []), 'MATLAB:assert:failed');
-    assert_error(@() strjoin({'abc'}, {','}), 'MATLAB:assert:failed');
+    assert_error(@() strjoin({'abc'}, 3));
+    assert_error(@() strjoin({'abc'}, []));
+    assert_error(@() strjoin({'abc'}, {','}));
 
 
 %% boilerplate code for testing functions that are private to assert functions
