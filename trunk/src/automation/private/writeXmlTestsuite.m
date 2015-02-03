@@ -83,10 +83,10 @@ function xml = printXmlTestcase(testcase)
 
    content = '';
    if ~isempty(testcase.error)
-      content = [content xmlTag('error', {}, [sanitizeHtml(testcase.error) newline])];
+      content = [content xmlTag('error', {}, testcase.error, true)];
    end
    if ~isempty(testcase.failure)
-      content = [content xmlTag('failure', {}, [sanitizeHtml(testcase.failure) newline])];
+      content = [content xmlTag('failure', {}, testcase.failure, true)];
    end
 
    xml = xmlTag('testcase', attributes, content);
@@ -102,17 +102,19 @@ function message = sanitizeHtml(message)
 %   - tagname string
 %   - attributes cell string array
 %   - content string
-function xml = xmlTag(tagname, attributes, content)
+function xml = xmlTag(tagname, attributes, content, verbatim)
 
    if nargin<2, attributes={}; end
    if nargin<3, content=''; end
+   if nargin<4, verbatim=false; end
 
-   error(nargchk(1, 3, nargin, 'struct'));
+   error(nargchk(1, 4, nargin, 'struct'));
    if ~ischar(tagname), error('tagname need be char'); end
    if ~ischar(content), error('content need be char'); end
    if ~(isempty(attributes) || (iscellstr(attributes) && mod(length(attributes), 2)==0))
       error('attributes need be empty, or cellstr of even length');
    end
+   if ~islogical(verbatim) || numel(verbatim)~=1, error('verbatim need be scalar logical'); end
    
    
    newline = sprintf('\n');
@@ -129,6 +131,12 @@ function xml = xmlTag(tagname, attributes, content)
    if isempty(content)
       % just finish-close the opening tag in case of no content
       xml = [xml '/>' newline];
+   % add verbatim content
+   elseif verbatim
+      % make sure to not include unnecessary whitespace and newline between
+      % the tag enclosings, also make sure the content is displayed as is
+      xml = [xml '>' sanitizeHtml(content) '</' tagname '>' newline];
+   % add normal content
    else
       % close opening tag
       xml = [xml '>' newline];
@@ -150,7 +158,5 @@ function indentedtext = indentLines(text, indentation)
    if ~ischar(text), error('text need be char'); end
    if ~ischar(indentation), error('indentation need be char'); end
 
-   % prepend every stream of non-newline characters by indentation
-   % only prepend lines that start with a tag bracket
-   % this may break tags whose attributes span multiple lines
-   indentedtext = regexprep(text, '(\w*<[^\n]*)', [indentation '$1']);
+   % prepend by indentation every tag bracket that starts a new line 
+   indentedtext = regexprep(text, '^(\s*<)', [indentation '$1'], 'lineanchors');
