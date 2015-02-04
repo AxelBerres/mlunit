@@ -15,8 +15,8 @@ function [error, stacktrace] = parse_error(self, error, stacktrace) %#ok<INUSL>
 if (~isempty(strfind(error, 'Unbalanced or misused parentheses or brackets.')) || ...
     ~isempty(strfind(error, 'Unbalanced or unexpected parenthesis or bracket.')))
     % ignore MATLAB's HTML anchor tags
-    % allow for Jenkins' <URL/filename> syntax
-    [tokens] = regexp(error, 'Error:\s*(<a href[^>]*>)?File: <?([\w\ \.,$&\/\\:@]+.m)>? Line: (\d*) Column: (\d*).*', 'tokens', 'once');
+    % allow for Jenkins' <URL/filename> syntax, also for parentheses in paths
+    [tokens] = regexp(error, 'Error:\s*(<a href[^>]*>)?File: <?([\w\ \.,$&\/\(\)\\:@]+.m)>? Line: (\d*) Column: (\d*).*', 'tokens', 'once');
     if (length(tokens) == 4)
         fullname = which(char(tokens(2)));
         if (~isempty(fullname))
