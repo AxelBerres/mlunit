@@ -21,7 +21,6 @@ function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id$
 
 if nargin < 3, error('Not enough input arguments.'); end

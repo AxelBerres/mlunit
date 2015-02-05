@@ -17,7 +17,6 @@ function fail(msg, varargin)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id$
 
 % set empty message if left empty, take msg, or interpret sprintf arguments

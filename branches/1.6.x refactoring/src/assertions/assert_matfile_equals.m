@@ -13,7 +13,6 @@ function assert_matfile_equals(expected, actual)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id: assert_matfile_equals.m 167 2012-06-06 16:10:56Z jens.dorroch $
 
 if nargin < 2,
