@@ -38,7 +38,6 @@ function self = function_test_case(test_function, set_up_function, tear_down_fun
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: function_test_case.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
 if nargin < 2, set_up_function = 0; end

@@ -21,7 +21,6 @@ function assert_false(expr, varargin)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id: assert_false.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
 if nargin < 1 || expr

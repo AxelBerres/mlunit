@@ -10,7 +10,6 @@ function outstring = mat2str_char(input)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id$
 
 error(nargchk(1,1,nargin,'struct'));
