@@ -27,7 +27,6 @@ function assert_not_equals(expected, actual, varargin)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id: assert_not_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
 if nargin < 2

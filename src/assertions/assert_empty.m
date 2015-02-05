@@ -23,7 +23,6 @@ function assert_empty(expr, varargin)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id$
 
 % If called with no argument, logic dictates that assert_empty should
