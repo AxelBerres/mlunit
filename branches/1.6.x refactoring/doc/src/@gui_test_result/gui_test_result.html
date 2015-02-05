@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of gui_test_result</title>
+  <meta name="keywords" content="gui_test_result">
+  <meta name="description" content="gui_test_result contructor.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@gui_test_result</a> &gt; gui_test_result.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@gui_test_result&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>gui_test_result
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>gui_test_result contructor.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = gui_test_result(progress_bar, text_runs, error_listbox, max_number_of_tests) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">gui_test_result contructor.
+  The constructor creates an object of the class gui_test_result with the
+  following parameters: 
+    progress_bar: handle of the progess bar.
+    text_runs: handle of the text area, which shows the number of test ran,
+               errors and failures.
+    error_listbox: handle of the listbox, which contains the list of 
+                   all errors and failures. 
+    max_number_of_tests: the number of tests.
+
+  Class Info
+  ==========
+  The class gui_test_result is inherited from test_result and shows
+  the test results and the progress at the mlUnit gui. Normally an
+  instance of the class is only created by gui_test_runner, but not by the
+  user.
+
+  Example
+  =======
+  A gui_test_result is created in gui_test_runner/gui:
+         result = gui_test_result(handles.gui_progress_bar, ...
+             handles.gui_text_runs, ...
+             handles.gui_error_list, ...
+             0);
+
+  See also TEST_RESULT, <a href="gui_test_result.html" class="code" title="function self = gui_test_result(progress_bar, text_runs, error_listbox, max_number_of_tests)">GUI_TEST_RESULT</a>, GUI_TEST_RUNNER/GUI.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="progress_bar.html" class="code" title="function progress_bar(self)">progress_bar</a>	gui_test_result/progres_bar updates the progress bar of the mlUnit gui.</li><li><a href="reset_progress_bar.html" class="code" title="function reset_progress_bar(self)">reset_progress_bar</a>	gui_test_result/reset_progress_bar resets the progress bar.</li><li><a href="reset_texts.html" class="code" title="function reset_texts(self)">reset_texts</a>	gui_test_result/reset_texts resets the text area.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = gui_test_result(progress_bar, text_runs, error_listbox, max_number_of_tests)</a>
+0002 <span class="comment">%gui_test_result contructor.</span>
+0003 <span class="comment">%  The constructor creates an object of the class gui_test_result with the</span>
+0004 <span class="comment">%  following parameters:</span>
+0005 <span class="comment">%    progress_bar: handle of the progess bar.</span>
+0006 <span class="comment">%    text_runs: handle of the text area, which shows the number of test ran,</span>
+0007 <span class="comment">%               errors and failures.</span>
+0008 <span class="comment">%    error_listbox: handle of the listbox, which contains the list of</span>
+0009 <span class="comment">%                   all errors and failures.</span>
+0010 <span class="comment">%    max_number_of_tests: the number of tests.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%  Class Info</span>
+0013 <span class="comment">%  ==========</span>
+0014 <span class="comment">%  The class gui_test_result is inherited from test_result and shows</span>
+0015 <span class="comment">%  the test results and the progress at the mlUnit gui. Normally an</span>
+0016 <span class="comment">%  instance of the class is only created by gui_test_runner, but not by the</span>
+0017 <span class="comment">%  user.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%  Example</span>
+0020 <span class="comment">%  =======</span>
+0021 <span class="comment">%  A gui_test_result is created in gui_test_runner/gui:</span>
+0022 <span class="comment">%         result = gui_test_result(handles.gui_progress_bar, ...</span>
+0023 <span class="comment">%             handles.gui_text_runs, ...</span>
+0024 <span class="comment">%             handles.gui_error_list, ...</span>
+0025 <span class="comment">%             0);</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%  See also TEST_RESULT, GUI_TEST_RESULT, GUI_TEST_RUNNER/GUI.</span>
+0028 
+0029 self.progress_bar = <a href="progress_bar.html" class="code" title="function progress_bar(self)">progress_bar</a>;
+0030 self.text_runs = text_runs;
+0031 self.error_listbox = error_listbox;
+0032 self.max_number_of_tests = max_number_of_tests;
+0033 result = test_result;
+0034 self = class(self, <span class="string">'gui_test_result'</span>, result);
+0035 <a href="reset_progress_bar.html" class="code" title="function reset_progress_bar(self)">reset_progress_bar</a>(self);
+0036 <a href="reset_texts.html" class="code" title="function reset_texts(self)">reset_texts</a>(self);</pre></div>
+<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
