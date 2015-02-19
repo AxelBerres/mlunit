@@ -14,7 +14,7 @@ function self = test_load_tests_from_test_case(self)
 results = run_suite(mlunit_suite_runner, 'mock_test');
 errors = sum(arrayfun(@(e) all(~isempty(e.errors)), results));
 failures = sum(arrayfun(@(e) ~isempty(e.failure), results));
-   
+
 assert_equals(3, numel(results));
 assert_equals(2, mlunit_num_suite_errors(results));
 assert_equals(0, mlunit_num_suite_failures(results));
