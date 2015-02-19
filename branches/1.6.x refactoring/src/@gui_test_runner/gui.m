@@ -79,11 +79,11 @@ if (~ischar(self.test_case))
 else
     test_str = self.test_case;
 end;
-if (ischar(test_str) && (length(test_str) > 0))
+if (ischar(test_str) && ~isempty(test_str))
     set(handles.gui_test_case, 'String', test_str);
     gui_run_callback(hobject, eventdata, handles);
     self.test_case = '';
-end;
+end
 
 set(self.handle, 'UserData', self);
 
@@ -133,71 +133,55 @@ if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'
     set(hobject,'BackgroundColor','white');
 end
 
+
+% Called when the user hits the run button
 function gui_run_callback(hobject, eventdata, handles) %#ok
 
-global self;
-
-t = clock;
 set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
 test_case = builtin('get', handles.gui_test_case, 'String');
 
-if (isempty(test_case))
-    result = gui_test_result(handles.gui_progress_bar, ...
-        handles.gui_text_runs, ...
-        handles.gui_error_list, ...
-        1);
-    update(result);
-    return;
-end;
+suite_runner = mlunit_suite_runner;
+% constructor also resets the display
+listener = mlunit_gui_listener(...
+    handles.gui_progress_bar, ...
+    handles.gui_text_runs, ...
+    handles.gui_error_list);
+suite_runner = add_listener(suite_runner, listener);
 
-instance = 0;
-error1 = [];
-error2 = [];
+time = 0;
 try
-    instance = eval([test_case, ';']);
+    [results, time] = run_suite(suite_runner, test_case);
 catch
-    error1 = lasterror;
-    try
-        instance = load_tests_from_test_case(test_loader, test_case);
-    catch
-        error2 = lasterror;
-    end;
-end;
-if ((strcmp(class(instance), 'double') && (isempty(instance))) || ...
-        (~isempty(error2)))
-    result = gui_test_result(handles.gui_progress_bar, ...
-        handles.gui_text_runs, ...
-        handles.gui_error_list, ...
-        1);
-    if (~isempty(error1))
-        result = add_error_with_stack(result, self, error1);
-    end;
-    if (~isempty(error2))
-        result = add_error_with_stack(result, self, error2); %#ok
-    end;
-else
-    result = gui_test_result(handles.gui_progress_bar, ...
-        handles.gui_text_runs, ...
-        handles.gui_error_list, ...
-        count_test_cases(instance));
-    [test, result] = run(instance, result); %#ok
-end;
-time = etime(clock, t);
+    % display meta error that prevented the suite to execute
+    display_meta_error(listener, lasterror);
+end
+
+% display execution time
 set(handles.gui_text_time, 'String', sprintf('Finished: %.3fs.\n', time));
+
+% pretend the user selected one of the errors in order to display something
 gui_error_list_callback(handles.gui_error_list, eventdata, handles);
 
+
+% Called when the user selects an error in the list
 function gui_error_list_callback(hobject, eventdata, handles) %#ok
 
 global self;
 
+% cell array of error messages
 data = builtin('get', handles.gui_error_list, 'UserData');
+% which item the user selected
 selected = builtin('get', handles.gui_error_list, 'Value');
 
-if (length(data) > 0)
+% only proceed if we actually recorded errors
+if ~isempty(data)
+    % set appropriate error message from pool of available messages
     set(handles.gui_error, 'String', shorten_error_text(self, data{selected}));
+    
+    % (de)activate the show button; function name and line go into its UserData
     [tokens] = regexp(data{selected}, get_line_expression(self), 'tokens', 'once'); %, 'dotexceptnewline');
     if (length(tokens) == 2)
         set(handles.gui_show, 'Enable', 'on');

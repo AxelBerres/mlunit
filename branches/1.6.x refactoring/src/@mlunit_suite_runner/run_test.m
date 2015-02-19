@@ -1,20 +1,33 @@
-% Execute a single test case.
-% The test case must exist. The test argument is the respective test case
-% object.
-% The returned result is a scalar struct with fields:
-%   - name    : string, the test case name, mandatory
-%   - errors  : struct array, all errors that occurred during execution, each 
-%               a struct in itself with fields message and stack,
-%               0x0 struct with these fields, if no errors occurred
-%   - failure : string, the failure message, empty, if no failure occurred
-%   - time    : double, the execution time in seconds
+%Execute a single test case.
+%  RESULT = run_test(SELF, TEST) executes test case TEST.
+%  SELF is an mlunit_suite_runner instance. TEST is a test_case instance.
+%  TEST must exist.
+%  
+%  RESULT is a scalar struct with fields:
+%    - name    : string, the test case name, mandatory
+%    - errors  : struct array, all errors that occurred during execution, each 
+%                a struct in itself with fields message and stack,
+%                0x0 struct with these fields, if no errors occurred
+%    - failure : string, the failure message, empty, if no failure occurred
+%    - time    : double, the execution time in seconds
+%
+%  [RESULT, SELF, TEST] = run_test(SELF, TEST) does the same, but also provides
+%  SELF back, the mlunit_suite_runner instance. Its states may have changed 
+%  by means of changed listeners. TEST is a copy of the input argument, used by
+%  mlUnit's internal unit tests.
+%
+%  After test execution, the mlUnit environment will be reset to the state it
+%  has before test execution.
+%
+%  See also mlunit_environment.
+
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  $Id: load_tests_from_mfile.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
-function [result, test] = run_test(self, test)
+function [result, self, test] = run_test(self, test)
 
     start_time = clock;
 
@@ -78,7 +91,7 @@ function [result, test] = run_test(self, test)
     result.failure = test_failure;
     result.time = etime(clock, start_time);
     
-    % update progress listeners with latest test result
+    % update progress listeners with latest test result; keep self updated
     for lidx=1:numel(self.listeners)
         self.listeners{lidx} = next_result(self.listeners{lidx}, result);
     end

@@ -1,4 +1,4 @@
-% Determine if a given name corresponds to a @class or function.
+% Determine if a given name is a @class rather than a function test case.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

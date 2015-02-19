@@ -12,5 +12,5 @@ function self = test_failed_set_up(self)
 %  $Id: test_failed_set_up.m 44 2006-06-11 18:54:09Z thomi $
 
 test = mock_test_failed_set_up('test_method');
-[result, test] = run_test(mlunit_suite_runner, test);
+[result, dummy, test] = run_test(mlunit_suite_runner, test);
 assert_equals('tear_down ', get_log(test));

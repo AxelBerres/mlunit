@@ -12,5 +12,5 @@ function self = test_failed_tear_down(self)
 %  $Id: test_failed_tear_down.m 44 2006-06-11 18:54:09Z thomi $
 
 test = mock_test_failed_tear_down('test_method');
-[result, test] = run_test(mlunit_suite_runner, test);
+[result, dummy, test] = run_test(mlunit_suite_runner, test);
 assert_equals('set_up test_method ', get_log(test));

@@ -12,7 +12,7 @@ function self = test_add_error_with_stack(self)
 %  $Id: test_add_error_with_stack.m 269 2007-04-02 19:54:39Z thomi $
 
 test = mock_test('test_unbalanced_parentheses');
-[result, test] = run_test(mlunit_suite_runner, test);
+[result, dummy, test] = run_test(mlunit_suite_runner, test);
 assert_equals('set_up tear_down ', get_log(test));
 
 assert_equals(1, numel(result));

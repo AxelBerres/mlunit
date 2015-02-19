@@ -10,6 +10,9 @@
 %  'message'. It can (and probably should) also contain fields 'identifier' and
 %  'stack', the latter being a struct array with fields 'file', 'line', and
 %  'name'.
+%
+%  obj = mlunit_errorinfo(errorinfo, additional_cause) does the same, but adds
+%  the string additional_cause to the front of the error message.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
