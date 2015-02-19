@@ -11,8 +11,7 @@ function self = test_load_tests_from_test_case(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_load_tests_from_test_case.m 253 2007-01-27 21:20:20Z thomi $
 
-t = test_loader;
-suite = load_tests_from_test_case(t, 'mock_test');
+suite = load_tests_from_test_case(test_loader, 'mock_test');
 result = test_result;
 [suite, result] = run(suite, result); %#ok
 assert_equals(3, get_tests_run(result));

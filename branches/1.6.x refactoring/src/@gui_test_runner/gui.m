@@ -161,8 +161,7 @@ try
 catch
     error1 = lasterror;
     try
-        loader = test_loader;
-        instance = load_tests_from_test_case(loader, test_case);
+        instance = load_tests_from_test_case(test_loader, test_case);
     catch
         error2 = lasterror;
     end;

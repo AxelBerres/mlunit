@@ -19,6 +19,7 @@ function self = gui_test_runner(callback)
 if (nargin == 0)
     callback = 0;
 end;
+self = struct();
 self.callback = callback;
 self.handle = 0;
 self.handles = 0;
