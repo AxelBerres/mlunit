@@ -80,7 +80,9 @@ function [result, test] = run_test(self, test)
     result.time = etime(clock, start_time);
     
     % update progress listeners with latest test result
-    cellfun(@(l) next_result(l, result), self.listeners);
+    for lidx=1:numel(self.listeners)
+        self.listeners{lidx} = next_result(self.listeners{lidx}, result);
+    end
 
 
 % Return an arrayable error struct with fixed fieldnames.

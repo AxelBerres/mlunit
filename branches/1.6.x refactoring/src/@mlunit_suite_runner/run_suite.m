@@ -44,7 +44,9 @@ tests = get_tests(testsuite);
 num_tests = numel(tests);
 
 % inform progress listeners of impending test updates
-cellfun(@(l) init_results(l, num_tests), self.listeners);
+for lidx=1:numel(self.listeners)
+    self.listeners{lidx} = init_results(self.listeners{lidx}, num_tests);
+end
 
 % run each test of the suite
 results = cellfun(@(t) run_test(self, t), tests);
