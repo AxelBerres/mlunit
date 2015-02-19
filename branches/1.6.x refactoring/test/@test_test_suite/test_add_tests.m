@@ -10,8 +10,14 @@ function self = test_add_tests(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_add_tests.m 47 2006-06-11 19:26:32Z thomi $
 
+suite = mlunit_testsuite;
+
 tests{1} = mock_test('test_method');
 tests{2} = mock_test('test_broken_method');
-self.suite = add_tests(self.suite, tests);
-[self.suite, self.result] = run(self.suite, self.result);
-assert_true(strcmp('test_result run=2 errors=1 failures=0', summary(self.result)));
+suite = add_test(suite, tests{1});
+suite = add_test(suite, tests{2});
+
+results = cellfun(@(t) run_test(mlunit_suite_runner, t), get_tests(suite));
+assert_equals(2, numel(results));
+assert_equals(1, mlunit_num_suite_errors(results));
+assert_equals(0, mlunit_num_suite_failures(results));

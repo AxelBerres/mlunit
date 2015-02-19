@@ -16,5 +16,7 @@ function meths = get_methods(self)
 %  $Id: get_methods.m 23 2006-05-26 23:32:58Z thomi $
 
 meths = methods(self.class_name);
+% enforce cell array, even if empty
+if isempty(meths), meths = {}; end
 % delete constructor method
 meths(strcmp(self.class_name, meths)) = [];

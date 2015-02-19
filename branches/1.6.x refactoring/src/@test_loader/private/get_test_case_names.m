@@ -24,16 +24,10 @@ for i = size(names, 1):-1:1
     end;
 end;
 names = sortrows(names);
-%try/catch mechanism removed as it hides errors in the constructor of the
-%test_case_class.
-%try
+
 if (length(names) > 0)
     t = eval([test_case_class, '(''', char(names(1)), ''')']);
 end;
-%catch
-%    names = [];
-%    return;
-%end;
 
 if (~isa(t, 'test_case'))
     names = [];

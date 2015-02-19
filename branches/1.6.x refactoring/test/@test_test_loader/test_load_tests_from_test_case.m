@@ -11,8 +11,10 @@ function self = test_load_tests_from_test_case(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_load_tests_from_test_case.m 253 2007-01-27 21:20:20Z thomi $
 
-suite = load_tests_from_test_case(test_loader, 'mock_test');
-result = test_result;
-[suite, result] = run(suite, result); %#ok
-assert_equals(3, get_tests_run(result));
-assert_equals(2, get_errors(result));
+results = run_suite(mlunit_suite_runner, 'mock_test');
+errors = sum(arrayfun(@(e) all(~isempty(e.errors)), results));
+failures = sum(arrayfun(@(e) ~isempty(e.failure), results));
+   
+assert_equals(3, numel(results));
+assert_equals(2, mlunit_num_suite_errors(results));
+assert_equals(0, mlunit_num_suite_failures(results));

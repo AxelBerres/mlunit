@@ -1,5 +1,5 @@
 function self = test_case(name, subclass, function_name)
-%test_case constructor.
+%Base class for test suites.
 %  The constructer creates an object of the class test_case running the 
 %  test method with given name. If no name is passed, the method 
 %  'run_test' is called.

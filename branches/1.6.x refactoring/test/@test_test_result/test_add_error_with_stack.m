@@ -12,9 +12,12 @@ function self = test_add_error_with_stack(self)
 %  $Id: test_add_error_with_stack.m 269 2007-04-02 19:54:39Z thomi $
 
 test = mock_test('test_unbalanced_parentheses');
-[test, result] = run(test, self.result);
-error_list = get_error_list(result);
-error_lines = strread(char(error_list(2)), '%s', 'delimiter', '\n');
-assert_equals('Unbalanced or misused parentheses or brackets.', char(error_lines(1)));
-assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(error_lines(2)))));
-assert_false(isempty(findstr('run.m at line', char(error_lines(3)))));
+[result, test] = run_test(mlunit_suite_runner, test);
+assert_equals('set_up tear_down ', get_log(test));
+
+assert_equals(1, numel(result));
+assert_equals('Unbalanced or misused parentheses or brackets.', result.errors.message);
+
+stack_lines = strread(char(result.errors.stack), '%s', 'delimiter', '\n');
+assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(stack_lines(2)))));
+assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));

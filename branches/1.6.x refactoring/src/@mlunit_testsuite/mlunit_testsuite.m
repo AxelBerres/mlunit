@@ -1,5 +1,7 @@
-function self = test_suite(tests)
-%test_suite contructor.
+function self = mlunit_testsuite(tests)
+%Shallow collection of test cases.
+%  A test suite is a one-level collection of test case objects.
+%  
 %  The constructor creates an object of the class test_suite including
 %  the passed given. tests is an optional parameter with a cell array of 
 %  objects inherited from test_case or test_suite.
@@ -26,20 +28,14 @@ function self = test_suite(tests)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_suite.m 61 2006-09-21 19:11:35Z thomi $
 
 if (nargin == 0)
-    tests = [];
-end;
+    tests = {};
+end
 
-if (iscell(tests))
-    self.tests = {};
-    for i = 1:length(tests)
-        self.tests{i} = tests{i};
-    end;
-else
-    self.tests = {};
-end;
+if ~iscell(tests), error('tests need be cell'); end
+
+self.tests = tests;
 self.name = '';
-self = class(self, 'test_suite');
+self = class(self, 'mlunit_testsuite');

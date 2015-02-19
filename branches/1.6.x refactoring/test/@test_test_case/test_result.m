@@ -12,5 +12,6 @@ function self = test_result(self)
 %  $Id: test_result.m 44 2006-06-11 18:54:09Z thomi $
 
 test = mock_test('test_method');
-[test, self.result] = run(test, self.result); %#ok
-assert_true(strcmp('test_result run=1 errors=0 failures=0', summary(self.result)));
+result = run_test(mlunit_suite_runner, test);
+assert_empty(result.errors);
+assert_empty(result.failure);

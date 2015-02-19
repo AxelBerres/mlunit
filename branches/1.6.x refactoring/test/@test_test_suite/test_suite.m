@@ -10,7 +10,11 @@ function self = test_suite(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_suite.m 47 2006-06-11 19:26:32Z thomi $
 
-self.suite = add_test(self.suite, mock_test('test_method'));
-self.suite = add_test(self.suite, mock_test('test_broken_method'));
-[self.suite, self.result] = run(self.suite, self.result);
-assert_true(strcmp('test_result run=2 errors=1 failures=0', summary(self.result)));
+suite = mlunit_testsuite;
+suite = add_test(suite, mock_test('test_method'));
+suite = add_test(suite, mock_test('test_broken_method'));
+
+results = cellfun(@(t) run_test(mlunit_suite_runner, t), get_tests(suite));
+assert_equals(2, numel(results));
+assert_equals(1, mlunit_num_suite_errors(results));
+assert_equals(0, mlunit_num_suite_failures(results));

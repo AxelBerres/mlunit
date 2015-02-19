@@ -11,5 +11,5 @@ function self = test_template_method(self)
 %  $Id: test_template_method.m 44 2006-06-11 18:54:09Z thomi $
 
 test = mock_test('test_method');
-test = run(test, self.result);
-assert_true(strcmp(get_log(test), 'set_up test_method tear_down '));
+[result, test] = run_test(mlunit_suite_runner, test);
+assert_equals('set_up test_method tear_down ', get_log(test));

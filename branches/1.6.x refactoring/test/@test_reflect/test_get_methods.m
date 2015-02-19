@@ -13,7 +13,11 @@ function self = test_get_methods(self)
 r = reflect('test_case');
 m = get_methods(r);
 assert_true(size(m, 1) > 0);
-assert_true(~sum(strcmp(m, 'test_case')));
-assert_true(sum(strcmp(m, 'run')) == 1);
-assert_true(sum(strcmp(m, 'set_up')) == 1);
-assert_true(sum(strcmp(m, 'tear_down')) == 1);
+assert_true(~any(strcmp(m, 'test_case')));
+assert_ismember('get_name', m);
+assert_ismember('set_up', m);
+assert_ismember('tear_down', m);
+
+function assert_ismember(element, collection)
+
+    assert_equals(1, sum(strcmp(collection, element)));

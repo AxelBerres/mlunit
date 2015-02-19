@@ -12,19 +12,20 @@ function self = test_fixture(self)
 %  $Id: test_fixture.m 41 2006-06-11 18:31:37Z thomi $
 
 test = function_test_case(@() assert_true(1), 0, 0);
-[test, result] = run(test);  %#ok
-assert_equals(1, get_tests_run(result));
+result = run_test(mlunit_suite_runner, test);
+assert_empty(result.errors);
+assert_empty(result.failure);
 
-global x; %#ok
-suite = load_tests_from_mfile(test_loader);
-result = test_result;
-[suite, result] = run(suite, result);  %#ok
-assert_equals(2, get_tests_run(result));
+% change here, so that run_suite sees test_fixture as function
+testsuite = load_tests_from_mfile(test_loader);
+tests = get_tests(testsuite);
+results = cellfun(@(t) run_test(mlunit_suite_runner, t), tests);
+assert_equals(2, numel(results));
 
 function set_up  %#ok
 
 global x;
-assert_equals(0, x);
+assert_equals([], x);
 x = [3 4];
 
 function tear_down %#ok

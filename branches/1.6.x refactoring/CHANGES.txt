@@ -11,6 +11,19 @@ mlUnit development snapshot
   - Expanded mlunit_param to get and set the whole parameter configuration.
   - recursive_test_run restores path, pwd and mlunit_param to pre-run state
     after execution
+  - major backend refactoring for easier maintenance, including:
+      + @test_case restricted to being a base class template for test classes,
+        separating actual test execution into mlunit_suite_runner for now
+      + @test_suite renamed into @mtest_testsuite, also restricted to being
+        a simple, one-level list of test cases; dropped support for manually
+        constructing multi-level test suites
+      + @test_result deleted, in favor of simple struct array, and in an effort
+        to separate the actual results from how they are displayed
+      + @mlunit_progress_listener added, as yet-to-be-implemented mechanism
+        for the gui to listen on test case execution states
+      + @mlunit_suite_runner added, as reusable mechanism for execution
+        one test suite
+      + gui and gui test cases broken for now
 
   - Fix: assert() calls break R2006b compatibility.
   - Fix: mat2str displays strings differently on R2006b and probably before.
