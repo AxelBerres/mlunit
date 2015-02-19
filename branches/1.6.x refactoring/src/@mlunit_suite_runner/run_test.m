@@ -108,18 +108,9 @@ function errstruct = loc_errstruct(lasterror, message_prefix)
     if isempty(errstruct.message)
         errstruct.message = '(no error message available)';
     end
-    errstruct.stack = loc_print_stack(lasterror.stack);
+    errstruct.stack = mlunit_print_stack(lasterror.stack);
     errstruct = parse_error(errstruct);
     
-% Build a single string containing the stack lines.
-function stackstring = loc_print_stack(stack)
-    
-    stackstring = '';
-    for i = 1:size(stack, 1)
-        stackstring = sprintf('%s\nIn %s at line %d', ...
-            stackstring, ...
-            stack(i).file, stack(i).line);
-    end
 
 % Parse special errors to extract further stacktrace information.
 % Author: Thomas Dohmke <thomas@dohmke.de>

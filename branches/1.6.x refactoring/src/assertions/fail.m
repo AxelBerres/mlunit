@@ -71,11 +71,7 @@ if isempty(stack)
 end
 
 % Build up the stack trace from here.
-stacktrace = '';
-for i = 1:length(stack)
-    stacktrace = [stacktrace, ...
-        sprintf('\nIn %s at line %d.', stack(i).file, stack(i).line)];  %#ok<AGROW>
-end;
+stacktrace = mlunit_print_stack(stack);
 
 % throw error; 'MLUNIT FAILURE' string is used for masking actual error message
 errmsg = ['MLUNIT FAILURE:', ...
