@@ -16,8 +16,14 @@ test = mock_test('test_unbalanced_parentheses');
 assert_equals('set_up tear_down ', get_log(test));
 
 assert_equals(1, numel(result));
-assert_equals('Unbalanced or misused parentheses or brackets.', result.errors.message);
+assert_equals(1, numel(result.errors));
 
-stack_lines = strread(char(result.errors.stack), '%s', 'delimiter', '\n');
+% the actual error message differs across the MATLAB releases
+releases_errmsgs = {...
+    'Unbalanced or misused parentheses or brackets.', ...
+    'Unbalanced or unexpected parenthesis or bracket.'};
+assert_true(ismember(filter_lasterror_wraps(result.errors{1}), releases_errmsgs));
+
+stack_lines = strread(get_message_with_stack(result.errors{1}), '%s', 'delimiter', '\n');
 assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(stack_lines(2)))));
 assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));

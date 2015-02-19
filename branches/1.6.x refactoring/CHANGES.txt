@@ -23,6 +23,7 @@ mlUnit development snapshot
         for the gui to listen on test case execution states
       + @mlunit_suite_runner added, as reusable mechanism for execution
         one test suite
+      + @mlunit_error_info centralizes all error parsing and string output
       + gui and gui test cases broken for now
 
   - Fix: assert() calls break R2006b compatibility.

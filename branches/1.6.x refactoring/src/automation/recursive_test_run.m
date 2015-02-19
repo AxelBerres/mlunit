@@ -102,7 +102,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       testcase.name = results(t).name;
       testcase.classname = suiteresult.name;
       testcase.time = results(t).time;
-      msg_and_stack_list = arrayfun(@(e) [e.message e.stack], results(t).errors, 'UniformOutput', false);
+      msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
       testcase.failure = results(t).failure;
       

@@ -22,17 +22,16 @@ function [result, test] = run_test(self, test)
     previous_environment = mlunit_environment();
     
     % execute set_up fixture
-    setup_error = loc_errstruct();
+    errors = {};
     try
         test = set_up(test);
     catch
-        setup_error = loc_errstruct(lasterror, 'error in set_up fixture');
+        errors{end+1} = mlunit_errorinfo(lasterror, 'Error in set_up fixture:');
     end
 
     % execute test, only if set_up prevailed
-    test_error = loc_errstruct();
     test_failure = '';
-    if isempty(setup_error)
+    if isempty(errors)
         method = get_name(test);
         try
             test = eval([method, '(test)']);
@@ -57,17 +56,16 @@ function [result, test] = run_test(self, test)
                     err.stack = vertcat(err.stack, dbstack('-completenames'));
                 end
 
-                test_error = loc_errstruct(err);
+                errors{end+1} = mlunit_errorinfo(err);
             end;
         end;
     end;
 
     % execute tear_down fixture in any case, even if set_up or test failed
-    teardown_error = loc_errstruct();
     try
-        test = tear_down(test); 
+        test = tear_down(test);
     catch
-        teardown_error = loc_errstruct(lasterror, 'error in tear_down fixture');
+        errors{end+1} = mlunit_errorinfo(lasterror, 'Error in tear_down fixture:');
     end
 
     % restore previous environment after test and fixtures finished
@@ -75,69 +73,12 @@ function [result, test] = run_test(self, test)
 
     % build result structure
     result = struct();
-    result.name = get_name(test);
-    result.errors = vertcat(setup_error, test_error, teardown_error);
+    result.name = get_function_name(test);
+    result.errors = errors;
     result.failure = test_failure;
     result.time = etime(clock, start_time);
     
     % update progress listeners with latest test result
     for lidx=1:numel(self.listeners)
         self.listeners{lidx} = next_result(self.listeners{lidx}, result);
-    end
-
-
-% Return an arrayable error struct with fixed fieldnames.
-function errstruct = loc_errstruct(lasterror, message_prefix)
-
-    % provide 0x0 struct with correct fieldnames for array aggregation
-    if nargin == 0
-        errstruct = struct(...
-            'message', {}, ...
-            'stack', {});
-        return;
-    end
-    
-    if nargin < 2
-        message_prefix = '';
-    else
-        % set prefix one line before
-        message_prefix = [message_prefix sprintf('\n')];
-    end
-
-    errstruct = struct();
-    errstruct.message = [message_prefix lasterror.message];
-    if isempty(errstruct.message)
-        errstruct.message = '(no error message available)';
-    end
-    errstruct.stack = mlunit_print_stack(lasterror.stack);
-    errstruct = parse_error(errstruct);
-    
-
-% Parse special errors to extract further stacktrace information.
-% Author: Thomas Dohmke <thomas@dohmke.de>
-function errstruct = parse_error(errstruct) %#ok<INUSL>
-
-    if (~isempty(strfind(errstruct.message, 'Unbalanced or misused parentheses or brackets.')) || ...
-        ~isempty(strfind(errstruct.message, 'Unbalanced or unexpected parenthesis or bracket.')))
-        % ignore MATLAB's HTML anchor tags
-        % allow for Jenkins' <URL/filename> syntax, also for parentheses in paths
-        [tokens] = regexp(errstruct.message, 'Error:\s*(<a href[^>]*>)?File: <?([\w\ \.,$&\/\(\)\\:@]+.m)>? Line: (\d*) Column: (\d*).*', 'tokens', 'once');
-        if (length(tokens) == 4)
-            fullname = which(char(tokens(2)));
-            if (~isempty(fullname))
-                errstruct.stack = sprintf('\nIn %s at line %s%s', ...
-                    fullname, char(tokens(3)), ...
-                    errstruct.stack);
-            else
-                errstruct.stack = sprintf('\nIn %s at line %s%s', ...
-                    char(tokens(2)), char(tokens(3)), ...
-                    errstruct.stack);
-            end;
-            errstruct.message = 'Unbalanced or misused parentheses or brackets.';
-        end;
-    else
-        [tokens] = regexp(errstruct.message, 'Error using ==> <a href.*>(.*)</a>\n(.*)', 'tokens', 'once');
-        if (length(tokens) == 2)
-            errstruct.message = char(tokens(2));
-        end;
     end
