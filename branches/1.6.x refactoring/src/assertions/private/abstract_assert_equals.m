@@ -149,4 +149,4 @@ function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
     % prevent preallocated empty items from being joined into the message string
     msgs(sd+1:end) = [];
     
-    msg = strjoin(msgs, sprintf('\n'));
+    msg = mlunit_strjoin(msgs, sprintf('\n'));

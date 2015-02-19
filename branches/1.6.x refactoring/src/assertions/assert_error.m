@@ -135,4 +135,4 @@ function string = diff2string(diff)
 
    diffstring = @(field) ['Expected error ' field ' ' printable(diff.(field).expected) ' actually was ' printable(diff.(field).actual) '.'];
    diffstrings = cellfun(diffstring, fieldnames(diff), 'UniformOutput', false);
-   string = strjoin(diffstrings, sprintf('\n'));
+   string = mlunit_strjoin(diffstrings, sprintf('\n'));

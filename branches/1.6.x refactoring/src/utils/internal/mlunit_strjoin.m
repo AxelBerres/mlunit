@@ -1,6 +1,6 @@
-function result = strjoin(stringcell, separator)
-%STRJOIN Concatenate a string cell's items, using a separator.
-%  S=STRJOIN(C,SEP) yields the single string S: the concatenation of all of the
+function result = mlunit_strjoin(stringcell, separator)
+%MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.
+%  S=MLUNIT_STRJOIN(C,SEP) yields the single string S: the concatenation of all of the
 %  items from string cell C. Every two items are joined with the separator SEP.
 %  SEP defaults to ', '.
 
