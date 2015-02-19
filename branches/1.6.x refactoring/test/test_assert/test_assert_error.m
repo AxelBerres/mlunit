@@ -41,8 +41,12 @@ function proxy_deep_stack_error_nested
 
     error('Still waters run deep.');
 
-function test_proper_error_by_stack
-
+% Deactivated test.
+% Stack conformity should not be tested. The stack,
+% and this test's result with it, will depend on the calling instance,
+% i.e. whether the tests were started by calling recursive_test_run,
+% or by some wrapper script.
+function notest_proper_error_by_stack
 
     % only include function names, as they should be pretty stable across
     % different machines and different revisions
