@@ -42,8 +42,9 @@ function [result, test] = run_test(self, test)
             isfailure = strcmp(err.identifier, 'MLUNIT:Failure');
             if isfailure
                 % filter up to 'MLUNIT FAILURE' string, which is used for masking actual error message
-                failurepos = strfind(errmsg, 'MLUNIT FAILURE:');
-                test_failure = errmsg(failurepos(1) + 15:length(errmsg));
+                trigger = 'MLUNIT FAILURE:';
+                failurepos = strfind(errmsg, trigger);
+                test_failure = errmsg(failurepos(1) + length(trigger):length(errmsg));
                 if isempty(test_failure)
                     test_failure = '(no failure message available)';
                 end
