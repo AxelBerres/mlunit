@@ -20,15 +20,15 @@ function recursive_test_run(basedir, targetdir)
    % start time for calculating execution time
    start_time = clock;
    
+   % buffer current environment state
+   previous_environment = mlunit_environment();
+
    % print header
    disp(printHeader(basedir));
    
    % Get test files. They may be in basedir or its subdirectories.
    suitespecs = getNestedTestFiles(basedir);
-   
-   % Remember previous working directory
-   prevpwd = pwd;
-   
+
    % Execute each test suite file.
    count_suites = numel(suitespecs);
    suiteresults = cell(size(suitespecs));
@@ -44,13 +44,13 @@ function recursive_test_run(basedir, targetdir)
       writeXmlTestsuite(suiteresult, targetdir);
    end
 
+   % restore previous environment state
+   mlunit_environment(previous_environment);
+   
    % print summary
    execution_time = etime(clock, start_time);
    disp(printSummary(suiteresults, execution_time));
    
-   % Restore previous working directory
-   cd(prevpwd);
-
 
 %% Run test suite, collect suite and test case attributes and return them.
 % suiteresult is a cell array of structures. Each structure contains:

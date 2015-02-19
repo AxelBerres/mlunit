@@ -9,6 +9,8 @@ mlUnit development snapshot
   - mlUnit parameter changes in test of fixture functions will be reverted
     after each test's tear_down execution
   - Expanded mlunit_param to get and set the whole parameter configuration.
+  - recursive_test_run restores path, pwd and mlunit_param to pre-run state
+    after execution
 
   - Fix: assert() calls break R2006b compatibility.
   - Fix: mat2str displays strings differently on R2006b and probably before.
