@@ -104,7 +104,7 @@ function suiteresult = runTestsuite(suitespec)
       
       % fill in names
       testcase.classname = suiteresult.name;
-      testcase.name = function_name(testcase_obj);
+      testcase.name = get_function_name(testcase_obj);
       
       % get any errors
       testcase.error = findError(testcase_obj, errorList);
