@@ -2,8 +2,8 @@
 %  This is very similar to the error struct returned by lasterror or MException.
 %  In fact, you need to provide such an error struct as argument. Use this
 %  class's methods to determine whether the error represent an mlUnit failure or
-%  a proper error, or to easily obtains a printable representation including
-%  message and stack.
+%  a proper error, or to easily obtain a filtered and printable representation
+%  including message and stack.
 %  
 %  obj = mlunit_errorinfo(errorinfo) instanciates an object based on error
 %  information in errorinfo. errorinfo must be a scalar struct with field

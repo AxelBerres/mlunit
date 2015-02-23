@@ -14,7 +14,7 @@ test = load_tests_from_mfile(test_loader);
 
 function test_empty_message
 
-    assert_equals('(no error message available)', loc_parse_error(''));
+    assert_equals('(no message available)', loc_parse_error(''));
     
 function test_omit_if_already_clean
 

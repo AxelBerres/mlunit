@@ -29,6 +29,7 @@ mlUnit development snapshot
       + @mlunit_suite_runner added, as reusable mechanism to execute
         one test suite
       + @mlunit_errorinfo centralizes all error parsing and string output
+      + failures also handled by @mlunit_errorinfo
 
   - simplify error list item names in GUI to omit the suite name, as test suites
     cannot nest anymore

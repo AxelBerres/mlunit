@@ -80,7 +80,7 @@ message = strtrim(message);
 
 % might not contain any actual message
 if isempty(message)
-    message = '(no error message available)';
+    message = '(no message available)';
 end
 
 % set additional error message before the proper message as cause

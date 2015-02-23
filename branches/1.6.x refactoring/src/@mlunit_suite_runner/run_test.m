@@ -50,26 +50,20 @@ function [result, self, test] = run_test(self, test)
             test = eval([method, '(test)']);
         catch
             err = lasterror;
-            errmsg = err.message;
-            isfailure = strcmp(err.identifier, 'MLUNIT:Failure');
-            if isfailure
-                % filter up to 'MLUNIT FAILURE' string, which is used for masking actual error message
-                trigger = 'MLUNIT FAILURE:';
-                failurepos = strfind(errmsg, trigger);
-                test_failure = errmsg(failurepos(1) + length(trigger):length(errmsg));
-                if isempty(test_failure)
-                    test_failure = '(no failure message available)';
-                end
+            errorinfo = mlunit_errorinfo(err);
+            if is_failure(errorinfo)
+                test_failure = get_message_with_stack(errorinfo);
             else
-                % Add some stack if missing. But why would it be missing?
-                % TODO: investigate
+                % Previous code added some stack if the field was missing.
+                % But why would it be missing?
                 if (~isfield(err, 'stack'))
-                    err.stack(1).file = char(which(method));
-                    err.stack(1).line = '1';
-                    err.stack = vertcat(err.stack, dbstack('-completenames'));
+                    error('MLUNIT:unexpectedExecution', 'This code seems deprecated, but we did not know when it activated. Please report this bug along with the circumstance in which it occurred.');
+%                     err.stack(1).file = char(which(method));
+%                     err.stack(1).line = '1';
+%                     err.stack = vertcat(err.stack, dbstack('-completenames'));
                 end
 
-                errors{end+1} = mlunit_errorinfo(err);
+                errors{end+1} = errorinfo;
             end;
         end;
     end;
