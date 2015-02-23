@@ -51,7 +51,7 @@ end
 
 % subclass argument given, reflect on it a bit
 if nargin >= 2
-   r = reflect(subclass);
+   r = mlunit_reflect(subclass);
    if (~method_exists(r, name))
       error(['Method ', name ' does not exists.']);
    end;

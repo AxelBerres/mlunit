@@ -5,12 +5,12 @@ function self = test_get_methods(self)
 %  =======
 %         run(gui_test_runner, 'test_reflect(''test_get_methods'')');
 %
-%  See also REFLECT/GET_METHODS.
+%  See also MLUNIT_REFLECT/GET_METHODS.
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_get_methods.m 47 2006-06-11 19:26:32Z thomi $
 
-r = reflect('test_case');
+r = mlunit_reflect('test_case');
 m = get_methods(r);
 assert_true(size(m, 1) > 0);
 assert_true(~any(strcmp(m, 'test_case')));

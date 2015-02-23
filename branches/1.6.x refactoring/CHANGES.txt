@@ -12,11 +12,12 @@ mlUnit development snapshot
   - recursive_test_run restores path, pwd and mlunit_param to pre-run state
     after execution
   - major backend refactoring for easier maintenance, including:
+      + prepend mlunit_ prefix to classes/functions that use common names:
+        @mlunit_reflect, @mlunit_testsuite, mlunit_fail
       + @test_case restricted to being a base class template for test classes,
-        separating actual test execution into mlunit_suite_runner for now
-      + @test_suite renamed into @mlunit_testsuite, restricted to being
-        a simple, one-level list of test cases; dropped support for manually
-        constructing multi-level test suites
+        separating actual test execution into @mlunit_suite_runner for now
+      + @mlunit_testsuite restricted to being a simple, one-level list of test
+        cases; dropped support for manually constructing multi-level test suites
       + @test_result deleted, in favor of simple struct array, and in an effort
         to separate the actual results from how they are displayed; summarizes
         result aspects from former @test_result, @text_test_result, and
@@ -30,8 +31,6 @@ mlUnit development snapshot
         one test suite
       + @mlunit_errorinfo centralizes all error parsing and string output
       + failures also handled by @mlunit_errorinfo
-      + fail() renamed into mlunit_fail(), so as not to shadow other functions
-        that may well call themselves fail.
 
   - simplify error list item names in GUI to omit the suite name, as test suites
     cannot nest anymore

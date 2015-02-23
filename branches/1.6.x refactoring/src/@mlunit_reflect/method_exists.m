@@ -1,14 +1,14 @@
 function exists = method_exists(self, method_name)
-%reflect/method_exists returns true, if a method with the name method_name 
+%mlunit_reflect/method_exists returns true, if a method with the name method_name 
 %exists in the 'reflected' class.
 %
 %  Example
 %  =======
-%         r = reflect('test_case');
+%         r = mlunit_reflect('test_case');
 %         method_exists(r, 'run');  % Return true
 %         method_exists(r, 'fail'); % Returns false
 %
-%  See also REFLECT.
+%  See also MLUNIT_REFLECT.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

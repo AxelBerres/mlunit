@@ -16,7 +16,7 @@ function names = get_test_case_names(self, test_case_class) %#ok
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: get_test_case_names.m 148 2007-01-02 20:08:23Z thomi $
 
-t = reflect(test_case_class);
+t = mlunit_reflect(test_case_class);
 names = get_methods(t);
 for i = size(names, 1):-1:1
     if (~strncmp(names(i), 'test', 4))

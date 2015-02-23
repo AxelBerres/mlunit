@@ -1,15 +1,15 @@
-function self = reflect(class_name)
-%reflect constructer.
-%  The constructor creates an object of the class reflect.
+function self = mlunit_reflect(class_name)
+%mlunit_reflect constructer.
+%  The constructor creates an object of the class mlunit_reflect.
 %
 %  Class Info / Example
 %  ====================
-%  The class reflect helps to find out which methods to a class belong.
+%  The class mlunit_reflect helps to find out which methods to a class belong.
 %  In fact it is simply a wrapper for the Matlab methods function,
 %  providing a method checking whether a method within a class exists
 %  or not, and a method returning all methods of a class as a cell array. 
 %  Example:
-%         r = reflect('test_case');
+%         r = mlunit_reflect('test_case');
 %         method_exists(r, 'run');  % Return true
 %         method_exists(r, 'fail'); % Returns false
 %         get_methods(r);           % Returns a cell array with all methods
@@ -19,7 +19,7 @@ function self = reflect(class_name)
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: reflect.m 23 2006-05-26 23:32:58Z thomi $
+%  $Id: mlunit_reflect.m 23 2006-05-26 23:32:58Z thomi $
 
 self.class_name = class_name;
-self = class(self, 'reflect');
+self = class(self, 'mlunit_reflect');

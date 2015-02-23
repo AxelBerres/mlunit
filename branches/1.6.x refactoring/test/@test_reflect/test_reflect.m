@@ -1,5 +1,5 @@
 function t = test_reflect(name)
-%test_reflect tests the class reflect.
+%test_reflect tests the class mlunit_reflect.
 %
 %  Example
 %  =======

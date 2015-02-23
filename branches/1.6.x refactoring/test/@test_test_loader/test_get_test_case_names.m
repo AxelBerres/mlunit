@@ -17,5 +17,5 @@ assert_true(size(n, 1) > 0);
 assert_true(sum(strncmp(n, 'test', 4)) == size(n, 1));
 
 n = get_test_case_names(t, 'mock_test_failed_set_up');
-% Number of methods is zero as inheritance is not supported by reflect
+% Number of methods is zero as inheritance is not supported by mlunit_reflect
 assert_true(sum(strcmp(n, 'test_method')) == 0);
