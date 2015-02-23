@@ -13,7 +13,10 @@ mlUnit development snapshot
     after execution
   - major backend refactoring for easier maintenance, including:
       + prepend mlunit_ prefix to classes/functions that use common names:
-        @mlunit_reflect, @mlunit_testsuite, mlunit_fail
+        @mlunit_reflect, @mlunit_testsuite, mlunit_fail, @mlunit_gui
+        (renamed from gui_test_runner)
+      + retain names in order to provide compatibility with existing tests:
+        test_case, test_loader, assert_*, recursive_test_run
       + @test_case restricted to being a base class template for test classes,
         separating actual test execution into @mlunit_suite_runner for now
       + @mlunit_testsuite restricted to being a simple, one-level list of test

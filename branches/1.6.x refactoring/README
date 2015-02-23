@@ -63,7 +63,7 @@ fully automatized from your Ant automation script or the Windows console.
 Manual Execution
 ----------------
 
-Execute run(gui_test_runner). Provide the name of a test script file in the
+Execute run(mlunit). Provide the name of a test script file in the
 dialog and apply.
 
 

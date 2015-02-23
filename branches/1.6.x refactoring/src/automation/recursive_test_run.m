@@ -7,7 +7,7 @@ function recursive_test_run(basedir, targetdir)
 %  RECURSIVE_TEST_RUN(BASEDIR, TARGETDIR) does the same, but lets reports
 %  and logs be created in the TARGETDIR directory instead of the BASEDIR.
 %
-%  See also GUI_TEST_RUNNER, TEXT_TEST_RUNNER
+%  See also mlunit_gui, mlunit_suite_runner
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

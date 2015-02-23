@@ -1,5 +1,5 @@
 function self = run(self, test, dock, shorten)
-%gui_test_runner/run is an alternative method to execute the graphical 
+%mlunit_gui/run is an alternative method to execute the graphical 
 %user interface of mlUnit. 
 %
 %  Example
@@ -7,9 +7,9 @@ function self = run(self, test, dock, shorten)
 %  With the second parameter it is possible to specify a test method, test
 %  case or test suite, that is executed immediately after the start of the
 %  graphical user interface. 
-%         Example: run(gui_test_runner, 'mlunit_all_tests');
+%         Example: run(mlunit_gui, 'mlunit_all_tests');
 %
-%  See also GUI_TEST_RESULT, GUI_TEST_RUNNER.
+%  See also GUI_TEST_RESULT, mlunit_gui.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

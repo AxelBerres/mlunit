@@ -8,7 +8,7 @@ function self = mlunit
 %  mlUnit.
 %         Example: run(mlunit);
 %
-%  See also GUI_TEST_RUNNER.
+%  See also mlunit_gui.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

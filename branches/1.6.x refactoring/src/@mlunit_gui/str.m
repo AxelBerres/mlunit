@@ -1,10 +1,10 @@
 function s = str(self)
-%gui_test_runner/str return a string with the class name.
+%mlunit_gui/str return a string with the class name.
 %
 %  Example
 %  =======
-%  For the class gui_test_runner, str will always return:
-%           gui_test_runner
+%  For the class mlunit_gui, str will always return:
+%           mlunit_gui
 %
 %  See also TEST_CASE/STR.
 

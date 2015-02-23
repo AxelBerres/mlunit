@@ -1,12 +1,12 @@
 function save(self)
-%gui_test_runner/save saves the parameters of the graphical user interface
+%mlunit_gui/save saves the parameters of the graphical user interface
 %of mlUnit to a .mat-file with the name mlunit.tmp. 
 %
 %  Example
 %  =======
-%         save(gui_test_runner);
+%         save(mlunit_gui);
 %
-%  See also GUI_TEST_RUNNER, GUI_TEST_RUNNER/LOAD.
+%  See also mlunit_gui, mlunit_gui/LOAD.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -15,7 +15,7 @@ function save(self)
 %  $Id: save.m 166 2007-01-04 21:19:31Z thomi $
 
 object = get_object(self);
-if (strcmp(class(object), 'gui_test_runner')) 
+if (strcmp(class(object), 'mlunit_gui')) 
     dock = object.dock; %#ok
     shorten = object.shorten; %#ok
     test_case_name = builtin('get', object.handles.gui_test_case, 'String'); %#ok

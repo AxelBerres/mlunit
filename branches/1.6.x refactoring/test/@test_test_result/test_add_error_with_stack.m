@@ -4,7 +4,7 @@ function self = test_add_error_with_stack(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_result(''test_add_error_with_stack'');');
+%         run(mlunit_gui, 'test_test_result(''test_add_error_with_stack'');');
 %
 %  See also TEST_RESULT/ADD_ERROR_WITH_STACK.
 

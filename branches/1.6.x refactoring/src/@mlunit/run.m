@@ -8,7 +8,7 @@ function self = run(self, dock)
 %  Run in docked mode:
 %         run(mlunit, 1);
 %
-%  See also MLUNIT, GUI_TEST_RUNNER/RUN.
+%  See also MLUNIT, mlunit_gui/RUN.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -20,4 +20,4 @@ if (nargin == 1)
     dock = 0;
 end;
 
-run(gui_test_runner, '', dock);
+run(mlunit_gui, '', dock);

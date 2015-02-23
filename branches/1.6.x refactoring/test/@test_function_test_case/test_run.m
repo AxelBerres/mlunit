@@ -4,7 +4,7 @@ function self = test_run(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_function_test_case(''test_run'')');
+%         run(mlunit_gui, 'test_function_test_case(''test_run'')');
 %
 %  See also TEST_FUNCTION_TEST_CASE.
 

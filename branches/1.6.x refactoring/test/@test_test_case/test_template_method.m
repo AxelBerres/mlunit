@@ -3,7 +3,7 @@ function self = test_template_method(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_case(''test_template_method'');');
+%         run(mlunit_gui, 'test_test_case(''test_template_method'');');
 %
 %  See also TEST_CASE/RUN.
 

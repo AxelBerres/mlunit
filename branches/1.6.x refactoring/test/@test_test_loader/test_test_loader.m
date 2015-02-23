@@ -3,7 +3,7 @@ function t = test_test_loader(name)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_loader');
+%         run(mlunit_gui, 'test_test_loader');
 %
 %  See also TEST_LOADER.
 

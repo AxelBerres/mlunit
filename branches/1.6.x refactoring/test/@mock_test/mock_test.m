@@ -3,7 +3,7 @@ function w = mock_test(name)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'mock_test(''test_method'')');
+%         run(mlunit_gui, 'mock_test(''test_method'')');
 %
 %  See also TEST_TEST_CASE.
 

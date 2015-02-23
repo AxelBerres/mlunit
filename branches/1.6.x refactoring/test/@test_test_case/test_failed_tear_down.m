@@ -4,7 +4,7 @@ function self = test_failed_tear_down(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_case(''test_failed_tear_down'');');
+%         run(mlunit_gui, 'test_test_case(''test_failed_tear_down'');');
 %
 %  See also TEST_CASE/RUN.
 

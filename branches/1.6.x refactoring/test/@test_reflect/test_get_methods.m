@@ -3,7 +3,7 @@ function self = test_get_methods(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_reflect(''test_get_methods'')');
+%         run(mlunit_gui, 'test_reflect(''test_get_methods'')');
 %
 %  See also MLUNIT_REFLECT/GET_METHODS.
 

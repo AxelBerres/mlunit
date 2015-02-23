@@ -1,14 +1,14 @@
 function varargout = gui(object, varargin)
-%gui_test_runner/gui execute the graphical user interface of mlUnit.
+%mlunit_gui/gui execute the graphical user interface of mlUnit.
 %  The graphical user interface is realized with guide and therefore
 %  a file gui.fig exists containing the figure and all the handles.
 %
 %  Example
 %  =======
-%  Start the gui_test_runner:
-%         gui(gui_test_runner);
+%  Start the mlunit_gui:
+%         gui(mlunit_gui);
 %
-%  See also GUI_TEST_RESULT, GUI_TEST_RUNNER.
+%  See also GUI_TEST_RESULT, mlunit_gui.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -61,9 +61,9 @@ set(handles.gui_progress_bar, 'YTick', [], 'YTickLabel', []);
 menu = uicontextmenu;
 set(self.handle, 'UIContextMenu', menu);
 self.handles.menu_dock = uimenu(menu, 'Label', 'Dock Window', 'Callback', ...
-    @(hobject, eventdata)gui(gui_test_runner(1), 'gui_dock_callback', hobject, [], handles));
+    @(hobject, eventdata)gui(mlunit_gui(1), 'gui_dock_callback', hobject, [], handles));
 self.handles.menu_shorten = uimenu(menu, 'Label', 'Short Directory Names', 'Callback', ...
-    @(hobject, eventdata)gui(gui_test_runner(1), 'gui_shorten_callback', hobject, [], handles)); 
+    @(hobject, eventdata)gui(mlunit_gui(1), 'gui_shorten_callback', hobject, [], handles)); 
 
 if (~isempty(self.dock) && isnumeric(self.dock) && self.dock)
     set(handles.gui_window, 'WindowStyle', 'Docked');

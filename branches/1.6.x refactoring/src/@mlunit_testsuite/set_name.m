@@ -1,6 +1,6 @@
 function self = set_name(self, name)
 %test_suite/set_name sets an optional name for the test suite.
-%  The name is used by gui_test_runner to re-run a test_suite, which is
+%  The name is used by mlunit_gui to re-run a test_suite, which is
 %  created by an .m-file.
 %
 %  Example:

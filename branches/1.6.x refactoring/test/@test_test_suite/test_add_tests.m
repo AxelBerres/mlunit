@@ -3,7 +3,7 @@ function self = test_add_tests(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_suite(''test_add_tests'');');
+%         run(mlunit_gui, 'test_test_suite(''test_add_tests'');');
 %
 %  See also test_add_tests.
 

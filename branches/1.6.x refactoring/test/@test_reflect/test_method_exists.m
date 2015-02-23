@@ -4,7 +4,7 @@ function self = test_method_exists(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_reflect(''test_method_exists'')');
+%         run(mlunit_gui, 'test_reflect(''test_method_exists'')');
 %
 %  See also MLUNIT_REFLECT/METHOD_EXISTS.
 

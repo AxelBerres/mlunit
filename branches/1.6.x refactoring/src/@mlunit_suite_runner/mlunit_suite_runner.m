@@ -3,9 +3,9 @@
 %
 %  Class Info / Example
 %  ====================
-%  The class gui_test_runner runs a test_case or test_suite and displays
+%  The class mlunit_gui runs a test_case or test_suite and displays
 %  results in a graphical user interface (using gui_test_result). 
-%         Example: run(gui_test_runner);
+%         Example: run(mlunit_gui);
 %
 %  See also GUI_TEST_RESULT.
 

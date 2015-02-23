@@ -3,7 +3,7 @@ function self = test_create(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_case(''test_creates'');');
+%         run(mlunit_gui, 'test_test_case(''test_creates'');');
 %
 %  See also TEST_CASE.
 

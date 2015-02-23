@@ -4,7 +4,7 @@ function self = test_get_test_case_names(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_loader(''test_get_test_case_names'');');
+%         run(mlunit_gui, 'test_test_loader(''test_get_test_case_names'');');
 %
 %  See also TEST_LOADER/GET_TEST_CASE_NAMES.
 

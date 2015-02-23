@@ -1,12 +1,12 @@
 function self = get_object(self) %#ok
-%gui_test_runner/get_object returns the singleton object of the gui window.
+%mlunit_gui/get_object returns the singleton object of the gui window.
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'mlunit_all_tests');
-%         runner = get_object(gui_test_runner)
+%         run(mlunit_gui, 'mlunit_all_tests');
+%         runner = get_object(mlunit_gui)
 %
-%  See also GUI_TEST_RUNNER.
+%  See also mlunit_gui.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

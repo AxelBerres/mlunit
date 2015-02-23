@@ -1,11 +1,11 @@
 function self = test_shorten_error_text(self)
-%test_gui_test_runner/test_shorten_error_text tests the method
+%test_mlunit_gui/test_shorten_error_text tests the method
 %shorten_error_text, which shortens the directory paths of an error
 %message.
 %
 %  Example
 %  =======
-%         run(text_test_runner, 'test_gui_test_runner(''test_shorten_error_text'')');
+%         run(text_test_runner, 'test_mlunit_gui(''test_shorten_error_text'')');
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_shorten_error_text.m 254 2007-01-27 21:23:39Z thomi $

@@ -1,13 +1,13 @@
 function handle = get_handle(self)
-%gui_test_runner/get_handle returns the graphics handle of the gui window,
+%mlunit_gui/get_handle returns the graphics handle of the gui window,
 %if the singleton object is passed as the input parameter.
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'mlunit_all_tests');
-%         handle = get_handle(get_object(gui_test_runner))
+%         run(mlunit_gui, 'mlunit_all_tests');
+%         handle = get_handle(get_object(mlunit_gui))
 %
-%  See also GUI_TEST_RUNNER, GUI_TEST_RUNNER/GET_OBJECT.
+%  See also mlunit_gui, mlunit_gui/GET_OBJECT.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

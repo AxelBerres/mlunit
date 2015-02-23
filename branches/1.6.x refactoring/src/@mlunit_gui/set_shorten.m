@@ -1,5 +1,5 @@
 function self = set_shorten(self, value)
-%gui_test_runner/set_shorten activates the shortening of directory paths of
+%mlunit_gui/set_shorten activates the shortening of directory paths of
 %an error message. This is helpful for a small width of the gui window.
 %
 %  Example
@@ -7,8 +7,8 @@ function self = set_shorten(self, value)
 %  The method is internal to the mlUnit framework and should not be called
 %  directly.
 %
-%  See also GUI_TEST_RUNNER, GUI_TEST_RUNNER/GUI,
-%           GUI_TEST_RUNNER/SHORTEN_ERROR_TEXT. 
+%  See also mlunit_gui, mlunit_gui/GUI,
+%           mlunit_gui/SHORTEN_ERROR_TEXT. 
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

@@ -4,7 +4,7 @@ function self = test_fixture(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_function_test_case(''test_fixture'')');
+%         run(mlunit_gui, 'test_function_test_case(''test_fixture'')');
 %
 %  See also TEST_FUNCTION_TEST_CASE.
 

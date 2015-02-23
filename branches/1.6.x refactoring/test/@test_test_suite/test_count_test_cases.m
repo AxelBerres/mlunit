@@ -4,7 +4,7 @@ function self = test_count_test_cases(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_suite(''test_count_test_cases'');');
+%         run(mlunit_gui, 'test_test_suite(''test_count_test_cases'');');
 %
 %  See also TEST_SUITE/COUNT_TEST_CASES.
 
