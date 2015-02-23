@@ -15,7 +15,7 @@
 %  This method is expected to be private. Rather use get_message_with_stack
 %  instead.
 %
-%  See also test_filter_lasterror, get_message_with_stack.
+%  See also test_filter_lasterror, get_message_with_stack
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -24,6 +24,7 @@
 
 function [message, stack] = filter_lasterror_wraps(self)
 
+% use verbatim values as defaults
 message = self.err.message;
 stack = self.err.stack;
 
@@ -38,17 +39,17 @@ num_captures_runtime_err = 2;               % 2 capture groups if successfull
                   
 % lasterror wraps syntax errors really awkwardly across the releases
 % for details, see test_mlunit_errorinfo
-regexp_syntax_err = ['^Error: ' ...
-                     '<a[^>]*>' ...
+regexp_syntax_err = ['^Error: ' ...         % starts with 'Error:'
+                     '<a[^>]*>' ...         % puts an anchor around the file
                      'File: ' ...
-                     '<?' ...
-                     '([\w\ \.,$&\/\(\)\\:@]+.[mp])' ...
-                     '>?' ...
+                     '<?' ...               % Jenkins wraps the file in <>
+                     '([\w\ \.,$&\/\(\)\\:@]+.[mp])' ...  % file name or path
+                     '>?' ...               % Jenkins closing wrap
                      ' Line: (\d+)' ...
                      ' Column: (\d+)' ...
-                     '.*' ...
-                     '(<\/a>\n|\n<\/a>)' ...
-                     '(.*)'];
+                     '.*' ...               % any further character
+                     '(<\/a>\n|\n<\/a>)' ...% anchor closing tag may be before or after newline
+                     '(.*)'];               % this is the actual message
 num_captures_syntax_err = 5;                % 5 capture groups if successfull
 
 % run both 
@@ -70,6 +71,8 @@ elseif length(tokens_syntax) == num_captures_syntax_err
     % push reconstructed call location onto stack
     stackitem = struct('file', {fullname}, 'line', {line}, 'name', {file});
     stack = [stackitem; stack];
+else
+    % unrecognized message format: leave message and stack as they are
 end
 
 % trim leading and trailing whitespace
