@@ -125,18 +125,13 @@ As an example a test for the built-in sin function is written:
 
 5. Run the test:
 
-   >> cd ..
-   >> runner = text_test_runner(1, 1);
-   >> loader = test_loader;
-   >> run(runner, load_tests_from_test_case(loader, 'test_sin'));
+   >> cd('sample');
+   >> run(mlunit);
 
-   You should see something like this:
+   Enter 'test_sin' and press 'Run'.
+   You should see a green bar and the text:
 
-   .
-   ----------------------------------------------------------------------
-   Ran 1 test in 0.010s
-   
-   OK
+   Runs: 1 / Errors: 0 / Failures: 0
 
 6. Add more tests, e.g. test_sin_cos.m:
 
@@ -144,36 +139,11 @@ As an example a test for the built-in sin function is written:
 
    assert_equals(cos(0), sin(pi/2));
 
-7. Run the tests:
+7. Rerun the tests:
 
-   >> run(runner, load_tests_from_test_case(loader, 'test_sin'));
-  
-   You should see something like this:
+   Press 'Run' again. You should see the text:
 
-   ..
-   ----------------------------------------------------------------------
-   Ran 2 tests in 0.010s
-   
-   OK
-
-8. Try other parameters of text_test_runner:
-
-   >> runner = text_test_runner(1, 2);
-   >> run(runner, load_tests_from_test_case(loader, 'test_sin'));
-
-   You should see something like this:
-
-   test_null(test_sin) ... OK
-   test_sin_cos(test_sin) ... OK
-
-   ----------------------------------------------------------------------
-   Ran 2 tests in 0.020s
-
-   OK
-
-9. Read more in the help texts of the classes, e.g.
-
-   >> help text_test_runner
+   Runs: 2 / Errors: 0 / Failures: 0
 
 ===========================================================================
 
@@ -219,35 +189,26 @@ in unit tests and should be avoided where possible, let this serve as example:
 MLUNIT TESTS
 
 
-As mlUnit was developed test-driven, there are a number of tests in the 
+As mlUnit was developed loosely test-driven, there are a number of tests in the
 test directory, which can be run by
 
 >> recursive_test_run('$MLUNIT\mlunit\test')
-
-The function recursive_test_run uses genpath to build a list of
-subdirectories. Therefore, it can not be used to run the mlUnit internal
-test cases. The Ant automation won't work either, because it, in turn, uses
-the recursive_test_run function.
 
 ===========================================================================
 
 
 MIGRATION
 
-From 1.6.4 onward, assert() is no mlUnit function anymore. Replace your assert()
+With 1.6.8, there are several usage changes. In lack of a current write-up,
+please consult the CHANGES.txt for the 1.6.8 release.
+
+With 1.6.4, assert() is no mlUnit function anymore. Replace your assert()
 calls with calls to assert_true() in test cases. In places where you actually
 want to assert a constraint in production code rather than a test case, use the
 MATLAB built-in assert().
 
 ===========================================================================
 
-
-MORE DOCUMENTATION
-
-
-More documentation can be found online at <http://mlunit.sourceforge.net>.
-
-===========================================================================
 
 QUESTIONS, COMMENTS, BUGS
 

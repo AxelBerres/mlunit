@@ -1,10 +1,5 @@
 function self = test_sin_cos(self)
 %test_null checks checks the correlation of cos and sin.
-%
-%  Example
-%  =======
-%  Use a test runner to run the test method:
-%         Example: run(text_test_runner, test_sin('test_sin_cos'));
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
