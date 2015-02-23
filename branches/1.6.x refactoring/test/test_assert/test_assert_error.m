@@ -79,7 +79,7 @@ function test_noargs %#ok<DEFNU>
         assert_equals(l.identifier, 'MATLAB:nargchk:notEnoughInputs');
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end
 
 
 function test_wrong_id %#ok<DEFNU>
@@ -94,7 +94,7 @@ function test_wrong_id %#ok<DEFNU>
         assert_not_empty(strfind(l.message, 'Expected error identifier ''wrong:id'' actually was ''MATLAB:minrhs''.'));
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end
 
 
 function test_field_mismatch %#ok<DEFNU>
@@ -110,4 +110,4 @@ function test_field_mismatch %#ok<DEFNU>
         assert_not_empty(strfind(l.message, 'Expected error message ''wrong message'' actually was ''huh\nha''.'), ['Could not find expected error message in: ' l.message]);
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end

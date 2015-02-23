@@ -112,7 +112,7 @@ end
 % fail if fail on equal requested, and is equal
 % else, pass quietly
 if xor(pass_if_equal, equals)
-   fail(msg);
+   mlunit_fail(msg);
 end
 
 

@@ -30,6 +30,8 @@ mlUnit development snapshot
         one test suite
       + @mlunit_errorinfo centralizes all error parsing and string output
       + failures also handled by @mlunit_errorinfo
+      + fail() renamed into mlunit_fail(), so as not to shadow other functions
+        that may well call themselves fail.
 
   - simplify error list item names in GUI to omit the suite name, as test suites
     cannot nest anymore

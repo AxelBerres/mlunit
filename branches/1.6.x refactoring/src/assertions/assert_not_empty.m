@@ -18,7 +18,7 @@ function assert_not_empty(expr, varargin)
 %     % the same, with a custom message
 %     assert_not_empty(arg, 'arg found empty');
 %
-%  See also  ISEMPTY, ASSERT_EMPTY, FAIL, ASSERT_TRUE
+%  See also  ISEMPTY, ASSERT_EMPTY, MLUNIT_FAIL, ASSERT_TRUE
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -30,5 +30,5 @@ if nargin < 1
 end
 
 if isempty(expr)
-   fail(varargin{:});
+   mlunit_fail(varargin{:});
 end

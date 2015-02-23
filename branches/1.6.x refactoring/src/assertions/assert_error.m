@@ -37,7 +37,7 @@ function assert_error(func, errspec, msg)
 %     v1 = 3; v2 = {};
 %     assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');
 %
-%  See also  FAIL, ASSERT_TRUE, ASSERT_WARNING
+%  See also  MLUNIT_FAIL, ASSERT_TRUE, ASSERT_WARNING
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -88,11 +88,11 @@ end
 % evaluate findings
 if ~bCaught
    % no error at all is a failed expectation
-   fail('%sError expected, but none occurred.', msg);
+   mlunit_fail('%sError expected, but none occurred.', msg);
 elseif ~bErrorMatch
    % don't use sprintf %s expansion here, in order to preserve special
    % characters in the strings
-   fail('%sError occurred, but did not match criteria. %s', msg, diff2string(differences));
+   mlunit_fail('%sError occurred, but did not match criteria. %s', msg, diff2string(differences));
 end
 
 

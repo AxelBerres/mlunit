@@ -1,22 +1,22 @@
-%FAIL Raise an error.
-%  FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing
+%MLUNIT_FAIL Raise an error.
+%  MLUNIT_FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing
 %  the fail message. MSG may contain sprintf arguments, which can be
 %  expanded by subsequent arguments in varargin. MSG will only be sprintf-
 %  evaluated if subsequent arguments are actually provided.
 %
 %  Examples
 %     % raises a failure with a simple message
-%     fail('Test failed.');
+%     mlunit_fail('Test failed.');
 %
 %     % raises a failure with a sprintf message, expanded by a variable
-%     fail('Test failed, because 3 was not %d.', number);
+%     mlunit_fail('Test failed, because 3 was not %d.', number);
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  $Id$
 
-function fail(msg, varargin)
+function mlunit_fail(msg, varargin)
 
 % set empty message if left empty, take msg, or interpret sprintf arguments
 switch nargin
