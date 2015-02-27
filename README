@@ -3,15 +3,15 @@
 =================
 
 mlUnit is a unit test framework for the MATLAB M language.
+It follows patterns of the xUnit family, including assertions,
+test cases and suites as well as the fixture.
 
-===========================================================================
+In contrast to MATLAB's own unit test framework:
 
-
-ABOUT
-
-
-mlUnit is a testing framework for the MATLAB .m language, considering the 
-patterns of the xUnit family.
+* mlUnit outputs jUnit compatible XML reports
+* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2006b
+* mlUnit offers specialised assert functions, e.g. assert_empty, assert_warning,
+  and many more.
 
 This software and all associated files are released unter the GNU General 
 Public License (GPL) as published by the Free Software Foundation (see 
@@ -63,7 +63,7 @@ fully automatized from your Ant automation script or the Windows console.
 Manual Execution
 ----------------
 
-Execute run(gui_test_runner). Provide the name of a test script file in the
+Execute run(mlunit). Provide the name of a test script file in the
 dialog and apply.
 
 
@@ -125,18 +125,13 @@ As an example a test for the built-in sin function is written:
 
 5. Run the test:
 
-   >> cd ..
-   >> runner = text_test_runner(1, 1);
-   >> loader = test_loader;
-   >> run(runner, load_tests_from_test_case(loader, 'test_sin'));
+   >> cd('sample');
+   >> run(mlunit);
 
-   You should see something like this:
+   Enter 'test_sin' and press 'Run'.
+   You should see a green bar and the text:
 
-   .
-   ----------------------------------------------------------------------
-   Ran 1 test in 0.010s
-   
-   OK
+   Runs: 1 / Errors: 0 / Failures: 0
 
 6. Add more tests, e.g. test_sin_cos.m:
 
@@ -144,36 +139,11 @@ As an example a test for the built-in sin function is written:
 
    assert_equals(cos(0), sin(pi/2));
 
-7. Run the tests:
+7. Rerun the tests:
 
-   >> run(runner, load_tests_from_test_case(loader, 'test_sin'));
-  
-   You should see something like this:
+   Press 'Run' again. You should see the text:
 
-   ..
-   ----------------------------------------------------------------------
-   Ran 2 tests in 0.010s
-   
-   OK
-
-8. Try other parameters of text_test_runner:
-
-   >> runner = text_test_runner(1, 2);
-   >> run(runner, load_tests_from_test_case(loader, 'test_sin'));
-
-   You should see something like this:
-
-   test_null(test_sin) ... OK
-   test_sin_cos(test_sin) ... OK
-
-   ----------------------------------------------------------------------
-   Ran 2 tests in 0.020s
-
-   OK
-
-9. Read more in the help texts of the classes, e.g.
-
-   >> help text_test_runner
+   Runs: 2 / Errors: 0 / Failures: 0
 
 ===========================================================================
 
@@ -197,21 +167,23 @@ not to employ names known to mlUnit. Check the list of known parameters with:
 
    >> help mlunit_param
 
-That being said, you can use parameters, e.g. to bridge information between
-fixture calls. If you calculate some path name in your set_up fixture,
+That being said, you can use parameters for your own purposes,
+e.g. to bridge information between fixture calls.
+For example, if you calculate some path name in your set_up fixture,
 and want to access it in your tear_down fixture, store it as an mlUnit
 parameter. Although file and directory dependencies are generally discouraged
 in unit tests and should be avoided where possible, let this serve as example:
 
    function set_up
-      % remember current working directory
-      mlunit_param('mypreviouspwd', pwd);
-      % change to test specific directory
-      cd('specific/path/that/tests/need/to/execute/in');
+      % open file for reading
+      fid = fopen('my/path/myfile.txt');
+      % remember file id
+      mlunit_param('my_precious_fid', fid);
 
    function tear_down
-      % restore previous working directory
-      cd(mlunit_param('mypreviouspwd'));
+      % recall file id and close it
+      fid = mlunit_param('my_precious_fid');
+      fclose(fid);
 
 ===========================================================================
 
@@ -219,35 +191,26 @@ in unit tests and should be avoided where possible, let this serve as example:
 MLUNIT TESTS
 
 
-As mlUnit was developed test-driven, there are a number of tests in the 
+As mlUnit was developed loosely test-driven, there are a number of tests in the
 test directory, which can be run by
 
 >> recursive_test_run('$MLUNIT\mlunit\test')
-
-The function recursive_test_run uses genpath to build a list of
-subdirectories. Therefore, it can not be used to run the mlUnit internal
-test cases. The Ant automation won't work either, because it, in turn, uses
-the recursive_test_run function.
 
 ===========================================================================
 
 
 MIGRATION
 
-From 1.6.4 onward, assert() is no mlUnit function anymore. Replace your assert()
+With 1.6.8, there are several usage changes. In lack of a current write-up,
+please consult the CHANGES.txt for the 1.6.8 release.
+
+With 1.6.4, assert() is no mlUnit function anymore. Replace your assert()
 calls with calls to assert_true() in test cases. In places where you actually
 want to assert a constraint in production code rather than a test case, use the
-MATLAB built-in assert().
+MATLAB built-ins assert() or error().
 
 ===========================================================================
 
-
-MORE DOCUMENTATION
-
-
-More documentation can be found online at <http://mlunit.sourceforge.net>.
-
-===========================================================================
 
 QUESTIONS, COMMENTS, BUGS
 

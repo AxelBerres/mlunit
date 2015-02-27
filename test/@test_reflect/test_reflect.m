@@ -1,9 +1,9 @@
 function t = test_reflect(name)
-%test_reflect tests the class reflect.
+%test_reflect tests the class mlunit_reflect.
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_reflect');
+%         run(mlunit_gui, 'test_reflect');
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_reflect.m 42 2006-06-11 18:38:25Z thomi $

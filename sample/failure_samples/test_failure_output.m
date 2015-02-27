@@ -29,7 +29,7 @@ function test_true
 
 function test_fail
 
-    fail('This some custom fail message');
+    mlunit_fail('This some custom fail message');
 
 function test_equals
 
@@ -144,4 +144,4 @@ function test_nested_functions
 
 function loc_delegated_assert
 
-    fail('Nested function test.');
+    mlunit_fail('Nested function test.');

@@ -12,13 +12,16 @@ function suite = load_tests_from_test_case(self, test_case_class)
 %  This Software and all associated files are released unter the
 %  GNU General Public License (GPL), see LICENSE for details.
 %
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: load_tests_from_test_case.m 267 2007-03-10 12:38:34Z thomi $
 
-suite = [];
+suite = mlunit_testsuite;
+suite = set_name(suite, test_case_class);
 names = get_test_case_names(self, test_case_class);
-if (length(names) > 0)
-    suite = test_suite(map(self, ...
-        test_case_class, ...
-        names));
+
+for i = 1:length(names)
+    % instanciate test
+    testobj = eval([test_case_class, '(''', char(names(i)), ''')']);
+    
+    % add to suite
+    suite = add_test(suite, testobj);
 end;

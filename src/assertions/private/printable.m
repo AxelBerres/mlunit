@@ -22,11 +22,11 @@ if nargin < 1
 elseif iscell(input)
     items = cellfun(@printable, input, 'UniformOutput', false);
     % linearizes the cell array's matrix structure
-    outstring = ['{' strjoin(items) '}'];
+    outstring = ['{' mlunit_strjoin(items) '}'];
 elseif isstruct(input)
-    print_scalar_struct = @(s) ['{' strjoin(fieldname_value_strings(s), '; ') '}'];
+    print_scalar_struct = @(s) ['{' mlunit_strjoin(fieldname_value_strings(s), '; ') '}'];
     items = arrayfun(print_scalar_struct, input, 'UniformOutput', false);
-    outstring = ['[' strjoin(items) ']'];
+    outstring = ['[' mlunit_strjoin(items) ']'];
 elseif ischar(input) && isempty(input)
     % mat2str blunders when being given a 1x0 char and returns logical instead.
     % We also need to make sure to preserve the size (0x0 vs 1x0) of the input.

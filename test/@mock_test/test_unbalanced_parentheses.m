@@ -4,7 +4,7 @@ function self = test_unbalanced_parentheses(self) %#ok
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'mock_test(''test_unbalanced_parentheses'');');
+%         run(mlunit_gui, 'mock_test(''test_unbalanced_parentheses'');');
 %
 %  See also MOCK_TEST, TEST_TEST_RESULT.
 

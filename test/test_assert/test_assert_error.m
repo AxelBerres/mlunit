@@ -41,8 +41,12 @@ function proxy_deep_stack_error_nested
 
     error('Still waters run deep.');
 
-function test_proper_error_by_stack
-
+% Deactivated test.
+% Stack conformity should not be tested. The stack,
+% and this test's result with it, will depend on the calling instance,
+% i.e. whether the tests were started by calling recursive_test_run,
+% or by some wrapper script.
+function notest_proper_error_by_stack
 
     % only include function names, as they should be pretty stable across
     % different machines and different revisions
@@ -75,7 +79,7 @@ function test_noargs %#ok<DEFNU>
         assert_equals(l.identifier, 'MATLAB:nargchk:notEnoughInputs');
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end
 
 
 function test_wrong_id %#ok<DEFNU>
@@ -90,7 +94,7 @@ function test_wrong_id %#ok<DEFNU>
         assert_not_empty(strfind(l.message, 'Expected error identifier ''wrong:id'' actually was ''MATLAB:minrhs''.'));
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end
 
 
 function test_field_mismatch %#ok<DEFNU>
@@ -106,4 +110,4 @@ function test_field_mismatch %#ok<DEFNU>
         assert_not_empty(strfind(l.message, 'Expected error message ''wrong message'' actually was ''huh\nha''.'), ['Could not find expected error message in: ' l.message]);
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end

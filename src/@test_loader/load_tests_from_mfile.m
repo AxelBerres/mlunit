@@ -55,29 +55,19 @@ for token = tokens
     end;
 end;
 
-suite = test_suite;
+suite = mlunit_testsuite;
 suite = set_name(suite, stack(2).name);
 for token = tokens
     test = char(token{1}{:});
     pos = findstr('test', test);
-    if (~isempty(name))
-        if (strcmp(name, test))
-            fun_handle = evalin('caller', ['@() @', test, '']);
-            fun_handle = fun_handle();
-            suite = function_test_case(fun_handle,...
-                set_up_handle,...
-                tear_down_handle, ...
-                test);
-            break;
-        end;
-    elseif (~isempty(pos) && (pos(1) == 1))
+    if (~isempty(pos) && (pos(1) == 1))
         fun_handle = evalin('caller', ['@() @', test, '']);
         fun_handle = fun_handle();
-        suite = add_test(suite, function_test_case(fun_handle,...
+        testobj = function_test_case(...
+            fun_handle,...
             set_up_handle,...
             tear_down_handle, ...
-            test));
+            test);
+        suite = add_test(suite, testobj);
     end;
 end;
-
-

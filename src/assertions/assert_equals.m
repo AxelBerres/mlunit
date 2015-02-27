@@ -28,7 +28,7 @@ function assert_equals(expected, actual, varargin)
 %     % asserts that 101 equals 100, within tolerance of 5
 %     assert_equals(101, 106, 5);
 %
-%  See also  FAIL, ASSERT_NOT_EQUALS, EPS
+%  See also  MLUNIT_FAIL, ASSERT_NOT_EQUALS, EPS
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

@@ -4,7 +4,7 @@ function self = test_failed_set_up(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_case(''test_failed_set_up'');');
+%         run(mlunit_gui, 'test_test_case(''test_failed_set_up'');');
 %
 %  See also TEST_CASE/RUN.
 
@@ -12,9 +12,5 @@ function self = test_failed_set_up(self)
 %  $Id: test_failed_set_up.m 44 2006-06-11 18:54:09Z thomi $
 
 test = mock_test_failed_set_up('test_method');
-try
-    test = run(test, default_test_result(self));
-catch
-    assert_true(0);
-end;
-assert_true(strcmp('tear_down ', get_log(test)));
+[result, dummy, test] = run_test(mlunit_suite_runner, test);
+assert_equals('tear_down ', get_log(test));
