@@ -3,17 +3,21 @@ function self = test_get_methods(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_reflect(''test_get_methods'')');
+%         run(mlunit_gui, 'test_reflect(''test_get_methods'')');
 %
-%  See also REFLECT/GET_METHODS.
+%  See also MLUNIT_REFLECT/GET_METHODS.
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_get_methods.m 47 2006-06-11 19:26:32Z thomi $
 
-r = reflect('test_case');
+r = mlunit_reflect('test_case');
 m = get_methods(r);
 assert_true(size(m, 1) > 0);
-assert_true(~sum(strcmp(m, 'test_case')));
-assert_true(sum(strcmp(m, 'run')) == 1);
-assert_true(sum(strcmp(m, 'set_up')) == 1);
-assert_true(sum(strcmp(m, 'tear_down')) == 1);
+assert_true(~any(strcmp(m, 'test_case')));
+assert_ismember('get_name', m);
+assert_ismember('set_up', m);
+assert_ismember('tear_down', m);
+
+function assert_ismember(element, collection)
+
+    assert_equals(1, sum(strcmp(collection, element)));

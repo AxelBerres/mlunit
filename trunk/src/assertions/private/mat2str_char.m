@@ -26,7 +26,7 @@ cellinput = cellstr(input);
 quoted_cellinput = cellfun(@(s) ['''' s ''''], cellinput, 'UniformOutput', false);
 
 % separate multiple lines by semicolon and wrap brackets around
-outstring = strjoin(quoted_cellinput, ';');
+outstring = mlunit_strjoin(quoted_cellinput, ';');
 if numel(quoted_cellinput)>1
     outstring = ['[', outstring, ']'];
 end

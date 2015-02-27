@@ -6,7 +6,7 @@ test = load_tests_from_mfile(test_loader);
 
 function test_success
 
-    fail();
+    mlunit_fail();
 
 function tear_down
 

@@ -3,7 +3,7 @@ function self = test_function_test_case(name)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_function_test_case');
+%         run(mlunit_gui, 'test_function_test_case');
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_function_test_case.m 41 2006-06-11 18:31:37Z thomi $

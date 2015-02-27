@@ -4,7 +4,7 @@ function m = mock_test_failed_set_up(name)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'mock_test_failed_set_up(''test_method'')');
+%         run(mlunit_gui, 'mock_test_failed_set_up(''test_method'')');
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: mock_test_failed_set_up.m 40 2006-06-11 18:24:31Z thomi $

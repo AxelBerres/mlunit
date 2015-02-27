@@ -3,7 +3,7 @@ function test = test_pass
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_pass');
+%         run(mlunit_gui, 'test_pass');
 %
 %  See also ASSERT_TRUE, ASSERT_EQUALS, ASSERT_NOT_EQUALS.
 

@@ -4,7 +4,7 @@ function self = test_run(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_function_test_case(''test_run'')');
+%         run(mlunit_gui, 'test_function_test_case(''test_run'')');
 %
 %  See also TEST_FUNCTION_TEST_CASE.
 
@@ -12,8 +12,7 @@ function self = test_run(self)
 %  $Id: test_run.m 269 2007-04-02 19:54:39Z thomi $
 
 test = function_test_case(@() assert_true(true));
-[test, result] = run(test); %#ok
-assert_equals(0, get_failures(result));
-assert_equals(0, get_errors(result));
-assert_equals(1, get_tests_run(result));
-
+result = run_test(mlunit_suite_runner, test);  %#ok
+assert_empty(result.errors);
+assert_empty(result.failure);
+assert_equals(1, numel(result));

@@ -8,7 +8,7 @@ function self = tear_down(self) %#ok
 %         try
 %             test = run(test, default_test_result(self));
 %         catch
-%             fail();
+%             mlunit_fail();
 %         end;
 %         assert_true(strcmp('set_up test_method ', get_log(test)));
 %

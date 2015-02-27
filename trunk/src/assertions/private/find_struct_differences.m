@@ -7,6 +7,12 @@
 %     missingin: 'expected' or 'actual', or '' if prevalent in both
 %     expected: value of the field, [] if missingin=='expected'
 %     actual: value of the field, [] if missingin=='actual'
+
+%  This Software and all associated files are released unter the 
+%  GNU General Public License (GPL), see LICENSE for details.
+%  
+%  $Id$
+
 function struct_diffs = find_struct_differences(sa, sb, fieldpath)
 
     error(nargchk(2, 3, nargin, 'struct'));

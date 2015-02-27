@@ -1,5 +1,10 @@
 function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)
-%function_test_case contructor.
+%Provides test case integration for a function test case.
+%  Inherits from @test_case, but only comprises one single function test case.
+%  This makes it easier to handle and is not visible outside the test case
+%  handling in mlUnit. For the user, a MATLAB function file is a test suite,
+%  and each of its test_ subfunctions a test case.
+%
 %  The constructor creates an object of the class function_test_case.
 %  test_function must be a Matlab function handle to function with the
 %  signature: 

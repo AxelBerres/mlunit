@@ -4,16 +4,17 @@ function self = test_load_tests_from_test_case(self)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_loader(''test_load_tests_from_test_case'');');
+%         run(mlunit_gui, 'test_test_loader(''test_load_tests_from_test_case'');');
 %
 %  See also TEST_LOADER/LOAD_TESTS_FROM_TEST_CASE.
 
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_load_tests_from_test_case.m 253 2007-01-27 21:20:20Z thomi $
 
-t = test_loader;
-suite = load_tests_from_test_case(t, 'mock_test');
-result = test_result;
-[suite, result] = run(suite, result); %#ok
-assert_equals(3, get_tests_run(result));
-assert_equals(2, get_errors(result));
+results = run_suite(mlunit_suite_runner, 'mock_test');
+errors = sum(arrayfun(@(e) all(~isempty(e.errors)), results));
+failures = sum(arrayfun(@(e) ~isempty(e.failure), results));
+
+assert_equals(3, numel(results));
+assert_equals(2, mlunit_num_suite_errors(results));
+assert_equals(0, mlunit_num_suite_failures(results));

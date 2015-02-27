@@ -8,7 +8,7 @@ function self = set_up(self) %#ok
 %         try
 %             test = run(test, default_test_result(self));
 %         catch
-%             fail();
+%             mlunit_fail();
 %         end;
 %         assert_true(strcmp('', get_log(test)));
 %

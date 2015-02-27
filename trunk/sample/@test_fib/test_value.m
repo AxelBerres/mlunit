@@ -1,10 +1,5 @@
 function self = test_value(self)
 %test_value tests different values of the fibonacci function (y = fib(x)).
-%
-%  Example
-%  =======
-%  Use a test runner to run the test method:
-%         Example: run(text_test_runner, test_fib('test_value'));
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

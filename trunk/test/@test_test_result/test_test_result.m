@@ -3,7 +3,7 @@ function t = test_test_result(name)
 %
 %  Example
 %  =======
-%         run(gui_test_runner, 'test_test_result');
+%         run(mlunit_gui, 'test_test_result');
 %
 %  See also TEST_RESULT.
 

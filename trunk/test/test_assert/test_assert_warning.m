@@ -22,7 +22,7 @@ function test_noargs %#ok<DEFNU>
         assert_equals(l.identifier, 'MATLAB:nargchk:notEnoughInputs');
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end
 
 
 function test_wrong_id %#ok<DEFNU>
@@ -45,4 +45,4 @@ function test_wrong_id %#ok<DEFNU>
         assert_not_empty(regexp(l.message, 'No warning wrong:id when executing function @\(\)[ ]?rmpath\(wrongpath\)\.'));
     end
 
-    if ~bCaught, fail(); end
+    if ~bCaught, mlunit_fail(); end
