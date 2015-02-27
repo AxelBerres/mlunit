@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.0054561" hostname="unknown" timestamp="2015-01-08T13:51:53">
+<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.093" hostname="unknown" timestamp="2015-02-27T11:08:51">
   <properties/>
   <testcase classname="test_errorfail_output" name="test_success">
-    <error>
+    <error><![CDATA[Error in tear_down fixture:
 Undefined function or variable 'unknown_function_call'.
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_errorfail_output.m at line 13
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\tear_down.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@test_case\run.m at line 66
-In C:\Users\Alexander\repositories\mlunit\src\@test_suite\run.m at line 24
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 84
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 41
-    </error>
-    <failure>
-(No failure message provided)
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_errorfail_output.m at line 9.
-    </failure>
+In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 73
+In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36]]></error>
+    <failure><![CDATA[(no message available)
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_errorfail_output.m at line 9]]></failure>
   </testcase>
   <system-out/>
   <system-err/>
