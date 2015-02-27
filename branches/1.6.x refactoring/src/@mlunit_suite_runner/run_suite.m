@@ -33,8 +33,9 @@ suite_start_time = clock;
 % buffer environment for reset after suite execution
 previous_environment = mlunit_environment();
 
-% load suite; let errors bubble through, as we have no meaningful way of
-% reporting them
+% Load suite. Let errors bubble through, as we have no meaningful way of
+% reporting them. This is equivalent to jUnit behaviour, where we are guaranteed
+% to execute the tests only when they compiled, i.e. have no syntax errors.
 if isempty(name)
     % empty name
     error('MLUNIT:emptyTestName', 'Test suite name is empty.');

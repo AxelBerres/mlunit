@@ -3,15 +3,15 @@
 =================
 
 mlUnit is a unit test framework for the MATLAB M language.
+It follows patterns of the xUnit family, including assertions,
+test cases and suites as well as the fixture.
 
-===========================================================================
+In contrast to MATLAB's own unit test framework:
 
-
-ABOUT
-
-
-mlUnit is a testing framework for the MATLAB .m language, considering the 
-patterns of the xUnit family.
+* mlUnit outputs jUnit compatible XML reports
+* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2006b
+* mlUnit offers specialised assert functions, e.g. assert_empty, assert_warning,
+  and many more.
 
 This software and all associated files are released unter the GNU General 
 Public License (GPL) as published by the Free Software Foundation (see 
@@ -167,21 +167,23 @@ not to employ names known to mlUnit. Check the list of known parameters with:
 
    >> help mlunit_param
 
-That being said, you can use parameters, e.g. to bridge information between
-fixture calls. If you calculate some path name in your set_up fixture,
+That being said, you can use parameters for your own purposes,
+e.g. to bridge information between fixture calls.
+For example, if you calculate some path name in your set_up fixture,
 and want to access it in your tear_down fixture, store it as an mlUnit
 parameter. Although file and directory dependencies are generally discouraged
 in unit tests and should be avoided where possible, let this serve as example:
 
    function set_up
-      % remember current working directory
-      mlunit_param('mypreviouspwd', pwd);
-      % change to test specific directory
-      cd('specific/path/that/tests/need/to/execute/in');
+      % open file for reading
+      fid = fopen('my/path/myfile.txt');
+      % remember file id
+      mlunit_param('my_precious_fid', fid);
 
    function tear_down
-      % restore previous working directory
-      cd(mlunit_param('mypreviouspwd'));
+      % recall file id and close it
+      fid = mlunit_param('my_precious_fid');
+      fclose(fid);
 
 ===========================================================================
 
@@ -205,7 +207,7 @@ please consult the CHANGES.txt for the 1.6.8 release.
 With 1.6.4, assert() is no mlUnit function anymore. Replace your assert()
 calls with calls to assert_true() in test cases. In places where you actually
 want to assert a constraint in production code rather than a test case, use the
-MATLAB built-in assert().
+MATLAB built-ins assert() or error().
 
 ===========================================================================
 

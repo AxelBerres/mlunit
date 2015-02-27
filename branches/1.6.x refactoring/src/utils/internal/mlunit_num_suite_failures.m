@@ -1,7 +1,4 @@
-%MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.
-%  S=MLUNIT_STRJOIN(C,SEP) yields the single string S: the concatenation of all of the
-%  items from string cell C. Every two items are joined with the separator SEP.
-%  SEP defaults to ', '.
+%Count the number of failures in a suite's results.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.

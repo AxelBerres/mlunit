@@ -1,18 +1,9 @@
 %Execute a single test suite
 %  Implemented as class in order to manage progress listener subscriptions.
-%
-%  Class Info / Example
-%  ====================
-%  The class mlunit_gui runs a test_case or test_suite and displays
-%  results in a graphical user interface (using gui_test_result). 
-%         Example: run(mlunit_gui);
-%
-%  See also GUI_TEST_RESULT.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  $Author$
 %  $Id$
 
 function self = mlunit_suite_runner()

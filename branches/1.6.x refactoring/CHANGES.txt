@@ -11,8 +11,10 @@ mlUnit development snapshot
   - Expanded mlunit_param to get and set the whole parameter configuration.
   - recursive_test_run restores path, pwd and mlunit_param to pre-run state
     after execution
-  - major backend refactoring for easier maintenance, including:
-      + prepend mlunit_ prefix to classes/functions that use common names:
+  - major backend refactoring for easier maintenance, particularly
+    by flattening inheritance and by separating concerns, including:
+      + prepend mlunit_ prefix to classes/functions that use common names,
+        because of MATLAB's global namespace for functions and classes:
         @mlunit_reflect, @mlunit_testsuite, mlunit_fail, @mlunit_gui
         (renamed from gui_test_runner)
       + retain names in order to provide compatibility with existing tests:
