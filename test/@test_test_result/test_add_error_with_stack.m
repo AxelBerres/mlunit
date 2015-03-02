@@ -22,7 +22,9 @@ assert_equals(1, numel(result.errors));
 releases_errmsgs = {...
     'Unbalanced or misused parentheses or brackets.', ...
     'Unbalanced or unexpected parenthesis or bracket.'};
-assert_true(ismember(filter_lasterror_wraps(result.errors{1}), releases_errmsgs));
+filtered_message = filter_lasterror_wraps(result.errors{1});
+assertmsg = sprintf('Unexpected filtered error message: ''%s''.', filtered_message);
+assert_true(ismember(filtered_message, releases_errmsgs), assertmsg);
 
 stack_lines = strread(get_message_with_stack(result.errors{1}), '%s', 'delimiter', '\n');
 assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(stack_lines(2)))));
