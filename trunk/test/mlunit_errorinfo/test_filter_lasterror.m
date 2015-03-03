@@ -96,6 +96,17 @@ function test_syntax_error_R2006b
     expected_msg = 'This statement is incomplete.';
     msg_R2006b = sprintf('%s\n%s', 'Error: <a href="error:C:\Programme\MATLAB\R2006b\work\demo_syntax_error.m,3,7">File: demo_syntax_error.m Line: 3 Column: 7</a>', 'This statement is incomplete.');
     assert_equals(expected_msg, loc_parse_error(msg_R2006b));
+
+% call 'assert_equals(0, 1))'
+function test_syntax_error_R2007b_without_link
+
+    % lasterror.message format on R2007b 64-bit, when being executed on some
+    % strange environment, like Windows 8 with -automation -nosplash -nodesktop
+    % Error: File: c:\Program Files (x86)\Jenkins\jobs\mlUnit single\workspace\test\@mock_test\test_unbalanced_parentheses.m Line: 14 Column: 20
+    % Unbalanced or unexpected parenthesis or bracket.
+    expected_msg = 'Unbalanced or unexpected parenthesis or bracket.';
+    msg_R2007b = sprintf('%s\n%s', 'Error: File: c:\Program Files (x86)\Jenkins\jobs\mlUnit single\workspace\test\@mock_test\test_unbalanced_parentheses.m Line: 14 Column: 20', 'Unbalanced or unexpected parenthesis or bracket.');
+    assert_equals(expected_msg, loc_parse_error(msg_R2007b));
     
 % call 'error(' in a function
 function test_syntax_error_R2007b_msg_and_stack
