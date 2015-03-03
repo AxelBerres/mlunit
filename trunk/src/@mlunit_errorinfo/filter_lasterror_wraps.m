@@ -42,9 +42,7 @@ num_captures_runtime_err = 2;               % 2 capture groups if successfull
 regexp_syntax_err = ['^Error: ' ...         % starts with 'Error:'
                      '<a[^>]*>' ...         % puts an anchor around the file
                      'File: ' ...
-                     '<?' ...               % Jenkins wraps the file in <>
                      '([\w\ \.,$&\/\(\)\\:@]+.[mp])' ...  % file name or path
-                     '>?' ...               % Jenkins closing wrap
                      ' Line: (\d+)' ...
                      ' Column: (\d+)' ...
                      '.*' ...               % any further character
