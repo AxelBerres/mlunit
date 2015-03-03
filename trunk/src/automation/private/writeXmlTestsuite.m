@@ -24,6 +24,11 @@ function writeXmlTestsuite(suiteresult, targetdir)
    source = fullfile(targetdir, s_fileName);
    
    fid = fopen(source,'w');
+   if fid == -1
+       warning('MLUNIT:noFileAccess', 'Could not open file for writing: ''%s''.', source);
+       return;
+   end
+   
    % default xml headline
    fprintf(fid,'<?xml version="1.0" encoding="UTF-8"?>\n');
    % wrap this string in a '%s' call in order to prohibit fprintf to parse
