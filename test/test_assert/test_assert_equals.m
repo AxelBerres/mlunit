@@ -65,3 +65,72 @@ function double_test_equal_arguments(varargin)
 
    assert_equals(varargin{:});
    assert_error(@() assert_not_equals(varargin{:}));
+
+   
+function test_equals_object
+
+    % construct a timeseries object for comparison
+    t = timeseries(1:12);
+    assert_equals(t, t);
+
+
+function test_equals_handle
+
+    % 0 is the root graphic object's handle, always present
+    h = 0;
+    assert_true(ishandle(h));
+    assert_equals(h, h);
+
+
+function test_equals_functionhandle
+
+    fh = @(x) x*x+x;
+    assert_true(isa(fh, 'function_handle'));
+    assert_equals(fh, fh);
+
+
+function test_equals_javaobject
+
+    % apparently, MATLAB's isequal internally delegates to Java Objects' equals
+    % method, making two different objects containing the same string equal
+    % consider Java's == operator in comparison
+    jo = java.lang.String('hiho');
+    jo2 = java.lang.String('hiho');
+    assert_equals(jo, jo2);
+
+
+% Test equality on a Simulink.ModelWorkspace object, which seems to be a special
+% type of object. Needs Simulink installed.
+function test_equals_object_SimulinkModelWorkspace
+
+    sysname = 'fuelsys';
+    [was_loaded, workspace] = loc_getModelWorkspace(sysname);
+
+    % We need to examine the Simulink.ModelWorkspace in a hot state, i.e. with
+    % the model still loaded. We want to make sure to close the system
+    % afterwards, if it was not loaded already. Therefore, we have to
+    % temporarily catch any assert_equals errors and rethrow them only after we
+    % closed the system.
+    err = struct([]);
+    try
+        assert_equals(workspace, workspace);
+    catch
+        err = lasterror;
+    end
+    
+    if ~was_loaded
+        close_system(sysname, 0);
+    end
+
+    if ~isempty(err)
+        rethrow(err);
+    end
+
+% Load a specific model, query its ModelWorkspace parameter and leave it open.    
+function [loaded_initially, mdlWorkspace] = loc_getModelWorkspace(sysname)
+
+    isloaded = @(sysname) ~isempty(find_system('Name', sysname, 'Parent', ''));
+    loaded_initially = isloaded(sysname);
+    
+    load_system(sysname);
+    mdlWorkspace = get_param(sysname, 'ModelWorkspace');

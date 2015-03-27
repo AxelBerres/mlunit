@@ -108,6 +108,53 @@ function test_equals_structarray
     s2(2).foo = {'ho', 'hi'};
     assert_equals(s, s);
     assert_equals(s, s2);
+    
+function test_equals_object
+    
+    % construct a timeseries object for comparison
+    t = timeseries(1:12);
+    t2 = t;
+    d = get(t2, 'Data');
+    d(12) = 13;
+    set(t2, 'Data', d);
+    assert_equals(t, t2);
+
+function test_equals_handle
+
+    % 0 is the root graphic object's handle, always present
+    h = 0;
+    f = figure();
+    
+    assert_true(ishandle(h));
+    assert_true(ishandle(f));
+    
+    % temporarily catch any assert_equals errors and rethrow them only after
+    % we closed the figure
+    err = struct([]);
+    try
+        assert_equals(h, f);
+    catch
+        err = lasterror;
+    end
+    
+    close(f);
+    if ~isempty(err)
+        rethrow(err)
+    end
+
+function test_equals_functionhandle
+
+    fh1 = @(x) x*x+x;
+    fh2 = @(x) x+x*x;
+    assert_true(isa(fh1, 'function_handle'));
+    assert_true(isa(fh2, 'function_handle'));
+    assert_equals(fh1, fh2);
+
+function test_equals_javaobject
+
+    jo = java.lang.String('hiho');
+    jo2 = java.lang.String('hiHo');
+    assert_equals(jo, jo2);
 
 function test_not_equals
 
