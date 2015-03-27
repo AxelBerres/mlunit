@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_success_output" errors="0" failures="0" tests="1" time="0.015" hostname="unknown" timestamp="2015-03-03T18:08:41">
+<testsuite name="test_success_output" errors="0" failures="0" tests="1" time="0.019" hostname="unknown" timestamp="2015-03-27T13:16:22">
   <properties/>
   <testcase classname="test_success_output" name="test_success"/>
   <system-out/>

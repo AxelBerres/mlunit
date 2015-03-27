@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="21" tests="22" time="0.235" hostname="unknown" timestamp="2015-03-03T18:08:41">
+<testsuite name="test_failure_output" errors="1" failures="25" tests="26" time="0.324" hostname="unknown" timestamp="2015-03-27T13:16:22">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure><![CDATA[(no message available)
@@ -91,29 +91,82 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_ou
   Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
 In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 110]]></failure>
   </testcase>
+  <testcase classname="test_failure_output" name="test_equals_object">
+    <failure><![CDATA[Data not equal:
+  Expected : 
+Time Series Object: unnamed
+
+Time vector characteristics
+
+      Length                12
+      Start time            0 seconds
+      End time              11 seconds
+
+Data characteristics
+
+      Interpolation method  linear
+      Size                  [1   1  12]
+      Data type             double
+
+
+
+  Actual   : 
+Time Series Object: unnamed
+
+Time vector characteristics
+
+      Length                12
+      Start time            0 seconds
+      End time              11 seconds
+
+Data characteristics
+
+      Interpolation method  linear
+      Size                  [1   1  12]
+      Data type             double
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 120]]></failure>
+  </testcase>
+  <testcase classname="test_failure_output" name="test_equals_handle">
+    <failure><![CDATA[Data not equal:
+  Expected : 0
+  Actual   : 1
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 135]]></failure>
+  </testcase>
+  <testcase classname="test_failure_output" name="test_equals_functionhandle">
+    <failure><![CDATA[Data not equal:
+  Expected : @(x)x*x+x
+  Actual   : @(x)x+x*x
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 151]]></failure>
+  </testcase>
+  <testcase classname="test_failure_output" name="test_equals_javaobject">
+    <failure><![CDATA[Data not equal:
+  Expected : hiho
+  Actual   : hiHo
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 157]]></failure>
+  </testcase>
   <testcase classname="test_failure_output" name="test_not_equals">
     <failure><![CDATA[Expected and actual are equal.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 115]]></failure>
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 162]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_error">
     <failure><![CDATA[Error expected, but none occurred.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 120]]></failure>
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 167]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_typed_error">
     <failure><![CDATA[Error expected, but none occurred.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 125]]></failure>
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 172]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_wrong_typed_error">
     <failure><![CDATA[Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 129]]></failure>
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 176]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_warning">
     <failure><![CDATA[No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 135]]></failure>
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 182]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_implementation_fault">
     <error><![CDATA[Undefined function or variable 'unknown_function_call'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 139
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 186
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
@@ -122,8 +175,8 @@ In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at
   </testcase>
   <testcase classname="test_failure_output" name="test_nested_functions">
     <failure><![CDATA[Nested function test.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 147
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 143]]></failure>
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 194
+In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 190]]></failure>
   </testcase>
   <system-out/>
   <system-err/>

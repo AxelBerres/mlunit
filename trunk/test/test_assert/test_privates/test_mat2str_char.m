@@ -39,10 +39,10 @@ function set_up %#ok<DEFNU>
     testdir = fullfile(assertdir, 'private');
     
     % buffer current path
-    mlunit_param('usertest_strjoin', pwd);
+    mlunit_param('usertest_mat2strchar', pwd);
     cd(testdir);
 
 function tear_down %#ok<DEFNU>
 
     % reset to previous dir
-    cd(mlunit_param('usertest_strjoin'));
+    cd(mlunit_param('usertest_mat2strchar'));
