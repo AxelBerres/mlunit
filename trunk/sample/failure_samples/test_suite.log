@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.8-SNAPSHOT
-Started: 2015-03-27 13:16:22.
+Started: 2015-03-27 13:32:50.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -142,8 +142,7 @@ Running suite test_failure_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 110
   test_equals_object fail:
     Data not equal:
-      Expected : 
-    Time Series Object: unnamed
+      Expected : Time Series Object: unnamed
     
     Time vector characteristics
     
@@ -156,11 +155,7 @@ Running suite test_failure_output <<< FAILED
           Interpolation method  linear
           Size                  [1   1  12]
           Data type             double
-    
-    
-    
-      Actual   : 
-    Time Series Object: unnamed
+      Actual   : Time Series Object: unnamed
     
     Time vector characteristics
     

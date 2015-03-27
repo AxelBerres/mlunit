@@ -49,6 +49,8 @@ else
     outstring = mat2str(input);
 end
 
+outstring = loc_trim_empty_lines(outstring);
+
 
 % Works on a scalar structure only.
 function fieldstrings = fieldname_value_strings(s)
@@ -61,3 +63,9 @@ function outstring = loc_getClassDisplay(classinstance) %#ok<INUSD>
     % use what MATLAB shows when we prompt for some object
     % this is class dependent and has to common access other than the cmd line
     outstring = evalc('classinstance');
+
+% Strip empty lines from the beginning and the end of a multi-line string
+function out = loc_trim_empty_lines(in)
+
+    clean_front = regexprep(in, '^(\s*\n)*', '');
+    out = regexprep(clean_front, '(\s*\n)*$', '');

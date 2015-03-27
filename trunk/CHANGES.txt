@@ -39,6 +39,7 @@ mlUnit development snapshot
 
   - simplify error list item names in GUI to omit the suite name, as test suites
     cannot nest anymore
+  - Tighten failure display for multi-line output.
 
   - Fix: assert() calls break R2006b compatibility.
   - Fix: mat2str displays strings differently on R2006b and probably before.
