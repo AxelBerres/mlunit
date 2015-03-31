@@ -42,11 +42,11 @@ function report = printTestcase(testcase)
    report = '';
 
    if ~isempty(testcase.error)
-      report = [report sprintf('\n  %s error:\n%s', testcase.name, indent(testcase.error))];
+      report = [report sprintf('\n\n  %s error:\n%s', testcase.name, indent(testcase.error))];
    end
 
    if ~isempty(testcase.failure)
-      report = [report sprintf('\n  %s fail:\n%s', testcase.name, indent(testcase.failure))];
+      report = [report sprintf('\n\n  %s fail:\n%s', testcase.name, indent(testcase.failure))];
    end
 
 % Indent text by 4 spaces at beginning and after each newline
