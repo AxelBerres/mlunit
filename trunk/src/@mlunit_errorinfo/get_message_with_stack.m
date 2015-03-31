@@ -43,14 +43,18 @@ end
 %   stackitem has fields as returned by lasterror().stack or dbstack().
 function stackline = loc_print_stackline(stackitem)
 
+display_name = stackitem.file;
+if mlunit_param('linked_trace') || mlunit_param('abbrev_trace')
+    [dummy, filename, ext] = fileparts(stackitem.file);
+    display_name = [filename ext];
+end
+
 if mlunit_param('linked_trace')
     hrefvalue = sprintf('matlab:opentoline(''%s'',%d)', ...
         stackitem.file, stackitem.line);
-    [dummy, filename, ext] = fileparts(stackitem.file);
-    filename = [filename ext];
     stackline = sprintf('In <a href="%s">%s</a> at line %d', ...
-        hrefvalue, filename, stackitem.line);
+        hrefvalue, display_name, stackitem.line);
 else
     stackline = sprintf('In %s at line %d', ...
-        stackitem.file, stackitem.line);
+        display_name, stackitem.line);
 end
