@@ -23,6 +23,8 @@ mlUnit development snapshot
     necessary. See for yourself [jobj].
   - Shrink trace log items to only their filename, if requested by new mlUnit
     parameter abbrev_trace.
+  - Lighten recursive_test_run output by setting every failure/error apart by
+    a blank line.
 
   - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:
