@@ -13,8 +13,14 @@
 %                      assert_equals and assert_not_equals calls. Logical false
 %                      handles NaNs not equal to each other. Defaults to false.
 %     'linked_trace' - Logical true displays stack trace items as html links.
+%                      If true, implies and overrides abbrev_trace as true.
 %                      Logical false displays them unlinked, as absolute path.
-%                      Defaults to true. 
+%                      Defaults to true.
+%     'abbrev_trace' - Logical true lets stack trace items display only their
+%                      file name, omitting the directory path. This will be done
+%                      anyway, when using linked_trace. Only when both
+%                      linked_trace and abbrev_trace be false will trace items
+%                      display their full absolute path.
 %
 %  VALL = MLUNIT_PARAM() returns all of the currently set mlunit parameters,
 %  as a structure. The structure's fields will represent name of parameters,
@@ -69,6 +75,8 @@ function value = default_value(name)
     case 'equal_nans'
         value = false;
     case 'linked_trace'
+        value = true;
+    case 'abbrev_trace'
         value = true;
     otherwise
         value = [];

@@ -21,6 +21,8 @@ mlUnit development snapshot
     switching an edit box to all-HTML rendering [Rich]. But then we'd need to
     HTMLize the whole input, not just the links. Also, findjobj would be
     necessary. See for yourself [jobj].
+  - Shrink trace log items to only their filename, if requested by new mlUnit
+    parameter abbrev_trace.
 
   - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:
