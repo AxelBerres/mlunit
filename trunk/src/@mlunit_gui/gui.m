@@ -249,10 +249,10 @@ if ((length(tokens) == 3) && (etime(clock, tokens{3}) < 1))
     [tokens] = regexp(data{selected}, get_line_expression(self), 'tokens', 'once'); %, 'dotexceptnewline');
     if (length(tokens) > 1)
         second = tokens{2};
-        com.mathworks.mlservices.MLEditorServices.openDocumentToLine(second{1},str2num(second{2})); %#ok
+        opentoline(second{1},str2double(second{2}));
     end;
 else
-    com.mathworks.mlservices.MLEditorServices.openDocumentToLine(tokens{1},str2num(tokens{2})); %#ok
+    opentoline(tokens{1},str2double(tokens{2}));
     tokens{3} = clock;
     set(hObject, 'UserData', tokens);
 end;

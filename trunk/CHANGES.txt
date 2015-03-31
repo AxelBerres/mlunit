@@ -58,6 +58,7 @@ mlUnit development snapshot
   - Fix: Invalid jUnit XML from hapless MATLAB error message [B#20]
   - Fix: jUnit XML indentation sometimes applied to mid-line tags
   - Fix: printable() breaks on MATLAB or Java objects, and function handles
+  - Fix: GUI Show button does not work in newer MATLAB versions, e.g. R2013b.
 
   [B#20] https://sourceforge.net/p/mlunit/bugs/20/
   [Rich] http://undocumentedmatlab.com/blog/rich-matlab-editbox-contents
