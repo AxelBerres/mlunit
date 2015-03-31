@@ -84,7 +84,7 @@
 
     <mkdir dir="${report.dir}"/>
 
-    <matlabcommand command.string="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};${additionalusercmd};recursive_test_run('${test.dir}', '${report.dir}')"
+    <matlabcommand command.string="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);${additionalusercmd};recursive_test_run('${test.dir}', '${report.dir}')"
                    output.property="unittests.output"
                    success.property="unittests.success"
                    logfile="${unittest.log}"/>

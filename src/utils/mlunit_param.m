@@ -9,9 +9,12 @@
 %  before the change in VOLD.
 %
 %  List of parameters:
-%     'equal_nans' - Logical true handles NaNs equal to each other in
-%                    assert_equals and assert_not_equals calls. Logical false
-%                    handles NaNs not equal to each other. Defaults to false.
+%     'equal_nans'   - Logical true handles NaNs equal to each other in
+%                      assert_equals and assert_not_equals calls. Logical false
+%                      handles NaNs not equal to each other. Defaults to false.
+%     'linked_trace' - Logical true displays stack trace items as html links.
+%                      Logical false displays them unlinked, as absolute path.
+%                      Defaults to true. 
 %
 %  VALL = MLUNIT_PARAM() returns all of the currently set mlunit parameters,
 %  as a structure. The structure's fields will represent name of parameters,
@@ -65,6 +68,8 @@ function value = default_value(name)
     switch name
     case 'equal_nans'
         value = false;
+    case 'linked_trace'
+        value = true;
     otherwise
         value = [];
     end

@@ -151,6 +151,9 @@ listener = mlunit_gui_listener(...
     handles.gui_error_list);
 suite_runner = add_listener(suite_runner, listener);
 
+% disable html links in stack trace, because they won't display in an edit box
+prev_linktrace_state = mlunit_param('linked_trace', false);
+
 time = 0;
 try
     [results, time] = run_suite(suite_runner, test_case);
@@ -158,6 +161,9 @@ catch
     % display meta error that prevented the suite to execute
     display_meta_error(listener, lasterror);
 end
+
+% reset previous state
+mlunit_param('linked_trace', prev_linktrace_state);
 
 % display execution time
 set(handles.gui_text_time, 'String', sprintf('Finished: %.3fs.\n', time));

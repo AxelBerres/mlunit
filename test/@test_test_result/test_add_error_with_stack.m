@@ -26,6 +26,9 @@ filtered_message = filter_lasterror_wraps(result.errors{1});
 assertmsg = sprintf('Unexpected filtered error message: ''%s''.', filtered_message);
 assert_true(ismember(filtered_message, releases_errmsgs), assertmsg);
 
+prev_linkedtrace = mlunit_param('linked_trace', false);
 stack_lines = strread(get_message_with_stack(result.errors{1}), '%s', 'delimiter', '\n');
+mlunit_param('linked_trace', prev_linkedtrace);
+
 assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(stack_lines(2)))));
 assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));

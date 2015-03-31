@@ -11,7 +11,18 @@ mlUnit development snapshot
   - Expanded mlunit_param to get and set the whole parameter configuration.
   - recursive_test_run restores path, pwd and mlunit_param to pre-run state
     after execution
-  - major backend refactoring for easier maintenance, particularly
+  - simplify error list item names in GUI to omit the suite name, as test suites
+    cannot nest anymore
+  - Tighten failure display for multi-line output.
+  - Link trace log items instead of giving an absolute paths, when being
+    executed on the command line. Deliberately disabled when using the Ant task.
+    No support for use in GUI, though. Turns out, a MATLAB GUI edit box can not
+    display HTML links as the console does. Yair Altman managed to get down to
+    switching an edit box to all-HTML rendering [Rich]. But then we'd need to
+    HTMLize the whole input, not just the links. Also, findjobj would be
+    necessary. See for yourself [jobj].
+
+  - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:
       + prepend mlunit_ prefix to classes/functions that use common names,
         because of MATLAB's global namespace for functions and classes:
@@ -37,10 +48,6 @@ mlUnit development snapshot
       + @mlunit_errorinfo centralizes all error parsing and string output
       + failures also handled by @mlunit_errorinfo
 
-  - simplify error list item names in GUI to omit the suite name, as test suites
-    cannot nest anymore
-  - Tighten failure display for multi-line output.
-
   - Fix: assert() calls break R2006b compatibility.
   - Fix: mat2str displays strings differently on R2006b and probably before.
   - Fix: function stringification contains whitespace on R2006b, but not later.
@@ -51,6 +58,8 @@ mlUnit development snapshot
   - Fix: printable() breaks on MATLAB or Java objects, and function handles
 
   [B#20] https://sourceforge.net/p/mlunit/bugs/20/
+  [Rich] http://undocumentedmatlab.com/blog/rich-matlab-editbox-contents
+  [jobj] http://undocumentedmatlab.com/blog/findjobj-find-underlying-java-object
 
 
 mlUnit 1.6.7 (2015-01-08)
