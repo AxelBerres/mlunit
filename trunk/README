@@ -162,6 +162,39 @@ suite, but not the others. Changes to mlUnit parameters, that are effected in
 either the test function, or the set_up and tear_down fixtures, will be reverted
 after each test's tear_down execution.
 
+
+Description of parameters
+-------------------------
+
+equal_nans -- Normally, MATLAB judges two NaN values incomparable. That is,
+a call like isequal(NaN, NaN) yields false. This also holds in mlUnit when using
+assert_equals and assert_not_equals.
+However, when you need NaNs to be considered equal, set equal_nans to true.
+
+linked_trace -- When being executed on the MATLAB console, stack trace items are
+displayed as links, so you can jump to the relevant code with one click.
+However, this does not work in mlUnit's GUI. A MATLAB GUI edit box can not
+display HTML links as the console does. There is a hack to enable all-HTML
+rendering, but that requires an inappropriately enormous overhead.
+When being executed automatically, i.e. when the stack trace is meant for
+logging, linked_trace should be set to false in order for the HTML tags to
+not show up.
+
+abbrev_trace -- Stack item names are shortened by default, making them much
+easier to read for their most common application -- locating a failure's origin.
+However, this hides errors where one file shadows another of the same name, and
+is used instead. If you encounter strange behaviour that should not occur in a
+specific implementation, set abbrev_trace to false in order to see absolute file
+paths.
+
+For details of how to employ these parameters, see:
+
+   >> help mlunit_param
+
+
+Bridging fixtures
+-----------------
+
 You can use these parameters for your own purposes, too. Just be careful
 not to employ names known to mlUnit. Check the list of known parameters with:
 
