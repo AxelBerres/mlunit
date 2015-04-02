@@ -37,7 +37,7 @@ function outvalue = mlunit_param(name, invalue)
     % get and initialize parameters
     persistent parameters;
     if isempty(parameters)
-        parameters = struct();
+        parameters = default_values();
     end
 
     % usage for whole parameters structure
@@ -46,7 +46,7 @@ function outvalue = mlunit_param(name, invalue)
         outvalue = parameters;
         % set new structure
         if nargin >= 1
-            parameters = name;
+            parameters = merge_default_values(name);
         end
         return;
     end
@@ -58,6 +58,8 @@ function outvalue = mlunit_param(name, invalue)
     if isfield(parameters, clean_name)
         outvalue = parameters.(clean_name);
     else
+        % this branch should not activate since we inject default values
+        % earlier in the process; nevertheless, retain it as fail-safe
         outvalue = default_value(name);
     end
 
@@ -67,15 +69,36 @@ function outvalue = mlunit_param(name, invalue)
     end
 
 
+% Return structure with only default values.
+function defaults = default_values
+
+    defaults = struct();
+
+    defaults.equal_nans = false;
+    defaults.linked_trace = true;
+    defaults.abbrev_trace = true;
+
+
 function value = default_value(name)
 
-    switch name
-    case 'equal_nans'
-        value = false;
-    case 'linked_trace'
-        value = true;
-    case 'abbrev_trace'
-        value = true;
-    otherwise
+    defaults = default_values;
+    if ismember(name, fieldnames(defaults))
+        value = defaults.(name);
+    else
         value = [];
+    end
+
+
+% Complement a parameter structure with default values for mlUnit-known fields.
+function parameters = merge_default_values(parameters)
+
+    % guard against [] being given
+    if isempty(parameters)
+        parameters = struct();
+    end
+
+    defaults = default_values;
+    missing_presets = setdiff(fieldnames(default_values), fieldnames(parameters));
+    for f=1:numel(missing_presets)
+        parameters.(missing_presets{f}) = defaults.(missing_presets{f});
     end
