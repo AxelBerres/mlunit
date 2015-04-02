@@ -44,7 +44,7 @@ end
 function stackline = loc_print_stackline(stackitem)
 
 display_name = stackitem.file;
-if mlunit_param('linked_trace') || mlunit_param('abbrev_trace')
+if mlunit_param('abbrev_trace')
     [dummy, filename, ext] = fileparts(stackitem.file);
     display_name = [filename ext];
 end
