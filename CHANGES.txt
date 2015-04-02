@@ -25,6 +25,7 @@ mlUnit development snapshot
     parameter abbrev_trace.
   - Lighten recursive_test_run output by setting every failure/error apart by
     a blank line.
+  - mlunit_param contains all mlUnit internal parameters by default values.
 
   - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:

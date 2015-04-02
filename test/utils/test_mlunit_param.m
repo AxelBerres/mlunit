@@ -21,6 +21,7 @@ function test_single_undefined
 
 function test_single_defaults
 
+    mlunit_param(struct());
     assert_equals(false, mlunit_param('equal_nans'));
 
 function test_single_nonvarname
@@ -53,12 +54,12 @@ function test_single_name_collision
     assert_not_equals(val1, mlunit_param(name1));
     assert_equals(val2, mlunit_param(name2));
 
-function test_empty
+function test_noargs
 
     result = mlunit_param();
     assert_true(isstruct(result));
 
-function test_empty_with_parameter
+function test_noargs_with_parameter
 
     pname = 'myuniqueparameter';
     pvalue = 42;
@@ -67,3 +68,9 @@ function test_empty_with_parameter
     result = mlunit_param();
     assert_true(isfield(result, pname));
     assert_equals(pvalue, result.(pname));
+
+function test_default_values
+    
+    mlunit_param(struct());
+    assert_true(mlunit_param('abbrev_trace'));
+    assert_false(mlunit_param('equal_nans'));
