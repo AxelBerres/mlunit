@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.8-SNAPSHOT
-Started: 2015-04-13 17:55:28.
+Started: 2015-04-13 18:03:48.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -248,7 +248,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 33 tests in 0.64s
+Executed 33 tests across 4 suites in 0.63s
 
 26 tests FAILED
 7 tests had ERRORS

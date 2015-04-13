@@ -17,6 +17,7 @@ function report = printSummary(suiteresults, time)
 % helper function for summing up tests, failures, errors
 summarize = @(field) sum(cellfun(@(r) r.(field), suiteresults));
 
+num_suites = numel(suiteresults);
 num_tests = summarize('tests');
 num_fails = summarize('failures');
 num_errors = summarize('errors');
@@ -25,7 +26,10 @@ separator = sprintf('-----------------------------------------------------------
 lastseparator = sprintf('======================================================================\n');
 
 report = separator;
-report = [report sprintf('Executed %s in %.2fs\n', test_count_string(num_tests), time)];
+report = [report sprintf('Executed %s across %s in %.2fs\n', ...
+    test_count_string(num_tests), ...
+    plural_form('suite', num_suites), ...
+    time)];
 report = [report sprintf('\n')];
 
 % output verdict
@@ -46,9 +50,15 @@ report = [report lastseparator];
 % outputs '1 test' or '3 tests', depending on num_tests
 function s = test_count_string(num_tests)
 
-    s = sprintf('%d test', num_tests);
+    s = plural_form('test', num_tests);
 
-    % for many or 0 tests, add plural form
-    if num_tests ~= 1
+
+% outputs '1 test' or '3 tests', depending on num_tests
+function s = plural_form(verb, num_elements)
+
+    s = sprintf('%d %s', num_elements, verb);
+
+    % for many or 0 items, add plural form
+    if num_elements ~= 1
         s = [s 's'];
     end
