@@ -145,6 +145,17 @@ As an example a test for the built-in sin function is written:
 
    Runs: 2 / Errors: 0 / Failures: 0
 
+
+Note: The numbers for errors and failures are usually smaller or equal to the
+number of tests being run, even when summed up, e.g. errors+failures <= runs.
+However, sometimes they may exceed the number of tests being run. This is in
+fact expected and valid behavior. Consider a test suite containing a single
+test case. Let the test case implementation fail an assertion. The test's
+tear_down function will be called after the assertion failure. If that tear_down
+raises an error in itself, then that test case accounts for one failure and one
+error, both which will be reported. In your worst case, you may end up with as
+many failures as tests being run, and also with as many errors.
+
 ===========================================================================
 
 
