@@ -187,6 +187,13 @@ is used instead. If you encounter strange behaviour that should not occur in a
 specific implementation, set abbrev_trace to false in order to see absolute file
 paths.
 
+verbose -- By default, mlUnit reports only test cases that failed or had errors.
+When using recursive_test_run, mlUnit also reports which test suites actually
+executed.
+However, sometimes you may need to also know which test cases succeeded, or
+in which order the test cases executed, or to what test case some interposing
+debug output belongs. In these cases, set verbose to true.
+
 For details of how to employ these parameters, see:
 
    >> help mlunit_param

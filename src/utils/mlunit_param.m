@@ -19,6 +19,9 @@
 %                      file name, omitting the directory path. Defaults to true.
 %                      Can be mixed with linked_trace to display linked absolute
 %                      trace paths.
+%     'verbose'      - Logical false displays errors and failures only.
+%                      Defaults to false. Logical true also displays successful
+%                      test cases. Use for debugging.
 %
 %  VALL = MLUNIT_PARAM() returns all of the currently set mlunit parameters,
 %  as a structure. The structure's fields will represent name of parameters,
@@ -77,6 +80,7 @@ function defaults = default_values
     defaults.equal_nans = false;
     defaults.linked_trace = true;
     defaults.abbrev_trace = true;
+    defaults.verbose = false;
 
 
 function value = default_value(name)

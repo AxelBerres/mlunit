@@ -16,18 +16,25 @@ function self = next_result(self, result)
 
 self.num_results = self.num_results + 1;
 
-% consolidate errors into single string
+% consolidate multiple errors into single string
 msg_and_stack_list = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);
 errmessages = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
 
-if ~isempty(errmessages)
+has_errors = ~isempty(errmessages);
+has_failed = ~isempty(result.failure);
+
+if has_errors
     self.num_errors = self.num_errors + 1;
     add_to_errorlist(self, 'ERROR', result.name, errmessages);
 end
 
-if ~isempty(result.failure)
+if has_failed
     self.num_failures = self.num_failures + 1;
     add_to_errorlist(self, 'FAIL', result.name, result.failure);
+end
+
+if mlunit_param('verbose') && ~has_errors && ~has_failed
+    add_to_errorlist(self, 'ok', result.name, 'success');
 end
 
 update_display(self);
