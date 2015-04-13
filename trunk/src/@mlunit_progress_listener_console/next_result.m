@@ -28,7 +28,7 @@ has_failed = ~isempty(result.failure);
 report = '';
 
 if has_errors
-    report = [report sprintf('  %s error:\n%s\n', result.name, indent(errmessages))];
+    report = [report sprintf('  %s ERROR:\n%s\n', result.name, indent(errmessages))];
 end
 
 if has_failed
@@ -37,7 +37,7 @@ if has_failed
         % test case
         report = [report sprintf('\n')];
     end
-    report = [report sprintf('  %s fail:\n%s\n', result.name, indent(result.failure))];
+    report = [report sprintf('  %s FAIL:\n%s\n', result.name, indent(result.failure))];
 end
 
 if mlunit_param('verbose') && ~has_errors && ~has_failed
