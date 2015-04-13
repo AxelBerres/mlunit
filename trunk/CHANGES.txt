@@ -29,6 +29,7 @@ mlUnit development snapshot
   - Provide some verbose output, if requested by new mlUnit parameter.
   - Reenable live console output, in order for debug output to mix into the
     proper locations in the log.
+  - Add suite count to console summary.
 
   - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:
