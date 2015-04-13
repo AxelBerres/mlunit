@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.05" hostname="unknown" timestamp="2015-03-31T22:42:32">
+<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.081" hostname="unknown" timestamp="2015-04-13T17:48:53">
   <properties/>
   <testcase classname="test_error_output" name="test_special_characters">
     <error><![CDATA[This some special characters: !"§$%&/()=?. Enjoy.
@@ -7,8 +7,8 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_outp
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36]]></error>
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_unknown_function">
     <error><![CDATA[Undefined function or variable 'do_you_know_this'.
@@ -16,8 +16,8 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_outp
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36]]></error>
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_invalid_usage">
     <error><![CDATA[Input argument "name" is undefined.
@@ -26,8 +26,8 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_outp
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36]]></error>
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_syntax_error_ifend">
     <error><![CDATA[Illegal use of reserved keyword "end".
@@ -36,8 +36,8 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_outp
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36]]></error>
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_syntax_error_paren">
     <error><![CDATA[Unbalanced or unexpected parenthesis or bracket.
@@ -46,8 +46,8 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_outp
 In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
 In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36]]></error>
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
   </testcase>
   <system-out/>
   <system-err/>

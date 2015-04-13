@@ -1,11 +1,11 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.8-SNAPSHOT
-Started: 2015-03-31 22:42:31.
+Started: 2015-04-13 17:48:53.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
-Running suite test_error_output <<< FAILED
+Running suite test_error_output
 
   test_special_characters error:
     This some special characters: !"§$%&/()=?. Enjoy.
@@ -13,8 +13,8 @@ Running suite test_error_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
   test_unknown_function error:
     Undefined function or variable 'do_you_know_this'.
@@ -22,8 +22,8 @@ Running suite test_error_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
   test_invalid_usage error:
     Input argument "name" is undefined.
@@ -32,8 +32,8 @@ Running suite test_error_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
   test_syntax_error_ifend error:
     Illegal use of reserved keyword "end".
@@ -42,8 +42,8 @@ Running suite test_error_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
   test_syntax_error_paren error:
     Unbalanced or unexpected parenthesis or bracket.
@@ -52,10 +52,10 @@ Running suite test_error_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
-Running suite test_errorfail_output <<< FAILED
+Running suite test_errorfail_output
 
   test_success error:
     Error in tear_down fixture:
@@ -64,14 +64,14 @@ Running suite test_errorfail_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\tear_down.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 73
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
   test_success fail:
     (no message available)
     In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_errorfail_output.m at line 9
 
-Running suite test_failure_output <<< FAILED
+Running suite test_failure_output
 
   test_empty fail:
     (no message available)
@@ -237,8 +237,8 @@ Running suite test_failure_output <<< FAILED
     In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
     In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 73
-    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 36
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
+    In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42
 
   test_nested_functions fail:
     Nested function test.
@@ -248,7 +248,7 @@ Running suite test_failure_output <<< FAILED
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 33 tests in 0.50s
+Executed 33 tests in 0.62s
 
 26 tests FAILED
 7 tests had ERRORS
