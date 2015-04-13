@@ -46,7 +46,7 @@ mlUnit development snapshot
         @gui_test_result
       + @mlunit_progress_listener added, as mechanism for the gui,
         or text output, or others to listen on test case execution states
-      + @mlunit_gui_listener added, overtaking the update mechanisms
+      + @mlunit_progress_listener_gui added, overtaking the update mechanisms
         from former @gui_test_result, making it obsolete
       + @gui_test_result deleted
       + @mlunit_suite_runner added, as reusable mechanism to execute

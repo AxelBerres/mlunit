@@ -1,11 +1,11 @@
 %Add an entry to the GUI's error list.
 %  add_to_errorlist(SELF, PREFIX, TESTNAME, ERRMSG) adds an error to the GUI's
-%  error list. SELF is an mlunit_gui_listener instance. PREFIX is supposed to be
+%  error list. SELF is an mlunit_progress_listener_gui instance. PREFIX is supposed to be
 %  either 'ERROR' or 'FAIL', depending on the error type. TESTNAME is a string,
 %  used for display in the error list. ERRMSG is the full error message (with
 %  stack) that will be displayed in the error detail box.
 %
-%  This is an mlunit_gui_listener internal method and should not be called from
+%  This is an mlunit_progress_listener_gui internal method and should not be called from
 %  the outside.
 %
 %  See next_result, display_meta_error
