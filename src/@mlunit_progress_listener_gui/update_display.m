@@ -1,8 +1,8 @@
 %Update all listener elements of the GUI.
 %  update_display(SELF) updates the GUI elements that need updating after
-%  getting another test result. SELF is an mlunit_gui_listener instance.
+%  getting another test result. SELF is an mlunit_progress_listener_gui instance.
 %
-%  This is an mlunit_gui_listener internal method and should not be called from
+%  This is an mlunit_progress_listener_gui internal method and should not be called from
 %  the outside.
 %
 %  See init_results, next_result

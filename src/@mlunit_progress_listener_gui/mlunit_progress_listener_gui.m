@@ -11,7 +11,7 @@
 %  
 %  $Id$
 
-function self = mlunit_gui_listener(progress_bar, text_runs, error_listbox)
+function self = mlunit_progress_listener_gui(progress_bar, text_runs, error_listbox)
 
 error(nargchk(3, 3, nargin, 'struct'));
 
@@ -26,7 +26,7 @@ self.num_results = 0;
 self.num_errors = 0;
 self.num_failures = 0;
 
-self = class(self, 'mlunit_gui_listener', mlunit_progress_listener);
+self = class(self, 'mlunit_progress_listener_gui', mlunit_progress_listener);
 
 self = init_results(self, 0);
 reset_progress_bar(self);

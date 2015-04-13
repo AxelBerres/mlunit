@@ -1,7 +1,7 @@
 %Update display with next test case result.
 %
 %  SELF = next_result(SELF, RESULT) notifies the listener of a completed test
-%  run, providing it with the result. SELF is a mlunit_gui_listener instance.
+%  run, providing it with the result. SELF is a mlunit_progress_listener_gui instance.
 %  RESULT is the test result as returned by run_test().
 %
 %  This method is provided by the user, but should not be called by her.
