@@ -18,11 +18,11 @@ function report = printTestsuite(suiteresult)
 
    if suiteresult.failures || suiteresult.errors
       report = [report ' <<< FAILED'];
+   end
       
-      for tc=1:numel(suiteresult.testcaseList)
-         testcase = suiteresult.testcaseList{tc};
-         report = [report printTestcase(testcase)];
-      end
+   for tc=1:numel(suiteresult.testcaseList)
+      testcase = suiteresult.testcaseList{tc};
+      report = [report printTestcase(testcase)];
    end
 
    % add newline for better overview
@@ -41,12 +41,19 @@ function report = printTestcase(testcase)
 
    report = '';
 
-   if ~isempty(testcase.error)
+   has_errors = ~isempty(testcase.error);
+   has_failed = ~isempty(testcase.failure);
+   
+   if has_errors
       report = [report sprintf('\n\n  %s error:\n%s', testcase.name, indent(testcase.error))];
    end
 
-   if ~isempty(testcase.failure)
+   if has_failed
       report = [report sprintf('\n\n  %s fail:\n%s', testcase.name, indent(testcase.failure))];
+   end
+   
+   if mlunit_param('verbose') && ~has_errors && ~has_failed
+      report = [report sprintf('\n\n  %s', testcase.name)];
    end
 
 % Indent text by 4 spaces at beginning and after each newline
