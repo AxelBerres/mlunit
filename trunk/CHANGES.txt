@@ -27,6 +27,8 @@ mlUnit development snapshot
     a blank line.
   - mlunit_param contains all mlUnit internal parameters by default values.
   - Provide some verbose output, if requested by new mlUnit parameter.
+  - Reenable live console output, in order for debug output to mix into the
+    proper locations in the log.
 
   - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:

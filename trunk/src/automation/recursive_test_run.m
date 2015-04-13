@@ -28,15 +28,19 @@ function recursive_test_run(basedir, targetdir)
    
    % Get test files. They may be in basedir or its subdirectories.
    suitespecs = getNestedTestFiles(basedir);
+   
+   suite_runner = mlunit_suite_runner;
+   listener = mlunit_progress_listener_console;
+   suite_runner = add_listener(suite_runner, listener);
 
    % Execute each test suite file.
    count_suites = numel(suitespecs);
    suiteresults = cell(size(suitespecs));
+   init_suites(listener, count_suites);
    for suite=1:count_suites
-      suiteresult = runTestsuite(suitespecs{suite});
+      next_suite(listener, suitespecs{suite}.testname);
+      suiteresult = runTestsuite(suite_runner, suitespecs{suite});
       suiteresults{suite} = suiteresult;
-      
-      disp(printTestsuite(suiteresult));
       writeXmlTestsuite(suiteresult, targetdir);
    end
 
@@ -62,7 +66,7 @@ function recursive_test_run(basedir, targetdir)
 %     .error      a description of its error. [] if no error.
 %     .failure    a description of its failure. [] if no failure.
 %     .time       the time used in seconds
-function suiteresult = runTestsuite(suitespec)
+function suiteresult = runTestsuite(suite_runner, suitespec)
 
    % Change to test suite directory. This is for executing the test suite
    % in order to access its functions.
@@ -70,7 +74,7 @@ function suiteresult = runTestsuite(suitespec)
 
    % we can create a new mlunit_suite_runner object here,
    % because we do not need its internal state here
-   [results, time] = run_suite(mlunit_suite_runner, strip_classprefix(suitespec.testname));
+   [results, time] = run_suite(suite_runner, strip_classprefix(suitespec.testname));
 
    % Restore previous working directory
    cd(prevpwd);
