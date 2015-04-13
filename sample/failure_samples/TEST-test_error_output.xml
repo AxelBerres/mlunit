@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.082" hostname="unknown" timestamp="2015-04-13T17:54:10">
+<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.084" hostname="unknown" timestamp="2015-04-13T17:55:28">
   <properties/>
   <testcase classname="test_error_output" name="test_special_characters">
     <error><![CDATA[This some special characters: !"§$%&/()=?. Enjoy.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_output.m at line 7
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
+In test_error_output.m at line 7
+In run_test.m at line 21
+In run_test.m at line 50
+In run_suite.m at line 63
+In recursive_test_run.m at line 77
+In recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_unknown_function">
     <error><![CDATA[Undefined function or variable 'do_you_know_this'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_output.m at line 11
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
+In test_error_output.m at line 11
+In run_test.m at line 21
+In run_test.m at line 50
+In run_suite.m at line 63
+In recursive_test_run.m at line 77
+In recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_invalid_usage">
     <error><![CDATA[Input argument "name" is undefined.
-In C:\Program Files\MATLAB\R2007b\toolbox\matlab\iofun\fileparts.m at line 16
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_output.m at line 15
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
+In fileparts.m at line 16
+In test_error_output.m at line 15
+In run_test.m at line 21
+In run_test.m at line 50
+In run_suite.m at line 63
+In recursive_test_run.m at line 77
+In recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_syntax_error_ifend">
     <error><![CDATA[Illegal use of reserved keyword "end".
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\sample_syntax_error_ifend.m at line 3
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_output.m at line 19
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
+In sample_syntax_error_ifend.m at line 3
+In test_error_output.m at line 19
+In run_test.m at line 21
+In run_test.m at line 50
+In run_suite.m at line 63
+In recursive_test_run.m at line 77
+In recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_syntax_error_paren">
     <error><![CDATA[Unbalanced or unexpected parenthesis or bracket.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\sample_syntax_error_paren.m at line 3
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_error_output.m at line 23
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
+In sample_syntax_error_paren.m at line 3
+In test_error_output.m at line 23
+In run_test.m at line 21
+In run_test.m at line 50
+In run_suite.m at line 63
+In recursive_test_run.m at line 77
+In recursive_test_run.m at line 42]]></error>
   </testcase>
   <system-out/>
   <system-err/>
