@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="25" tests="26" time="0.438" hostname="unknown" timestamp="2015-04-13T17:54:11">
+<testsuite name="test_failure_output" errors="1" failures="25" tests="26" time="0.412" hostname="unknown" timestamp="2015-04-13T17:55:28">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure><![CDATA[(no message available)
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 13]]></failure>
+In test_failure_output.m at line 13]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_empty">
     <failure><![CDATA[(no message available)
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 18]]></failure>
+In test_failure_output.m at line 18]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_false">
     <failure><![CDATA[(no message available)
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 23]]></failure>
+In test_failure_output.m at line 23]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_true">
     <failure><![CDATA[(no message available)
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 28]]></failure>
+In test_failure_output.m at line 28]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_fail">
     <failure><![CDATA[This some custom fail message
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 32]]></failure>
+In test_failure_output.m at line 32]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals">
     <failure><![CDATA[Data not equal:
   Expected : 3
   Actual   : 4
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 37]]></failure>
+In test_failure_output.m at line 37]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_array">
     <failure><![CDATA[Data not equal:
   Expected : [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
   Actual   : [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15]
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 43]]></failure>
+In test_failure_output.m at line 43]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_arraymatrix">
     <failure><![CDATA[Data not equal:
   Expected : [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16]
   Actual   : [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16]
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 51]]></failure>
+In test_failure_output.m at line 51]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_string">
     <failure><![CDATA[Data not equal:
   Expected : 'foo'
   Actual   : 'fOo'
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 56]]></failure>
+In test_failure_output.m at line 56]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_cell">
     <failure><![CDATA[Data not equal:
   Expected : {3, 'foo'}
   Actual   : {3, 'fOo'}
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 63]]></failure>
+In test_failure_output.m at line 63]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_struct">
     <failure><![CDATA[Data not equal at position .foo:
   Expected : {'hi', 'ho'}
   Actual   : {'ho', 'hi'}
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 71]]></failure>
+In test_failure_output.m at line 71]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct">
     <failure><![CDATA[Data not equal at position .tee.foo:
   Expected : {'hi', 'ho'}
   Actual   : {'ho', 'hi'}
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 80]]></failure>
+In test_failure_output.m at line 80]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct_multiple_differences">
     <failure><![CDATA[Data not equal at position .tee.bar:
@@ -70,7 +70,7 @@ In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_ou
 Data not equal at position .tee.foo:
   Expected : {'hi', 'ho'}
   Actual   : {'ho', 'hi'}
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 90]]></failure>
+In test_failure_output.m at line 90]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct_many_differences">
     <failure><![CDATA[Data not equal at position .bar:
@@ -83,13 +83,13 @@ Data not equal at position .tee.bar:
   Expected : [3 4]
   Actual   : [3 5]
 ... more differences detected, but not displayed.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 102]]></failure>
+In test_failure_output.m at line 102]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_structarray">
     <failure><![CDATA[Data not equal:
   Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
   Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 110]]></failure>
+In test_failure_output.m at line 110]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_object">
     <failure><![CDATA[Data not equal:
@@ -119,59 +119,59 @@ Data characteristics
       Interpolation method  linear
       Size                  [1   1  12]
       Data type             double
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 120]]></failure>
+In test_failure_output.m at line 120]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_handle">
     <failure><![CDATA[Data not equal:
   Expected : 0
   Actual   : 1
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 135]]></failure>
+In test_failure_output.m at line 135]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_functionhandle">
     <failure><![CDATA[Data not equal:
   Expected : @(x)x*x+x
   Actual   : @(x)x+x*x
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 151]]></failure>
+In test_failure_output.m at line 151]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_javaobject">
     <failure><![CDATA[Data not equal:
   Expected : hiho
   Actual   : hiHo
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 157]]></failure>
+In test_failure_output.m at line 157]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_equals">
     <failure><![CDATA[Expected and actual are equal.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 162]]></failure>
+In test_failure_output.m at line 162]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_error">
     <failure><![CDATA[Error expected, but none occurred.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 167]]></failure>
+In test_failure_output.m at line 167]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_typed_error">
     <failure><![CDATA[Error expected, but none occurred.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 172]]></failure>
+In test_failure_output.m at line 172]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_wrong_typed_error">
     <failure><![CDATA[Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 176]]></failure>
+In test_failure_output.m at line 176]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_warning">
     <failure><![CDATA[No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 182]]></failure>
+In test_failure_output.m at line 182]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_implementation_fault">
     <error><![CDATA[Undefined function or variable 'unknown_function_call'.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 186
-In C:\Users\Alexander\repositories\mlunit\src\@function_test_case\run_test.m at line 21
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_test.m at line 50
-In C:\Users\Alexander\repositories\mlunit\src\@mlunit_suite_runner\run_suite.m at line 63
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 77
-In C:\Users\Alexander\repositories\mlunit\src\automation\recursive_test_run.m at line 42]]></error>
+In test_failure_output.m at line 186
+In run_test.m at line 21
+In run_test.m at line 50
+In run_suite.m at line 63
+In recursive_test_run.m at line 77
+In recursive_test_run.m at line 42]]></error>
   </testcase>
   <testcase classname="test_failure_output" name="test_nested_functions">
     <failure><![CDATA[Nested function test.
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 194
-In C:\Users\Alexander\repositories\mlunit\sample\failure_samples\test_failure_output.m at line 190]]></failure>
+In test_failure_output.m at line 194
+In test_failure_output.m at line 190]]></failure>
   </testcase>
   <system-out/>
   <system-err/>
