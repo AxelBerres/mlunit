@@ -68,6 +68,8 @@ mlUnit development snapshot
   - Fix: jUnit XML indentation sometimes applied to mid-line tags
   - Fix: printable() breaks on MATLAB or Java objects, and function handles
   - Fix: GUI Show button does not work in newer MATLAB versions, e.g. R2013b.
+  - Fix: GUI error text is not shown in monospace font, but error messages rely
+    on a monospace font, e.g. assert_equals.
 
   [B#20] https://sourceforge.net/p/mlunit/bugs/20/
   [Rich] http://undocumentedmatlab.com/blog/rich-matlab-editbox-contents
