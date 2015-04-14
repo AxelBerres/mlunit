@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.8-SNAPSHOT
-Started: 2015-04-14 11:55:44.
+Started: 2015-04-14 12:11:02.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -120,9 +120,9 @@ Running suite test_failure_output
 
   test_equals_scalar_cellstring FAIL:
     Data not equal:
-      Expected : 'foo'
-      Actual   : 'fOO'
-      Changes  :   ^^
+      Expected : {'foo'}
+      Actual   : {'fOO'}
+      Changes  :    ^^
     In test_failure_output.m at line 61
 
   test_equals_cell FAIL:
@@ -270,7 +270,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 36 tests across 4 suites in 0.65s
+Executed 36 tests across 4 suites in 0.85s
 
 29 tests FAILED
 7 tests had ERRORS
