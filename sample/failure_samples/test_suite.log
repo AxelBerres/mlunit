@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.8-SNAPSHOT
-Started: 2015-04-14 11:37:21.
+Started: 2015-04-14 11:55:44.
 Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -148,6 +148,7 @@ Running suite test_failure_output
     Data not equal at position .foo:
       Expected : {'you say \to-'mah-(,)to'}
       Actual   : {'you say \to-'mey-(,)to'}
+      Changes  :                 ^^
     In test_failure_output.m at line 96
 
   test_equals_nested_struct FAIL:
@@ -269,7 +270,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 36 tests across 4 suites in 0.68s
+Executed 36 tests across 4 suites in 0.65s
 
 29 tests FAILED
 7 tests had ERRORS

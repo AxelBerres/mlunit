@@ -102,14 +102,7 @@ elseif pass_if_equal
       struct_diffs = find_struct_differences(expected, actual);
       msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg);
    else
-      msg = sprintf('Data not equal%s:\n  %-9s: %s\n  %-9s: %s', tolerance_msg, 'Expected', printable(expected), 'Actual', printable(actual));
-      % append difference markers for string comparisons
-      if ischar(expected) && ischar(actual)
-          msg = [msg sprintf('\n  %-9s:  %s', 'Changes', mark_string_differences(expected, actual))];
-      % or for cell arrays containing single strings
-      elseif iscellstr(expected) && iscellstr(actual) && numel(expected)*numel(actual)==1
-          msg = [msg sprintf('\n  %-9s:   %s', 'Changes', mark_string_differences(expected{1}, actual{1}))];
-      end
+      msg = loc_construct_diff_message(expected, actual, '', tolerance_msg);
    end
 else
    msg = ['Expected and actual are equal' tolerance_msg '.'];
@@ -139,16 +132,7 @@ function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
         
         % message for differing field values on both sides
         elseif isempty(struct_diffs(sd).missingin)
-            msgs{sd} = sprintf('Data not equal at position %s%s:\n  %-9s: %s\n  %-9s: %s', ...
-                struct_diffs(sd).fieldpath, ...
-                tolerance_msg, ...
-                'Expected', printable(struct_diffs(sd).expected), ...
-                'Actual', printable(struct_diffs(sd).actual));
-            
-            % append difference markers for string comparisons
-            if ischar(struct_diffs(sd).expected) && ischar(struct_diffs(sd).actual)
-                msgs{sd} = [msgs{sd} sprintf('\n  %-9s:  %s', 'Changes', mark_string_differences(struct_diffs(sd).expected, struct_diffs(sd).actual))];
-            end
+            msgs{sd} = loc_construct_diff_message(struct_diffs(sd).expected, struct_diffs(sd).actual, struct_diffs(sd).fieldpath, tolerance_msg);
         
         % message for field missing on one side
         else
@@ -162,3 +146,33 @@ function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
     msgs(sd+1:end) = [];
     
     msg = mlunit_strjoin(msgs, sprintf('\n'));
+
+    
+function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)
+
+    error(nargchk(2, 4, nargin, 'struct'));
+    
+    if nargin < 3, position_info = ''; end
+    if nargin < 4, tolerance_msg = ''; end
+    
+    position_msg = '';
+    if ~isempty(position_info)
+        position_msg = [' at position ' position_info];
+    end
+    
+    change_msg = '';
+    % append difference markers for string comparisons
+    if ischar(expected) && ischar(actual)
+        change_msg = sprintf('\n  %-9s:  %s', 'Changes', mark_string_differences(expected, actual));
+    % or for cell arrays containing single strings; adjust spaces for additional
+    % opening cell parenthesis ({)
+    elseif iscellstr(expected) && iscellstr(actual) && numel(expected)*numel(actual)==1
+        change_msg = sprintf('\n  %-9s:   %s', 'Changes', mark_string_differences(expected{1}, actual{1}));
+    end
+
+    msg = sprintf('Data not equal%s%s:\n  %-9s: %s\n  %-9s: %s%s', ...
+        position_msg, ...
+        tolerance_msg, ...
+        'Expected', printable(expected), ...
+        'Actual', printable(actual), ...
+        change_msg);
