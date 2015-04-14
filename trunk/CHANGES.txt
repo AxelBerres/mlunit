@@ -30,6 +30,8 @@ mlUnit development snapshot
   - Reenable live console output, in order for debug output to mix into the
     proper locations in the log.
   - Add suite count to console summary.
+  - Provide difference markers in mlUnit output when comparing strings with
+    assert_equals.
 
   - Major backend refactoring for easier maintenance, particularly
     by flattening inheritance and by separating concerns, including:
