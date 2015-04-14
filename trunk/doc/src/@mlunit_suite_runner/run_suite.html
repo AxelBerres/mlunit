@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of run_suite</title>
+  <meta name="keywords" content="run_suite">
+  <meta name="description" content="Load a given suite and execute all its tests.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_suite_runner</a> &gt; run_suite.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_suite_runner&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>run_suite
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Load a given suite and execute all its tests.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [results, time] = run_suite(self, name) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Load a given suite and execute all its tests.
+  [RESULTS, TIME] = run_suite(SELF, NAME) executes all tests of the suite NAME.
+  NAME is a string denoting a test suite, which must exist on the MATLAB
+  path. SELF is an mlunit_suite_runner instance. If you want to have listeners
+  be notified of test results during suite execution, call add_listeners()
+  before calling run_suite().
+
+  RESULTS is an array of whatever run_test() returned as first argument.
+  TIME is the time needed for suite execution, in seconds.
+
+  After suite execution, the mlUnit environment will be reset to the state it
+  has before suite execution. See mlunit_environment.
+
+  Example
+     % run without listeners; execute in test/utils subdirectory
+     &gt;&gt; [results, time] = run_suite(mlunit_suite_runner, 'test_mlunit_param');
+
+  See also <a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>, mlunit_environment</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>	Execute a single test case.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Load a given suite and execute all its tests.</span>
+0002 <span class="comment">%  [RESULTS, TIME] = run_suite(SELF, NAME) executes all tests of the suite NAME.</span>
+0003 <span class="comment">%  NAME is a string denoting a test suite, which must exist on the MATLAB</span>
+0004 <span class="comment">%  path. SELF is an mlunit_suite_runner instance. If you want to have listeners</span>
+0005 <span class="comment">%  be notified of test results during suite execution, call add_listeners()</span>
+0006 <span class="comment">%  before calling run_suite().</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  RESULTS is an array of whatever run_test() returned as first argument.</span>
+0009 <span class="comment">%  TIME is the time needed for suite execution, in seconds.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%  After suite execution, the mlUnit environment will be reset to the state it</span>
+0012 <span class="comment">%  has before suite execution. See mlunit_environment.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  Example</span>
+0015 <span class="comment">%     % run without listeners; execute in test/utils subdirectory</span>
+0016 <span class="comment">%     &gt;&gt; [results, time] = run_suite(mlunit_suite_runner, 'test_mlunit_param');</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%  See also run_test, mlunit_environment</span>
+0019 
+0020 <span class="comment">%  This Software and all associated files are released unter the</span>
+0021 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%  $Id$</span>
+0024 
+0025 <a name="_sub0" href="#_subfunctions" class="code">function [results, time] = run_suite(self, name)</a>
+0026 
+0027 <span class="comment">% reload test case file if modified in the same GUI session, e.g. during</span>
+0028 <span class="comment">% debugging</span>
+0029 rehash;
+0030 
+0031 suite_start_time = clock;
+0032 
+0033 <span class="comment">% buffer environment for reset after suite execution</span>
+0034 previous_environment = mlunit_environment();
+0035 
+0036 <span class="comment">% Load suite. Let errors bubble through, as we have no meaningful way of</span>
+0037 <span class="comment">% reporting them. This is equivalent to jUnit behaviour, where we are guaranteed</span>
+0038 <span class="comment">% to execute the tests only when they compiled, i.e. have no syntax errors.</span>
+0039 <span class="keyword">if</span> isempty(name)
+0040     <span class="comment">% empty name</span>
+0041     error(<span class="string">'MLUNIT:emptyTestName'</span>, <span class="string">'Test suite name is empty.'</span>);
+0042 <span class="keyword">elseif</span> is_class_test(name)
+0043     <span class="comment">% from class</span>
+0044     testsuite = load_tests_from_test_case(test_loader, name);
+0045 <span class="keyword">else</span>
+0046     <span class="comment">% from function</span>
+0047     testsuite = eval(name);
+0048 <span class="keyword">end</span>
+0049 
+0050 <span class="comment">% TODO: execute suite_set_up</span>
+0051 
+0052 tests = get_tests(testsuite);
+0053 num_tests = numel(tests);
+0054 
+0055 <span class="comment">% inform progress listeners of impending test updates; keep self updated</span>
+0056 <span class="keyword">for</span> lidx=1:numel(self.listeners)
+0057     self.listeners{lidx} = init_results(self.listeners{lidx}, num_tests);
+0058 <span class="keyword">end</span>
+0059 
+0060 <span class="comment">% run each test of the suite; be sure to update the self state with each call</span>
+0061 results = cell(size(tests));
+0062 <span class="keyword">for</span> t=1:numel(tests)
+0063     [results{t}, self] = <a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>(self, tests{t});
+0064 <span class="keyword">end</span>
+0065 <span class="comment">% convert back into normal array; we went around by using a cell array, because</span>
+0066 <span class="comment">% MATLAB is picky when we put them into a plain array directly in the loop</span>
+0067 results = [results{:}];
+0068 
+0069 <span class="comment">% TODO: execute suite_tear_down</span>
+0070 
+0071 <span class="comment">% restore environment after suite execution</span>
+0072 mlunit_environment(previous_environment);
+0073 
+0074 time = etime(clock, suite_start_time);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

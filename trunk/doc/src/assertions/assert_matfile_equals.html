@@ -42,7 +42,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>	FAIL Raise an error.</li></ul>
+<li><a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>	MLUNIT_FAIL Raise an error.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -68,49 +68,48 @@ This function is called by:
 0013 <span class="comment">%  This Software and all associated files are released unter the</span>
 0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0015 <span class="comment">%</span>
-0016 <span class="comment">%  $Author$</span>
-0017 <span class="comment">%  $Id: assert_matfile_equals.m 167 2012-06-06 16:10:56Z jens.dorroch $</span>
-0018 
-0019 <span class="keyword">if</span> nargin &lt; 2,
-0020    error(<span class="string">'assert_equals: Not enough input arguments.'</span>);
-0021 <span class="keyword">end</span>
-0022 
-0023 <a href="#_sub1" class="code" title="subfunction checkFile( file)">checkFile</a>( expected);
-0024 <a href="#_sub1" class="code" title="subfunction checkFile( file)">checkFile</a>( actual);
-0025 <a href="#_sub2" class="code" title="subfunction expectedVariables = checkMember( reference, toCheck )">checkMember</a>( expected, actual );
-0026 names2Check = <a href="#_sub2" class="code" title="subfunction expectedVariables = checkMember( reference, toCheck )">checkMember</a>( actual, expected);
-0027 
-0028 <span class="keyword">for</span> i=1:numel(names2Check)
-0029     <a href="#_sub3" class="code" title="subfunction checkVariable( variableName, expectedFile, actualFile)">checkVariable</a>( names2Check{i}, expected , actual);
-0030 <span class="keyword">end</span>
-0031    
-0032 <a name="_sub1" href="#_subfunctions" class="code">function checkFile( file)   </a>
-0033    <span class="keyword">if</span> ~ischar( file)
-0034       <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>( <span class="string">'%s input needs to be a string pointing to a file!'</span>,inputname(1));
-0035    <span class="keyword">end</span>
-0036    <span class="keyword">if</span> ~(exist( file, <span class="string">'file'</span>) == 2)
-0037       <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'Argument given for variable ''%s'' does not point to a file (%s)'</span>, inputname(1), file);
-0038    <span class="keyword">end</span>
-0039 <span class="comment">%end of function</span>
-0040 
-0041 <a name="_sub2" href="#_subfunctions" class="code">function expectedVariables = checkMember( reference, toCheck )</a>
-0042    expectedVariables = who(<span class="string">'-File'</span>, reference);
-0043    toCheckVariables = who(<span class="string">'-File'</span>, toCheck);  
-0044    
-0045    isMemberOfToCheck = ismember( expectedVariables, toCheckVariables);
-0046    <span class="keyword">if</span> ~isempty( isMemberOfToCheck) &amp;&amp; ~(all( isMemberOfToCheck))
-0047         missingVariables = expectedVariables( ~isMemberOfToCheck);
-0048         <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'Files differ because Variable(s): %s are not present in %s File'</span>,sprintf(<span class="string">' %s,'</span>, missingVariables{:}), inputname(1));
-0049    <span class="keyword">end</span>
-0050 <span class="comment">%end of function</span>
-0051 
-0052 <a name="_sub3" href="#_subfunctions" class="code">function checkVariable( variableName, expectedFile, actualFile)</a>
-0053    actualVariable = load( actualFile, variableName);
-0054    expectedVariable = load( expectedFile, variableName);
-0055    <span class="keyword">if</span> ~isequal( actualVariable, expectedVariable)
-0056       <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(<span class="string">'Variable ''%s'' expected to be %s, but actually was %s.'</span>, variableName, printable(expectedVariable), printable(actualVariable));
-0057    <span class="keyword">end</span>   
-0058 <span class="comment">%end of function</span></pre></div>
-<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0016 <span class="comment">%  $Id: assert_matfile_equals.m 167 2012-06-06 16:10:56Z jens.dorroch $</span>
+0017 
+0018 <span class="keyword">if</span> nargin &lt; 2,
+0019    error(<span class="string">'assert_equals: Not enough input arguments.'</span>);
+0020 <span class="keyword">end</span>
+0021 
+0022 <a href="#_sub1" class="code" title="subfunction checkFile( file)">checkFile</a>( expected);
+0023 <a href="#_sub1" class="code" title="subfunction checkFile( file)">checkFile</a>( actual);
+0024 <a href="#_sub2" class="code" title="subfunction expectedVariables = checkMember( reference, toCheck )">checkMember</a>( expected, actual );
+0025 names2Check = <a href="#_sub2" class="code" title="subfunction expectedVariables = checkMember( reference, toCheck )">checkMember</a>( actual, expected);
+0026 
+0027 <span class="keyword">for</span> i=1:numel(names2Check)
+0028     <a href="#_sub3" class="code" title="subfunction checkVariable( variableName, expectedFile, actualFile)">checkVariable</a>( names2Check{i}, expected , actual);
+0029 <span class="keyword">end</span>
+0030    
+0031 <a name="_sub1" href="#_subfunctions" class="code">function checkFile( file)   </a>
+0032    <span class="keyword">if</span> ~ischar( file)
+0033       <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>( <span class="string">'%s input needs to be a string pointing to a file!'</span>,inputname(1));
+0034    <span class="keyword">end</span>
+0035    <span class="keyword">if</span> ~(exist( file, <span class="string">'file'</span>) == 2)
+0036       <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(<span class="string">'Argument given for variable ''%s'' does not point to a file (%s)'</span>, inputname(1), file);
+0037    <span class="keyword">end</span>
+0038 <span class="comment">%end of function</span>
+0039 
+0040 <a name="_sub2" href="#_subfunctions" class="code">function expectedVariables = checkMember( reference, toCheck )</a>
+0041    expectedVariables = who(<span class="string">'-File'</span>, reference);
+0042    toCheckVariables = who(<span class="string">'-File'</span>, toCheck);  
+0043    
+0044    isMemberOfToCheck = ismember( expectedVariables, toCheckVariables);
+0045    <span class="keyword">if</span> ~isempty( isMemberOfToCheck) &amp;&amp; ~(all( isMemberOfToCheck))
+0046         missingVariables = expectedVariables( ~isMemberOfToCheck);
+0047         <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(<span class="string">'Files differ because Variable(s): %s are not present in %s File'</span>,sprintf(<span class="string">' %s,'</span>, missingVariables{:}), inputname(1));
+0048    <span class="keyword">end</span>
+0049 <span class="comment">%end of function</span>
+0050 
+0051 <a name="_sub3" href="#_subfunctions" class="code">function checkVariable( variableName, expectedFile, actualFile)</a>
+0052    actualVariable = load( actualFile, variableName);
+0053    expectedVariable = load( expectedFile, variableName);
+0054    <span class="keyword">if</span> ~isequal( actualVariable, expectedVariable)
+0055       <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(<span class="string">'Variable ''%s'' expected to be %s, but actually was %s.'</span>, variableName, printable(expectedVariable), printable(actualVariable));
+0056    <span class="keyword">end</span>   
+0057 <span class="comment">%end of function</span></pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

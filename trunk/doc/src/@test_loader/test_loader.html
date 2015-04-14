@@ -4,7 +4,7 @@
 <head>
   <title>Description of test_loader</title>
   <meta name="keywords" content="test_loader">
-  <meta name="description" content="test_loader constructor.">
+  <meta name="description" content="Collection of stateless loading methods.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -21,22 +21,15 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>test_loader constructor.</strong></div>
+<div class="box"><strong>Collection of stateless loading methods.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function self = test_loader </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">test_loader constructor.
-  The constructor creates an object of the class test_loader.
+<div class="fragment"><pre class="comment">Collection of stateless loading methods.
 
-  Class Info / Example
-  ====================
-  The class test_loader is able to create a test_suite with all
-  test* methods from a test_case. 
-  Example:
-         loader = test_loader;
-         suite = test_suite(load_tests_from_test_case(loader, 'my_test'));</pre></div>
+  See load_tests_from_mfile, load_tests_from_test_case</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -52,25 +45,17 @@ This function is called by:
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = test_loader</a>
-0002 <span class="comment">%test_loader constructor.</span>
-0003 <span class="comment">%  The constructor creates an object of the class test_loader.</span>
-0004 <span class="comment">%</span>
-0005 <span class="comment">%  Class Info / Example</span>
-0006 <span class="comment">%  ====================</span>
-0007 <span class="comment">%  The class test_loader is able to create a test_suite with all</span>
-0008 <span class="comment">%  test* methods from a test_case.</span>
-0009 <span class="comment">%  Example:</span>
-0010 <span class="comment">%         loader = test_loader;</span>
-0011 <span class="comment">%         suite = test_suite(load_tests_from_test_case(loader, 'my_test'));</span>
-0012 
-0013 <span class="comment">%  This Software and all associated files are released unter the</span>
-0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
-0015 <span class="comment">%</span>
-0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0017 <span class="comment">%  $Id: test_loader.m 35 2006-06-11 16:37:12Z thomi $</span>
-0018 
-0019 self.dummy = 0;
-0020 self = class(self, <span class="string">'test_loader'</span>);</pre></div>
-<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0002 <span class="comment">%Collection of stateless loading methods.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  See load_tests_from_mfile, load_tests_from_test_case</span>
+0005 
+0006 <span class="comment">%  This Software and all associated files are released unter the</span>
+0007 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0010 <span class="comment">%  $Id: test_loader.m 35 2006-06-11 16:37:12Z thomi $</span>
+0011 
+0012 self = class(struct(), <span class="string">'test_loader'</span>);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
