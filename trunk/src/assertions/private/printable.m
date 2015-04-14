@@ -61,7 +61,7 @@ function fieldstrings = fieldname_value_strings(s)
 % Some meaningful string representation of any class
 function outstring = loc_getClassDisplay(classinstance) %#ok<INUSD>
     % use what MATLAB shows when we prompt for some object
-    % this is class dependent and has to common access other than the cmd line
+    % output is class dependent and has no common access other than the cmd line
     outstring = evalc('classinstance');
 
 % Strip empty lines from the beginning and the end of a multi-line string
