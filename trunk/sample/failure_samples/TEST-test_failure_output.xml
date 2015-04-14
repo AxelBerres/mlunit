@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="28" tests="29" time="0.46" hostname="unknown" timestamp="2015-04-14T11:37:21">
+<testsuite name="test_failure_output" errors="1" failures="28" tests="29" time="0.45" hostname="unknown" timestamp="2015-04-14T11:55:44">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure><![CDATA[(no message available)
@@ -76,6 +76,7 @@ In test_failure_output.m at line 86]]></failure>
     <failure><![CDATA[Data not equal at position .foo:
   Expected : {'you say \to-'mah-(,)to'}
   Actual   : {'you say \to-'mey-(,)to'}
+  Changes  :                 ^^
 In test_failure_output.m at line 96]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct">
