@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="28" tests="29" time="0.45" hostname="unknown" timestamp="2015-04-14T11:55:44">
+<testsuite name="test_failure_output" errors="1" failures="28" tests="29" time="0.46" hostname="unknown" timestamp="2015-04-14T12:11:03">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure><![CDATA[(no message available)
@@ -48,9 +48,9 @@ In test_failure_output.m at line 56]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_scalar_cellstring">
     <failure><![CDATA[Data not equal:
-  Expected : 'foo'
-  Actual   : 'fOO'
-  Changes  :   ^^
+  Expected : {'foo'}
+  Actual   : {'fOO'}
+  Changes  :    ^^
 In test_failure_output.m at line 61]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_cell">
