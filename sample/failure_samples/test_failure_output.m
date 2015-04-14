@@ -53,7 +53,12 @@ function test_equals_arraymatrix
 function test_equals_string
 
     assert_equals('foo', 'foo');
-    assert_equals('foo', 'fOo');
+    assert_equals('foo', 'fOO');
+    
+function test_equals_scalar_cellstring
+
+    assert_equals('foo', 'foo');
+    assert_equals('foo', 'fOO');
 
 function test_equals_cell
 
@@ -70,6 +75,26 @@ function test_equals_struct
     assert_equals(s, s);
     assert_equals(s, s2);
 
+function test_equals_string_struct
+
+    tomahto = 'you say \to-''mah-(,)to';
+    tomeyto = 'you say \to-''mey-(,)to';
+    s = struct('foo', {tomahto}, 'bar', {[3 4]});
+    s2 = s;
+    s2.foo = tomeyto;
+    assert_equals(s, s);
+    assert_equals(s, s2);
+
+function test_equals_scalar_cellstring_struct
+
+    tomahto = 'you say \to-''mah-(,)to';
+    tomeyto = 'you say \to-''mey-(,)to';
+    s = struct('foo', {{tomahto}}, 'bar', {[3 4]});
+    s2 = s;
+    s2.foo = {tomeyto};
+    assert_equals(s, s);
+    assert_equals(s, s2);
+    
 function test_equals_nested_struct
 
     s = struct('foo', {{'hi', 'ho'}}, 'bar', {[3 4]});
