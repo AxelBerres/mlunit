@@ -47,13 +47,13 @@
      % asserts variable arg being a cell array; specifies a custom message
      assert_true(iscell(arg), 'Input argument is no cell array');
 
-  See also  <a href="fail.html" class="code" title="function fail(msg, varargin)">FAIL</a>, <a href="assert_false.html" class="code" title="function assert_false(expr, varargin)">ASSERT_FALSE</a></pre></div>
+  See also  <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">MLUNIT_FAIL</a>, <a href="assert_false.html" class="code" title="function assert_false(expr, varargin)">ASSERT_FALSE</a></pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>	FAIL Raise an error.</li></ul>
+<li><a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>	MLUNIT_FAIL Raise an error.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -83,17 +83,16 @@ This function is called by:
 0019 <span class="comment">%     % asserts variable arg being a cell array; specifies a custom message</span>
 0020 <span class="comment">%     assert_true(iscell(arg), 'Input argument is no cell array');</span>
 0021 <span class="comment">%</span>
-0022 <span class="comment">%  See also  FAIL, ASSERT_FALSE</span>
+0022 <span class="comment">%  See also  MLUNIT_FAIL, ASSERT_FALSE</span>
 0023 
 0024 <span class="comment">%  This Software and all associated files are released unter the</span>
 0025 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0026 <span class="comment">%</span>
-0027 <span class="comment">%  $Author$</span>
-0028 <span class="comment">%  $Id: assert_true.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
-0029 
-0030 <span class="keyword">if</span> nargin &gt;= 1 &amp;&amp; ~expr
-0031    <a href="fail.html" class="code" title="function fail(msg, varargin)">fail</a>(varargin{:});
-0032 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0027 <span class="comment">%  $Id: assert_true.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
+0028 
+0029 <span class="keyword">if</span> nargin &gt;= 1 &amp;&amp; ~expr
+0030    <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(varargin{:});
+0031 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

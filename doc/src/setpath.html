@@ -4,7 +4,7 @@
 <head>
   <title>Description of setpath</title>
   <meta name="keywords" content="setpath">
-  <meta name="description" content="Use this script to set all paths of the mlUnit installation.">
+  <meta name="description" content="Set all paths of the mlUnit installation.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -21,13 +21,14 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>Use this script to set all paths of the mlUnit installation.</strong></div>
+<div class="box"><strong>Set all paths of the mlUnit installation.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>This is a script file. </strong></div>
+<div class="box"><strong>function setpath </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Use this script to set all paths of the mlUnit installation.</pre></div>
+<div class="fragment"><pre class="comment"> Set all paths of the mlUnit installation.
+  This does not include the test directories holding mlUnit's own tests.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
@@ -42,18 +43,20 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">% Use this script to set all paths of the mlUnit installation.</span>
-0002 
-0003 <span class="comment">%  This Software and all associated files are released unter the</span>
-0004 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
-0005 <span class="comment">%</span>
-0006 <span class="comment">%  $Author: hetu $</span>
-0007 <span class="comment">%  $Id: setpath.m 15 2012-11-21 09:18:51Z hetu $</span>
+<div class="fragment"><pre>0001 <span class="comment">% Set all paths of the mlUnit installation.</span>
+0002 <span class="comment">%  This does not include the test directories holding mlUnit's own tests.</span>
+0003 
+0004 <span class="comment">%  This Software and all associated files are released unter the</span>
+0005 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  $Id$</span>
 0008 
-0009 basepath = fileparts(mfilename(<span class="string">'fullpath'</span>));
+0009 <a name="_sub0" href="#_subfunctions" class="code">function setpath</a>
 0010 
-0011 <span class="comment">% add mlunit automation tools</span>
-0012 addpath(genpath(basepath), <span class="string">'-end'</span>);</pre></div>
-<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0011 basepath = fileparts(mfilename(<span class="string">'fullpath'</span>));
+0012 
+0013 <span class="comment">% add mlunit automation tools</span>
+0014 addpath(genpath(basepath), <span class="string">'-end'</span>);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

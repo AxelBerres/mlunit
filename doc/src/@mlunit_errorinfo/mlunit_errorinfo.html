@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mlunit_errorinfo</title>
+  <meta name="keywords" content="mlunit_errorinfo">
+  <meta name="description" content="Information about one error. Formattable.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_errorinfo</a> &gt; mlunit_errorinfo.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_errorinfo&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>mlunit_errorinfo
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Information about one error. Formattable.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = mlunit_errorinfo(errorinfo, additional_message) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Information about one error. Formattable.
+  This is very similar to the error struct returned by lasterror or MException.
+  In fact, you need to provide such an error struct as argument. Use this
+  class's methods to determine whether the error represent an mlUnit failure or
+  a proper error, or to easily obtain a filtered and printable representation
+  including message and stack.
+  
+  obj = mlunit_errorinfo(errorinfo) instanciates an object based on error
+  information in errorinfo. errorinfo must be a scalar struct with field
+  'message'. It can (and probably should) also contain fields 'identifier' and
+  'stack', the latter being a struct array with fields 'file', 'line', and
+  'name'.
+
+  obj = mlunit_errorinfo(errorinfo, additional_cause) does the same, but adds
+  the string additional_cause to the front of the error message.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Information about one error. Formattable.</span>
+0002 <span class="comment">%  This is very similar to the error struct returned by lasterror or MException.</span>
+0003 <span class="comment">%  In fact, you need to provide such an error struct as argument. Use this</span>
+0004 <span class="comment">%  class's methods to determine whether the error represent an mlUnit failure or</span>
+0005 <span class="comment">%  a proper error, or to easily obtain a filtered and printable representation</span>
+0006 <span class="comment">%  including message and stack.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  obj = mlunit_errorinfo(errorinfo) instanciates an object based on error</span>
+0009 <span class="comment">%  information in errorinfo. errorinfo must be a scalar struct with field</span>
+0010 <span class="comment">%  'message'. It can (and probably should) also contain fields 'identifier' and</span>
+0011 <span class="comment">%  'stack', the latter being a struct array with fields 'file', 'line', and</span>
+0012 <span class="comment">%  'name'.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  obj = mlunit_errorinfo(errorinfo, additional_cause) does the same, but adds</span>
+0015 <span class="comment">%  the string additional_cause to the front of the error message.</span>
+0016 
+0017 <span class="comment">%  This Software and all associated files are released unter the</span>
+0018 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%  $Id$</span>
+0021 
+0022 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_errorinfo(errorinfo, additional_message)</a>
+0023 
+0024 error(nargchk(1, 2, nargin, <span class="string">'struct'</span>));
+0025 
+0026 <span class="keyword">if</span> ~isstruct(errorinfo) || <span class="keyword">...</span>
+0027         numel(errorinfo)~=1 || <span class="keyword">...</span>
+0028         ~isfield(errorinfo, <span class="string">'message'</span>)
+0029     error(<span class="string">'errorinfo argument need be scalar struct with at least a field of name message'</span>);
+0030 <span class="keyword">end</span>
+0031 
+0032 <span class="keyword">if</span> nargin&lt;2, additional_message=<span class="string">''</span>; <span class="keyword">end</span>
+0033 <span class="keyword">if</span> ~ischar(additional_message)
+0034     error(<span class="string">'additional_message argument need be char'</span>);
+0035 <span class="keyword">end</span>
+0036 
+0037 <span class="comment">% Handle each relevant field, in order to only store relevant fields</span>
+0038 self = struct();
+0039 self.additional_cause = additional_message;
+0040 self.err = struct();
+0041 
+0042 self.err.message = errorinfo.message;
+0043 
+0044 self.err.stack = struct(<span class="string">'file'</span>, {}, <span class="string">'line'</span>, {}, <span class="string">'name'</span>, {});
+0045 <span class="keyword">if</span> isfield(errorinfo, <span class="string">'stack'</span>)
+0046     self.err.stack = errorinfo.stack;
+0047 <span class="keyword">end</span>
+0048 
+0049 self.err.identifier = <span class="string">''</span>;
+0050 <span class="keyword">if</span> isfield(errorinfo, <span class="string">'identifier'</span>)
+0051     self.err.identifier = errorinfo.identifier;
+0052 <span class="keyword">end</span>
+0053 
+0054 <span class="comment">% instanciate</span>
+0055 self = class(self, <span class="string">'mlunit_errorinfo'</span>);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

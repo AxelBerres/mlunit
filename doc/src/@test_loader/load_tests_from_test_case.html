@@ -40,7 +40,7 @@ test* methods from a test_case.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="get_test_case_names.html" class="code" title="function names = get_test_case_names(self, test_case_class) %#ok">get_test_case_names</a>	test_loader/get_test_case_names returns a list of string with all</li><li><a href="map.html" class="code" title="function tests = map(self, test_case_class, test_names) %#ok">map</a>	test_loader/map returns a list of objects instantiated from the class</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -63,16 +63,19 @@ This function is called by:
 0012 <span class="comment">%  This Software and all associated files are released unter the</span>
 0013 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0014 <span class="comment">%</span>
-0015 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0016 <span class="comment">%  $Id: load_tests_from_test_case.m 267 2007-03-10 12:38:34Z thomi $</span>
-0017 
-0018 suite = [];
-0019 names = <a href="get_test_case_names.html" class="code" title="function names = get_test_case_names(self, test_case_class) %#ok">get_test_case_names</a>(self, test_case_class);
-0020 <span class="keyword">if</span> (length(names) &gt; 0)
-0021     suite = test_suite(<a href="map.html" class="code" title="function tests = map(self, test_case_class, test_names) %#ok">map</a>(self, <span class="keyword">...</span>
-0022         test_case_class, <span class="keyword">...</span>
-0023         names));
-0024 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0015 <span class="comment">%  $Id: load_tests_from_test_case.m 267 2007-03-10 12:38:34Z thomi $</span>
+0016 
+0017 suite = mlunit_testsuite;
+0018 suite = set_name(suite, test_case_class);
+0019 names = get_test_case_names(self, test_case_class);
+0020 
+0021 <span class="keyword">for</span> i = 1:length(names)
+0022     <span class="comment">% instanciate test</span>
+0023     testobj = eval([test_case_class, <span class="string">'('''</span>, char(names(i)), <span class="string">''')'</span>]);
+0024     
+0025     <span class="comment">% add to suite</span>
+0026     suite = add_test(suite, testobj);
+0027 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

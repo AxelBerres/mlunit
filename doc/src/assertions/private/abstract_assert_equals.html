@@ -50,7 +50,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="strjoin.html" class="code" title="function result = strjoin(stringcell, separator)">strjoin</a>	STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
+<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li><li><a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>	Generate a string marking differences between two strings</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 </ul>
@@ -58,7 +58,7 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)</a></li></ul>
+<li><a href="#_sub1" class="code">function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)</a></li><li><a href="#_sub2" class="code">function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)</a>
@@ -84,136 +84,161 @@ This function is called by:
 0021 <span class="comment">%  This Software and all associated files are released unter the</span>
 0022 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0023 <span class="comment">%</span>
-0024 <span class="comment">%  $Author$</span>
-0025 <span class="comment">%  $Id$</span>
-0026 
-0027 <span class="keyword">if</span> nargin &lt; 3, error(<span class="string">'Not enough input arguments.'</span>); <span class="keyword">end</span>
-0028 <span class="keyword">if</span> ~islogical(pass_if_equal), error(<span class="string">'pass_if_equal must be a logical'</span>); <span class="keyword">end</span>
-0029 
-0030 equal_nans = mlunit_param(<span class="string">'equal_nans'</span>);
-0031 
-0032 <span class="comment">% default values for eps and message parts</span>
-0033 absolute_eps = 0;
-0034 tolerance_msg = <span class="string">''</span>;
-0035 custom_msg = <span class="string">''</span>;
-0036 
-0037 <span class="comment">% Fourth argument can either be absolute_eps or msg. Handle input args carefully.</span>
-0038 <span class="keyword">if</span> nargin &gt;= 4 &amp;&amp; isnumeric(absolute_eps_or_msg)
-0039    absolute_eps = absolute_eps_or_msg;
-0040    <span class="comment">% Leading dot is sentence closer for preceding message text. Closing marks</span>
-0041    <span class="comment">% will be provided by message construction later on</span>
-0042    tolerance_msg = sprintf(<span class="string">'. Tolerance is %s'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(absolute_eps));
-0043    
-0044    <span class="comment">% if fourth argument is eps, then the fifth may be the msg and all others the</span>
-0045    <span class="comment">% msg sprintf arguments</span>
-0046    <span class="keyword">if</span> nargin &gt;= 5
-0047       custom_msg = sprintf(varargin{1}, varargin{2:end});
-0048    <span class="keyword">end</span>
-0049    
-0050 <span class="keyword">elseif</span> nargin &gt;= 4 &amp;&amp; ischar(absolute_eps_or_msg)
-0051    custom_msg = sprintf(absolute_eps_or_msg, varargin{:});
-0052 <span class="keyword">end</span>
-0053 
-0054 <span class="comment">% only check against eps if expected and actual both are numeric and have the</span>
-0055 <span class="comment">% same type, else MATLAB complains about incompatible types when using</span>
-0056 <span class="comment">% subtraction during eps checking later on</span>
-0057 are_compatible_numerics = isnumeric(expected) &amp;&amp; isequal(class(expected), class(actual));
-0058 
-0059 <span class="comment">% short circuit, if sizes of expected and actual differ</span>
-0060 sizes_differ = ~isequal(size(expected), size(actual));
-0061 
-0062 <span class="comment">% determine equality</span>
-0063 <span class="keyword">if</span> are_compatible_numerics &amp;&amp; sizes_differ
-0064    equals = false;
-0065 
-0066 <span class="comment">% check contents only for arguments of equal size</span>
-0067 <span class="keyword">elseif</span> are_compatible_numerics
-0068    
-0069    <span class="comment">% compare all values by default</span>
-0070    indices = true(size(expected));
-0071    <span class="keyword">if</span> equal_nans
-0072       <span class="comment">% select only indices for comparison where not both expected and actual</span>
-0073       <span class="comment">% are NaN</span>
-0074       indices = ~(isnan(expected) &amp; isnan(actual));
-0075    <span class="keyword">end</span>
-0076 
-0077    <span class="comment">% Build matrix of expected/actual differences. If at one position expected or</span>
-0078    <span class="comment">% actual have a NaN, that position's difference will be NaN and fail the eps</span>
-0079    <span class="comment">% test, as it should. If at one position both have a NaN, then they will have</span>
-0080    <span class="comment">% been filtered before if NaNs are to be treated equal, or their difference</span>
-0081    <span class="comment">% will yield a NaN as well if NaNs are to be treated different. If both have</span>
-0082    <span class="comment">% an actual value other than NaN, their difference will be compared with eps</span>
-0083    <span class="comment">% for real.</span>
-0084    diffs = expected(indices) - actual(indices);
-0085    
-0086    <span class="comment">% all absolute differences must be smaller than or equal to eps</span>
-0087    equals = all(abs(diffs) &lt;= absolute_eps);
-0088 
-0089 <span class="comment">% all non-numeric types, or mixed types are checked by isequal.</span>
-0090 <span class="keyword">elseif</span> equal_nans
-0091    equals = isequalwithequalnans(actual, expected);
-0092 <span class="keyword">else</span>
-0093    equals = isequal(actual, expected);
-0094 <span class="keyword">end</span>
-0095 
-0096 <span class="comment">% construct message</span>
-0097 <span class="keyword">if</span> ~isempty(custom_msg)
-0098    msg = custom_msg;
-0099 <span class="keyword">elseif</span> pass_if_equal
-0100    <span class="comment">% In case of failed equality check, prepare special message for large scalar structs</span>
-0101    isscalarstruct = @(s) isstruct(s) &amp;&amp; isscalar(s);
-0102    <span class="keyword">if</span> ~equals &amp;&amp; isscalarstruct(expected) &amp;&amp; isscalarstruct(actual)
-0103       struct_diffs = <a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>(expected, actual);
-0104       msg = <a href="#_sub1" class="code" title="subfunction msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)">loc_prepare_message_from_diffs</a>(struct_diffs, tolerance_msg);
-0105    <span class="keyword">else</span>
-0106       msg = sprintf(<span class="string">'Data not equal%s:\n  %-9s: %s\n  %-9s: %s'</span>, tolerance_msg, <span class="string">'Expected'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(expected), <span class="string">'Actual'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(actual));
-0107    <span class="keyword">end</span>
-0108 <span class="keyword">else</span>
-0109    msg = [<span class="string">'Expected and actual are equal'</span> tolerance_msg <span class="string">'.'</span>];
-0110 <span class="keyword">end</span>
-0111 
-0112 <span class="comment">% fail if pass on equal requested, but is not equal</span>
-0113 <span class="comment">% fail if fail on equal requested, and is equal</span>
-0114 <span class="comment">% else, pass quietly</span>
-0115 <span class="keyword">if</span> xor(pass_if_equal, equals)
-0116    fail(msg);
-0117 <span class="keyword">end</span>
+0024 <span class="comment">%  $Id$</span>
+0025 
+0026 <span class="keyword">if</span> nargin &lt; 3, error(<span class="string">'Not enough input arguments.'</span>); <span class="keyword">end</span>
+0027 <span class="keyword">if</span> ~islogical(pass_if_equal), error(<span class="string">'pass_if_equal must be a logical'</span>); <span class="keyword">end</span>
+0028 
+0029 equal_nans = mlunit_param(<span class="string">'equal_nans'</span>);
+0030 
+0031 <span class="comment">% default values for eps and message parts</span>
+0032 absolute_eps = 0;
+0033 tolerance_msg = <span class="string">''</span>;
+0034 custom_msg = <span class="string">''</span>;
+0035 
+0036 <span class="comment">% Fourth argument can either be absolute_eps or msg. Handle input args carefully.</span>
+0037 <span class="keyword">if</span> nargin &gt;= 4 &amp;&amp; isnumeric(absolute_eps_or_msg)
+0038    absolute_eps = absolute_eps_or_msg;
+0039    <span class="comment">% Leading dot is sentence closer for preceding message text. Closing marks</span>
+0040    <span class="comment">% will be provided by message construction later on</span>
+0041    tolerance_msg = sprintf(<span class="string">'. Tolerance is %s'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(absolute_eps));
+0042    
+0043    <span class="comment">% if fourth argument is eps, then the fifth may be the msg and all others the</span>
+0044    <span class="comment">% msg sprintf arguments</span>
+0045    <span class="keyword">if</span> nargin &gt;= 5
+0046       custom_msg = sprintf(varargin{1}, varargin{2:end});
+0047    <span class="keyword">end</span>
+0048    
+0049 <span class="keyword">elseif</span> nargin &gt;= 4 &amp;&amp; ischar(absolute_eps_or_msg)
+0050    custom_msg = sprintf(absolute_eps_or_msg, varargin{:});
+0051 <span class="keyword">end</span>
+0052 
+0053 <span class="comment">% only check against eps if expected and actual both are numeric and have the</span>
+0054 <span class="comment">% same type, else MATLAB complains about incompatible types when using</span>
+0055 <span class="comment">% subtraction during eps checking later on</span>
+0056 are_compatible_numerics = isnumeric(expected) &amp;&amp; isequal(class(expected), class(actual));
+0057 
+0058 <span class="comment">% short circuit, if sizes of expected and actual differ</span>
+0059 sizes_differ = ~isequal(size(expected), size(actual));
+0060 
+0061 <span class="comment">% determine equality</span>
+0062 <span class="keyword">if</span> are_compatible_numerics &amp;&amp; sizes_differ
+0063    equals = false;
+0064 
+0065 <span class="comment">% check contents only for arguments of equal size</span>
+0066 <span class="keyword">elseif</span> are_compatible_numerics
+0067    
+0068    <span class="comment">% compare all values by default</span>
+0069    indices = true(size(expected));
+0070    <span class="keyword">if</span> equal_nans
+0071       <span class="comment">% select only indices for comparison where not both expected and actual</span>
+0072       <span class="comment">% are NaN</span>
+0073       indices = ~(isnan(expected) &amp; isnan(actual));
+0074    <span class="keyword">end</span>
+0075 
+0076    <span class="comment">% Build matrix of expected/actual differences. If at one position expected or</span>
+0077    <span class="comment">% actual have a NaN, that position's difference will be NaN and fail the eps</span>
+0078    <span class="comment">% test, as it should. If at one position both have a NaN, then they will have</span>
+0079    <span class="comment">% been filtered before if NaNs are to be treated equal, or their difference</span>
+0080    <span class="comment">% will yield a NaN as well if NaNs are to be treated different. If both have</span>
+0081    <span class="comment">% an actual value other than NaN, their difference will be compared with eps</span>
+0082    <span class="comment">% for real.</span>
+0083    diffs = expected(indices) - actual(indices);
+0084    
+0085    <span class="comment">% all absolute differences must be smaller than or equal to eps</span>
+0086    equals = all(abs(diffs) &lt;= absolute_eps);
+0087 
+0088 <span class="comment">% all non-numeric types, or mixed types are checked by isequal.</span>
+0089 <span class="keyword">elseif</span> equal_nans
+0090    equals = isequalwithequalnans(actual, expected);
+0091 <span class="keyword">else</span>
+0092    equals = isequal(actual, expected);
+0093 <span class="keyword">end</span>
+0094 
+0095 <span class="comment">% construct message</span>
+0096 <span class="keyword">if</span> ~isempty(custom_msg)
+0097    msg = custom_msg;
+0098 <span class="keyword">elseif</span> pass_if_equal
+0099    <span class="comment">% In case of failed equality check, prepare special message for large scalar structs</span>
+0100    isscalarstruct = @(s) isstruct(s) &amp;&amp; isscalar(s);
+0101    <span class="keyword">if</span> ~equals &amp;&amp; isscalarstruct(expected) &amp;&amp; isscalarstruct(actual)
+0102       struct_diffs = <a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>(expected, actual);
+0103       msg = <a href="#_sub1" class="code" title="subfunction msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)">loc_prepare_message_from_diffs</a>(struct_diffs, tolerance_msg);
+0104    <span class="keyword">else</span>
+0105       msg = <a href="#_sub2" class="code" title="subfunction msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)">loc_construct_diff_message</a>(expected, actual, <span class="string">''</span>, tolerance_msg);
+0106    <span class="keyword">end</span>
+0107 <span class="keyword">else</span>
+0108    msg = [<span class="string">'Expected and actual are equal'</span> tolerance_msg <span class="string">'.'</span>];
+0109 <span class="keyword">end</span>
+0110 
+0111 <span class="comment">% fail if pass on equal requested, but is not equal</span>
+0112 <span class="comment">% fail if fail on equal requested, and is equal</span>
+0113 <span class="comment">% else, pass quietly</span>
+0114 <span class="keyword">if</span> xor(pass_if_equal, equals)
+0115    mlunit_fail(msg);
+0116 <span class="keyword">end</span>
+0117 
 0118 
-0119 
-0120 <a name="_sub1" href="#_subfunctions" class="code">function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)</a>
-0121 
-0122     assert(nargin == 2);
-0123     
-0124     first_n_items = 3;
-0125 
-0126     msgs = cell(size(struct_diffs));
-0127     <span class="keyword">for</span> sd = 1:numel(struct_diffs)
-0128         
-0129         <span class="comment">% truncate output after first n differences</span>
-0130         <span class="keyword">if</span> sd &gt; first_n_items
-0131             msgs{sd} = <span class="string">'... more differences detected, but not displayed.'</span>;
-0132             <span class="keyword">break</span>;
-0133         
-0134         <span class="comment">% message for differing field values on both sides</span>
-0135         <span class="keyword">elseif</span> isempty(struct_diffs(sd).missingin)
-0136             msgs{sd} = sprintf(<span class="string">'Data not equal at position %s%s:\n  %-9s: %s\n  %-9s: %s'</span>, <span class="keyword">...</span>
-0137                 struct_diffs(sd).fieldpath, <span class="keyword">...</span>
-0138                 tolerance_msg, <span class="keyword">...</span>
-0139                 <span class="string">'Expected'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(struct_diffs(sd).expected), <span class="keyword">...</span>
-0140                 <span class="string">'Actual'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(struct_diffs(sd).actual));
-0141         
-0142         <span class="comment">% message for field missing on one side</span>
-0143         <span class="keyword">else</span>
-0144             msgs{sd} = sprintf(<span class="string">'Field %s missing in %s.'</span>, <span class="keyword">...</span>
-0145                 struct_diffs(sd).fieldpath, <span class="keyword">...</span>
-0146                 struct_diffs(sd).missingin);
-0147         <span class="keyword">end</span>
-0148     <span class="keyword">end</span>
-0149     
-0150     <span class="comment">% prevent preallocated empty items from being joined into the message string</span>
-0151     msgs(sd+1:end) = [];
-0152     
-0153     msg = <a href="strjoin.html" class="code" title="function result = strjoin(stringcell, separator)">strjoin</a>(msgs, sprintf(<span class="string">'\n'</span>));</pre></div>
-<hr><address>Generated on Thu 08-Jan-2015 14:45:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0119 <a name="_sub1" href="#_subfunctions" class="code">function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)</a>
+0120 
+0121     error(nargchk(2, 2, nargin, <span class="string">'struct'</span>));
+0122     
+0123     first_n_items = 3;
+0124 
+0125     msgs = cell(size(struct_diffs));
+0126     <span class="keyword">for</span> sd = 1:numel(struct_diffs)
+0127         
+0128         <span class="comment">% truncate output after first n differences</span>
+0129         <span class="keyword">if</span> sd &gt; first_n_items
+0130             msgs{sd} = <span class="string">'... more differences detected, but not displayed.'</span>;
+0131             <span class="keyword">break</span>;
+0132         
+0133         <span class="comment">% message for differing field values on both sides</span>
+0134         <span class="keyword">elseif</span> isempty(struct_diffs(sd).missingin)
+0135             msgs{sd} = <a href="#_sub2" class="code" title="subfunction msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)">loc_construct_diff_message</a>(struct_diffs(sd).expected, struct_diffs(sd).actual, struct_diffs(sd).fieldpath, tolerance_msg);
+0136         
+0137         <span class="comment">% message for field missing on one side</span>
+0138         <span class="keyword">else</span>
+0139             msgs{sd} = sprintf(<span class="string">'Field %s missing in %s.'</span>, <span class="keyword">...</span>
+0140                 struct_diffs(sd).fieldpath, <span class="keyword">...</span>
+0141                 struct_diffs(sd).missingin);
+0142         <span class="keyword">end</span>
+0143     <span class="keyword">end</span>
+0144     
+0145     <span class="comment">% prevent preallocated empty items from being joined into the message string</span>
+0146     msgs(sd+1:end) = [];
+0147     
+0148     msg = mlunit_strjoin(msgs, sprintf(<span class="string">'\n'</span>));
+0149 
+0150     
+0151 <a name="_sub2" href="#_subfunctions" class="code">function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)</a>
+0152 
+0153     error(nargchk(2, 4, nargin, <span class="string">'struct'</span>));
+0154     
+0155     <span class="keyword">if</span> nargin &lt; 3, position_info = <span class="string">''</span>; <span class="keyword">end</span>
+0156     <span class="keyword">if</span> nargin &lt; 4, tolerance_msg = <span class="string">''</span>; <span class="keyword">end</span>
+0157     
+0158     position_msg = <span class="string">''</span>;
+0159     <span class="keyword">if</span> ~isempty(position_info)
+0160         position_msg = [<span class="string">' at position '</span> position_info];
+0161     <span class="keyword">end</span>
+0162     
+0163     change_msg = <span class="string">''</span>;
+0164     <span class="comment">% append difference markers for string comparisons</span>
+0165     <span class="keyword">if</span> ischar(expected) &amp;&amp; ischar(actual)
+0166         change_msg = sprintf(<span class="string">'\n  %-9s:  %s'</span>, <span class="string">'Changes'</span>, <a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>(expected, actual));
+0167     <span class="comment">% or for cell arrays containing single strings; adjust spaces for additional</span>
+0168     <span class="comment">% opening cell parenthesis ({)</span>
+0169     <span class="keyword">elseif</span> iscellstr(expected) &amp;&amp; iscellstr(actual) &amp;&amp; numel(expected)*numel(actual)==1
+0170         change_msg = sprintf(<span class="string">'\n  %-9s:   %s'</span>, <span class="string">'Changes'</span>, <a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>(expected{1}, actual{1}));
+0171     <span class="keyword">end</span>
+0172 
+0173     msg = sprintf(<span class="string">'Data not equal%s%s:\n  %-9s: %s\n  %-9s: %s%s'</span>, <span class="keyword">...</span>
+0174         position_msg, <span class="keyword">...</span>
+0175         tolerance_msg, <span class="keyword">...</span>
+0176         <span class="string">'Expected'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(expected), <span class="keyword">...</span>
+0177         <span class="string">'Actual'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(actual), <span class="keyword">...</span>
+0178         change_msg);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

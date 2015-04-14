@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mlunit_progress_listener</title>
+  <meta name="keywords" content="mlunit_progress_listener">
+  <meta name="description" content="Abstract base class for progress listener implementations.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_progress_listener</a> &gt; mlunit_progress_listener.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_progress_listener&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>mlunit_progress_listener
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Abstract base class for progress listener implementations.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = mlunit_progress_listener() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Abstract base class for progress listener implementations.
+  Provided as class in order to force implementations into providing
+  specific methods.
+  Each progress listener must implement two methods:
+    - init_results
+    - next_result
+
+  See also <a href="init_results.html" class="code" title="function self = init_results(self, num_results)">init_results</a>, <a href="next_result.html" class="code" title="function self = next_result(self, result)">next_result</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Abstract base class for progress listener implementations.</span>
+0002 <span class="comment">%  Provided as class in order to force implementations into providing</span>
+0003 <span class="comment">%  specific methods.</span>
+0004 <span class="comment">%  Each progress listener must implement two methods:</span>
+0005 <span class="comment">%    - init_results</span>
+0006 <span class="comment">%    - next_result</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  See also init_results, next_result</span>
+0009 
+0010 <span class="comment">%  This Software and all associated files are released unter the</span>
+0011 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  $Id$</span>
+0014 
+0015 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_progress_listener()</a>
+0016 
+0017 <span class="comment">% create instance</span>
+0018 self = class(struct(), <span class="string">'mlunit_progress_listener'</span>);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
