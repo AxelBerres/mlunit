@@ -18,7 +18,7 @@ function test_numeric_false_without_message
 failed = true;
 try
     assert_true(0);
-	failed = false;
+    failed = false;
 catch
 end;
 assert_true(failed, 'assert_true(0) fails to fail.');
@@ -29,7 +29,7 @@ function test_logical_false_without_message
 failed = true;
 try
     assert_true(false);
-	failed = false;
+    failed = false;
 catch
 end;
 assert_true(failed, 'assert_true(false) fails to fail.');

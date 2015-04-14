@@ -1,4 +1,4 @@
-function test = test_assert_matfile_equalsShould	
+function test = test_assert_matfile_equalsShould
    test = load_tests_from_mfile(test_loader);
    
 function set_up
