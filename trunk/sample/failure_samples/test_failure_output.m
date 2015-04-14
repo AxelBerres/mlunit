@@ -57,8 +57,8 @@ function test_equals_string
     
 function test_equals_scalar_cellstring
 
-    assert_equals('foo', 'foo');
-    assert_equals('foo', 'fOO');
+    assert_equals({'foo'}, {'foo'});
+    assert_equals({'foo'}, {'fOO'});
 
 function test_equals_cell
 
