@@ -1,0 +1,278 @@
+
+----------------------------------------------------------------------
+mlUnit 1.6.8-SNAPSHOT
+Started: 2015-04-14 12:11:02.
+Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
+----------------------------------------------------------------------
+
+Running suite test_error_output
+
+  test_special_characters ERROR:
+    This some special characters: !"§$%&/()=?. Enjoy.
+    In test_error_output.m at line 7
+    In run_test.m at line 21
+    In run_test.m at line 50
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+  test_unknown_function ERROR:
+    Undefined function or variable 'do_you_know_this'.
+    In test_error_output.m at line 11
+    In run_test.m at line 21
+    In run_test.m at line 50
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+  test_invalid_usage ERROR:
+    Input argument "name" is undefined.
+    In fileparts.m at line 16
+    In test_error_output.m at line 15
+    In run_test.m at line 21
+    In run_test.m at line 50
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+  test_syntax_error_ifend ERROR:
+    Illegal use of reserved keyword "end".
+    In sample_syntax_error_ifend.m at line 3
+    In test_error_output.m at line 19
+    In run_test.m at line 21
+    In run_test.m at line 50
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+  test_syntax_error_paren ERROR:
+    Unbalanced or unexpected parenthesis or bracket.
+    In sample_syntax_error_paren.m at line 3
+    In test_error_output.m at line 23
+    In run_test.m at line 21
+    In run_test.m at line 50
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+Running suite test_errorfail_output
+
+  test_success ERROR:
+    Error in tear_down fixture:
+    Undefined function or variable 'unknown_function_call'.
+    In test_errorfail_output.m at line 13
+    In tear_down.m at line 21
+    In run_test.m at line 73
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+  test_success FAIL:
+    (no message available)
+    In test_errorfail_output.m at line 9
+
+Running suite test_failure_output
+
+  test_empty FAIL:
+    (no message available)
+    In test_failure_output.m at line 13
+
+  test_not_empty FAIL:
+    (no message available)
+    In test_failure_output.m at line 18
+
+  test_false FAIL:
+    (no message available)
+    In test_failure_output.m at line 23
+
+  test_true FAIL:
+    (no message available)
+    In test_failure_output.m at line 28
+
+  test_fail FAIL:
+    This some custom fail message
+    In test_failure_output.m at line 32
+
+  test_equals FAIL:
+    Data not equal:
+      Expected : 3
+      Actual   : 4
+    In test_failure_output.m at line 37
+
+  test_equals_array FAIL:
+    Data not equal:
+      Expected : [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
+      Actual   : [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15]
+    In test_failure_output.m at line 43
+
+  test_equals_arraymatrix FAIL:
+    Data not equal:
+      Expected : [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16]
+      Actual   : [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16]
+    In test_failure_output.m at line 51
+
+  test_equals_string FAIL:
+    Data not equal:
+      Expected : 'foo'
+      Actual   : 'fOO'
+      Changes  :   ^^
+    In test_failure_output.m at line 56
+
+  test_equals_scalar_cellstring FAIL:
+    Data not equal:
+      Expected : {'foo'}
+      Actual   : {'fOO'}
+      Changes  :    ^^
+    In test_failure_output.m at line 61
+
+  test_equals_cell FAIL:
+    Data not equal:
+      Expected : {3, 'foo'}
+      Actual   : {3, 'fOo'}
+    In test_failure_output.m at line 68
+
+  test_equals_struct FAIL:
+    Data not equal at position .foo:
+      Expected : {'hi', 'ho'}
+      Actual   : {'ho', 'hi'}
+    In test_failure_output.m at line 76
+
+  test_equals_string_struct FAIL:
+    Data not equal at position .foo:
+      Expected : 'you say \to-'mah-(,)to'
+      Actual   : 'you say \to-'mey-(,)to'
+      Changes  :                ^^
+    In test_failure_output.m at line 86
+
+  test_equals_scalar_cellstring_struct FAIL:
+    Data not equal at position .foo:
+      Expected : {'you say \to-'mah-(,)to'}
+      Actual   : {'you say \to-'mey-(,)to'}
+      Changes  :                 ^^
+    In test_failure_output.m at line 96
+
+  test_equals_nested_struct FAIL:
+    Data not equal at position .tee.foo:
+      Expected : {'hi', 'ho'}
+      Actual   : {'ho', 'hi'}
+    In test_failure_output.m at line 105
+
+  test_equals_nested_struct_multiple_differences FAIL:
+    Data not equal at position .tee.bar:
+      Expected : [3 4]
+      Actual   : [3 5]
+    Data not equal at position .tee.foo:
+      Expected : {'hi', 'ho'}
+      Actual   : {'ho', 'hi'}
+    In test_failure_output.m at line 115
+
+  test_equals_nested_struct_many_differences FAIL:
+    Data not equal at position .bar:
+      Expected : [3 4]
+      Actual   : [3 5]
+    Data not equal at position .foo:
+      Expected : {'hi', 'ho'}
+      Actual   : 42
+    Data not equal at position .tee.bar:
+      Expected : [3 4]
+      Actual   : [3 5]
+    ... more differences detected, but not displayed.
+    In test_failure_output.m at line 127
+
+  test_equals_structarray FAIL:
+    Data not equal:
+      Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
+      Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
+    In test_failure_output.m at line 135
+
+  test_equals_object FAIL:
+    Data not equal:
+      Expected : Time Series Object: unnamed
+    
+    Time vector characteristics
+    
+          Length                12
+          Start time            0 seconds
+          End time              11 seconds
+    
+    Data characteristics
+    
+          Interpolation method  linear
+          Size                  [1   1  12]
+          Data type             double
+      Actual   : Time Series Object: unnamed
+    
+    Time vector characteristics
+    
+          Length                12
+          Start time            0 seconds
+          End time              11 seconds
+    
+    Data characteristics
+    
+          Interpolation method  linear
+          Size                  [1   1  12]
+          Data type             double
+    In test_failure_output.m at line 145
+
+  test_equals_handle FAIL:
+    Data not equal:
+      Expected : 0
+      Actual   : 1
+    In test_failure_output.m at line 160
+
+  test_equals_functionhandle FAIL:
+    Data not equal:
+      Expected : @(x)x*x+x
+      Actual   : @(x)x+x*x
+    In test_failure_output.m at line 176
+
+  test_equals_javaobject FAIL:
+    Data not equal:
+      Expected : hiho
+      Actual   : hiHo
+    In test_failure_output.m at line 182
+
+  test_not_equals FAIL:
+    Expected and actual are equal.
+    In test_failure_output.m at line 187
+
+  test_error FAIL:
+    Error expected, but none occurred.
+    In test_failure_output.m at line 192
+
+  test_typed_error FAIL:
+    Error expected, but none occurred.
+    In test_failure_output.m at line 197
+
+  test_wrong_typed_error FAIL:
+    Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
+    In test_failure_output.m at line 201
+
+  test_warning FAIL:
+    No warning MATLAB:rmpath:DirNotFound when executing function @()3.
+    In test_failure_output.m at line 207
+
+  test_implementation_fault ERROR:
+    Undefined function or variable 'unknown_function_call'.
+    In test_failure_output.m at line 211
+    In run_test.m at line 21
+    In run_test.m at line 50
+    In run_suite.m at line 63
+    In recursive_test_run.m at line 77
+    In recursive_test_run.m at line 42
+
+  test_nested_functions FAIL:
+    Nested function test.
+    In test_failure_output.m at line 219
+    In test_failure_output.m at line 215
+
+Running suite test_success_output
+
+----------------------------------------------------------------------
+Executed 36 tests across 4 suites in 0.85s
+
+29 tests FAILED
+7 tests had ERRORS
+======================================================================
+

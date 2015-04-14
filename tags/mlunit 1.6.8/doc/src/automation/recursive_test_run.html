@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of recursive_test_run</title>
+  <meta name="keywords" content="recursive_test_run">
+  <meta name="description" content="RECURSIVE_TEST_RUN Execute all test script files of a folder and all its">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">automation</a> &gt; recursive_test_run.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\automation&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>recursive_test_run
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>RECURSIVE_TEST_RUN Execute all test script files of a folder and all its</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function recursive_test_run(basedir, targetdir) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">RECURSIVE_TEST_RUN Execute all test script files of a folder and all its
+subfolders recursively.
+  RECURSIVE_TEST_RUN(BASEDIR) executes all test scripts found in BASEDIR
+  and its sub directories. Reports and log files will go into BASEDIR.
+
+  RECURSIVE_TEST_RUN(BASEDIR, TARGETDIR) does the same, but lets reports
+  and logs be created in the TARGETDIR directory instead of the BASEDIR.
+
+  See also mlunit_gui, mlunit_suite_runner</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function suiteresult = runTestsuite(suite_runner, suitespec)</a></li><li><a href="#_sub2" class="code">function suiteresult = build_suiteresult(results, time, suitespec)</a></li><li><a href="#_sub3" class="code">function name = packageFromRelativeDir(reldir, testname)</a></li><li><a href="#_sub4" class="code">function report = printHeader(basedir)</a></li><li><a href="#_sub5" class="code">function name = strip_classprefix(name)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function recursive_test_run(basedir, targetdir)</a>
+0002 <span class="comment">%RECURSIVE_TEST_RUN Execute all test script files of a folder and all its</span>
+0003 <span class="comment">%subfolders recursively.</span>
+0004 <span class="comment">%  RECURSIVE_TEST_RUN(BASEDIR) executes all test scripts found in BASEDIR</span>
+0005 <span class="comment">%  and its sub directories. Reports and log files will go into BASEDIR.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  RECURSIVE_TEST_RUN(BASEDIR, TARGETDIR) does the same, but lets reports</span>
+0008 <span class="comment">%  and logs be created in the TARGETDIR directory instead of the BASEDIR.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  See also mlunit_gui, mlunit_suite_runner</span>
+0011 
+0012 <span class="comment">%  This Software and all associated files are released unter the</span>
+0013 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  $Id$</span>
+0016    
+0017    <span class="keyword">if</span> nargin &lt; 1, basedir = pwd; <span class="keyword">end</span>
+0018    <span class="keyword">if</span> nargin &lt; 2, targetdir = basedir; <span class="keyword">end</span>
+0019 
+0020    <span class="comment">% start time for calculating execution time</span>
+0021    start_time = clock;
+0022    
+0023    <span class="comment">% buffer current environment state</span>
+0024    previous_environment = mlunit_environment();
+0025 
+0026    <span class="comment">% print header</span>
+0027    disp(<a href="#_sub4" class="code" title="subfunction report = printHeader(basedir)">printHeader</a>(basedir));
+0028    
+0029    <span class="comment">% Get test files. They may be in basedir or its subdirectories.</span>
+0030    suitespecs = getNestedTestFiles(basedir);
+0031    
+0032    suite_runner = mlunit_suite_runner;
+0033    listener = mlunit_progress_listener_console;
+0034    suite_runner = add_listener(suite_runner, listener);
+0035 
+0036    <span class="comment">% Execute each test suite file.</span>
+0037    count_suites = numel(suitespecs);
+0038    suiteresults = cell(size(suitespecs));
+0039    init_suites(listener, count_suites);
+0040    <span class="keyword">for</span> suite=1:count_suites
+0041       next_suite(listener, suitespecs{suite}.testname);
+0042       suiteresult = <a href="#_sub1" class="code" title="subfunction suiteresult = runTestsuite(suite_runner, suitespec)">runTestsuite</a>(suite_runner, suitespecs{suite});
+0043       suiteresults{suite} = suiteresult;
+0044       writeXmlTestsuite(suiteresult, targetdir);
+0045    <span class="keyword">end</span>
+0046 
+0047    <span class="comment">% restore previous environment state</span>
+0048    mlunit_environment(previous_environment);
+0049    
+0050    <span class="comment">% print summary</span>
+0051    execution_time = etime(clock, start_time);
+0052    disp(printSummary(suiteresults, execution_time));
+0053    
+0054 
+0055 <span class="comment">% Run test suite, collect suite and test case attributes and return them.</span>
+0056 <span class="comment">% suiteresult is a cell array of structures. Each structure contains:</span>
+0057 <span class="comment">%  name           the package name of the test suite</span>
+0058 <span class="comment">%  errors         the number of errors</span>
+0059 <span class="comment">%  failures       the number of failures</span>
+0060 <span class="comment">%  tests          the number of executed tests</span>
+0061 <span class="comment">%  time           the time used for executing the tests</span>
+0062 <span class="comment">%  testcaseList   a list of all testcases with specific information</span>
+0063 <span class="comment">%     .name       the test case name</span>
+0064 <span class="comment">%     .classname  the name of the class/package, constructed from the</span>
+0065 <span class="comment">%                 relative path name and the test suite file name</span>
+0066 <span class="comment">%     .error      a description of its error. [] if no error.</span>
+0067 <span class="comment">%     .failure    a description of its failure. [] if no failure.</span>
+0068 <span class="comment">%     .time       the time used in seconds</span>
+0069 <a name="_sub1" href="#_subfunctions" class="code">function suiteresult = runTestsuite(suite_runner, suitespec)</a>
+0070 
+0071    <span class="comment">% Change to test suite directory. This is for executing the test suite</span>
+0072    <span class="comment">% in order to access its functions.</span>
+0073    prevpwd = cd(suitespec.fulldir);
+0074 
+0075    <span class="comment">% we can create a new mlunit_suite_runner object here,</span>
+0076    <span class="comment">% because we do not need its internal state here</span>
+0077    [results, time] = run_suite(suite_runner, <a href="#_sub5" class="code" title="subfunction name = strip_classprefix(name)">strip_classprefix</a>(suitespec.testname));
+0078 
+0079    <span class="comment">% Restore previous working directory</span>
+0080    cd(prevpwd);
+0081 
+0082    suiteresult = <a href="#_sub2" class="code" title="subfunction suiteresult = build_suiteresult(results, time, suitespec)">build_suiteresult</a>(results, time, suitespec);
+0083    
+0084    
+0085 <span class="comment">% The results arguments is a struct array with each element representing a test</span>
+0086 <span class="comment">% case, and with fields:</span>
+0087 <span class="comment">%   - name    : string, the test case name</span>
+0088 <span class="comment">%   - errors  : struct array, all errors that occurred during execution, each</span>
+0089 <span class="comment">%               a struct in itself with fields message and stack,</span>
+0090 <span class="comment">%               0x0 struct with these fields, if no errors occurred</span>
+0091 <span class="comment">%   - failure : string, the failure message, empty, if no failure occurred</span>
+0092 <span class="comment">%   - time    : double, the execution time in seconds</span>
+0093 <a name="_sub2" href="#_subfunctions" class="code">function suiteresult = build_suiteresult(results, time, suitespec)</a>
+0094 
+0095    suiteresult = struct();
+0096    suiteresult.time = time;
+0097    suiteresult.name = <a href="#_sub3" class="code" title="subfunction name = packageFromRelativeDir(reldir, testname)">packageFromRelativeDir</a>(suitespec.reldir, suitespec.testname);
+0098    suiteresult.errors = mlunit_num_suite_errors(results);
+0099    suiteresult.failures = mlunit_num_suite_failures(results);
+0100    suiteresult.tests = numel(results);
+0101    
+0102    <span class="comment">% iterate list of test cases in suite</span>
+0103    suiteresult.testcaseList = cell(size(results));
+0104    <span class="keyword">for</span> t = 1:numel(results)
+0105       testcase = struct();
+0106       testcase.name = results(t).name;
+0107       testcase.classname = suiteresult.name;
+0108       testcase.time = results(t).time;
+0109       msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, <span class="string">'UniformOutput'</span>, false);
+0110       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf(<span class="string">'\n'</span>));
+0111       testcase.failure = results(t).failure;
+0112       
+0113       <span class="comment">% save into list of testcases results</span>
+0114       suiteresult.testcaseList{t} = testcase;
+0115    <span class="keyword">end</span>
+0116    
+0117    
+0118 <span class="comment">%% Construct package name from relative dir and testname</span>
+0119 <a name="_sub3" href="#_subfunctions" class="code">function name = packageFromRelativeDir(reldir, testname)</a>
+0120 
+0121    <span class="comment">% start from relative dir name</span>
+0122    name = reldir;
+0123    
+0124    <span class="comment">% convert dir separators to dots</span>
+0125    name = strrep(name, <span class="string">'\'</span>, <span class="string">'.'</span>);
+0126    name = strrep(name, <span class="string">'/'</span>, <span class="string">'.'</span>);
+0127    
+0128    <span class="comment">% chomp leading and dangling dots</span>
+0129    <span class="keyword">while</span> ~isempty(name) &amp;&amp; strncmp(<span class="string">'.'</span>, name, 1), name(1) = []; <span class="keyword">end</span>
+0130    <span class="keyword">while</span> ~isempty(name) &amp;&amp; strcmp(<span class="string">'.'</span>, name(end)), name(end) = []; <span class="keyword">end</span>
+0131    
+0132    <span class="comment">% append testname</span>
+0133    <span class="keyword">if</span> isempty(name)
+0134       name = testname;
+0135    <span class="keyword">else</span>
+0136       name = [name <span class="string">'.'</span> testname];
+0137    <span class="keyword">end</span>
+0138    
+0139 
+0140 <a name="_sub4" href="#_subfunctions" class="code">function report = printHeader(basedir)</a>
+0141 
+0142     <span class="comment">% start with gap to any previous output</span>
+0143     report = sprintf(<span class="string">'\n'</span>);
+0144     report = [report sprintf(<span class="string">'----------------------------------------------------------------------\n'</span>)];
+0145     report = [report sprintf(<span class="string">'mlUnit %s\n'</span>, ver(mlunit, true))];
+0146     report = [report sprintf(<span class="string">'Started: %s.\n'</span>, datestr(now, <span class="string">'yyyy-mm-dd HH:MM:SS'</span>))];
+0147     report = [report sprintf(<span class="string">'Test directory: %s\n'</span>, basedir)];
+0148     report = [report sprintf(<span class="string">'----------------------------------------------------------------------\n'</span>)];
+0149 
+0150 
+0151 <a name="_sub5" href="#_subfunctions" class="code">function name = strip_classprefix(name)</a>
+0152 
+0153     <span class="keyword">if</span> ~isempty(name) &amp;&amp; (<span class="string">'@'</span> == name(1))
+0154         name = name(2:end);
+0155     <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

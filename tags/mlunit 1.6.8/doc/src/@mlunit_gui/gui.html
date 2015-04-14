@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of gui</title>
+  <meta name="keywords" content="gui">
+  <meta name="description" content="mlunit_gui/gui execute the graphical user interface of mlUnit.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_gui</a> &gt; gui.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_gui&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>gui
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>mlunit_gui/gui execute the graphical user interface of mlUnit.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function varargout = gui(object, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">mlunit_gui/gui execute the graphical user interface of mlUnit.
+  The graphical user interface is realized with guide and therefore
+  a file gui.fig exists containing the figure and all the handles.
+
+  Example
+  =======
+  Start the mlunit_gui:
+         gui(mlunit_gui);
+
+  See also GUI_TEST_RESULT, <a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>	mlunit_gui/get_line_expression returns the regular expression a line</li><li><a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>	mlunit_gui/get_object returns the singleton object of the gui window.</li><li><a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li><li><a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>	mlunit_gui contructor.</li><li><a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>	mlunit_gui/set_shorten shortens the directory paths of</li><li><a href="str.html" class="code" title="function s = str(self)">str</a>	mlunit_gui/str return a string with the class name.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li><li><a href="run.html" class="code" title="function self = run(self, test, dock, shorten)">run</a>	mlunit_gui/run is an alternative method to execute the graphical</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function gui_openingfcn(hobject, eventdata, handles, varargin)</a></li><li><a href="#_sub2" class="code">function varargout = gui_outputfcn(hobject, eventdata, handles)</a></li><li><a href="#_sub3" class="code">function gui_resize_callback(hobject, eventdata, handles)</a></li><li><a href="#_sub4" class="code">function gui_test_case_callback(hobject, eventdata, handles)</a></li><li><a href="#_sub5" class="code">function gui_test_case_createfcn(hobject, eventdata, handles)</a></li><li><a href="#_sub6" class="code">function gui_run_callback(hobject, eventdata, handles)</a></li><li><a href="#_sub7" class="code">function gui_error_list_callback(hobject, eventdata, handles)</a></li><li><a href="#_sub8" class="code">function gui_error_list_createfcn(hobject, eventdata, handles)</a></li><li><a href="#_sub9" class="code">function gui_error_createfcn(hobject, eventdata, handles)</a></li><li><a href="#_sub10" class="code">function gui_dock_callback(hObject, eventdata, handles)</a></li><li><a href="#_sub11" class="code">function gui_shorten_callback(hObject, eventdata, handles)</a></li><li><a href="#_sub12" class="code">function gui_show_Callback(hObject, eventdata, handles)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function varargout = gui(object, varargin)</a>
+0002 <span class="comment">%mlunit_gui/gui execute the graphical user interface of mlUnit.</span>
+0003 <span class="comment">%  The graphical user interface is realized with guide and therefore</span>
+0004 <span class="comment">%  a file gui.fig exists containing the figure and all the handles.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  Example</span>
+0007 <span class="comment">%  =======</span>
+0008 <span class="comment">%  Start the mlunit_gui:</span>
+0009 <span class="comment">%         gui(mlunit_gui);</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%  See also GUI_TEST_RESULT, mlunit_gui.</span>
+0012 
+0013 <span class="comment">%  This Software and all associated files are released unter the</span>
+0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0017 <span class="comment">%  $Id$</span>
+0018 
+0019 <span class="keyword">global</span> self;
+0020 
+0021 <span class="keyword">if</span> ((object.callback ~= 1) &amp;&amp; (isempty(self) || (isempty(<a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>(self)))))
+0022     self = object;
+0023 <span class="keyword">elseif</span> ((object.callback == 1) &amp;&amp; (isempty(self)))
+0024     handles = guidata(gcbo);
+0025     <span class="keyword">try</span>
+0026         self = builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'UserData'</span>);
+0027     <span class="keyword">catch</span>
+0028     <span class="keyword">end</span>;
+0029 <span class="keyword">end</span>;
+0030 
+0031 gui_singleton = 1;
+0032 gui_state = struct(<span class="string">'gui_Name'</span>, mfilename, <span class="keyword">...</span>
+0033                    <span class="string">'gui_Singleton'</span>, gui_singleton, <span class="keyword">...</span>
+0034                    <span class="string">'gui_OpeningFcn'</span>, @<a href="#_sub1" class="code" title="subfunction gui_openingfcn(hobject, eventdata, handles, varargin) ">gui_openingfcn</a>, <span class="keyword">...</span>
+0035                    <span class="string">'gui_OutputFcn'</span>, @<a href="#_sub2" class="code" title="subfunction varargout = gui_outputfcn(hobject, eventdata, handles) ">gui_outputfcn</a>, <span class="keyword">...</span>
+0036                    <span class="string">'gui_LayoutFcn'</span>, [] , <span class="keyword">...</span>
+0037                    <span class="string">'gui_Callback'</span>, []);
+0038 <span class="keyword">if</span> ((nargin &gt; 1) &amp;&amp; (ischar(varargin{1})))
+0039     gui_state.gui_Callback = str2func(varargin{1});
+0040 <span class="keyword">end</span>
+0041 
+0042 <span class="keyword">if</span> nargout
+0043     [varargout{1:nargout}] = gui_mainfcn(gui_state, varargin{:});
+0044 <span class="keyword">else</span>
+0045     gui_mainfcn(gui_state, varargin{:});
+0046 <span class="keyword">end</span>
+0047 
+0048 <a name="_sub1" href="#_subfunctions" class="code">function gui_openingfcn(hobject, eventdata, handles, varargin) </a><span class="comment">%#ok</span>
+0049 
+0050 <span class="keyword">global</span> self;
+0051 
+0052 handles.output = hobject;
+0053 guidata(hobject, handles);
+0054 
+0055 self.handle = handles.gui_window;
+0056 self.handles = handles;
+0057 
+0058 set(handles.gui_progress_bar, <span class="string">'XTick'</span>, [], <span class="string">'XTickLabel'</span>, []);
+0059 set(handles.gui_progress_bar, <span class="string">'YTick'</span>, [], <span class="string">'YTickLabel'</span>, []);
+0060 
+0061 menu = uicontextmenu;
+0062 set(self.handle, <span class="string">'UIContextMenu'</span>, menu);
+0063 self.handles.menu_dock = uimenu(menu, <span class="string">'Label'</span>, <span class="string">'Dock Window'</span>, <span class="string">'Callback'</span>, <span class="keyword">...</span>
+0064     @(hobject, eventdata)<a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>(<a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>(1), <span class="string">'gui_dock_callback'</span>, hobject, [], handles));
+0065 self.handles.menu_shorten = uimenu(menu, <span class="string">'Label'</span>, <span class="string">'Short Directory Names'</span>, <span class="string">'Callback'</span>, <span class="keyword">...</span>
+0066     @(hobject, eventdata)<a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>(<a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>(1), <span class="string">'gui_shorten_callback'</span>, hobject, [], handles)); 
+0067 
+0068 <span class="keyword">if</span> (~isempty(self.dock) &amp;&amp; isnumeric(self.dock) &amp;&amp; self.dock)
+0069     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Docked'</span>);
+0070     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Undock Window'</span>);
+0071 <span class="keyword">end</span>;
+0072 
+0073 <span class="keyword">if</span> (~ischar(self.test_case))
+0074     <span class="keyword">try</span>
+0075         test_str = <a href="str.html" class="code" title="function s = str(self)">str</a>(self.test_case);
+0076     <span class="keyword">catch</span>
+0077         test_str = <span class="string">''</span>;
+0078     <span class="keyword">end</span>;
+0079 <span class="keyword">else</span>
+0080     test_str = self.test_case;
+0081 <span class="keyword">end</span>;
+0082 <span class="keyword">if</span> (ischar(test_str) &amp;&amp; ~isempty(test_str))
+0083     set(handles.gui_test_case, <span class="string">'String'</span>, test_str);
+0084     <a href="#_sub6" class="code" title="subfunction gui_run_callback(hobject, eventdata, handles) ">gui_run_callback</a>(hobject, eventdata, handles);
+0085     self.test_case = <span class="string">''</span>;
+0086 <span class="keyword">end</span>
+0087 
+0088 set(self.handle, <span class="string">'UserData'</span>, self);
+0089 
+0090 <a name="_sub2" href="#_subfunctions" class="code">function varargout = gui_outputfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0091 
+0092 varargout{1} = handles.output;
+0093 
+0094 <a name="_sub3" href="#_subfunctions" class="code">function gui_resize_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0095 
+0096 <span class="comment">% Since R2008b, MATLAB occasionally calls gui_resize_callback very early,</span>
+0097 <span class="comment">% presumably to get or update some position values, maybe to obtain a default</span>
+0098 <span class="comment">% size/position for the window, resulting in a callback invocation</span>
+0099 <span class="comment">% with empty eventdata and empty handles. Don't really know, how to handle this. Let's</span>
+0100 <span class="comment">% just not set the positions in that case.</span>
+0101 <span class="keyword">if</span> nargin&gt;=3 &amp;&amp; ~isempty(handles)
+0102    position = builtin(<span class="string">'get'</span>, hobject, <span class="string">'Position'</span>);
+0103    <span class="keyword">if</span> (position(4) &lt; 20)
+0104        position(4) = 20;
+0105    <span class="keyword">end</span>;
+0106    <span class="keyword">if</span> (position(3) &lt; 50)
+0107        position(3) = 50;
+0108    <span class="keyword">end</span>;
+0109 
+0110    space = position(4) - 30.0;
+0111 
+0112    set(handles.gui_text_name, <span class="string">'Position'</span>, [2.5 position(4) - 2.5 20.0 1]);
+0113    set(handles.gui_test_case, <span class="string">'Position'</span>, [2.5 position(4) - 4.5 position(3) - 15 1.6]);
+0114    set(handles.gui_run, <span class="string">'Position'</span>, [position(3) - 12.5 position(4) - 4.5 10.0 1.6]);
+0115    set(handles.gui_show, <span class="string">'Position'</span>, [position(3) - 12.5 position(4) - 28.8 - space 10.0 1.6]);
+0116    set(handles.gui_progress_bar, <span class="string">'Position'</span>, [2.5 position(4) - 7.5 position(3) - 5.0 1.6]);
+0117    set(handles.gui_text_runs, <span class="string">'Position'</span>, [2.5 position(4) - 9.5 40.0 1]);
+0118    set(handles.gui_text_error_list, <span class="string">'Position'</span>, [2.5 position(4) - 12 20.0 1]);
+0119    set(handles.gui_error_list, <span class="string">'Position'</span>, [2.5 position(4) - 19.5 - space / 2 position(3) - 5.0 7 + space / 2]);
+0120    set(handles.gui_error, <span class="string">'Position'</span>, [2.5 position(4) - 27 - space position(3) - 5.0 7 + space / 2]);
+0121    set(handles.gui_text_time, <span class="string">'Position'</span>, [2.5 1.0 48.0 1]);
+0122 <span class="keyword">end</span>
+0123 
+0124 <a name="_sub4" href="#_subfunctions" class="code">function gui_test_case_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0125 
+0126 <span class="keyword">if</span> (double(builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'CurrentCharacter'</span>)) == 13)
+0127     <a href="#_sub6" class="code" title="subfunction gui_run_callback(hobject, eventdata, handles) ">gui_run_callback</a>(hobject, eventdata, handles);
+0128 <span class="keyword">end</span>;
+0129 
+0130 <a name="_sub5" href="#_subfunctions" class="code">function gui_test_case_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0131 
+0132 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0133     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+0134 <span class="keyword">end</span>
+0135 
+0136 
+0137 <span class="comment">% Called when the user hits the run button</span>
+0138 <a name="_sub6" href="#_subfunctions" class="code">function gui_run_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0139 
+0140 set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'off'</span>);
+0141 set(handles.gui_error, <span class="string">'String'</span>, <span class="string">''</span>);
+0142 set(handles.gui_error, <span class="string">'String'</span>, <span class="string">''</span>);
+0143 set(handles.gui_text_time, <span class="string">'String'</span>, <span class="string">''</span>);
+0144 test_case = builtin(<span class="string">'get'</span>, handles.gui_test_case, <span class="string">'String'</span>);
+0145 
+0146 suite_runner = mlunit_suite_runner;
+0147 <span class="comment">% constructor also resets the display</span>
+0148 listener = mlunit_progress_listener_gui(<span class="keyword">...</span>
+0149     handles.gui_progress_bar, <span class="keyword">...</span>
+0150     handles.gui_text_runs, <span class="keyword">...</span>
+0151     handles.gui_error_list);
+0152 suite_runner = add_listener(suite_runner, listener);
+0153 
+0154 <span class="comment">% disable html links in stack trace, because they won't display in an edit box</span>
+0155 prev_linktrace_state = mlunit_param(<span class="string">'linked_trace'</span>, false);
+0156 
+0157 time = 0;
+0158 <span class="keyword">try</span>
+0159     [results, time] = run_suite(suite_runner, test_case);
+0160 <span class="keyword">catch</span>
+0161     <span class="comment">% display meta error that prevented the suite to execute</span>
+0162     display_meta_error(listener, lasterror);
+0163 <span class="keyword">end</span>
+0164 
+0165 <span class="comment">% reset previous state</span>
+0166 mlunit_param(<span class="string">'linked_trace'</span>, prev_linktrace_state);
+0167 
+0168 <span class="comment">% display execution time</span>
+0169 set(handles.gui_text_time, <span class="string">'String'</span>, sprintf(<span class="string">'Finished: %.3fs.\n'</span>, time));
+0170 
+0171 <span class="comment">% pretend the user selected one of the errors in order to display something</span>
+0172 <a href="#_sub7" class="code" title="subfunction gui_error_list_callback(hobject, eventdata, handles) ">gui_error_list_callback</a>(handles.gui_error_list, eventdata, handles);
+0173 
+0174 
+0175 <span class="comment">% Called when the user selects an error in the list</span>
+0176 <a name="_sub7" href="#_subfunctions" class="code">function gui_error_list_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0177 
+0178 <span class="keyword">global</span> self;
+0179 
+0180 <span class="comment">% cell array of error messages</span>
+0181 data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
+0182 <span class="comment">% which item the user selected</span>
+0183 selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
+0184 
+0185 <span class="comment">% only proceed if we actually recorded errors</span>
+0186 <span class="keyword">if</span> ~isempty(data)
+0187     <span class="comment">% set appropriate error message from pool of available messages</span>
+0188     set(handles.gui_error, <span class="string">'String'</span>, <a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>(self, data{selected}));
+0189     
+0190     <span class="comment">% (de)activate the show button; function name and line go into its UserData</span>
+0191     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
+0192     <span class="keyword">if</span> (length(tokens) == 2)
+0193         set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'on'</span>);
+0194         set(handles.gui_show, <span class="string">'UserData'</span>, tokens);
+0195     <span class="keyword">else</span>
+0196         set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'off'</span>);
+0197     <span class="keyword">end</span>;
+0198 <span class="keyword">end</span>;
+0199 
+0200 <a name="_sub8" href="#_subfunctions" class="code">function gui_error_list_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0201 
+0202 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0203     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+0204 <span class="keyword">end</span>
+0205 
+0206 <a name="_sub9" href="#_subfunctions" class="code">function gui_error_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0207 
+0208 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0209     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+0210 <span class="keyword">end</span>
+0211 
+0212 <a name="_sub10" href="#_subfunctions" class="code">function gui_dock_callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
+0213 
+0214 <span class="keyword">global</span> self;
+0215 
+0216 docked = builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'WindowStyle'</span>);
+0217 <span class="keyword">if</span> (strcmp(docked, <span class="string">'docked'</span>))
+0218     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Normal'</span>);
+0219     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Dock Window'</span>);
+0220     self.dock = 0;
+0221 <span class="keyword">else</span>
+0222     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Docked'</span>);
+0223     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Undock Window'</span>);
+0224     self.dock = 1;
+0225 <span class="keyword">end</span>;
+0226 set(handles.gui_window, <span class="string">'UserData'</span>, self);
+0227 
+0228 <a name="_sub11" href="#_subfunctions" class="code">function gui_shorten_callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
+0229 
+0230 <span class="keyword">global</span> self;
+0231 
+0232 <span class="keyword">if</span> (self.shorten == 0)
+0233     self.shorten = 1;
+0234     set(self.handles.menu_shorten, <span class="string">'Label'</span>, <span class="string">'Long Directory Names'</span>);
+0235 <span class="keyword">else</span>
+0236     self.shorten = 0;
+0237     set(self.handles.menu_shorten, <span class="string">'Label'</span>, <span class="string">'Short Directory Names'</span>);
+0238 <span class="keyword">end</span>;
+0239 set(handles.gui_window, <span class="string">'UserData'</span>, self);
+0240 
+0241 <a href="#_sub7" class="code" title="subfunction gui_error_list_callback(hobject, eventdata, handles) ">gui_error_list_callback</a>(hObject, eventdata, self.handles);
+0242 
+0243 <a name="_sub12" href="#_subfunctions" class="code">function gui_show_Callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
+0244 
+0245 tokens = builtin(<span class="string">'get'</span>, hObject, <span class="string">'UserData'</span>);
+0246 <span class="keyword">if</span> ((length(tokens) == 3) &amp;&amp; (etime(clock, tokens{3}) &lt; 1))
+0247     data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
+0248     selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
+0249     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
+0250     <span class="keyword">if</span> (length(tokens) &gt; 1)
+0251         second = tokens{2};
+0252         opentoline(second{1},str2double(second{2}));
+0253     <span class="keyword">end</span>;
+0254 <span class="keyword">else</span>
+0255     opentoline(tokens{1},str2double(tokens{2}));
+0256     tokens{3} = clock;
+0257     set(hObject, <span class="string">'UserData'</span>, tokens);
+0258 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

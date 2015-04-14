@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of isclass</title>
+  <meta name="keywords" content="isclass">
+  <meta name="description" content="ISCLASS True for MATLAB objects">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; isclass.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>isclass
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>ISCLASS True for MATLAB objects</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function result = isclass(s) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">ISCLASS True for MATLAB objects
+  This is an isobject concurrent. Apparently, isobject returns false on some
+  objects, for example on Simulink.ModelWorkspace objects. isclass wants
+  to return true for these, too. Not for Java object, however, for which we
+  have isjava.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%ISCLASS True for MATLAB objects</span>
+0002 <span class="comment">%  This is an isobject concurrent. Apparently, isobject returns false on some</span>
+0003 <span class="comment">%  objects, for example on Simulink.ModelWorkspace objects. isclass wants</span>
+0004 <span class="comment">%  to return true for these, too. Not for Java object, however, for which we</span>
+0005 <span class="comment">%  have isjava.</span>
+0006 
+0007 <span class="comment">%  This Software and all associated files are released unter the</span>
+0008 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  $Id$</span>
+0011 <a name="_sub0" href="#_subfunctions" class="code">function result = isclass(s)</a>
+0012 
+0013 <span class="comment">% there is no meaningful way to test for a variable being a class instance</span>
+0014 <span class="comment">% therefore, exclude every other option</span>
+0015 <span class="comment">% Will report as class object any types future MATLAB releases may introduce.</span>
+0016 result = <span class="keyword">...</span>
+0017     ~isnumeric(s) &amp;&amp; <span class="keyword">...</span>
+0018     ~islogical(s) &amp;&amp; <span class="keyword">...</span>
+0019     ~ischar(s) &amp;&amp; <span class="keyword">...</span>
+0020     ~iscell(s) &amp;&amp; <span class="keyword">...</span>
+0021     ~isstruct(s) &amp;&amp; <span class="keyword">...</span>
+0022     ~isa(s, <span class="string">'function_handle'</span>) &amp;&amp; <span class="keyword">...</span>
+0023     ~isjava(s);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<project name="Execute samples" default="test-samples" basedir=".">
+  <description>
+    Execute mlUnit samples and generate jUnit xml files and a log file.
+  </description>
+
+  <!-- set local build properties -->
+  <property name="mlunit.dir" location=".."/>
+  <property name="sample.dir" location="${basedir}"/>
+  <property name="report.dir" location="${sample.dir}/reports"/>
+  
+  <!-- Directories that will be added recursively to the path. -->
+  <dirset id="source.dirs" dir="${mlunit.dir}" casesensitive="yes">
+    <include name="sample"/>
+  </dirset>
+
+  <!-- Handle build directory. -->
+  <target name="clean" description="clean report directory">
+    <delete dir="${report.dir}"/>
+  </target>
+
+  <target name="init" description="init report directory">
+    <mkdir dir="${report.dir}"/>
+  </target>
+  
+  <!-- Call the mlUnit task with overridden report.dir property.
+       Always succeed. -->
+  <target name="test-samples" depends="init" description="execute unit tests">
+    <subant antfile="build.xml" buildpath="${mlunit.dir}/src" failonerror="false">
+      <property name="test.dir" location="${sample.dir}"/>
+      <property name="report.dir" location="${report.dir}"/>
+      <reference refid="source.dirs"/>
+    </subant>
+  </target>
+</project>

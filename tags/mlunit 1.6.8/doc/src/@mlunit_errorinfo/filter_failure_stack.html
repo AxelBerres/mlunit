@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of filter_failure_stack</title>
+  <meta name="keywords" content="filter_failure_stack">
+  <meta name="description" content="Restrict a failure's stack to items relevant to the user.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_errorinfo</a> &gt; filter_failure_stack.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_errorinfo&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>filter_failure_stack
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Restrict a failure's stack to items relevant to the user.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function stack = filter_failure_stack(self, stack) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Restrict a failure's stack to items relevant to the user.
+  stack = filter_failure_stack(self, stack) takes a stack (that may already
+  have been changed from the internal mlunit_errorinfo stack) and omits
+  those items that are mlUnit internal calls. The remaining items are the ones
+  relevant to the user.
+
+  See is_failure, get_message_with_stack</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Restrict a failure's stack to items relevant to the user.</span>
+0002 <span class="comment">%  stack = filter_failure_stack(self, stack) takes a stack (that may already</span>
+0003 <span class="comment">%  have been changed from the internal mlunit_errorinfo stack) and omits</span>
+0004 <span class="comment">%  those items that are mlUnit internal calls. The remaining items are the ones</span>
+0005 <span class="comment">%  relevant to the user.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  See is_failure, get_message_with_stack</span>
+0008 
+0009 <span class="comment">%  This Software and all associated files are released unter the</span>
+0010 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%  $Id$</span>
+0013 
+0014 <a name="_sub0" href="#_subfunctions" class="code">function stack = filter_failure_stack(self, stack)</a>
+0015 
+0016 error(nargchk(2, 2, nargin, <span class="string">'struct'</span>));
+0017 
+0018 <span class="comment">% Return if empty, some of our calculations don't work on empty structs</span>
+0019 <span class="keyword">if</span> isempty(stack)
+0020     <span class="keyword">return</span>
+0021 <span class="keyword">end</span>
+0022 
+0023 <span class="comment">% Annotate stack items with extracted file name.</span>
+0024 <span class="comment">% The resulting stack.filename are</span>
+0025 <span class="comment">% the names of the files each function call occurred, stack.name are the</span>
+0026 <span class="comment">% names of each (sub)function, which we do not know or want to filter by.</span>
+0027 <span class="keyword">for</span> f=1:numel(stack)
+0028     [fpath fname] = fileparts(stack(f).file);
+0029     stack(f).filename = fname;
+0030 <span class="keyword">end</span>
+0031 
+0032 <span class="comment">% Pop all internal delegating assert calls from the stack. Assumes that we</span>
+0033 <span class="comment">% are getting called through a chain of files named assert_*, mlunit_fail,</span>
+0034 <span class="comment">% et al. Stop at the first item that is not on this list.</span>
+0035 <span class="comment">% The files are listed alphabetically in order to ease updating it.</span>
+0036 filtered_files = {<span class="string">'abstract_assert_equals'</span>, <span class="keyword">...</span>
+0037                   <span class="string">'assert_empty'</span>, <span class="keyword">...</span>
+0038                   <span class="string">'assert_equals'</span>, <span class="keyword">...</span>
+0039                   <span class="string">'assert_error'</span>, <span class="keyword">...</span>
+0040                   <span class="string">'assert_false'</span>, <span class="keyword">...</span>
+0041                   <span class="string">'assert_matfile_equals'</span>, <span class="keyword">...</span>
+0042                   <span class="string">'assert_not_empty'</span>, <span class="keyword">...</span>
+0043                   <span class="string">'assert_not_equals'</span>, <span class="keyword">...</span>
+0044                   <span class="string">'assert_true'</span>, <span class="keyword">...</span>
+0045                   <span class="string">'assert_warning'</span>, <span class="keyword">...</span>
+0046                   <span class="string">'mlunit_fail'</span>, <span class="keyword">...</span>
+0047                   };
+0048 <span class="keyword">while</span> ~isempty(stack) &amp;&amp; any(strcmpi(stack(1).filename, filtered_files))
+0049     stack(1)=[];
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="comment">% Pop all internal managing calls from the stack. These are at the back, i.e.</span>
+0053 <span class="comment">% higher in the call chain. For failures, these are of no interest and only</span>
+0054 <span class="comment">% muddle the output. Delete everything after the last/highest-up occurrence of</span>
+0055 <span class="comment">% the test file. Use the test file in order to account for test functions, but</span>
+0056 <span class="comment">% also tear_down and set_up.</span>
+0057 first_handler_idx = find(strcmp({stack.filename}, <span class="string">'run_test'</span>), 1, <span class="string">'first'</span>);
+0058 stack(first_handler_idx:end) = [];
+0059 
+0060 <span class="comment">% remove temporary filename field</span>
+0061 stack = rmfield(stack, <span class="string">'filename'</span>);</pre></div>
+<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
