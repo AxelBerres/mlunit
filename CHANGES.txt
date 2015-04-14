@@ -3,8 +3,8 @@
 =====================================
 
 
-mlUnit development snapshot
----------------------------
+mlUnit 1.6.8 (2015-04-14)
+-------------------------
 
   - mlUnit parameter changes in test of fixture functions will be reverted
     after each test's tear_down execution
