@@ -1,5 +1,5 @@
 %Load a given suite and execute all its tests.
-%  [RESULTS, TIME] = run_suite(SELF, NAME) executes all tests of the suite NAME.
+%  [RESULTS, TIME, SELF] = run_suite(SELF, NAME) executes all tests of the suite NAME.
 %  NAME is a string denoting a test suite, which must exist on the MATLAB
 %  path. SELF is an mlunit_suite_runner instance. If you want to have listeners
 %  be notified of test results during suite execution, call add_listeners()
@@ -22,7 +22,7 @@
 %  
 %  $Id$
 
-function [results, time] = run_suite(self, name)
+function [results, time, self] = run_suite(self, name)
 
 % reload test case file if modified in the same GUI session, e.g. during
 % debugging
@@ -52,10 +52,7 @@ end
 tests = get_tests(testsuite);
 num_tests = numel(tests);
 
-% inform progress listeners of impending test updates; keep self updated
-for lidx=1:numel(self.listeners)
-    self.listeners{lidx} = init_results(self.listeners{lidx}, num_tests);
-end
+self = notify_listeners(self, 'init_results', num_tests);
 
 % run each test of the suite; be sure to update the self state with each call
 results = cell(size(tests));

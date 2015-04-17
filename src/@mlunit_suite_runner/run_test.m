@@ -85,7 +85,4 @@ function [result, self, test] = run_test(self, test)
     result.failure = test_failure;
     result.time = etime(clock, start_time);
     
-    % update progress listeners with latest test result; keep self updated
-    for lidx=1:numel(self.listeners)
-        self.listeners{lidx} = next_result(self.listeners{lidx}, result);
-    end
+    self = notify_listeners(self, 'next_result', result);

@@ -1,8 +1,8 @@
 
 ----------------------------------------------------------------------
-mlUnit 1.6.8-SNAPSHOT
-Started: 2015-04-14 12:11:02.
-Test directory: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
+mlUnit 1.6.9-SNAPSHOT
+Started: 2015-04-14 22:35:33
+Test object: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
 Running suite test_error_output
@@ -12,18 +12,20 @@ Running suite test_error_output
     In test_error_output.m at line 7
     In run_test.m at line 21
     In run_test.m at line 50
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
   test_unknown_function ERROR:
     Undefined function or variable 'do_you_know_this'.
     In test_error_output.m at line 11
     In run_test.m at line 21
     In run_test.m at line 50
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
   test_invalid_usage ERROR:
     Input argument "name" is undefined.
@@ -31,9 +33,10 @@ Running suite test_error_output
     In test_error_output.m at line 15
     In run_test.m at line 21
     In run_test.m at line 50
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
   test_syntax_error_ifend ERROR:
     Illegal use of reserved keyword "end".
@@ -41,9 +44,10 @@ Running suite test_error_output
     In test_error_output.m at line 19
     In run_test.m at line 21
     In run_test.m at line 50
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
   test_syntax_error_paren ERROR:
     Unbalanced or unexpected parenthesis or bracket.
@@ -51,9 +55,10 @@ Running suite test_error_output
     In test_error_output.m at line 23
     In run_test.m at line 21
     In run_test.m at line 50
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
 Running suite test_errorfail_output
 
@@ -63,9 +68,10 @@ Running suite test_errorfail_output
     In test_errorfail_output.m at line 13
     In tear_down.m at line 21
     In run_test.m at line 73
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
   test_success FAIL:
     (no message available)
@@ -258,9 +264,10 @@ Running suite test_failure_output
     In test_failure_output.m at line 211
     In run_test.m at line 21
     In run_test.m at line 50
-    In run_suite.m at line 63
-    In recursive_test_run.m at line 77
-    In recursive_test_run.m at line 42
+    In run_suite.m at line 64
+    In run_suite_collection.m at line 80
+    In run_suite_collection.m at line 40
+    In recursive_test_run.m at line 22
 
   test_nested_functions FAIL:
     Nested function test.
@@ -270,7 +277,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 36 tests across 4 suites in 0.85s
+Executed 36 tests across 4 suites in 0.70s
 
 29 tests FAILED
 7 tests had ERRORS
