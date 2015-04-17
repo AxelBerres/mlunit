@@ -3,6 +3,17 @@
 =====================================
 
 
+mlUnit development snapshot
+---------------------------
+
+  - Further backend refactoring, merging diverged execution models:
+      + Added initialize_execution and finalize_execution listener methods
+      + Centralized execution of a test suite collection into
+        mlunit_suite_runner/run_suite_collection.m, separating only the choice
+        of listeners from former recursive_test_run implementation
+      + recursive_test_run kept for compatibility
+
+
 mlUnit 1.6.8 (2015-04-14)
 -------------------------
 
