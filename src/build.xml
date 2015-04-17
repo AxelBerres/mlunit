@@ -30,16 +30,25 @@
     - "mlunit.dir" The location of this mlUnit installation. May be left
         empty if you have set the useNativeBasedir attribute to true. Have you?
     - "report.dir" The location where the test reports and log files go to.
-    - "matlab.exec" The location of the matlab.bat of the MATLAB installation
-        to be run. If left empty, be sure that MATLAB is on your cmd shell's search
-        path or prepare for Java stack traces coming your way.
+    - "matlab.root" installation directory of the MATLAB to be run.
+        If not defined, be sure that MATLAB is on your cmd shell's search path.
+        Optional. If neither matlab.root nor matlab.exec is used, the first
+        MATLAB executable on the system path is used.
+    - "matlab.exec" MATLAB core executable, e.g. matlabroot/bin/win32/MATLAB.exe.
+        Take care to not reference a delegate executable, e.g. bin/MATLAB.exe or
+        even matlab.bat! If unsure, use the matlab.root property instead.
+        Optional. See matlab.root.
     - "additional.cmd" Any MATLAB command you wish to execute just before mlUnit
         execution.
 
   For testing mlUnit, call Ant with this very build script and provide just the
-  matlab.exec property, like this:
+  matlab.root property, like this:
 
-    - ant -Dmatlab.exec="C:\Program Files\MATLAB\R2007b\bin\matlab.bat"
+    >> ant -Dmatlab.root="C:\Program Files\MATLAB\R2007b"
+
+  Or even try the MATLAB on the system path, like this:
+
+    >> ant
   </description>
     
   <!-- Pull in MATLAB executor -->

@@ -6,6 +6,12 @@
 mlUnit development snapshot
 ---------------------------
 
+  
+  - Remove deprecate Ant code handling for matlab.bat or delegate matlab.exe
+  - Add matlab.root Ant property for easier MATLAB referencing
+  - Reliably fetch MATLAB executable from the system path if neither matlab.root
+    nor matlab.exec given.
+
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods
       + Centralized execution of a test suite collection into
