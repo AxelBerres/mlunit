@@ -81,16 +81,20 @@ Ant automation
 You may skip all of the above steps, even preparation, and execute
 your unit tests with an Apache Ant script, or on the Windows console.
 
-In your own Ant script, define a property named matlab.exec that defines the
-location of the matlab.bat contained in the MATLAB installation you want to
-invoke. Make a call like <ant antfile="mlunit/build.xml"/> to execute all unit
+In your own Ant script, define a property named matlab.root that defines the
+directory of the MATLAB installation you want to invoke.
+Make a call like <ant antfile="mlunit/build.xml"/> to execute all unit
 tests and receive the jUnit XML reports. Read build.xml's description for
 further instructions.
 
 On the console, make sure to have Ant on your path. Then call Ant with the
-matlab.exec property set to your MATLAB executable. E.g.:
+matlab.root property set to your MATLAB executable. E.g.:
 
-    ant -Dmatlab.exec="C:\Program Files\MATLAB\R2007b\bin\win32\MATLAB.exe"
+    ant -Dmatlab.root="C:\Program Files\MATLAB\R2007b"
+
+Or even try the MATLAB that's found on your system path:
+
+    ant
 
 ===========================================================================
 
