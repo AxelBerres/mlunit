@@ -160,6 +160,16 @@ raises an error in itself, then that test case accounts for one failure and one
 error, both which will be reported. In your worst case, you may end up with as
 many failures as tests being run, and also with as many errors.
 
+When naming test suite files, consider following restrictions. The name of any
+test suite file must not exceed 63 characters, or rather what your MATLAB
+returns for namelengthmax. Your operating system may impose other restrictions.
+When on Windows, the full, absolute path to any test suite file (including name
+and extension) must not exceed 260 characters. Otherwise, MATLAB cannot evaluate
+the test suite file. This restriction also holds for generated reports.
+Be careful when using a custom report base directory that is longer than the
+directory containing your test cases. Otherwise, reports MATLAB may not be able
+to write the jUnit reports.
+
 ===========================================================================
 
 
