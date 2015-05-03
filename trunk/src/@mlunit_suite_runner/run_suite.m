@@ -47,25 +47,77 @@ else
     testsuite = eval(name);
 end
 
-% TODO: execute suite_set_up
+% execute suite set_up
+suite_setup_error = [];
+setup_obj = get_setup(testsuite);
+try
+    % invocation is different for function based or class based test cases
+    % cannot use a suite_set_up derivative in function_test_case, since there
+    % would be no fall-back to test_case's suite_set_up in case there is no
+    % override
+    if isa(setup_obj, 'function_test_case')
+        run_test(setup_obj);
+    else
+        suite_set_up(setup_obj);
+    end
+catch
+    suite_setup_error = mlunit_errorinfo(lasterror, 'Error in suite_set_up (occurred once for this suite, but is relevant for every test case):');
+end
 
 tests = get_tests(testsuite);
 num_tests = numel(tests);
 
-self = notify_listeners(self, 'init_results', num_tests);
+% execute tests only if no error in suite setup
+if isempty(suite_setup_error)
 
-% run each test of the suite; be sure to update the self state with each call
-results = cell(size(tests));
-for t=1:numel(tests)
-    [results{t}, self] = run_test(self, tests{t});
+    self = notify_listeners(self, 'init_results', num_tests);
+
+    % run each test of the suite; be sure to update the self state with each call
+    results = cell(size(tests));
+    for t=1:numel(tests)
+        [results{t}, self] = run_test(self, tests{t});
+    end
+    % convert back into normal array; we went around by using a cell array, because
+    % MATLAB is picky when we put them into a plain array directly in the loop
+    results = [results{:}];
+
+% In case of suite setup error, patch together one single test result,
+% so that the setup error is contained and inform listeners accordingly.
+else
+    self = notify_listeners(self, 'init_results', 1);
+    results = loc_single_result('suite_set_up', suite_setup_error);
+    self = notify_listeners(self, 'next_result', results(1));
 end
-% convert back into normal array; we went around by using a cell array, because
-% MATLAB is picky when we put them into a plain array directly in the loop
-results = [results{:}];
 
-% TODO: execute suite_tear_down
+% execute suite tear_down
+teardown_obj = get_teardown(testsuite);
+try
+    % invocation is different for function based or class based test cases
+    % see also suite_set_up above
+    if isa(teardown_obj, 'function_test_case')
+        run_test(teardown_obj);
+    else
+        suite_tear_down(teardown_obj);
+    end
+catch
+    suite_teardown_error = mlunit_errorinfo(lasterror, 'Error in suite_tear_down (occurred once for this suite, but is relevant for every test case):');
+    result = loc_single_result('suite_tear_down', suite_teardown_error);
+    
+    % notify listeners of surplus test carrying the teardown error; add to list
+    self = notify_listeners(self, 'next_result', result);
+    results(end+1) = result;
+end
 
 % restore environment after suite execution
 mlunit_environment(previous_environment);
 
 time = etime(clock, suite_start_time);
+
+
+function result = loc_single_result(name, error)
+
+    result = struct();
+    result.name = name;
+    result.errors = {error};
+    result.failure = '';
+    result.time = 0;

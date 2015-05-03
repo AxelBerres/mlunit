@@ -1,4 +1,4 @@
-function self = mlunit_testsuite(tests)
+function self = mlunit_testsuite(name, setup_obj, teardown_obj)
 %Shallow collection of test cases.
 %  A test suite is a one-level collection of test case objects.
 %  
@@ -30,12 +30,13 @@ function self = mlunit_testsuite(tests)
 %  
 %  $Id: test_suite.m 61 2006-09-21 19:11:35Z thomi $
 
-if (nargin == 0)
-    tests = {};
-end
+error(nargchk(3,3,nargin,'struct'));
+if ~ischar(name), error('name need be char'); end
+if ~isa(setup_obj, 'test_case'), error('setup_obj need be test_case or child'); end
+if ~isa(teardown_obj, 'test_case'), error('teardown_obj need be test_case or child'); end
 
-if ~iscell(tests), error('tests need be cell'); end
-
-self.tests = tests;
-self.name = '';
+self.tests = {};
+self.name = name;
+self.setup = setup_obj;
+self.teardown = teardown_obj;
 self = class(self, 'mlunit_testsuite');

@@ -5,9 +5,9 @@
 %  
 %  RESULT is a scalar struct with fields:
 %    - name    : string, the test case name, mandatory
-%    - errors  : struct array, all errors that occurred during execution, each 
-%                a struct in itself with fields message and stack,
-%                0x0 struct with these fields, if no errors occurred
+%    - errors  : cell array of mlunit_errorinfo objects,
+%                all errors that occurred during execution
+%                empty cell array, if no errors occurred
 %    - failure : string, the failure message, empty, if no failure occurred
 %    - time    : double, the execution time in seconds
 %

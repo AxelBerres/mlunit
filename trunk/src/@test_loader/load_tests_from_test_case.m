@@ -8,20 +8,23 @@ function suite = load_tests_from_test_case(self, test_case_class)
 %         loader = test_loader;
 %         suite = test_suite(load_tests_from_test_case(loader, 'my_test'));
 
-
 %  This Software and all associated files are released unter the
 %  GNU General Public License (GPL), see LICENSE for details.
 %
 %  $Id: load_tests_from_test_case.m 267 2007-03-10 12:38:34Z thomi $
 
-suite = mlunit_testsuite;
-suite = set_name(suite, test_case_class);
-names = get_test_case_names(self, test_case_class);
 
+% instantiate testsuite with setup and teardown methods
+setup_obj = eval([test_case_class, '(''suite_set_up'')']);
+teardown_obj = eval([test_case_class, '(''suite_tear_down'')']);
+suite = mlunit_testsuite(test_case_class, setup_obj, teardown_obj);
+
+% add test cases
+names = get_test_case_names(self, test_case_class);
 for i = 1:length(names)
-    % instanciate test
+    % instantiate test
     testobj = eval([test_case_class, '(''', char(names(i)), ''')']);
     
     % add to suite
     suite = add_test(suite, testobj);
-end;
+end
