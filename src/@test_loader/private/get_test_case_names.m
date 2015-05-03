@@ -24,6 +24,7 @@ end;
 names = sortrows(names);
 
 % check that we actually got instances of test_case
+% this lets the test case constructor execute once more
 if ~isempty(names)
     t = eval([test_case_class, '(''', char(names(1)), ''')']);
     if (~isa(t, 'test_case'))

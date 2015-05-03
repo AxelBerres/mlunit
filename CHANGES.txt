@@ -24,6 +24,13 @@ mlUnit development snapshot
     would only be known after the child constructor, not after the parent
     constructor.
   - Remove mlunit_reflect.
+  - Added suite setup and teardown handling. These execute once before any
+    test of a suite executes, and after all tests of a suite have executed,
+    respectively. If suite_set_up and suite_tear_down succeed without error,
+    the other set_up/tear_down/test functions execute as usual. However, if
+    suite_set_up fails, test execution is omitted. If suite_set_up or
+    suite_tear_down fails, another test is added to the results in order to
+    communicate the problem. This is convention with jUnit.
 
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods

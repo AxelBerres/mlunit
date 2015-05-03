@@ -45,6 +45,8 @@ function self = function_test_case(test_function, set_up_function, tear_down_fun
 %  
 %  $Id: function_test_case.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
+error(nargchk(0,4,nargin,'struct'));
+if nargin < 1, test_function = 0; end
 if nargin < 2, set_up_function = 0; end
 if nargin < 3, tear_down_function = 0; end
 if nargin < 4, function_name = ''; end

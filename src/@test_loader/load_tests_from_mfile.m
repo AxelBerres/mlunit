@@ -1,4 +1,4 @@
-function suite = load_tests_from_mfile(self, name) %#ok
+function suite = load_tests_from_mfile(self) %#ok
 %test_loader/load_tests_from_mfile returns a test_suite with all
 %test* methods from a .m-file.
 %
@@ -23,9 +23,7 @@ function suite = load_tests_from_mfile(self, name) %#ok
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: load_tests_from_mfile.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
-if (nargin == 1)
-    name = '';
-end;
+error(nargchk(1,1,nargin,'struct'));
 
 stack = dbstack;
 
@@ -43,6 +41,11 @@ tokens = transpose(regexp(str(is_func),...
 set_up_handle = 0;
 tear_down_handle = 0;
 
+% suite setup and teardown need not necessarily be set, therefore use
+% test_case's implementation by default, and overwrite only if present
+suite_setup_obj = function_test_case(0,0,0,'');
+suite_teardown_obj = function_test_case(0,0,0,'');
+
 for token = tokens
     fun = token{1}{:};
     if (strcmp(fun, 'set_up'))
@@ -53,6 +56,24 @@ for token = tokens
         tear_down_handle = evalin('caller', ['@() @', char(fun)]);
         tear_down_handle = tear_down_handle();
     end;
+    if (strcmp(fun, 'suite_set_up'))
+        suite_set_up_handle = evalin('caller', ['@() @', char(fun)]);
+        suite_set_up_handle = suite_set_up_handle();
+        suite_setup_obj = function_test_case(...
+            suite_set_up_handle, ...
+            0, ...
+            0, ...
+            'suite_set_up');
+    end
+    if (strcmp(fun, 'suite_tear_down'))
+        suite_tear_down_handle = evalin('caller', ['@() @', char(fun)]);
+        suite_tear_down_handle = suite_tear_down_handle();
+        suite_teardown_obj = function_test_case(...
+            suite_tear_down_handle, ...
+            0, ...
+            0, ...
+            'suite_tear_down');
+    end
 end;
 
 % if exactly two items on stack, that's load_tests_from_mfile and the test
@@ -63,8 +84,7 @@ if numel(stack) == 2
     run_suite_collection(suite_runner, suitename);
 end
 
-suite = mlunit_testsuite;
-suite = set_name(suite, stack(2).name);
+suite = mlunit_testsuite(stack(2).name, suite_setup_obj, suite_teardown_obj);
 for token = tokens
     test = char(token{1}{:});
     pos = findstr('test', test);

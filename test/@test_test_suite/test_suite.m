@@ -10,7 +10,10 @@ function self = test_suite(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_suite.m 47 2006-06-11 19:26:32Z thomi $
 
-suite = mlunit_testsuite;
+setup_obj = mock_test('suite_set_up');
+teardown_obj = mock_test('suite_tear_down');
+suite = mlunit_testsuite('', setup_obj, teardown_obj);
+
 suite = add_test(suite, mock_test('test_method'));
 suite = add_test(suite, mock_test('test_broken_method'));
 
