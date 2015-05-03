@@ -143,13 +143,12 @@ set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
 test_case = builtin('get', handles.gui_test_case, 'String');
 
-suite_runner = mlunit_suite_runner;
 % constructor also resets the display
 listener = mlunit_progress_listener_gui(...
     handles.gui_progress_bar, ...
     handles.gui_text_runs, ...
     handles.gui_error_list);
-suite_runner = add_listener(suite_runner, listener);
+suite_runner = add_listener(mlunit_suite_runner, listener);
 
 % disable html links in stack trace, because they won't display in an edit box
 prev_linktrace_state = mlunit_param('linked_trace', false);

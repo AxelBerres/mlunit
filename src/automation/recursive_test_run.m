@@ -17,6 +17,5 @@ function recursive_test_run(basedir, targetdir)
 if nargin < 1, basedir = pwd; end
 if nargin < 2, targetdir = basedir; end
 
-suite_runner = mlunit_suite_runner;
-suite_runner = add_listener(suite_runner, mlunit_progress_listener_console);
+suite_runner = add_listener(mlunit_suite_runner, mlunit_progress_listener_console);
 run_suite_collection(suite_runner, basedir, targetdir);
