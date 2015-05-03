@@ -31,7 +31,6 @@
         empty if you have set the useNativeBasedir attribute to true. Have you?
     - "report.dir" The location where the test reports and log files go to.
     - "matlab.root" installation directory of the MATLAB to be run.
-        If not defined, be sure that MATLAB is on your cmd shell's search path.
         Optional. If neither matlab.root nor matlab.exec is used, the first
         MATLAB executable on the system path is used.
     - "matlab.exec" MATLAB core executable, e.g. matlabroot/bin/win32/MATLAB.exe.
