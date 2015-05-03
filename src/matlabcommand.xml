@@ -121,10 +121,16 @@
             <isset property="matlab.root"/>
         </condition>
 
+        <!-- construct a matlab.root property from the system path, if not given by the user -->
         <get-matlab-from-path/>
-        
-        <!-- construct a matlab.root property, if not given by the user -->
         <dirname property="matlab.root" file="${delegator.matlab.exec}"/>
+
+        <!-- Construct a matlab.exec property from the matlab.root in a way that
+             it definitely points to the core MATLAB executable (not any
+             delegating executables), from either matlabroot directly, or its
+             bin or bin/win32 or bin/win64 sub directories.
+             This works, because the first definition of matlab.exec can never
+             be changed. -->
 
         <property name="matlabroot.bin.win32.exec" location="${matlab.root}/bin/win32/MATLAB.exe"/>
         <condition property="matlab.exec" value="${matlabroot.bin.win32.exec}">

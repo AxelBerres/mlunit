@@ -36,7 +36,7 @@ regexp_runtime_err = ['^Error using ' ...   % always starts with 'Error using'
                       '[^\n]*' ...          % skip anything on this line
                       '\n(.*)'];            % capture the next line(s)
 num_captures_runtime_err = 2;               % 2 capture groups if successful
-                  
+
 % lasterror wraps syntax errors really awkwardly across the releases
 % for details, see test_mlunit_errorinfo
 regexp_syntax_err = ['^Error: ' ...         % starts with 'Error:'
