@@ -21,6 +21,8 @@ function writeXmlTestsuite(suiteresult, targetdir)
   
    s_fileName = ['TEST-' suiteresult.name '.xml'];
 
+   % full path must not exceed system restrictions (i.e. 260 characters for Windows)
+   % cannot be circumvented by cding first and calling fopen with only the file name
    source = fullfile(targetdir, s_fileName);
    
    fid = fopen(source,'w');
