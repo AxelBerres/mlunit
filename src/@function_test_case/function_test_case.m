@@ -52,5 +52,5 @@ if nargin < 4, function_name = ''; end
 self.test_function = test_function;
 self.set_up_function = set_up_function;
 self.tear_down_function = tear_down_function;
-t = test_case('', 'function_test_case', function_name);
+t = test_case('run_test', 'function_test_case', function_name);
 self = class(self, 'function_test_case', t);

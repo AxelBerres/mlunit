@@ -55,6 +55,14 @@ for token = tokens
     end;
 end;
 
+% if exactly two items on stack, that's load_tests_from_mfile and the test
+% function, meaning we were called from console directly -> execute suite
+suitename = stack(2).name;
+if numel(stack) == 2
+    suite_runner = add_listener(mlunit_suite_runner, mlunit_progress_listener_console);
+    run_suite_collection(suite_runner, suitename);
+end
+
 suite = mlunit_testsuite;
 suite = set_name(suite, stack(2).name);
 for token = tokens

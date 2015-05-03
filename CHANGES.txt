@@ -11,6 +11,10 @@ mlUnit development snapshot
   - Add matlab.root Ant property for easier MATLAB referencing
   - Reliably fetch MATLAB executable from the system path if neither matlab.root
     nor matlab.exec given.
+  - Allow single test suite execution on console for function test suites.
+    Works by calling the test suite directly on the console. Not genericly
+    possible for class-based test suites, as each class' constructor handles
+    inheritance itself.
 
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods
