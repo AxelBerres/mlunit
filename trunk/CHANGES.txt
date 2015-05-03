@@ -5,7 +5,6 @@
 
 mlUnit development snapshot
 ---------------------------
-
   
   - Remove deprecate Ant code handling for matlab.bat or delegate matlab.exe
   - Add matlab.root Ant property for easier MATLAB referencing
@@ -16,7 +15,7 @@ mlUnit development snapshot
     possible for class-based test suites, as each class' constructor handles
     inheritance itself.
   - Allow single test suite execution on console with recursive_test_run.
-  - Allow relative path names with recursive_test_run.
+  - Allow relative path names with recursive_test_run. [B#23]
   - Test reports get only generated if target directory argument is provided.
   - Remove quasi-reflective test name check, as we only instantiate test objects
     with automatically retrieved test cases. Also, it messed up when we tried to
@@ -31,6 +30,8 @@ mlUnit development snapshot
     suite_set_up fails, test execution is omitted. If suite_set_up or
     suite_tear_down fails, another test is added to the results in order to
     communicate the problem. This is convention with jUnit.
+  - jUnit reports are generated only when recursive_test_run is called with a
+    targetdir argument
 
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods
@@ -38,6 +39,10 @@ mlUnit development snapshot
         mlunit_suite_runner/run_suite_collection.m, separating only the choice
         of listeners from former recursive_test_run implementation
       + recursive_test_run kept for compatibility
+      + Closes [F#16]
+
+  [F#16] http://sourceforge.net/p/mlunit/feature-requests/16/
+  [B#23] http://sourceforge.net/p/mlunit/bugs/23/
 
 
 mlUnit 1.6.8 (2015-04-14)
