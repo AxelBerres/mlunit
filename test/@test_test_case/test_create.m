@@ -10,18 +10,5 @@ function self = test_create(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_create.m 44 2006-06-11 18:54:09Z thomi $
 
-error = 0;
-try
-    test_case('foo', 'mock_test');
-    error = 1;
-catch
-end;
-assert_equals(0, error);
-
-error = 0;
-try
-    test_case('', 'mock_test');
-catch
-end;
-assert_equals(0, error);
-
+assert_error(@() test_case('foo', 'mock_test'));
+assert_error(@() test_case('', 'mock_test'));
