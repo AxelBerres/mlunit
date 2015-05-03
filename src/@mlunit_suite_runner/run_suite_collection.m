@@ -1,10 +1,11 @@
-%RECURSIVE_TEST_RUN Execute all test script files of a folder and all its
-%subfolders recursively.
-%  RECURSIVE_TEST_RUN(BASEDIR) executes all test scripts found in BASEDIR
-%  and its sub directories. Reports and log files will go into BASEDIR.
+%Execute one or several test suites.
+%  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ) executes all tests of all suites
+%  relating to TESTOBJ. If TESTOBJ is a directory, all nested test suites will
+%  be collected and executed. If TESTOBJ is a single test suite name, then that
+%  only will be executed.
 %
-%  RECURSIVE_TEST_RUN(BASEDIR, TARGETDIR) does the same, but lets reports
-%  and logs be created in the TARGETDIR directory instead of the BASEDIR.
+%  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR) does the same, but
+%  generates jUnit reports into TARGETDIR.
 %
 %  See also mlunit_gui, mlunit_suite_runner
 
@@ -14,9 +15,10 @@
 %  $Id$
 
 function self = run_suite_collection(self, testobj, targetdir)
-   
-   if nargin < 1, basedir = pwd; end
-   if nargin < 2, targetdir = basedir; end
+
+   error(nargchk(2, 3, nargin, 'struct'));
+   if isempty(testobj), error('MLUNIT:invalidTestobj', 'Test object must not be empty.'); end
+   write_xml = nargin >= 3;
 
    % start time for calculating execution time
    start_time = clock;
@@ -38,7 +40,9 @@ function self = run_suite_collection(self, testobj, targetdir)
    suiteresults = cell(size(suitespecs));
    for suite=1:count_suites
       [suiteresults{suite}, self] = runTestsuite(self, suitespecs{suite});
-      writeXmlTestsuite(suiteresults{suite}, targetdir);
+      if write_xml
+         writeXmlTestsuite(suiteresults{suite}, targetdir);
+      end
    end
 
    % restore previous environment state
@@ -51,8 +55,45 @@ function self = run_suite_collection(self, testobj, targetdir)
 
 function suitespecs = loc_determine_suites(testobj)
 
-   % Get test files. They may be in basedir or its subdirectories.
-   suitespecs = getNestedTestFiles(testobj);
+    % neither dir nor file, must be some error
+    if ~any(exist(testobj, 'file') == [2,7])
+        error('MLUNIT:invalidTestobj', 'Given test object is neither a directory nor a file: ''%s''', testobj);
+    end
+
+    % in case of dir, go down recursively
+    if exist(testobj, 'dir') == 7
+        [dirpath, dirname] = fileparts(testobj);
+        if dirname(1) ~= '@'
+            % Get test files. They may be in basedir or its subdirectories.
+            suitespecs = getNestedTestFiles(testobj);
+            return;
+        end
+        
+        % delegate to constructor method
+        testobj = fullfile(testobj, dirname(2:end));
+    end
+
+    % tokenize path to existing file
+    [filepath, filename] = fileparts(which(testobj));
+    [parentpath, parentname] = fileparts(filepath);
+
+    % for existing file, construct single spec
+    spec = struct();
+    spec.reldir = '';
+    
+    % but handle function and class differently
+    isobjectconstructor = ~isempty(parentname) && ...
+              parentname(1) == '@' && ...
+              isequal(parentname(2:end), filename);
+    if isobjectconstructor
+        spec.testname = ['@' filename];
+        spec.fulldir = parentpath;
+    else
+        spec.testname = filename;
+        spec.fulldir = filepath;
+    end
+    
+    suitespecs = {spec};
 
 
 % Run test suite, collect suite and test case attributes and return them.
@@ -75,9 +116,12 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
    
    % Change to test suite directory. This lets us execute the test suite (function
    % or class) even if shadowed. Pwd will be restored with mlunit_environment.
-   cd(suitespec.fulldir);
+   prevpwd = cd(suitespec.fulldir);
 
    [results, time, self] = run_suite(self, strip_classprefix(suitespec.testname));
+   
+   cd(prevpwd);
+   
    suiteresult = build_suiteresult(results, time, suitespec);
    
    

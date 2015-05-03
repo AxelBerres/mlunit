@@ -15,6 +15,9 @@ mlUnit development snapshot
     Works by calling the test suite directly on the console. Not genericly
     possible for class-based test suites, as each class' constructor handles
     inheritance itself.
+  - Allow single test suite execution on console with recursive_test_run.
+  - Allow relative path names with recursive_test_run.
+  - Test reports get only generated if target directory argument is provided.
 
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods
