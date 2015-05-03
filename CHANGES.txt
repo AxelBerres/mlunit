@@ -18,6 +18,12 @@ mlUnit development snapshot
   - Allow single test suite execution on console with recursive_test_run.
   - Allow relative path names with recursive_test_run.
   - Test reports get only generated if target directory argument is provided.
+  - Remove quasi-reflective test name check, as we only instantiate test objects
+    with automatically retrieved test cases. Also, it messed up when we tried to
+    use it on methods inherited from test_case, e.g. suite_set_up, which often
+    would only be known after the child constructor, not after the parent
+    constructor.
+  - Remove mlunit_reflect.
 
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods
