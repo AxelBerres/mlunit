@@ -13,11 +13,9 @@ function names = get_test_case_names(self, test_case_class) %#ok
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: get_test_case_names.m 148 2007-01-02 20:08:23Z thomi $
+%  $Id$
 
-t = mlunit_reflect(test_case_class);
-names = get_methods(t);
+names = loc_get_methods(test_case_class);
 for i = size(names, 1):-1:1
     if (~strncmp(names(i), 'test', 4))
         names(i) = [];
@@ -25,10 +23,22 @@ for i = size(names, 1):-1:1
 end;
 names = sortrows(names);
 
-if (length(names) > 0)
+% check that we actually got instances of test_case
+if ~isempty(names)
     t = eval([test_case_class, '(''', char(names(1)), ''')']);
-end;
+    if (~isa(t, 'test_case'))
+        error('MLUNIT:invalidTestObject', 'Found at least one test method, but its object does not inherit from test_case, as it should.');
+    end
+end
 
-if (~isa(t, 'test_case'))
-    names = [];
-end;
+
+% get methods for a class object or class name
+% also get inherited methods, but this works for class name arguments only,
+% if the class has been instantiated at least once, and is known in memory
+function meths = loc_get_methods(class_name)
+
+    meths = methods(class_name, '-full');
+    % enforce cell array, even if empty
+    if isempty(meths), meths = {}; end
+    % delete constructor method
+    meths(strcmp(class_name, meths)) = [];

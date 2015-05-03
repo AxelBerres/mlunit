@@ -11,7 +11,7 @@ function w = mock_test(name)
 %  $Id: mock_test.m 39 2006-06-11 18:15:59Z thomi $
 
 w.log = '';
-t = test_case(name, 'mock_test');
+t = test_case(name);
 w = class(w, 'mock_test', t);
 
 

@@ -1,8 +1,8 @@
-function self = test_case(name, subclass, function_name)
+function self = test_case(name, function_name)
 %Base class for a test suite.
 %  Inherit your class-based test suite from this base class. Fixture methods
 %  (set_up and tear_down) get inherited or overloaded. You should not overload
-%  methods named 'get_function_name', 'get_name' or 'str'.
+%  methods named 'get_function_name', 'get_name', or 'str'.
 %
 %  Upon execution, for every test method, a distinct test_case object will be
 %  instanciated, receiving the test method's name in the 'name' argument. This
@@ -14,7 +14,7 @@ function self = test_case(name, subclass, function_name)
 %  ====================
 %  The class test_case is the base class for all tests. It defines a 
 %  fixture to run multiple tests. The constructor is called as follows:
-%         Example: test = test_case('test_foo', 'my_test');
+%         Example: test = test_case('test_foo');
 %  test_foo is the name of the test method, my_test is the name of a
 %  subclass of test_case. Such a class is created as follows:
 %
@@ -50,23 +50,14 @@ function self = test_case(name, subclass, function_name)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id$
 
-% name argument not given or empty, default to 'run_test'
-if nargin < 1 || isempty(name)
-   name = 'run_test';
-end
-
-% if subclass argument given, check that the method can be resolved
-if nargin >= 2
-   r = mlunit_reflect(subclass);
-   if (~method_exists(r, name))
-      error(['Method ', name ' does not exists.']);
-   end;
-end
+error(nargchk(1,2,nargin,'struct'));
+if ~ischar(name), error('name need be char'); end
+if isempty(name), error('name must not be empty'); end
 
 % function_name argument not given, default to name
 % This will mainly hit for class-based test cases deriving directly from
 % test_case. function_test_case based cases set this argument
-if nargin < 3, function_name = name; end
+if nargin < 2, function_name = name; end
 
 self.name = name;
 self.function_name = function_name;
