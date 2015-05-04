@@ -41,6 +41,9 @@ mlUnit development snapshot
       + recursive_test_run kept for compatibility
       + Closes [F#16]
 
+  - Fix: Cropped parts of report file package structure,
+    if being executed on relative dir, and the dir name is part of a nested dir.
+
   [F#16] http://sourceforge.net/p/mlunit/feature-requests/16/
   [B#23] http://sourceforge.net/p/mlunit/bugs/23/
 
