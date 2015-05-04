@@ -21,7 +21,7 @@ function suitespecs = getNestedTestFiles(basedir)
    dirlist = dirset(basedir);
    
    % build relative dir name for each directory name
-   reldirlist = strrep(dirlist, basedir, '');     % crop basedir
+   reldirlist = strrep_first(dirlist, basedir, '');     % crop basedir
    
    % search pattern
    search_prefix = 'test_';
@@ -38,7 +38,7 @@ function suitespecs = getNestedTestFiles(basedir)
           if isequal(1, strmatch(search_prefix, clean_classname(classname)))
               spec = struct();
               spec.testname = classname;
-              spec.reldir = strrep(classpath, basedir, '');
+              spec.reldir = strrep_first(classpath, basedir, '');
               spec.fulldir = classpath;
               suitespecs{end+1} = spec;
           end
