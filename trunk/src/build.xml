@@ -91,6 +91,7 @@
     <property name="additionalusercmd" value="try;${additional.cmd};catch;disp(['Your additional MATLAB command failed with message: ' lasterr '.']);end"/>
 
     <mkdir dir="${report.dir}"/>
+    <echo message="Report dir: ${report.dir}"/>
 
     <matlabcommand command.string="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);mlunit_param('abbrev_trace',false);${additionalusercmd};recursive_test_run('${test.dir}', '${report.dir}')"
                    output.property="unittests.output"
