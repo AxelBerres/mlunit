@@ -179,13 +179,28 @@ PARAMETERS AND BRIDGING FIXTURES
 You can define parameters in order to change mlUnit's behaviour. For example,
 in order to let assert_equals handle NaN values as equal, call:
 
-   >> mlunit_param('equal_nans', true);
+    >> mlunit_param('equal_nans', true);
 
 You should do this in a test suite's set_up fixture. As of mlUnit 1.6.8, this
 won't affect other suite's tests anymore, i.e. declare equal NaNs for just one
 suite, but not the others. Changes to mlUnit parameters, that are effected in
 either the test function, or the set_up and tear_down fixtures, will be reverted
-after each test's tear_down execution.
+after each test's tear_down execution. The same applies to changes to the MATLAB
+path or the working directory.
+
+The parameters are protected against calls to MATLAB's clear (with the
+'functions', 'all', or 'java' arguments), or calls to javaaddpath or javarmpath,
+which trigger calls to clear. These calls reset persistent variables, among
+doing other things. But mlunit_param's persistent variables are protected by
+mlock. The protection is in place for the duration of any mlUnit execution
+(actually running tests, not just having the GUI open).
+However, those commands also have other side effects, specifically resetting
+debug breakpoints. If you frequently find yourself breakpoint-debugging test
+code that contains javaaddpath or clear calls, consider wrapping them like this:
+
+    dbgstate = dbstatus;   % temporarily save your breakpoints
+    javaaddpath(mypath);   % the problematic call, resets breakpoints
+    dbstop(dbgstate);      % restore your breakpoints
 
 
 Description of parameters
