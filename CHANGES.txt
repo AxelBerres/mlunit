@@ -32,6 +32,8 @@ mlUnit development snapshot
     communicate the problem. This is convention with jUnit.
   - jUnit reports are generated only when recursive_test_run is called with a
     targetdir argument
+  - Consistent add-to logic for custom assert messages across all assert
+    functions; the user's message now always complements the function's.
 
   - Further backend refactoring, merging diverged execution models:
       + Added initialize_execution and finalize_execution listener methods

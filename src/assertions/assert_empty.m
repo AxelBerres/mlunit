@@ -7,9 +7,10 @@ function assert_empty(expr, varargin)
 %              {}         empty cell array
 %              ''         empty string
 %
-%  ASSERT_EMPTY(EXPR, MSG, varargin) does the same, but with the custom
-%  error message MSG. MSG may contain sprintf arguments, which can be
-%  expanded by subsequent arguments in varargin.
+%  ASSERT_EMPTY(EXPR, MSG, varargin) does the same, but adds the custom
+%  error message MSG at the beginning of the failure reason.
+%  MSG may contain sprintf arguments, which can be expanded by subsequent
+%  arguments in varargin.
 %
 %  Examples
 %     % asserts variable arg being empty
@@ -25,10 +26,7 @@ function assert_empty(expr, varargin)
 %  
 %  $Id$
 
-% If called with no argument, logic dictates that assert_empty should
-% be content.
-if nargin >= 1
-   if ~isempty(expr)
-      mlunit_fail(varargin{:});
-   end
+if nargin >= 1 && ~isempty(expr)
+    reason = sprintf('Expected empty expression was actually: %s.', printable(expr));
+    mlunit_fail_with_reason(reason, varargin{:});
 end
