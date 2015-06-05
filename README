@@ -167,7 +167,7 @@ When on Windows, the full, absolute path to any test suite file (including name
 and extension) must not exceed 260 characters. Otherwise, MATLAB cannot evaluate
 the test suite file. This restriction also holds for generated reports.
 Be careful when using a custom report base directory that is longer than the
-directory containing your test cases. Otherwise, reports MATLAB may not be able
+directory containing your test cases. Otherwise, MATLAB may not be able
 to write the jUnit reports.
 
 ===========================================================================
