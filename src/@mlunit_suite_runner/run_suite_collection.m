@@ -23,6 +23,9 @@ function self = run_suite_collection(self, testobj, targetdir)
    % start time for calculating execution time
    start_time = clock;
    
+   % mlock mlunit_param for the duration of the execution
+   mlunit_param('-mlock');
+   
    % buffer current environment state
    previous_environment = mlunit_environment();
 
@@ -47,6 +50,8 @@ function self = run_suite_collection(self, testobj, targetdir)
 
    % restore previous environment state
    mlunit_environment(previous_environment);
+   
+   munlock('mlunit_param');
    
    % finalize display
    execution_time = etime(clock, start_time);
