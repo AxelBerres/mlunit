@@ -165,7 +165,7 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
     if ischar(expected) && ischar(actual)
         change_msg = sprintf('\n  %-9s:  %s', 'Changes', mark_string_differences(expected, actual));
     % or for cell arrays containing single strings; adjust spaces for additional
-    % opening cell parenthesis ({)
+    % opening cell parenthesis "{"
     elseif iscellstr(expected) && iscellstr(actual) && numel(expected)*numel(actual)==1
         change_msg = sprintf('\n  %-9s:   %s', 'Changes', mark_string_differences(expected{1}, actual{1}));
     end

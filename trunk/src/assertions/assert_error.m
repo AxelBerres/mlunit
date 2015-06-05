@@ -27,10 +27,10 @@ function assert_error(func, errspec, msg)
 %  rules for ERRID/ERRSTRUCT arguments as above apply.
 %
 %  Examples
-%     % asserts variable arg being empty
+%     % assert some error being issued, here from missing input arguments
 %     assert_error('error');
 %
-%     % the same, with message check
+%     % assert some specific error by specifying its message
 %     assert_error('error(''huh\nha'');', 'huh\nha');
 %
 %     % use an anonymous function for injecting variable values

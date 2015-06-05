@@ -7,6 +7,9 @@
 %     missingin: 'expected' or 'actual', or '' if prevalent in both
 %     expected: value of the field, [] if missingin=='expected'
 %     actual: value of the field, [] if missingin=='actual'
+%
+% find_struct_differences currently has quadratic runtime, due to excessive use
+% of isequal to detect differences on upper levels.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
