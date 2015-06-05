@@ -24,5 +24,6 @@ function assert_false(expr, varargin)
 %  $Id: assert_false.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
 if nargin < 1 || expr
-   mlunit_fail(varargin{:});
-end;
+    reason = 'Expected false was actually true.';
+    mlunit_fail_with_reason(reason, varargin{:});
+end

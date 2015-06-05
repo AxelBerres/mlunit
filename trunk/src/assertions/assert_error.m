@@ -1,4 +1,4 @@
-function assert_error(func, errspec, msg)
+function assert_error(func, errspec, varargin)
 %ASSERT_ERROR Raise an error if a call does not throw an error.
 %  ASSERT_ERROR(FUNC) calls the function handle FUNC and raises an error if the
 %  function returns without error. Use it to assert that a certain function
@@ -20,6 +20,7 @@ function assert_error(func, errspec, msg)
 %  can limit the comparison to some parts of a call stack's fields. The fields
 %  are: file, name, line. By providing only one or two of them in your expected
 %  call stack structure, only those fields will be compared.
+%  An empty struct() ERRSTRUCT checks for any error at all.
 %  
 %  ASSERT_ERROR(EXPRSTRING, ERRID/ERRSTRUCT) evaluates the string EXPRSTRING
 %  and raises an error if the evaluation did not raise an error itself. Use this
@@ -44,7 +45,7 @@ function assert_error(func, errspec, msg)
 %  
 %  $Id$
 
-error(nargchk(1, 3, nargin, 'struct'));
+error(nargchk(1, Inf, nargin, 'struct'));
 
 % determine what to check for
 if nargin < 2
@@ -58,15 +59,6 @@ elseif isstruct(errspec)
    errcomp = errspec;
 else
    error('assert_error: ERRSPEC argument must be either an error id string or a error struct.');
-end
-
-if nargin < 3
-    msg = '';
-end
-
-if ~isempty(msg)
-    % append separator if msg given
-    msg = [msg ' '];
 end
 
 % execute function/evalstring
@@ -88,11 +80,10 @@ end
 % evaluate findings
 if ~bCaught
    % no error at all is a failed expectation
-   mlunit_fail('%sError expected, but none occurred.', msg);
+   mlunit_fail_with_reason('Error expected, but none occurred.', varargin{:});
 elseif ~bErrorMatch
-   % don't use sprintf %s expansion here, in order to preserve special
-   % characters in the strings
-   mlunit_fail('%sError occurred, but did not match criteria. %s', msg, diff2string(differences));
+   error_msg = sprintf('Error occurred, but did not match criteria. %s', diff2string(differences));
+   mlunit_fail_with_reason(error_msg, varargin{:});
 end
 
 

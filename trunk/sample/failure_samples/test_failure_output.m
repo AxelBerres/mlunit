@@ -8,7 +8,6 @@ test = load_tests_from_mfile(test_loader);
 
 function test_empty
 
-    assert_empty();
     assert_empty([]);
     assert_empty([3]);
 
@@ -189,7 +188,7 @@ function test_not_equals
 function test_error
 
     % terminate with ; in order to suppress output on command line
-    assert_error('3;');
+    assert_error('3;', struct(), 'Should be error, but %i alone isn''t.', 3);
 
 function test_typed_error
 

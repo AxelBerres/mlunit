@@ -25,10 +25,9 @@ function assert_not_empty(expr, varargin)
 %  
 %  $Id$
 
-if nargin < 1
-   error('assert_not_empty: Not enough input arguments.');
-end
+error(nargchk(1,Inf,nargin,'struct'));
 
 if isempty(expr)
-   mlunit_fail(varargin{:});
+    fail_msg = 'Expected non-empty expression was actually empty.';
+    mlunit_fail_with_reason(fail_msg, varargin{:});
 end
