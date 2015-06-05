@@ -43,6 +43,8 @@ mlUnit development snapshot
 
   - Fix: Cropped parts of report file package structure,
     if being executed on relative dir, and the dir name is part of a nested dir.
+  - Fix: mlUnit parameters get reset when tests execute javaaddpath, javarmpath,
+    clear('functions'), or some such functions.
 
   [F#16] http://sourceforge.net/p/mlunit/feature-requests/16/
   [B#23] http://sourceforge.net/p/mlunit/bugs/23/

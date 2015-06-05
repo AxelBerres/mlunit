@@ -30,6 +30,14 @@ rehash;
 
 suite_start_time = clock;
 
+% Mlock mlunit_param for the duration of the suite execution.
+% Unlock it again afterwards, if it was unlocked before.
+% We actually get called from run_suite_collection, which handles mlunit_param
+% locking itself, but we handle it again, since sometimes run_suite is called
+% directly. Currently this is only in mlunit_gui/gui.m.
+params_were_locked = mislocked('mlunit_param');
+mlunit_param('-mlock');
+
 % buffer environment for reset after suite execution
 previous_environment = mlunit_environment();
 
@@ -110,6 +118,11 @@ end
 
 % restore environment after suite execution
 mlunit_environment(previous_environment);
+
+% restore previous lock state of mlunit_param
+if ~params_were_locked
+    munlock('mlunit_param');
+end
 
 time = etime(clock, suite_start_time);
 

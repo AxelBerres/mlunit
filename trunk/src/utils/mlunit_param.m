@@ -30,6 +30,11 @@
 %  VALL = MLUNIT_PARAM(VNEW) sets mlunit's parameter configuration to that of
 %  VNEW, returning the previous parameter configuration in VALL.
 %
+%  MLUNIT_PARAM('-mlock') calls mlock in order to lock mlunit_param' internal
+%  persistent state. MATLAB does not allow mlock to be called from anywhere
+%  else, and we can not just mlock it upon every mlunit_param call.
+%  Therefore, this is an extra invocation.
+%
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -52,6 +57,11 @@ function outvalue = mlunit_param(name, invalue)
             parameters = merge_default_values(name);
         end
         return;
+    end
+    
+    % usage for locking mlunit_param
+    if ischar(name) && strcmp(name, '-mlock')
+        mlock;
     end
 
     % usage for single parameters
