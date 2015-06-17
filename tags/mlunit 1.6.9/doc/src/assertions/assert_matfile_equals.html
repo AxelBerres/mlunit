@@ -46,7 +46,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_gui/load.html" class="code" title="function load(self) %#ok">load</a>	mlunit_gui/loads starts the graphical user interface of mlUnit with</li><li><a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li><li><a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -92,11 +92,11 @@ This function is called by:
 0033 <a name="_sub1" href="#_subfunctions" class="code">function checkFile( file, varargin)</a>
 0034    <span class="keyword">if</span> ~ischar( file)
 0035       reason = sprintf(<span class="string">'%s input needs to be a string pointing to a file!'</span>,inputname(1));
-0036       <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason, varargin{:});
+0036       mlunit_fail_with_reason(reason, varargin{:});
 0037    <span class="keyword">end</span>
 0038    <span class="keyword">if</span> ~(exist( file, <span class="string">'file'</span>) == 2)
 0039       reason = sprintf(<span class="string">'Argument given for variable ''%s'' does not point to a file (%s)'</span>, inputname(1), file);
-0040       <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason, varargin{:});
+0040       mlunit_fail_with_reason(reason, varargin{:});
 0041    <span class="keyword">end</span>
 0042 <span class="comment">%end of function</span>
 0043 
@@ -108,18 +108,18 @@ This function is called by:
 0049    <span class="keyword">if</span> ~isempty( isMemberOfToCheck) &amp;&amp; ~(all( isMemberOfToCheck))
 0050         missingVariables = expectedVariables( ~isMemberOfToCheck);
 0051         reason = sprintf(<span class="string">'Files differ because Variable(s): %s are not present in %s File'</span>,sprintf(<span class="string">' %s,'</span>, missingVariables{:}), inputname(1));
-0052         <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason, varargin{:});
+0052         mlunit_fail_with_reason(reason, varargin{:});
 0053    <span class="keyword">end</span>
 0054 <span class="comment">%end of function</span>
 0055 
 0056 <a name="_sub3" href="#_subfunctions" class="code">function checkVariable( variableName, expectedFile, actualFile, varargin)</a>
-0057    actualVariable = <a href="../../src/@mlunit_gui/load.html" class="code" title="function load(self) %#ok">load</a>( actualFile, variableName);
-0058    expectedVariable = <a href="../../src/@mlunit_gui/load.html" class="code" title="function load(self) %#ok">load</a>( expectedFile, variableName);
+0057    actualVariable = load( actualFile, variableName);
+0058    expectedVariable = load( expectedFile, variableName);
 0059    <span class="keyword">if</span> ~isequal( actualVariable, expectedVariable)
-0060       reason = sprintf(<span class="string">'Variable ''%s'' expected to be %s, but actually was %s.'</span>, variableName, <a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>(expectedVariable), <a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>(actualVariable));
-0061       <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason, varargin{:});
+0060       reason = sprintf(<span class="string">'Variable ''%s'' expected to be %s, but actually was %s.'</span>, variableName, printable(expectedVariable), printable(actualVariable));
+0061       mlunit_fail_with_reason(reason, varargin{:});
 0062    <span class="keyword">end</span>   
 0063 <span class="comment">%end of function</span></pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

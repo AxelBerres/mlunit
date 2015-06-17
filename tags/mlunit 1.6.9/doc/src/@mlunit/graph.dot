@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-  run -> run;
-
-  mlunit [URL="mlunit.html"];
-  run [URL="run.html"];
-  ver [URL="ver.html"];
-}
