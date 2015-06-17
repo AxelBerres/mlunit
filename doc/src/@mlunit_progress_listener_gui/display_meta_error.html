@@ -38,10 +38,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li><li><a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>	Information about one error. Formattable.</li><li><a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>	Add an entry to the GUI's error list.</li><li><a href="update_display.html" class="code" title="function update_display(self)">update_display</a>	Update all listener elements of the GUI.</li></ul>
+<li><a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>	Add an entry to the GUI's error list.</li><li><a href="update_display.html" class="code" title="function update_display(self)">update_display</a>	Update all listener elements of the GUI.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_gui/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li></ul>
+</ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -68,7 +68,7 @@ This function is called by:
 0017 
 0018 <span class="comment">% don't reset any current gui state; it might be helpful to know how many</span>
 0019 <span class="comment">% testcases executed before breakdown</span>
-0020 errmsg = <a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>(<a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(meta_error));
+0020 errmsg = get_message_with_stack(mlunit_errorinfo(meta_error));
 0021 <a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>(self, <span class="string">'ERROR'</span>, <span class="string">'mlunit_gui'</span>, errmsg);
 0022 <a href="update_display.html" class="code" title="function update_display(self)">update_display</a>(self);
 0023 
@@ -78,6 +78,6 @@ This function is called by:
 0027     result = isstruct(type) &amp;&amp; <span class="keyword">...</span>
 0028         numel(type) == 1 &amp;&amp; <span class="keyword">...</span>
 0029         all(isfield(type, {<span class="string">'identifier'</span>, <span class="string">'message'</span>, <span class="string">'stack'</span>}));</pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

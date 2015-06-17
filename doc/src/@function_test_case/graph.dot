@@ -1,9 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  function_test_case [URL="function_test_case.html"];
-  run_test [URL="run_test.html"];
-  set_up [URL="set_up.html"];
-  str [URL="str.html"];
-  tear_down [URL="tear_down.html"];
-}

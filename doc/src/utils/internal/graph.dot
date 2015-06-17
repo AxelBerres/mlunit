@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  mlunit_environment [URL="mlunit_environment.html"];
-  mlunit_num_suite_errors [URL="mlunit_num_suite_errors.html"];
-  mlunit_num_suite_failures [URL="mlunit_num_suite_failures.html"];
-  mlunit_strjoin [URL="mlunit_strjoin.html"];
-}

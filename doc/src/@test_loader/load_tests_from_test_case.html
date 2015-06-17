@@ -40,10 +40,10 @@ test* methods from a test_case.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_testsuite/add_test.html" class="code" title="function self = add_test(self, test)">add_test</a>	test_suite/add_test adds a test to the test suite.</li><li><a href="../../src/@mlunit_testsuite/mlunit_testsuite.html" class="code" title="function self = mlunit_testsuite(name, setup_obj, teardown_obj)">mlunit_testsuite</a>	Shallow collection of test cases.</li><li><a href="../../src/@test_loader/private/get_test_case_names.html" class="code" title="function names = get_test_case_names(self, test_case_class) %#ok">get_test_case_names</a>	test_loader/get_test_case_names returns a list of string with all</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_suite_runner/run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>	Load a given suite and execute all its tests.</li></ul>
+</ul>
 <!-- crossreference -->
 
 
@@ -68,17 +68,17 @@ This function is called by:
 0017 <span class="comment">% instantiate testsuite with setup and teardown methods</span>
 0018 setup_obj = eval([test_case_class, <span class="string">'(''suite_set_up'')'</span>]);
 0019 teardown_obj = eval([test_case_class, <span class="string">'(''suite_tear_down'')'</span>]);
-0020 suite = <a href="../../src/@mlunit_testsuite/mlunit_testsuite.html" class="code" title="function self = mlunit_testsuite(name, setup_obj, teardown_obj)">mlunit_testsuite</a>(test_case_class, setup_obj, teardown_obj);
+0020 suite = mlunit_testsuite(test_case_class, setup_obj, teardown_obj);
 0021 
 0022 <span class="comment">% add test cases</span>
-0023 names = <a href="../../src/@test_loader/private/get_test_case_names.html" class="code" title="function names = get_test_case_names(self, test_case_class) %#ok">get_test_case_names</a>(self, test_case_class);
+0023 names = get_test_case_names(self, test_case_class);
 0024 <span class="keyword">for</span> i = 1:length(names)
 0025     <span class="comment">% instantiate test</span>
 0026     testobj = eval([test_case_class, <span class="string">'('''</span>, char(names(i)), <span class="string">''')'</span>]);
 0027     
 0028     <span class="comment">% add to suite</span>
-0029     suite = <a href="../../src/@mlunit_testsuite/add_test.html" class="code" title="function self = add_test(self, test)">add_test</a>(suite, testobj);
+0029     suite = add_test(suite, testobj);
 0030 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
