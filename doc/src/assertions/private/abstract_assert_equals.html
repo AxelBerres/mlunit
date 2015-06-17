@@ -50,10 +50,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li><li><a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>	Generate a string marking differences between two strings</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li><li><a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>	Generate a string marking differences between two strings</li><li><a href="mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="../../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li><li><a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="../../../src/assertions/assert_equals.html" class="code" title="function assert_equals(expected, actual, varargin)">assert_equals</a>	ASSERT_EQUALS Raise an error if two expressions differ.</li><li><a href="../../../src/assertions/assert_not_equals.html" class="code" title="function assert_not_equals(expected, actual, varargin)">assert_not_equals</a>	ASSERT_NOT_EQUALS Raise an error if two expressions evaluate to the same.</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -89,7 +89,7 @@ This function is called by:
 0026 <span class="keyword">if</span> nargin &lt; 3, error(<span class="string">'Not enough input arguments.'</span>); <span class="keyword">end</span>
 0027 <span class="keyword">if</span> ~islogical(pass_if_equal), error(<span class="string">'pass_if_equal must be a logical'</span>); <span class="keyword">end</span>
 0028 
-0029 equal_nans = mlunit_param(<span class="string">'equal_nans'</span>);
+0029 equal_nans = <a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'equal_nans'</span>);
 0030 
 0031 <span class="comment">% default values for eps and message parts</span>
 0032 absolute_eps = 0;
@@ -156,89 +156,88 @@ This function is called by:
 0093 <span class="keyword">end</span>
 0094 
 0095 <span class="comment">% construct message</span>
-0096 <span class="keyword">if</span> ~isempty(custom_msg)
-0097    msg = custom_msg;
-0098 <span class="keyword">elseif</span> pass_if_equal
-0099    <span class="comment">% In case of failed equality check, prepare special message for large scalar structs</span>
-0100    isscalarstruct = @(s) isstruct(s) &amp;&amp; isscalar(s);
-0101    <span class="keyword">if</span> ~equals &amp;&amp; isscalarstruct(expected) &amp;&amp; isscalarstruct(actual)
-0102       struct_diffs = <a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>(expected, actual);
-0103       msg = <a href="#_sub1" class="code" title="subfunction msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)">loc_prepare_message_from_diffs</a>(struct_diffs, tolerance_msg);
-0104    <span class="keyword">else</span>
-0105       msg = <a href="#_sub2" class="code" title="subfunction msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)">loc_construct_diff_message</a>(expected, actual, <span class="string">''</span>, tolerance_msg);
-0106    <span class="keyword">end</span>
-0107 <span class="keyword">else</span>
-0108    msg = [<span class="string">'Expected and actual are equal'</span> tolerance_msg <span class="string">'.'</span>];
-0109 <span class="keyword">end</span>
-0110 
-0111 <span class="comment">% fail if pass on equal requested, but is not equal</span>
-0112 <span class="comment">% fail if fail on equal requested, and is equal</span>
-0113 <span class="comment">% else, pass quietly</span>
-0114 <span class="keyword">if</span> xor(pass_if_equal, equals)
-0115    mlunit_fail(msg);
-0116 <span class="keyword">end</span>
+0096 <span class="keyword">if</span> pass_if_equal
+0097    <span class="comment">% In case of failed equality check, prepare special message for large scalar structs</span>
+0098    isscalarstruct = @(s) isstruct(s) &amp;&amp; isscalar(s);
+0099    <span class="keyword">if</span> ~equals &amp;&amp; isscalarstruct(expected) &amp;&amp; isscalarstruct(actual)
+0100       struct_diffs = <a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>(expected, actual);
+0101       reason_msg = <a href="#_sub1" class="code" title="subfunction msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)">loc_prepare_message_from_diffs</a>(struct_diffs, tolerance_msg);
+0102    <span class="keyword">else</span>
+0103       reason_msg = <a href="#_sub2" class="code" title="subfunction msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)">loc_construct_diff_message</a>(expected, actual, <span class="string">''</span>, tolerance_msg);
+0104    <span class="keyword">end</span>
+0105 <span class="keyword">else</span>
+0106    reason_msg = [<span class="string">'Expected and actual are equal'</span> tolerance_msg <span class="string">'.'</span>];
+0107 <span class="keyword">end</span>
+0108 
+0109 <span class="comment">% fail if pass on equal requested, but is not equal</span>
+0110 <span class="comment">% fail if fail on equal requested, and is equal</span>
+0111 <span class="comment">% else, pass quietly</span>
+0112 <span class="keyword">if</span> xor(pass_if_equal, equals)
+0113     <span class="comment">% varargin has been evaluated before</span>
+0114     <a href="mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason_msg, custom_msg);
+0115 <span class="keyword">end</span>
+0116 
 0117 
-0118 
-0119 <a name="_sub1" href="#_subfunctions" class="code">function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)</a>
-0120 
-0121     error(nargchk(2, 2, nargin, <span class="string">'struct'</span>));
-0122     
-0123     first_n_items = 3;
-0124 
-0125     msgs = cell(size(struct_diffs));
-0126     <span class="keyword">for</span> sd = 1:numel(struct_diffs)
-0127         
-0128         <span class="comment">% truncate output after first n differences</span>
-0129         <span class="keyword">if</span> sd &gt; first_n_items
-0130             msgs{sd} = <span class="string">'... more differences detected, but not displayed.'</span>;
-0131             <span class="keyword">break</span>;
-0132         
-0133         <span class="comment">% message for differing field values on both sides</span>
-0134         <span class="keyword">elseif</span> isempty(struct_diffs(sd).missingin)
-0135             msgs{sd} = <a href="#_sub2" class="code" title="subfunction msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)">loc_construct_diff_message</a>(struct_diffs(sd).expected, struct_diffs(sd).actual, struct_diffs(sd).fieldpath, tolerance_msg);
-0136         
-0137         <span class="comment">% message for field missing on one side</span>
-0138         <span class="keyword">else</span>
-0139             msgs{sd} = sprintf(<span class="string">'Field %s missing in %s.'</span>, <span class="keyword">...</span>
-0140                 struct_diffs(sd).fieldpath, <span class="keyword">...</span>
-0141                 struct_diffs(sd).missingin);
-0142         <span class="keyword">end</span>
-0143     <span class="keyword">end</span>
-0144     
-0145     <span class="comment">% prevent preallocated empty items from being joined into the message string</span>
-0146     msgs(sd+1:end) = [];
-0147     
-0148     msg = mlunit_strjoin(msgs, sprintf(<span class="string">'\n'</span>));
-0149 
-0150     
-0151 <a name="_sub2" href="#_subfunctions" class="code">function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)</a>
-0152 
-0153     error(nargchk(2, 4, nargin, <span class="string">'struct'</span>));
-0154     
-0155     <span class="keyword">if</span> nargin &lt; 3, position_info = <span class="string">''</span>; <span class="keyword">end</span>
-0156     <span class="keyword">if</span> nargin &lt; 4, tolerance_msg = <span class="string">''</span>; <span class="keyword">end</span>
-0157     
-0158     position_msg = <span class="string">''</span>;
-0159     <span class="keyword">if</span> ~isempty(position_info)
-0160         position_msg = [<span class="string">' at position '</span> position_info];
-0161     <span class="keyword">end</span>
-0162     
-0163     change_msg = <span class="string">''</span>;
-0164     <span class="comment">% append difference markers for string comparisons</span>
-0165     <span class="keyword">if</span> ischar(expected) &amp;&amp; ischar(actual)
-0166         change_msg = sprintf(<span class="string">'\n  %-9s:  %s'</span>, <span class="string">'Changes'</span>, <a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>(expected, actual));
-0167     <span class="comment">% or for cell arrays containing single strings; adjust spaces for additional</span>
-0168     <span class="comment">% opening cell parenthesis ({)</span>
-0169     <span class="keyword">elseif</span> iscellstr(expected) &amp;&amp; iscellstr(actual) &amp;&amp; numel(expected)*numel(actual)==1
-0170         change_msg = sprintf(<span class="string">'\n  %-9s:   %s'</span>, <span class="string">'Changes'</span>, <a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>(expected{1}, actual{1}));
-0171     <span class="keyword">end</span>
-0172 
-0173     msg = sprintf(<span class="string">'Data not equal%s%s:\n  %-9s: %s\n  %-9s: %s%s'</span>, <span class="keyword">...</span>
-0174         position_msg, <span class="keyword">...</span>
-0175         tolerance_msg, <span class="keyword">...</span>
-0176         <span class="string">'Expected'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(expected), <span class="keyword">...</span>
-0177         <span class="string">'Actual'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(actual), <span class="keyword">...</span>
-0178         change_msg);</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0118 <a name="_sub1" href="#_subfunctions" class="code">function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)</a>
+0119 
+0120     error(nargchk(2, 2, nargin, <span class="string">'struct'</span>));
+0121     
+0122     first_n_items = 3;
+0123 
+0124     msgs = cell(size(struct_diffs));
+0125     <span class="keyword">for</span> sd = 1:numel(struct_diffs)
+0126         
+0127         <span class="comment">% truncate output after first n differences</span>
+0128         <span class="keyword">if</span> sd &gt; first_n_items
+0129             msgs{sd} = <span class="string">'... more differences detected, but not displayed.'</span>;
+0130             <span class="keyword">break</span>;
+0131         
+0132         <span class="comment">% message for differing field values on both sides</span>
+0133         <span class="keyword">elseif</span> isempty(struct_diffs(sd).missingin)
+0134             msgs{sd} = <a href="#_sub2" class="code" title="subfunction msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)">loc_construct_diff_message</a>(struct_diffs(sd).expected, struct_diffs(sd).actual, struct_diffs(sd).fieldpath, tolerance_msg);
+0135         
+0136         <span class="comment">% message for field missing on one side</span>
+0137         <span class="keyword">else</span>
+0138             msgs{sd} = sprintf(<span class="string">'Field %s missing in %s.'</span>, <span class="keyword">...</span>
+0139                 struct_diffs(sd).fieldpath, <span class="keyword">...</span>
+0140                 struct_diffs(sd).missingin);
+0141         <span class="keyword">end</span>
+0142     <span class="keyword">end</span>
+0143     
+0144     <span class="comment">% prevent preallocated empty items from being joined into the message string</span>
+0145     msgs(sd+1:end) = [];
+0146     
+0147     msg = <a href="../../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(msgs, sprintf(<span class="string">'\n'</span>));
+0148 
+0149     
+0150 <a name="_sub2" href="#_subfunctions" class="code">function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)</a>
+0151 
+0152     error(nargchk(2, 4, nargin, <span class="string">'struct'</span>));
+0153     
+0154     <span class="keyword">if</span> nargin &lt; 3, position_info = <span class="string">''</span>; <span class="keyword">end</span>
+0155     <span class="keyword">if</span> nargin &lt; 4, tolerance_msg = <span class="string">''</span>; <span class="keyword">end</span>
+0156     
+0157     position_msg = <span class="string">''</span>;
+0158     <span class="keyword">if</span> ~isempty(position_info)
+0159         position_msg = [<span class="string">' at position '</span> position_info];
+0160     <span class="keyword">end</span>
+0161     
+0162     change_msg = <span class="string">''</span>;
+0163     <span class="comment">% append difference markers for string comparisons</span>
+0164     <span class="keyword">if</span> ischar(expected) &amp;&amp; ischar(actual)
+0165         change_msg = sprintf(<span class="string">'\n  %-9s:  %s'</span>, <span class="string">'Changes'</span>, <a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>(expected, actual));
+0166     <span class="comment">% or for cell arrays containing single strings; adjust spaces for additional</span>
+0167     <span class="comment">% opening cell parenthesis &quot;{&quot;</span>
+0168     <span class="keyword">elseif</span> iscellstr(expected) &amp;&amp; iscellstr(actual) &amp;&amp; numel(expected)*numel(actual)==1
+0169         change_msg = sprintf(<span class="string">'\n  %-9s:   %s'</span>, <span class="string">'Changes'</span>, <a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>(expected{1}, actual{1}));
+0170     <span class="keyword">end</span>
+0171 
+0172     msg = sprintf(<span class="string">'Data not equal%s%s:\n  %-9s: %s\n  %-9s: %s%s'</span>, <span class="keyword">...</span>
+0173         position_msg, <span class="keyword">...</span>
+0174         tolerance_msg, <span class="keyword">...</span>
+0175         <span class="string">'Expected'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(expected), <span class="keyword">...</span>
+0176         <span class="string">'Actual'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(actual), <span class="keyword">...</span>
+0177         change_msg);</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -62,7 +62,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/assertions/private/abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>	ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -108,11 +108,9 @@ This function is called by:
 0035 <span class="comment">%</span>
 0036 <span class="comment">%  $Id: assert_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
 0037 
-0038 <span class="keyword">if</span> nargin &lt; 2,
-0039    error(<span class="string">'assert_equals: Not enough input arguments.'</span>);
-0040 <span class="keyword">end</span>
-0041 
-0042 abstract_assert_equals(true, expected, actual, varargin{:});</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0038 error(nargchk(2,Inf,nargin,<span class="string">'struct'</span>));
+0039 
+0040 <a href="../../src/assertions/private/abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>(true, expected, actual, varargin{:});</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

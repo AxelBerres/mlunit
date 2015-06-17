@@ -45,10 +45,12 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="../../../src/@test_loader/load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all</li></ul>
 <!-- crossreference -->
 
-
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function meths = loc_get_methods(class_name)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function names = get_test_case_names(self, test_case_class) </a><span class="comment">%#ok</span>
@@ -66,25 +68,36 @@ This function is called by:
 0013 <span class="comment">%  This Software and all associated files are released unter the</span>
 0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0015 <span class="comment">%</span>
-0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0017 <span class="comment">%  $Id: get_test_case_names.m 148 2007-01-02 20:08:23Z thomi $</span>
-0018 
-0019 t = mlunit_reflect(test_case_class);
-0020 names = get_methods(t);
-0021 <span class="keyword">for</span> i = size(names, 1):-1:1
-0022     <span class="keyword">if</span> (~strncmp(names(i), <span class="string">'test'</span>, 4))
-0023         names(i) = [];
-0024     <span class="keyword">end</span>;
-0025 <span class="keyword">end</span>;
-0026 names = sortrows(names);
-0027 
-0028 <span class="keyword">if</span> (length(names) &gt; 0)
+0016 <span class="comment">%  $Id$</span>
+0017 
+0018 names = <a href="#_sub1" class="code" title="subfunction meths = loc_get_methods(class_name)">loc_get_methods</a>(test_case_class);
+0019 <span class="keyword">for</span> i = size(names, 1):-1:1
+0020     <span class="keyword">if</span> (~strncmp(names(i), <span class="string">'test'</span>, 4))
+0021         names(i) = [];
+0022     <span class="keyword">end</span>;
+0023 <span class="keyword">end</span>;
+0024 names = sortrows(names);
+0025 
+0026 <span class="comment">% check that we actually got instances of test_case</span>
+0027 <span class="comment">% this lets the test case constructor execute once more</span>
+0028 <span class="keyword">if</span> ~isempty(names)
 0029     t = eval([test_case_class, <span class="string">'('''</span>, char(names(1)), <span class="string">''')'</span>]);
-0030 <span class="keyword">end</span>;
-0031 
-0032 <span class="keyword">if</span> (~isa(t, <span class="string">'test_case'</span>))
-0033     names = [];
-0034 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0030     <span class="keyword">if</span> (~isa(t, <span class="string">'test_case'</span>))
+0031         error(<span class="string">'MLUNIT:invalidTestObject'</span>, <span class="string">'Found at least one test method, but its object does not inherit from test_case, as it should.'</span>);
+0032     <span class="keyword">end</span>
+0033 <span class="keyword">end</span>
+0034 
+0035 
+0036 <span class="comment">% get methods for a class object or class name</span>
+0037 <span class="comment">% also get inherited methods, but this works for class name arguments only,</span>
+0038 <span class="comment">% if the class has been instantiated at least once, and is known in memory</span>
+0039 <a name="_sub1" href="#_subfunctions" class="code">function meths = loc_get_methods(class_name)</a>
+0040 
+0041     meths = methods(class_name, <span class="string">'-full'</span>);
+0042     <span class="comment">% enforce cell array, even if empty</span>
+0043     <span class="keyword">if</span> isempty(meths), meths = {}; <span class="keyword">end</span>
+0044     <span class="comment">% delete constructor method</span>
+0045     meths(strcmp(class_name, meths)) = [];</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

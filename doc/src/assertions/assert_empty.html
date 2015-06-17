@@ -35,9 +35,10 @@
               {}         empty cell array
               ''         empty string
 
-  ASSERT_EMPTY(EXPR, MSG, varargin) does the same, but with the custom
-  error message MSG. MSG may contain sprintf arguments, which can be
-  expanded by subsequent arguments in varargin.
+  ASSERT_EMPTY(EXPR, MSG, varargin) does the same, but adds the custom
+  error message MSG at the beginning of the failure reason.
+  MSG may contain sprintf arguments, which can be expanded by subsequent
+  arguments in varargin.
 
   Examples
      % asserts variable arg being empty
@@ -52,7 +53,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>	MLUNIT_FAIL Raise an error.</li></ul>
+<li><a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li><li><a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -70,31 +71,29 @@ This function is called by:
 0007 <span class="comment">%              {}         empty cell array</span>
 0008 <span class="comment">%              ''         empty string</span>
 0009 <span class="comment">%</span>
-0010 <span class="comment">%  ASSERT_EMPTY(EXPR, MSG, varargin) does the same, but with the custom</span>
-0011 <span class="comment">%  error message MSG. MSG may contain sprintf arguments, which can be</span>
-0012 <span class="comment">%  expanded by subsequent arguments in varargin.</span>
-0013 <span class="comment">%</span>
-0014 <span class="comment">%  Examples</span>
-0015 <span class="comment">%     % asserts variable arg being empty</span>
-0016 <span class="comment">%     assert_empty(arg);</span>
-0017 <span class="comment">%</span>
-0018 <span class="comment">%     % the same, with a custom message</span>
-0019 <span class="comment">%     assert_empty(arg, 'arg is not empty');</span>
-0020 <span class="comment">%</span>
-0021 <span class="comment">%  See also  ISEMPTY, MLUNIT_FAIL, ASSERT_TRUE</span>
-0022 
-0023 <span class="comment">%  This Software and all associated files are released unter the</span>
-0024 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
-0025 <span class="comment">%</span>
-0026 <span class="comment">%  $Id$</span>
-0027 
-0028 <span class="comment">% If called with no argument, logic dictates that assert_empty should</span>
-0029 <span class="comment">% be content.</span>
-0030 <span class="keyword">if</span> nargin &gt;= 1
-0031    <span class="keyword">if</span> ~isempty(expr)
-0032       <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(varargin{:});
-0033    <span class="keyword">end</span>
-0034 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0010 <span class="comment">%  ASSERT_EMPTY(EXPR, MSG, varargin) does the same, but adds the custom</span>
+0011 <span class="comment">%  error message MSG at the beginning of the failure reason.</span>
+0012 <span class="comment">%  MSG may contain sprintf arguments, which can be expanded by subsequent</span>
+0013 <span class="comment">%  arguments in varargin.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  Examples</span>
+0016 <span class="comment">%     % asserts variable arg being empty</span>
+0017 <span class="comment">%     assert_empty(arg);</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%     % the same, with a custom message</span>
+0020 <span class="comment">%     assert_empty(arg, 'arg is not empty');</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%  See also  ISEMPTY, MLUNIT_FAIL, ASSERT_TRUE</span>
+0023 
+0024 <span class="comment">%  This Software and all associated files are released unter the</span>
+0025 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%  $Id$</span>
+0028 
+0029 <span class="keyword">if</span> nargin &gt;= 1 &amp;&amp; ~isempty(expr)
+0030     reason = sprintf(<span class="string">'Expected empty expression was actually: %s.'</span>, <a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>(expr));
+0031     <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason, varargin{:});
+0032 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

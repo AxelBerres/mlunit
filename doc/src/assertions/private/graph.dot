@@ -1,0 +1,19 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  abstract_assert_equals -> find_struct_differences;
+  abstract_assert_equals -> mark_string_differences;
+  abstract_assert_equals -> mlunit_fail_with_reason;
+  abstract_assert_equals -> printable;
+  find_struct_differences -> find_struct_differences;
+  printable -> isclass;
+  printable -> mat2str_char;
+  printable -> printable;
+
+  abstract_assert_equals [URL="abstract_assert_equals.html"];
+  find_struct_differences [URL="find_struct_differences.html"];
+  isclass [URL="isclass.html"];
+  mark_string_differences [URL="mark_string_differences.html"];
+  mat2str_char [URL="mat2str_char.html"];
+  mlunit_fail_with_reason [URL="mlunit_fail_with_reason.html"];
+  printable [URL="printable.html"];
+}

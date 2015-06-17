@@ -52,7 +52,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>	MLUNIT_FAIL Raise an error.</li></ul>
+<li><a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -88,13 +88,12 @@ This function is called by:
 0025 <span class="comment">%</span>
 0026 <span class="comment">%  $Id$</span>
 0027 
-0028 <span class="keyword">if</span> nargin &lt; 1
-0029    error(<span class="string">'assert_not_empty: Not enough input arguments.'</span>);
-0030 <span class="keyword">end</span>
-0031 
-0032 <span class="keyword">if</span> isempty(expr)
-0033    <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(varargin{:});
-0034 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0028 error(nargchk(1,Inf,nargin,<span class="string">'struct'</span>));
+0029 
+0030 <span class="keyword">if</span> isempty(expr)
+0031     fail_msg = <span class="string">'Expected non-empty expression was actually empty.'</span>;
+0032     <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(fail_msg, varargin{:});
+0033 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

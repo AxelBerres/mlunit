@@ -28,10 +28,7 @@
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">Console progress listener implementation.
-  Displays test results live in the GUI as they are being executed.
-  Is instanciated with handles of the graphical GUI objects it needs to update.
-  Also stores internal states, e.g. how many tests have been run so far. You
-  therefore are advised to keep the instance variable around and up to date.
+  Displays test results live on the console as they are being executed.
 
   See init_results, next_result</pre></div>
 
@@ -39,34 +36,31 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/@mlunit_progress_listener/mlunit_progress_listener.html" class="code" title="function self = mlunit_progress_listener()">mlunit_progress_listener</a>	Abstract base class for progress listener implementations.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/@test_loader/load_tests_from_mfile.html" class="code" title="function suite = load_tests_from_mfile(self) %#ok">load_tests_from_mfile</a>	test_loader/load_tests_from_mfile returns a test_suite with all</li><li><a href="../../src/automation/recursive_test_run.html" class="code" title="function recursive_test_run(testobj, targetdir)">recursive_test_run</a>	RECURSIVE_TEST_RUN Execute all test script files of a folder and all its</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <span class="comment">%Console progress listener implementation.</span>
-0002 <span class="comment">%  Displays test results live in the GUI as they are being executed.</span>
-0003 <span class="comment">%  Is instanciated with handles of the graphical GUI objects it needs to update.</span>
-0004 <span class="comment">%  Also stores internal states, e.g. how many tests have been run so far. You</span>
-0005 <span class="comment">%  therefore are advised to keep the instance variable around and up to date.</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">%  See init_results, next_result</span>
-0008 
-0009 <span class="comment">%  This Software and all associated files are released unter the</span>
-0010 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
-0011 <span class="comment">%</span>
-0012 <span class="comment">%  $Id$</span>
-0013 
-0014 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_progress_listener_console()</a>
-0015 
-0016 error(nargchk(0, 0, nargin, <span class="string">'struct'</span>));
-0017 
-0018 self = struct();
-0019 self = class(self, <span class="string">'mlunit_progress_listener_console'</span>, mlunit_progress_listener);</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0002 <span class="comment">%  Displays test results live on the console as they are being executed.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  See init_results, next_result</span>
+0005 
+0006 <span class="comment">%  This Software and all associated files are released unter the</span>
+0007 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  $Id$</span>
+0010 
+0011 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_progress_listener_console()</a>
+0012 
+0013 error(nargchk(0, 0, nargin, <span class="string">'struct'</span>));
+0014 
+0015 self = struct();
+0016 self = class(self, <span class="string">'mlunit_progress_listener_console'</span>, <a href="../../src/@mlunit_progress_listener/mlunit_progress_listener.html" class="code" title="function self = mlunit_progress_listener()">mlunit_progress_listener</a>);</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

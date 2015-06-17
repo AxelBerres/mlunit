@@ -97,7 +97,7 @@ This function is called by:
 0036                       <span class="string">'[^\n]*'</span> <span class="keyword">...</span><span class="comment">          % skip anything on this line</span>
 0037                       <span class="string">'\n(.*)'</span>];            <span class="comment">% capture the next line(s)</span>
 0038 num_captures_runtime_err = 2;               <span class="comment">% 2 capture groups if successful</span>
-0039                   
+0039 
 0040 <span class="comment">% lasterror wraps syntax errors really awkwardly across the releases</span>
 0041 <span class="comment">% for details, see test_mlunit_errorinfo</span>
 0042 regexp_syntax_err = [<span class="string">'^Error: '</span> <span class="keyword">...</span><span class="comment">         % starts with 'Error:'</span>
@@ -146,6 +146,6 @@ This function is called by:
 0085 <span class="keyword">if</span> ~isempty(self.additional_cause)
 0086     message = [self.additional_cause sprintf(<span class="string">'\n'</span>) message];
 0087 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

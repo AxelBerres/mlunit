@@ -1,0 +1,14 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  assert_empty [URL="assert_empty.html"];
+  assert_equals [URL="assert_equals.html"];
+  assert_error [URL="assert_error.html"];
+  assert_false [URL="assert_false.html"];
+  assert_matfile_equals [URL="assert_matfile_equals.html"];
+  assert_not_empty [URL="assert_not_empty.html"];
+  assert_not_equals [URL="assert_not_equals.html"];
+  assert_true [URL="assert_true.html"];
+  assert_warning [URL="assert_warning.html"];
+  mlunit_fail [URL="mlunit_fail.html"];
+}

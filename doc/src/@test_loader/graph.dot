@@ -1,0 +1,7 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  load_tests_from_mfile [URL="load_tests_from_mfile.html"];
+  load_tests_from_test_case [URL="load_tests_from_test_case.html"];
+  test_loader [URL="test_loader.html"];
+}

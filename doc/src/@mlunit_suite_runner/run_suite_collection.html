@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of run_suite_collection</title>
+  <meta name="keywords" content="run_suite_collection">
+  <meta name="description" content="Execute one or several test suites.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_suite_runner</a> &gt; run_suite_collection.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_suite_runner&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>run_suite_collection
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Execute one or several test suites.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = run_suite_collection(self, testobj, targetdir) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Execute one or several test suites.
+  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ) executes all tests of all suites
+  relating to TESTOBJ. If TESTOBJ is a directory, all nested test suites will
+  be collected and executed. If TESTOBJ is a single test suite name, then that
+  only will be executed.
+
+  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR) does the same, but
+  generates jUnit reports into TARGETDIR.
+
+  See also mlunit_gui, <a href="mlunit_suite_runner.html" class="code" title="function self = mlunit_suite_runner()">mlunit_suite_runner</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li><li><a href="../../src/@mlunit_suite_runner/private/getNestedTestFiles.html" class="code" title="function suitespecs = getNestedTestFiles(basedir)">getNestedTestFiles</a>	GETNESTEDTESTFILES returns a list of all test_*.m files in all</li><li><a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>	Notify progress listeners.</li><li><a href="../../src/@mlunit_suite_runner/private/writeXmlTestsuite.html" class="code" title="function writeXmlTestsuite(suiteresult, targetdir)">writeXmlTestsuite</a>	WRITEXMLTESTSUITE Write the result of a test suite as jUnit compatible XML file.</li><li><a href="run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>	Load a given suite and execute all its tests.</li><li><a href="../../src/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>	Save and restore MATLAB/mlUnit environment.</li><li><a href="../../src/utils/internal/mlunit_num_suite_errors.html" class="code" title="function num_errors = mlunit_num_suite_errors(results)">mlunit_num_suite_errors</a>	Count the number of errors in a suite's results.</li><li><a href="../../src/utils/internal/mlunit_num_suite_failures.html" class="code" title="function num_failures = mlunit_num_suite_failures(results)">mlunit_num_suite_failures</a>	Count the number of failures in a suite's results.</li><li><a href="../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li><li><a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../src/@test_loader/load_tests_from_mfile.html" class="code" title="function suite = load_tests_from_mfile(self) %#ok">load_tests_from_mfile</a>	test_loader/load_tests_from_mfile returns a test_suite with all</li><li><a href="../../src/automation/recursive_test_run.html" class="code" title="function recursive_test_run(testobj, targetdir)">recursive_test_run</a>	RECURSIVE_TEST_RUN Execute all test script files of a folder and all its</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function suitespecs = loc_determine_suites(testobj)</a></li><li><a href="#_sub2" class="code">function [suiteresult, self] = runTestsuite(self, suitespec)</a></li><li><a href="#_sub3" class="code">function suiteresult = build_suiteresult(results, time, suitespec)</a></li><li><a href="#_sub4" class="code">function name = packageFromRelativeDir(reldir, testname)</a></li><li><a href="#_sub5" class="code">function name = strip_classprefix(name)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Execute one or several test suites.</span>
+0002 <span class="comment">%  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ) executes all tests of all suites</span>
+0003 <span class="comment">%  relating to TESTOBJ. If TESTOBJ is a directory, all nested test suites will</span>
+0004 <span class="comment">%  be collected and executed. If TESTOBJ is a single test suite name, then that</span>
+0005 <span class="comment">%  only will be executed.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR) does the same, but</span>
+0008 <span class="comment">%  generates jUnit reports into TARGETDIR.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  See also mlunit_gui, mlunit_suite_runner</span>
+0011 
+0012 <span class="comment">%  This Software and all associated files are released unter the</span>
+0013 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  $Id$</span>
+0016 
+0017 <a name="_sub0" href="#_subfunctions" class="code">function self = run_suite_collection(self, testobj, targetdir)</a>
+0018 
+0019    error(nargchk(2, 3, nargin, <span class="string">'struct'</span>));
+0020    <span class="keyword">if</span> isempty(testobj), error(<span class="string">'MLUNIT:invalidTestobj'</span>, <span class="string">'Test object must not be empty.'</span>); <span class="keyword">end</span>
+0021    write_xml = nargin &gt;= 3;
+0022 
+0023    <span class="comment">% start time for calculating execution time</span>
+0024    start_time = clock;
+0025    
+0026    <span class="comment">% mlock mlunit_param for the duration of the execution</span>
+0027    <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'-mlock'</span>);
+0028    
+0029    <span class="comment">% buffer current environment state</span>
+0030    previous_environment = <a href="../../src/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>();
+0031 
+0032    <span class="comment">% initialize display</span>
+0033    self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'initialize_execution'</span>, testobj);
+0034    
+0035    <span class="comment">% get test suite(s)</span>
+0036    suitespecs = <a href="#_sub1" class="code" title="subfunction suitespecs = loc_determine_suites(testobj)">loc_determine_suites</a>(testobj);
+0037 
+0038    <span class="comment">% update display with number of test suites</span>
+0039    count_suites = numel(suitespecs);
+0040    self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'init_suites'</span>, count_suites);
+0041 
+0042    <span class="comment">% Execute each test suite file.</span>
+0043    suiteresults = cell(size(suitespecs));
+0044    <span class="keyword">for</span> suite=1:count_suites
+0045       [suiteresults{suite}, self] = <a href="#_sub2" class="code" title="subfunction [suiteresult, self] = runTestsuite(self, suitespec)">runTestsuite</a>(self, suitespecs{suite});
+0046       <span class="keyword">if</span> write_xml
+0047          <a href="../../src/@mlunit_suite_runner/private/writeXmlTestsuite.html" class="code" title="function writeXmlTestsuite(suiteresult, targetdir)">writeXmlTestsuite</a>(suiteresults{suite}, targetdir);
+0048       <span class="keyword">end</span>
+0049    <span class="keyword">end</span>
+0050 
+0051    <span class="comment">% restore previous environment state</span>
+0052    <a href="../../src/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>(previous_environment);
+0053    
+0054    munlock(<span class="string">'mlunit_param'</span>);
+0055    
+0056    <span class="comment">% finalize display</span>
+0057    execution_time = etime(clock, start_time);
+0058    self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'finalize_execution'</span>, suiteresults, execution_time);
+0059    
+0060 
+0061 <a name="_sub1" href="#_subfunctions" class="code">function suitespecs = loc_determine_suites(testobj)</a>
+0062 
+0063     <span class="comment">% neither dir nor file, must be some error</span>
+0064     <span class="keyword">if</span> ~any(exist(testobj, <span class="string">'file'</span>) == [2,7])
+0065         error(<span class="string">'MLUNIT:invalidTestobj'</span>, <span class="string">'Given test object is neither a directory nor a file: ''%s'''</span>, testobj);
+0066     <span class="keyword">end</span>
+0067 
+0068     <span class="comment">% in case of dir, go down recursively</span>
+0069     <span class="keyword">if</span> exist(testobj, <span class="string">'dir'</span>) == 7
+0070         [dirpath, dirname] = fileparts(testobj);
+0071         <span class="keyword">if</span> dirname(1) ~= <span class="string">'@'</span>
+0072             <span class="comment">% Get test files. They may be in basedir or its subdirectories.</span>
+0073             suitespecs = <a href="../../src/@mlunit_suite_runner/private/getNestedTestFiles.html" class="code" title="function suitespecs = getNestedTestFiles(basedir)">getNestedTestFiles</a>(testobj);
+0074             <span class="keyword">return</span>;
+0075         <span class="keyword">end</span>
+0076         
+0077         <span class="comment">% delegate to constructor method</span>
+0078         testobj = fullfile(testobj, dirname(2:end));
+0079     <span class="keyword">end</span>
+0080 
+0081     <span class="comment">% tokenize path to existing file</span>
+0082     [filepath, filename] = fileparts(which(testobj));
+0083     [parentpath, parentname] = fileparts(filepath);
+0084 
+0085     <span class="comment">% for existing file, construct single spec</span>
+0086     spec = struct();
+0087     spec.reldir = <span class="string">''</span>;
+0088     
+0089     <span class="comment">% but handle function and class differently</span>
+0090     isobjectconstructor = ~isempty(parentname) &amp;&amp; <span class="keyword">...</span>
+0091               parentname(1) == <span class="string">'@'</span> &amp;&amp; <span class="keyword">...</span>
+0092               isequal(parentname(2:end), filename);
+0093     <span class="keyword">if</span> isobjectconstructor
+0094         spec.testname = [<span class="string">'@'</span> filename];
+0095         spec.fulldir = parentpath;
+0096     <span class="keyword">else</span>
+0097         spec.testname = filename;
+0098         spec.fulldir = filepath;
+0099     <span class="keyword">end</span>
+0100     
+0101     suitespecs = {spec};
+0102 
+0103 
+0104 <span class="comment">% Run test suite, collect suite and test case attributes and return them.</span>
+0105 <span class="comment">% suiteresult is a cell array of structures. Each structure contains:</span>
+0106 <span class="comment">%  name           the package name of the test suite</span>
+0107 <span class="comment">%  errors         the number of errors</span>
+0108 <span class="comment">%  failures       the number of failures</span>
+0109 <span class="comment">%  tests          the number of executed tests</span>
+0110 <span class="comment">%  time           the time used for executing the tests</span>
+0111 <span class="comment">%  testcaseList   a list of all testcases with specific information</span>
+0112 <span class="comment">%     .name       the test case name</span>
+0113 <span class="comment">%     .classname  the name of the class/package, constructed from the</span>
+0114 <span class="comment">%                 relative path name and the test suite file name</span>
+0115 <span class="comment">%     .error      a description of its error. [] if no error.</span>
+0116 <span class="comment">%     .failure    a description of its failure. [] if no failure.</span>
+0117 <span class="comment">%     .time       the time used in seconds</span>
+0118 <a name="_sub2" href="#_subfunctions" class="code">function [suiteresult, self] = runTestsuite(self, suitespec)</a>
+0119 
+0120    self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'next_suite'</span>, suitespec.testname);
+0121    
+0122    <span class="comment">% Change to test suite directory. This lets us execute the test suite (function</span>
+0123    <span class="comment">% or class) even if shadowed. Pwd will be restored with mlunit_environment.</span>
+0124    prevpwd = cd(suitespec.fulldir);
+0125 
+0126    [results, time, self] = <a href="run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>(self, <a href="#_sub5" class="code" title="subfunction name = strip_classprefix(name)">strip_classprefix</a>(suitespec.testname));
+0127    
+0128    cd(prevpwd);
+0129    
+0130    suiteresult = <a href="#_sub3" class="code" title="subfunction suiteresult = build_suiteresult(results, time, suitespec)">build_suiteresult</a>(results, time, suitespec);
+0131    
+0132    
+0133 <span class="comment">% The results arguments is a struct array with each element representing a test</span>
+0134 <span class="comment">% case, and with fields:</span>
+0135 <span class="comment">%   - name    : string, the test case name</span>
+0136 <span class="comment">%   - errors  : struct array, all errors that occurred during execution, each</span>
+0137 <span class="comment">%               a struct in itself with fields message and stack,</span>
+0138 <span class="comment">%               0x0 struct with these fields, if no errors occurred</span>
+0139 <span class="comment">%   - failure : string, the failure message, empty, if no failure occurred</span>
+0140 <span class="comment">%   - time    : double, the execution time in seconds</span>
+0141 <a name="_sub3" href="#_subfunctions" class="code">function suiteresult = build_suiteresult(results, time, suitespec)</a>
+0142 
+0143    suiteresult = struct();
+0144    suiteresult.time = time;
+0145    suiteresult.name = <a href="#_sub4" class="code" title="subfunction name = packageFromRelativeDir(reldir, testname)">packageFromRelativeDir</a>(suitespec.reldir, suitespec.testname);
+0146    suiteresult.errors = <a href="../../src/utils/internal/mlunit_num_suite_errors.html" class="code" title="function num_errors = mlunit_num_suite_errors(results)">mlunit_num_suite_errors</a>(results);
+0147    suiteresult.failures = <a href="../../src/utils/internal/mlunit_num_suite_failures.html" class="code" title="function num_failures = mlunit_num_suite_failures(results)">mlunit_num_suite_failures</a>(results);
+0148    suiteresult.tests = numel(results);
+0149    
+0150    <span class="comment">% iterate list of test cases in suite</span>
+0151    suiteresult.testcaseList = cell(size(results));
+0152    <span class="keyword">for</span> t = 1:numel(results)
+0153       testcase = struct();
+0154       testcase.name = results(t).name;
+0155       testcase.classname = suiteresult.name;
+0156       testcase.time = results(t).time;
+0157       msg_and_stack_list = cellfun(@(e) <a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>(e), results(t).errors, <span class="string">'UniformOutput'</span>, false);
+0158       testcase.error = <a href="../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(msg_and_stack_list, sprintf(<span class="string">'\n'</span>));
+0159       testcase.failure = results(t).failure;
+0160       
+0161       <span class="comment">% save into list of testcases results</span>
+0162       suiteresult.testcaseList{t} = testcase;
+0163    <span class="keyword">end</span>
+0164    
+0165    
+0166 <span class="comment">%% Construct package name from relative dir and testname</span>
+0167 <a name="_sub4" href="#_subfunctions" class="code">function name = packageFromRelativeDir(reldir, testname)</a>
+0168 
+0169    <span class="comment">% start from relative dir name</span>
+0170    name = reldir;
+0171    
+0172    <span class="comment">% convert dir separators to dots</span>
+0173    name = strrep(name, <span class="string">'\'</span>, <span class="string">'.'</span>);
+0174    name = strrep(name, <span class="string">'/'</span>, <span class="string">'.'</span>);
+0175    
+0176    <span class="comment">% chomp leading and dangling dots</span>
+0177    <span class="keyword">while</span> ~isempty(name) &amp;&amp; strncmp(<span class="string">'.'</span>, name, 1), name(1) = []; <span class="keyword">end</span>
+0178    <span class="keyword">while</span> ~isempty(name) &amp;&amp; strcmp(<span class="string">'.'</span>, name(end)), name(end) = []; <span class="keyword">end</span>
+0179    
+0180    <span class="comment">% append testname</span>
+0181    <span class="keyword">if</span> isempty(name)
+0182       name = testname;
+0183    <span class="keyword">else</span>
+0184       name = [name <span class="string">'.'</span> testname];
+0185    <span class="keyword">end</span>
+0186    
+0187 
+0188 <a name="_sub5" href="#_subfunctions" class="code">function name = strip_classprefix(name)</a>
+0189 
+0190     <span class="keyword">if</span> ~isempty(name) &amp;&amp; (<span class="string">'@'</span> == name(1))
+0191         name = name(2:end);
+0192     <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

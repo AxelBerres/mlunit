@@ -24,13 +24,13 @@
 <div class="box"><strong>Base class for a test suite.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function self = test_case(name, subclass, function_name) </strong></div>
+<div class="box"><strong>function self = test_case(name, function_name) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">Base class for a test suite.
   Inherit your class-based test suite from this base class. Fixture methods
   (set_up and tear_down) get inherited or overloaded. You should not overload
-  methods named 'get_function_name', 'get_name' or 'str'.
+  methods named 'get_function_name', 'get_name', or 'str'.
 
   Upon execution, for every test method, a distinct test_case object will be
   instanciated, receiving the test method's name in the 'name' argument. This
@@ -42,7 +42,7 @@
   ====================
   The class test_case is the base class for all tests. It defines a 
   fixture to run multiple tests. The constructor is called as follows:
-         Example: test = test_case('test_foo', 'my_test');
+         Example: test = test_case('test_foo');
   test_foo is the name of the test method, my_test is the name of a
   subclass of test_case. Such a class is created as follows:
 
@@ -79,17 +79,17 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>	Provides test case integration for a function test case.</li><li><a href="../../src/@mlunit_gui/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = test_case(name, subclass, function_name)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = test_case(name, function_name)</a>
 0002 <span class="comment">%Base class for a test suite.</span>
 0003 <span class="comment">%  Inherit your class-based test suite from this base class. Fixture methods</span>
 0004 <span class="comment">%  (set_up and tear_down) get inherited or overloaded. You should not overload</span>
-0005 <span class="comment">%  methods named 'get_function_name', 'get_name' or 'str'.</span>
+0005 <span class="comment">%  methods named 'get_function_name', 'get_name', or 'str'.</span>
 0006 <span class="comment">%</span>
 0007 <span class="comment">%  Upon execution, for every test method, a distinct test_case object will be</span>
 0008 <span class="comment">%  instanciated, receiving the test method's name in the 'name' argument. This</span>
@@ -101,7 +101,7 @@ This function is called by:
 0014 <span class="comment">%  ====================</span>
 0015 <span class="comment">%  The class test_case is the base class for all tests. It defines a</span>
 0016 <span class="comment">%  fixture to run multiple tests. The constructor is called as follows:</span>
-0017 <span class="comment">%         Example: test = test_case('test_foo', 'my_test');</span>
+0017 <span class="comment">%         Example: test = test_case('test_foo');</span>
 0018 <span class="comment">%  test_foo is the name of the test method, my_test is the name of a</span>
 0019 <span class="comment">%  subclass of test_case. Such a class is created as follows:</span>
 0020 <span class="comment">%</span>
@@ -135,30 +135,21 @@ This function is called by:
 0048 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0049 <span class="comment">%</span>
 0050 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0051 <span class="comment">%  $Id$</span>
+0051 <span class="comment">%  $Id: test_case.m 223 2015-05-03 18:31:36Z hetu $</span>
 0052 
-0053 <span class="comment">% name argument not given or empty, default to 'run_test'</span>
-0054 <span class="keyword">if</span> nargin &lt; 1 || isempty(name)
-0055    name = <span class="string">'run_test'</span>;
-0056 <span class="keyword">end</span>
-0057 
-0058 <span class="comment">% if subclass argument given, check that the method can be resolved</span>
-0059 <span class="keyword">if</span> nargin &gt;= 2
-0060    r = mlunit_reflect(subclass);
-0061    <span class="keyword">if</span> (~method_exists(r, name))
-0062       error([<span class="string">'Method '</span>, name <span class="string">' does not exists.'</span>]);
-0063    <span class="keyword">end</span>;
-0064 <span class="keyword">end</span>
-0065 
-0066 <span class="comment">% function_name argument not given, default to name</span>
-0067 <span class="comment">% This will mainly hit for class-based test cases deriving directly from</span>
-0068 <span class="comment">% test_case. function_test_case based cases set this argument</span>
-0069 <span class="keyword">if</span> nargin &lt; 3, function_name = name; <span class="keyword">end</span>
-0070 
-0071 self.name = name;
-0072 self.function_name = function_name;
-0073 
-0074 self = class(self, <span class="string">'test_case'</span>);</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0053 error(nargchk(1,2,nargin,<span class="string">'struct'</span>));
+0054 <span class="keyword">if</span> ~ischar(name), error(<span class="string">'name need be char'</span>); <span class="keyword">end</span>
+0055 <span class="keyword">if</span> isempty(name), error(<span class="string">'name must not be empty'</span>); <span class="keyword">end</span>
+0056 
+0057 <span class="comment">% function_name argument not given, default to name</span>
+0058 <span class="comment">% This will mainly hit for class-based test cases deriving directly from</span>
+0059 <span class="comment">% test_case. function_test_case based cases set this argument</span>
+0060 <span class="keyword">if</span> nargin &lt; 2, function_name = name; <span class="keyword">end</span>
+0061 
+0062 self.name = name;
+0063 self.function_name = function_name;
+0064 
+0065 self = class(self, <span class="string">'test_case'</span>);</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
