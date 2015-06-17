@@ -41,10 +41,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="filter_failure_stack.html" class="code" title="function stack = filter_failure_stack(self, stack)">filter_failure_stack</a>	Restrict a failure's stack to items relevant to the user.</li><li><a href="filter_lasterror_wraps.html" class="code" title="function [message, stack] = filter_lasterror_wraps(self)">filter_lasterror_wraps</a>	Free error message of leading 'Error:' or 'Error using' lines.</li><li><a href="is_failure.html" class="code" title="function result = is_failure(self)">is_failure</a>	Return whether this error represents a failure rather than a common error.</li><li><a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
+<li><a href="filter_failure_stack.html" class="code" title="function stack = filter_failure_stack(self, stack)">filter_failure_stack</a>	Restrict a failure's stack to items relevant to the user.</li><li><a href="filter_lasterror_wraps.html" class="code" title="function [message, stack] = filter_lasterror_wraps(self)">filter_lasterror_wraps</a>	Free error message of leading 'Error:' or 'Error using' lines.</li><li><a href="is_failure.html" class="code" title="function result = is_failure(self)">is_failure</a>	Return whether this error represents a failure rather than a common error.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_progress_listener_console/next_result.html" class="code" title="function self = next_result(self, result)">next_result</a>	Update display with next test case result.</li><li><a href="../../src/@mlunit_progress_listener_gui/display_meta_error.html" class="code" title="function self = display_meta_error(self, meta_error)">display_meta_error</a>	Display an error that occurred outside of any test execution.</li><li><a href="../../src/@mlunit_progress_listener_gui/next_result.html" class="code" title="function self = next_result(self, result)">next_result</a>	Update display with next test case result.</li><li><a href="../../src/@mlunit_suite_runner/run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>	Execute one or several test suites.</li><li><a href="../../src/@mlunit_suite_runner/run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>	Execute a single test case.</li></ul>
+</ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
@@ -98,12 +98,12 @@ This function is called by:
 0044 <a name="_sub2" href="#_subfunctions" class="code">function stackline = loc_print_stackline(stackitem)</a>
 0045 
 0046 display_name = stackitem.file;
-0047 <span class="keyword">if</span> <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'abbrev_trace'</span>)
+0047 <span class="keyword">if</span> mlunit_param(<span class="string">'abbrev_trace'</span>)
 0048     [dummy, filename, ext] = fileparts(stackitem.file);
 0049     display_name = [filename ext];
 0050 <span class="keyword">end</span>
 0051 
-0052 <span class="keyword">if</span> <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'linked_trace'</span>)
+0052 <span class="keyword">if</span> mlunit_param(<span class="string">'linked_trace'</span>)
 0053     hrefvalue = sprintf(<span class="string">'matlab:opentoline(''%s'',%d)'</span>, <span class="keyword">...</span>
 0054         stackitem.file, stackitem.line);
 0055     stackline = sprintf(<span class="string">'In &lt;a href=&quot;%s&quot;&gt;%s&lt;/a&gt; at line %d'</span>, <span class="keyword">...</span>
@@ -112,6 +112,6 @@ This function is called by:
 0058     stackline = sprintf(<span class="string">'In %s at line %d'</span>, <span class="keyword">...</span>
 0059         display_name, stackitem.line);
 0060 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

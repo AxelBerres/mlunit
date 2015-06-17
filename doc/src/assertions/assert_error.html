@@ -72,7 +72,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li><li><a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -165,10 +165,10 @@ This function is called by:
 0080 <span class="comment">% evaluate findings</span>
 0081 <span class="keyword">if</span> ~bCaught
 0082    <span class="comment">% no error at all is a failed expectation</span>
-0083    <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(<span class="string">'Error expected, but none occurred.'</span>, varargin{:});
+0083    mlunit_fail_with_reason(<span class="string">'Error expected, but none occurred.'</span>, varargin{:});
 0084 <span class="keyword">elseif</span> ~bErrorMatch
 0085    error_msg = sprintf(<span class="string">'Error occurred, but did not match criteria. %s'</span>, <a href="#_sub2" class="code" title="subfunction string = diff2string(diff)">diff2string</a>(differences));
-0086    <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(error_msg, varargin{:});
+0086    mlunit_fail_with_reason(error_msg, varargin{:});
 0087 <span class="keyword">end</span>
 0088 
 0089 
@@ -209,9 +209,9 @@ This function is called by:
 0124 
 0125 <a name="_sub2" href="#_subfunctions" class="code">function string = diff2string(diff)</a>
 0126 
-0127    diffstring = @(field) [<span class="string">'Expected error '</span> field <span class="string">' '</span> <a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>(diff.(field).expected) <span class="string">' actually was '</span> <a href="../../src/assertions/private/printable.html" class="code" title="function outstring = printable(input)">printable</a>(diff.(field).actual) <span class="string">'.'</span>];
+0127    diffstring = @(field) [<span class="string">'Expected error '</span> field <span class="string">' '</span> printable(diff.(field).expected) <span class="string">' actually was '</span> printable(diff.(field).actual) <span class="string">'.'</span>];
 0128    diffstrings = cellfun(diffstring, fieldnames(diff), <span class="string">'UniformOutput'</span>, false);
-0129    string = <a href="../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(diffstrings, sprintf(<span class="string">'\n'</span>));</pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0129    string = mlunit_strjoin(diffstrings, sprintf(<span class="string">'\n'</span>));</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

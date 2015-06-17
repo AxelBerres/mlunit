@@ -50,10 +50,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li><li><a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>	Generate a string marking differences between two strings</li><li><a href="mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="../../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li><li><a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
+<li><a href="find_struct_differences.html" class="code" title="function struct_diffs = find_struct_differences(sa, sb, fieldpath)">find_struct_differences</a>	Determine differences between two given structs. Recursively.</li><li><a href="mark_string_differences.html" class="code" title="function marker = mark_string_differences(s1, s2)">mark_string_differences</a>	Generate a string marking differences between two strings</li><li><a href="mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../src/assertions/assert_equals.html" class="code" title="function assert_equals(expected, actual, varargin)">assert_equals</a>	ASSERT_EQUALS Raise an error if two expressions differ.</li><li><a href="../../../src/assertions/assert_not_equals.html" class="code" title="function assert_not_equals(expected, actual, varargin)">assert_not_equals</a>	ASSERT_NOT_EQUALS Raise an error if two expressions evaluate to the same.</li></ul>
+</ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -89,7 +89,7 @@ This function is called by:
 0026 <span class="keyword">if</span> nargin &lt; 3, error(<span class="string">'Not enough input arguments.'</span>); <span class="keyword">end</span>
 0027 <span class="keyword">if</span> ~islogical(pass_if_equal), error(<span class="string">'pass_if_equal must be a logical'</span>); <span class="keyword">end</span>
 0028 
-0029 equal_nans = <a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'equal_nans'</span>);
+0029 equal_nans = mlunit_param(<span class="string">'equal_nans'</span>);
 0030 
 0031 <span class="comment">% default values for eps and message parts</span>
 0032 absolute_eps = 0;
@@ -207,7 +207,7 @@ This function is called by:
 0144     <span class="comment">% prevent preallocated empty items from being joined into the message string</span>
 0145     msgs(sd+1:end) = [];
 0146     
-0147     msg = <a href="../../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(msgs, sprintf(<span class="string">'\n'</span>));
+0147     msg = mlunit_strjoin(msgs, sprintf(<span class="string">'\n'</span>));
 0148 
 0149     
 0150 <a name="_sub2" href="#_subfunctions" class="code">function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)</a>
@@ -238,6 +238,6 @@ This function is called by:
 0175         <span class="string">'Expected'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(expected), <span class="keyword">...</span>
 0176         <span class="string">'Actual'</span>, <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(actual), <span class="keyword">...</span>
 0177         change_msg);</pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

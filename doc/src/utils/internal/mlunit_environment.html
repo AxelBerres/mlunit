@@ -39,10 +39,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../src/@mlunit_suite_runner/run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>	Load a given suite and execute all its tests.</li><li><a href="../../../src/@mlunit_suite_runner/run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>	Execute one or several test suites.</li><li><a href="../../../src/@mlunit_suite_runner/run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>	Execute a single test case.</li></ul>
+</ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -79,15 +79,15 @@ This function is called by:
 0027 <a name="_sub1" href="#_subfunctions" class="code">function state = loc_current_environment()</a>
 0028 
 0029     state.pwd = cd;
-0030     state.config = <a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>();
+0030     state.config = mlunit_param();
 0031     state.path = path;
 0032 
 0033 <span class="comment">% Reset the environment to the information stored in the state variable.</span>
 0034 <a name="_sub2" href="#_subfunctions" class="code">function loc_restore_environment(state)</a>
 0035 
 0036     cd(state.pwd);
-0037     <a href="../../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(state.config);
+0037     mlunit_param(state.config);
 0038     path(state.path);</pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

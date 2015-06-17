@@ -39,7 +39,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
@@ -76,10 +76,10 @@ This function is called by:
 0026 quoted_cellinput = cellfun(@(s) [<span class="string">''''</span> s <span class="string">''''</span>], cellinput, <span class="string">'UniformOutput'</span>, false);
 0027 
 0028 <span class="comment">% separate multiple lines by semicolon and wrap brackets around</span>
-0029 outstring = <a href="../../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(quoted_cellinput, <span class="string">';'</span>);
+0029 outstring = mlunit_strjoin(quoted_cellinput, <span class="string">';'</span>);
 0030 <span class="keyword">if</span> numel(quoted_cellinput)&gt;1
 0031     outstring = [<span class="string">'['</span>, outstring, <span class="string">']'</span>];
 0032 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

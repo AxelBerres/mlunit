@@ -44,7 +44,7 @@ subfolders recursively.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../src/@mlunit_progress_listener_console/mlunit_progress_listener_console.html" class="code" title="function self = mlunit_progress_listener_console()">mlunit_progress_listener_console</a>	Console progress listener implementation.</li><li><a href="../../src/@mlunit_suite_runner/add_listener.html" class="code" title="function self = add_listener(self, listener)">add_listener</a>	Add a progress listener object to the list of subscribers.</li><li><a href="../../src/@mlunit_suite_runner/mlunit_suite_runner.html" class="code" title="function self = mlunit_suite_runner()">mlunit_suite_runner</a>	Execute a single test suite</li><li><a href="../../src/@mlunit_suite_runner/run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>	Execute one or several test suites.</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -74,13 +74,13 @@ This function is called by:
 0019 
 0020 <span class="keyword">if</span> nargin &lt; 1, testobj = pwd; <span class="keyword">end</span>
 0021 
-0022 suite_runner = <a href="../../src/@mlunit_suite_runner/add_listener.html" class="code" title="function self = add_listener(self, listener)">add_listener</a>(<a href="../../src/@mlunit_suite_runner/mlunit_suite_runner.html" class="code" title="function self = mlunit_suite_runner()">mlunit_suite_runner</a>, <a href="../../src/@mlunit_progress_listener_console/mlunit_progress_listener_console.html" class="code" title="function self = mlunit_progress_listener_console()">mlunit_progress_listener_console</a>);
+0022 suite_runner = add_listener(mlunit_suite_runner, mlunit_progress_listener_console);
 0023 
 0024 <span class="keyword">if</span> nargin &lt; 2
-0025     <a href="../../src/@mlunit_suite_runner/run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>(suite_runner, testobj);
+0025     run_suite_collection(suite_runner, testobj);
 0026 <span class="keyword">else</span>
-0027     <a href="../../src/@mlunit_suite_runner/run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>(suite_runner, testobj, targetdir);
+0027     run_suite_collection(suite_runner, testobj, targetdir);
 0028 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:31:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
