@@ -1,5 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  recursive_test_run [URL="recursive_test_run.html"];
-}

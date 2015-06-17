@@ -1,6 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  createUnitTest [URL="createUnitTest.html"];
-  mlunit_param [URL="mlunit_param.html"];
-}
