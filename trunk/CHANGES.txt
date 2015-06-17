@@ -3,8 +3,8 @@
 =====================================
 
 
-mlUnit development snapshot
----------------------------
+mlUnit 1.6.9 (2015-06-17)
+-------------------------
   
   - Remove deprecate Ant code handling for matlab.bat or delegate matlab.exe
   - Add matlab.root Ant property for easier MATLAB referencing

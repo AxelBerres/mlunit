@@ -24,7 +24,7 @@
 <div class="box"><strong>Shallow collection of test cases.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function self = mlunit_testsuite(tests) </strong></div>
+<div class="box"><strong>function self = mlunit_testsuite(name, setup_obj, teardown_obj) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">Shallow collection of test cases.
@@ -60,13 +60,13 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/@test_loader/load_tests_from_mfile.html" class="code" title="function suite = load_tests_from_mfile(self) %#ok">load_tests_from_mfile</a>	test_loader/load_tests_from_mfile returns a test_suite with all</li><li><a href="../../src/@test_loader/load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_testsuite(tests)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_testsuite(name, setup_obj, teardown_obj)</a>
 0002 <span class="comment">%Shallow collection of test cases.</span>
 0003 <span class="comment">%  A test suite is a one-level collection of test case objects.</span>
 0004 <span class="comment">%</span>
@@ -98,15 +98,16 @@ This function is called by:
 0030 <span class="comment">%</span>
 0031 <span class="comment">%  $Id: test_suite.m 61 2006-09-21 19:11:35Z thomi $</span>
 0032 
-0033 <span class="keyword">if</span> (nargin == 0)
-0034     tests = {};
-0035 <span class="keyword">end</span>
-0036 
-0037 <span class="keyword">if</span> ~iscell(tests), error(<span class="string">'tests need be cell'</span>); <span class="keyword">end</span>
-0038 
-0039 self.tests = tests;
-0040 self.name = <span class="string">''</span>;
-0041 self = class(self, <span class="string">'mlunit_testsuite'</span>);</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0033 error(nargchk(3,3,nargin,<span class="string">'struct'</span>));
+0034 <span class="keyword">if</span> ~ischar(name), error(<span class="string">'name need be char'</span>); <span class="keyword">end</span>
+0035 <span class="keyword">if</span> ~isa(setup_obj, <span class="string">'test_case'</span>), error(<span class="string">'setup_obj need be test_case or child'</span>); <span class="keyword">end</span>
+0036 <span class="keyword">if</span> ~isa(teardown_obj, <span class="string">'test_case'</span>), error(<span class="string">'teardown_obj need be test_case or child'</span>); <span class="keyword">end</span>
+0037 
+0038 self.tests = {};
+0039 self.name = name;
+0040 self.setup = setup_obj;
+0041 self.teardown = teardown_obj;
+0042 self = class(self, <span class="string">'mlunit_testsuite'</span>);</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

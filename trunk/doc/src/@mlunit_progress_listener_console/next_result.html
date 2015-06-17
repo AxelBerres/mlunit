@@ -41,7 +41,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li><li><a href="../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li><li><a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -73,8 +73,8 @@ This function is called by:
 0019 <span class="keyword">if</span> ~isstruct(result), error(<span class="string">'result argument need be struct'</span>); <span class="keyword">end</span>
 0020 
 0021 <span class="comment">% consolidate multiple errors into single string</span>
-0022 msg_and_stack_list = cellfun(@get_message_with_stack, result.errors, <span class="string">'UniformOutput'</span>, false);
-0023 errmessages = mlunit_strjoin(msg_and_stack_list, sprintf(<span class="string">'\n'</span>));
+0022 msg_and_stack_list = cellfun(@<a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>, result.errors, <span class="string">'UniformOutput'</span>, false);
+0023 errmessages = <a href="../../src/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(msg_and_stack_list, sprintf(<span class="string">'\n'</span>));
 0024 
 0025 has_errors = ~isempty(errmessages);
 0026 has_failed = ~isempty(result.failure);
@@ -94,7 +94,7 @@ This function is called by:
 0040     report = [report sprintf(<span class="string">'  %s FAIL:\n%s\n'</span>, result.name, <a href="#_sub1" class="code" title="subfunction indented = indent(text)">indent</a>(result.failure))];
 0041 <span class="keyword">end</span>
 0042 
-0043 <span class="keyword">if</span> mlunit_param(<span class="string">'verbose'</span>) &amp;&amp; ~has_errors &amp;&amp; ~has_failed
+0043 <span class="keyword">if</span> <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'verbose'</span>) &amp;&amp; ~has_errors &amp;&amp; ~has_failed
 0044     report = [report sprintf(<span class="string">'  %s\n'</span>, result.name)];
 0045 <span class="keyword">end</span>
 0046 
@@ -106,6 +106,6 @@ This function is called by:
 0052 
 0053    space = <span class="string">'    '</span>;
 0054    indented = [space regexprep(text, <span class="string">'\n'</span>, [<span class="string">'\n'</span> space])];</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of dirset</title>
+  <meta name="keywords" content="dirset">
+  <meta name="description" content="DIRSET Find directories, recursively.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="../index.html">@mlunit_suite_runner</a> &gt; <a href="index.html">private</a> &gt; dirset.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_suite_runner\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>dirset
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>DIRSET Find directories, recursively.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function absdirs = dirset(basedir, depth_first) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">DIRSET Find directories, recursively.
+   D = DIRSET(basedir) returns a cell array of path strings
+   that match all directories that lie beneath basedir, including basedir.
+   basedir must exist.
+
+   D = DIRSET() or D = DIRSET('') will do the same, but in the current working
+   directory.
+
+   D = DIRSET(basedir, depth_first) will do the same, using depth first search
+   if depth_first is true, or breadth first search, of depth_first is false.
+
+   See also dir.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="getNestedTestFiles.html" class="code" title="function suitespecs = getNestedTestFiles(basedir)">getNestedTestFiles</a>	GETNESTEDTESTFILES returns a list of all test_*.m files in all</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function dirnames = dirset_plain(basedir)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%DIRSET Find directories, recursively.</span>
+0002 <span class="comment">%   D = DIRSET(basedir) returns a cell array of path strings</span>
+0003 <span class="comment">%   that match all directories that lie beneath basedir, including basedir.</span>
+0004 <span class="comment">%   basedir must exist.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%   D = DIRSET() or D = DIRSET('') will do the same, but in the current working</span>
+0007 <span class="comment">%   directory.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   D = DIRSET(basedir, depth_first) will do the same, using depth first search</span>
+0010 <span class="comment">%   if depth_first is true, or breadth first search, of depth_first is false.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   See also dir.</span>
+0013 
+0014 <span class="comment">% Copyright (c) 2013, Alexander Roehnsch</span>
+0015 <span class="comment">% Released under the terms of the BSD 2-Clause License (FreeBSD license)</span>
+0016 <span class="comment">% http://opensource.org/licenses/BSD-2-Clause</span>
+0017 <a name="_sub0" href="#_subfunctions" class="code">function absdirs = dirset(basedir, depth_first)</a>
+0018 
+0019     <span class="comment">% use current working directory if no basedir given</span>
+0020     <span class="keyword">if</span> nargin == 0, basedir = pwd; <span class="keyword">end</span>
+0021     <span class="comment">% check non-empty dirs for existence; an empty basedir will be handled like</span>
+0022     <span class="comment">% pwd, but yielding relative paths</span>
+0023     <span class="keyword">if</span> ~isempty(basedir) &amp;&amp; exist(basedir, <span class="string">'dir'</span>) ~= 7
+0024         error(<span class="string">'PATHTOOLS:missingDir'</span>, <span class="string">'%s does not exist.'</span>, basedir);
+0025     <span class="keyword">end</span>
+0026 
+0027     <span class="comment">% go depth_first by default</span>
+0028     <span class="keyword">if</span> nargin &lt; 2, depth_first = true; <span class="keyword">end</span>
+0029     
+0030     <span class="comment">% Use iteration rather than function recursion, because nesting depth</span>
+0031     <span class="comment">% may well exceed MATLAB's recursion limit. For efficency, use an index into</span>
+0032     <span class="comment">% the result array rather than a separate queue/stack of items unchecked.</span>
+0033     <span class="comment">% Anyway, we cannot know how many directories we may find.</span>
+0034     absdirs = {basedir};
+0035     current = 1;
+0036     <span class="keyword">while</span> current &lt;= numel(absdirs)
+0037         dirnames = <a href="#_sub1" class="code" title="subfunction dirnames = dirset_plain(basedir)">dirset_plain</a>(absdirs{current});
+0038         <span class="comment">% patch up into full absolute path</span>
+0039         fullcurrentpath = @(path) fullfile(absdirs{current}, path);
+0040         subdirs = cellfun(fullcurrentpath, dirnames, <span class="string">'UniformOutput'</span>, false);
+0041 
+0042         <span class="keyword">if</span> depth_first
+0043             <span class="comment">% append for depth first search</span>
+0044             absdirs = [absdirs(1:current); <span class="keyword">...</span>
+0045                        subdirs; <span class="keyword">...</span>
+0046                        absdirs(current+1:end)];
+0047         <span class="keyword">else</span>
+0048             <span class="comment">% append for breadth first search</span>
+0049             absdirs = [absdirs; subdirs];  <span class="comment">%#ok&lt;AGROW&gt;</span>
+0050         <span class="keyword">end</span>
+0051         current = current + 1;
+0052     <span class="keyword">end</span>
+0053     
+0054     
+0055 <span class="comment">% Return row vector of non-recursive subdirs.</span>
+0056 <a name="_sub1" href="#_subfunctions" class="code">function dirnames = dirset_plain(basedir)</a>
+0057 
+0058     <span class="comment">% query basedir's subdirs</span>
+0059     <span class="keyword">if</span> isempty(basedir)
+0060         <span class="comment">% dir() does not work with ''</span>
+0061         path_infos = dir();
+0062     <span class="keyword">else</span>
+0063         path_infos = dir(basedir);
+0064     <span class="keyword">end</span>
+0065     dir_infos = path_infos([path_infos.isdir]);
+0066     
+0067     <span class="comment">% filter . and .. and leading dot directories,  and return names only</span>
+0068     filter_metadirs = @(dirs) dirs(~ismember(dirs, {<span class="string">'.'</span>, <span class="string">'..'</span>}));
+0069     filter_leadingdots = @(n) n(cellfun(<span class="string">'isempty'</span>, regexp(n, <span class="string">'^\.'</span>, <span class="string">'once'</span>)));
+0070     <span class="comment">% carefully return column vector here</span>
+0071     dirnames = filter_leadingdots(filter_metadirs({dir_infos.name}'));</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -50,7 +50,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>	MLUNIT_FAIL Raise an error.</li></ul>
+<li><a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>	MLUNIT_FAIL_WITH_REASON Raise an error with a specific reason message.</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 </ul>
@@ -85,8 +85,9 @@ This function is called by:
 0024 <span class="comment">%  $Id: assert_false.m 167 2012-06-06 16:10:56Z alexander.roehnsch $</span>
 0025 
 0026 <span class="keyword">if</span> nargin &lt; 1 || expr
-0027    <a href="mlunit_fail.html" class="code" title="function mlunit_fail(msg, varargin)">mlunit_fail</a>(varargin{:});
-0028 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0027     reason = <span class="string">'Expected false was actually true.'</span>;
+0028     <a href="../../src/assertions/private/mlunit_fail_with_reason.html" class="code" title="function mlunit_fail_with_reason(reason, custom_msg, varargin)">mlunit_fail_with_reason</a>(reason, varargin{:});
+0029 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

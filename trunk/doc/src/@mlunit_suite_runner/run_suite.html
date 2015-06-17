@@ -24,11 +24,11 @@
 <div class="box"><strong>Load a given suite and execute all its tests.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [results, time] = run_suite(self, name) </strong></div>
+<div class="box"><strong>function [results, time, self] = run_suite(self, name) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">Load a given suite and execute all its tests.
-  [RESULTS, TIME] = run_suite(SELF, NAME) executes all tests of the suite NAME.
+  [RESULTS, TIME, SELF] = run_suite(SELF, NAME) executes all tests of the suite NAME.
   NAME is a string denoting a test suite, which must exist on the MATLAB
   path. SELF is an mlunit_suite_runner instance. If you want to have listeners
   be notified of test results during suite execution, call add_listeners()
@@ -50,17 +50,19 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>	Execute a single test case.</li></ul>
+<li><a href="../../src/@function_test_case/run_test.html" class="code" title="function self = run_test(self)">run_test</a>	function_test_case/run_test calls the test_function by the function</li><li><a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>	Information about one error. Formattable.</li><li><a href="../../src/@mlunit_suite_runner/private/is_class_test.html" class="code" title="function isclass = is_class_test(testname)">is_class_test</a>	Determine if a given name is a @class rather than a function test case.</li><li><a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>	Notify progress listeners.</li><li><a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>	Execute a single test case.</li><li><a href="../../src/@mlunit_testsuite/get_setup.html" class="code" title="function t = get_setup(self)">get_setup</a>	Return the suite setup test case.</li><li><a href="../../src/@mlunit_testsuite/get_teardown.html" class="code" title="function t = get_teardown(self)">get_teardown</a>	Return the suite teardown test case.</li><li><a href="../../src/@mlunit_testsuite/get_tests.html" class="code" title="function t = get_tests(self)">get_tests</a>	Return the collection of test cases.</li><li><a href="../../src/@test_case/suite_set_up.html" class="code" title="function suite_set_up(self)">suite_set_up</a>	Suite initialization.</li><li><a href="../../src/@test_case/suite_tear_down.html" class="code" title="function suite_tear_down(self)">suite_tear_down</a>	test_case/suite_tear_down is called once after every test of this suite has</li><li><a href="../../src/@test_loader/load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all</li><li><a href="../../src/@test_loader/test_loader.html" class="code" title="function self = test_loader">test_loader</a>	Collection of stateless loading methods.</li><li><a href="../../src/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>	Save and restore MATLAB/mlUnit environment.</li><li><a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-</ul>
+<li><a href="../../src/@mlunit_gui/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li><li><a href="run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>	Execute one or several test suites.</li></ul>
 <!-- crossreference -->
 
-
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function result = loc_single_result(name, error)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <span class="comment">%Load a given suite and execute all its tests.</span>
-0002 <span class="comment">%  [RESULTS, TIME] = run_suite(SELF, NAME) executes all tests of the suite NAME.</span>
+0002 <span class="comment">%  [RESULTS, TIME, SELF] = run_suite(SELF, NAME) executes all tests of the suite NAME.</span>
 0003 <span class="comment">%  NAME is a string denoting a test suite, which must exist on the MATLAB</span>
 0004 <span class="comment">%  path. SELF is an mlunit_suite_runner instance. If you want to have listeners</span>
 0005 <span class="comment">%  be notified of test results during suite execution, call add_listeners()</span>
@@ -83,7 +85,7 @@ This function is called by:
 0022 <span class="comment">%</span>
 0023 <span class="comment">%  $Id$</span>
 0024 
-0025 <a name="_sub0" href="#_subfunctions" class="code">function [results, time] = run_suite(self, name)</a>
+0025 <a name="_sub0" href="#_subfunctions" class="code">function [results, time, self] = run_suite(self, name)</a>
 0026 
 0027 <span class="comment">% reload test case file if modified in the same GUI session, e.g. during</span>
 0028 <span class="comment">% debugging</span>
@@ -91,48 +93,110 @@ This function is called by:
 0030 
 0031 suite_start_time = clock;
 0032 
-0033 <span class="comment">% buffer environment for reset after suite execution</span>
-0034 previous_environment = mlunit_environment();
-0035 
-0036 <span class="comment">% Load suite. Let errors bubble through, as we have no meaningful way of</span>
-0037 <span class="comment">% reporting them. This is equivalent to jUnit behaviour, where we are guaranteed</span>
-0038 <span class="comment">% to execute the tests only when they compiled, i.e. have no syntax errors.</span>
-0039 <span class="keyword">if</span> isempty(name)
-0040     <span class="comment">% empty name</span>
-0041     error(<span class="string">'MLUNIT:emptyTestName'</span>, <span class="string">'Test suite name is empty.'</span>);
-0042 <span class="keyword">elseif</span> is_class_test(name)
-0043     <span class="comment">% from class</span>
-0044     testsuite = load_tests_from_test_case(test_loader, name);
-0045 <span class="keyword">else</span>
-0046     <span class="comment">% from function</span>
-0047     testsuite = eval(name);
-0048 <span class="keyword">end</span>
-0049 
-0050 <span class="comment">% TODO: execute suite_set_up</span>
-0051 
-0052 tests = get_tests(testsuite);
-0053 num_tests = numel(tests);
-0054 
-0055 <span class="comment">% inform progress listeners of impending test updates; keep self updated</span>
-0056 <span class="keyword">for</span> lidx=1:numel(self.listeners)
-0057     self.listeners{lidx} = init_results(self.listeners{lidx}, num_tests);
-0058 <span class="keyword">end</span>
-0059 
-0060 <span class="comment">% run each test of the suite; be sure to update the self state with each call</span>
-0061 results = cell(size(tests));
-0062 <span class="keyword">for</span> t=1:numel(tests)
-0063     [results{t}, self] = <a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>(self, tests{t});
-0064 <span class="keyword">end</span>
-0065 <span class="comment">% convert back into normal array; we went around by using a cell array, because</span>
-0066 <span class="comment">% MATLAB is picky when we put them into a plain array directly in the loop</span>
-0067 results = [results{:}];
-0068 
-0069 <span class="comment">% TODO: execute suite_tear_down</span>
-0070 
-0071 <span class="comment">% restore environment after suite execution</span>
-0072 mlunit_environment(previous_environment);
-0073 
-0074 time = etime(clock, suite_start_time);</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0033 <span class="comment">% Mlock mlunit_param for the duration of the suite execution.</span>
+0034 <span class="comment">% Unlock it again afterwards, if it was unlocked before.</span>
+0035 <span class="comment">% We actually get called from run_suite_collection, which handles mlunit_param</span>
+0036 <span class="comment">% locking itself, but we handle it again, since sometimes run_suite is called</span>
+0037 <span class="comment">% directly. Currently this is only in mlunit_gui/gui.m.</span>
+0038 params_were_locked = mislocked(<span class="string">'mlunit_param'</span>);
+0039 <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'-mlock'</span>);
+0040 
+0041 <span class="comment">% buffer environment for reset after suite execution</span>
+0042 previous_environment = <a href="../../src/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>();
+0043 
+0044 <span class="comment">% Load suite. Let errors bubble through, as we have no meaningful way of</span>
+0045 <span class="comment">% reporting them. This is equivalent to jUnit behaviour, where we are guaranteed</span>
+0046 <span class="comment">% to execute the tests only when they compiled, i.e. have no syntax errors.</span>
+0047 <span class="keyword">if</span> isempty(name)
+0048     <span class="comment">% empty name</span>
+0049     error(<span class="string">'MLUNIT:emptyTestName'</span>, <span class="string">'Test suite name is empty.'</span>);
+0050 <span class="keyword">elseif</span> <a href="../../src/@mlunit_suite_runner/private/is_class_test.html" class="code" title="function isclass = is_class_test(testname)">is_class_test</a>(name)
+0051     <span class="comment">% from class</span>
+0052     testsuite = <a href="../../src/@test_loader/load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>(<a href="../../src/@test_loader/test_loader.html" class="code" title="function self = test_loader">test_loader</a>, name);
+0053 <span class="keyword">else</span>
+0054     <span class="comment">% from function</span>
+0055     testsuite = eval(name);
+0056 <span class="keyword">end</span>
+0057 
+0058 <span class="comment">% execute suite set_up</span>
+0059 suite_setup_error = [];
+0060 setup_obj = <a href="../../src/@mlunit_testsuite/get_setup.html" class="code" title="function t = get_setup(self)">get_setup</a>(testsuite);
+0061 <span class="keyword">try</span>
+0062     <span class="comment">% invocation is different for function based or class based test cases</span>
+0063     <span class="comment">% cannot use a suite_set_up derivative in function_test_case, since there</span>
+0064     <span class="comment">% would be no fall-back to test_case's suite_set_up in case there is no</span>
+0065     <span class="comment">% override</span>
+0066     <span class="keyword">if</span> isa(setup_obj, <span class="string">'function_test_case'</span>)
+0067         <a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>(setup_obj);
+0068     <span class="keyword">else</span>
+0069         <a href="../../src/@test_case/suite_set_up.html" class="code" title="function suite_set_up(self)">suite_set_up</a>(setup_obj);
+0070     <span class="keyword">end</span>
+0071 <span class="keyword">catch</span>
+0072     suite_setup_error = <a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(lasterror, <span class="string">'Error in suite_set_up (occurred once for this suite, but is relevant for every test case):'</span>);
+0073 <span class="keyword">end</span>
+0074 
+0075 tests = <a href="../../src/@mlunit_testsuite/get_tests.html" class="code" title="function t = get_tests(self)">get_tests</a>(testsuite);
+0076 num_tests = numel(tests);
+0077 
+0078 <span class="comment">% execute tests only if no error in suite setup</span>
+0079 <span class="keyword">if</span> isempty(suite_setup_error)
+0080 
+0081     self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'init_results'</span>, num_tests);
+0082 
+0083     <span class="comment">% run each test of the suite; be sure to update the self state with each call</span>
+0084     results = cell(size(tests));
+0085     <span class="keyword">for</span> t=1:numel(tests)
+0086         [results{t}, self] = <a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>(self, tests{t});
+0087     <span class="keyword">end</span>
+0088     <span class="comment">% convert back into normal array; we went around by using a cell array, because</span>
+0089     <span class="comment">% MATLAB is picky when we put them into a plain array directly in the loop</span>
+0090     results = [results{:}];
+0091 
+0092 <span class="comment">% In case of suite setup error, patch together one single test result,</span>
+0093 <span class="comment">% so that the setup error is contained and inform listeners accordingly.</span>
+0094 <span class="keyword">else</span>
+0095     self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'init_results'</span>, 1);
+0096     results = <a href="#_sub1" class="code" title="subfunction result = loc_single_result(name, error)">loc_single_result</a>(<span class="string">'suite_set_up'</span>, suite_setup_error);
+0097     self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'next_result'</span>, results(1));
+0098 <span class="keyword">end</span>
+0099 
+0100 <span class="comment">% execute suite tear_down</span>
+0101 teardown_obj = <a href="../../src/@mlunit_testsuite/get_teardown.html" class="code" title="function t = get_teardown(self)">get_teardown</a>(testsuite);
+0102 <span class="keyword">try</span>
+0103     <span class="comment">% invocation is different for function based or class based test cases</span>
+0104     <span class="comment">% see also suite_set_up above</span>
+0105     <span class="keyword">if</span> isa(teardown_obj, <span class="string">'function_test_case'</span>)
+0106         <a href="run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>(teardown_obj);
+0107     <span class="keyword">else</span>
+0108         <a href="../../src/@test_case/suite_tear_down.html" class="code" title="function suite_tear_down(self)">suite_tear_down</a>(teardown_obj);
+0109     <span class="keyword">end</span>
+0110 <span class="keyword">catch</span>
+0111     suite_teardown_error = <a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(lasterror, <span class="string">'Error in suite_tear_down (occurred once for this suite, but is relevant for every test case):'</span>);
+0112     result = <a href="#_sub1" class="code" title="subfunction result = loc_single_result(name, error)">loc_single_result</a>(<span class="string">'suite_tear_down'</span>, suite_teardown_error);
+0113     
+0114     <span class="comment">% notify listeners of surplus test carrying the teardown error; add to list</span>
+0115     self = <a href="../../src/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'next_result'</span>, result);
+0116     results(end+1) = result;
+0117 <span class="keyword">end</span>
+0118 
+0119 <span class="comment">% restore environment after suite execution</span>
+0120 <a href="../../src/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>(previous_environment);
+0121 
+0122 <span class="comment">% restore previous lock state of mlunit_param</span>
+0123 <span class="keyword">if</span> ~params_were_locked
+0124     munlock(<span class="string">'mlunit_param'</span>);
+0125 <span class="keyword">end</span>
+0126 
+0127 time = etime(clock, suite_start_time);
+0128 
+0129 
+0130 <a name="_sub1" href="#_subfunctions" class="code">function result = loc_single_result(name, error)</a>
+0131 
+0132     result = struct();
+0133     result.name = name;
+0134     result.errors = {error};
+0135     result.failure = <span class="string">''</span>;
+0136     result.time = 0;</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

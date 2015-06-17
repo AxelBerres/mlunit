@@ -42,7 +42,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>	mlunit_gui/get_line_expression returns the regular expression a line</li><li><a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>	mlunit_gui/get_object returns the singleton object of the gui window.</li><li><a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li><li><a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>	mlunit_gui contructor.</li><li><a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>	mlunit_gui/set_shorten shortens the directory paths of</li><li><a href="str.html" class="code" title="function s = str(self)">str</a>	mlunit_gui/str return a string with the class name.</li></ul>
+<li><a href="../../src/@function_test_case/str.html" class="code" title="function s = str(self)">str</a>	function_test_case/str return a string with the method and class name of</li><li><a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>	mlunit_gui/get_line_expression returns the regular expression a line</li><li><a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>	mlunit_gui/get_object returns the singleton object of the gui window.</li><li><a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li><li><a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>	mlunit_gui contructor.</li><li><a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>	mlunit_gui/set_shorten shortens the directory paths of</li><li><a href="str.html" class="code" title="function s = str(self)">str</a>	mlunit_gui/str return a string with the class name.</li><li><a href="../../src/@mlunit_progress_listener_gui/display_meta_error.html" class="code" title="function self = display_meta_error(self, meta_error)">display_meta_error</a>	Display an error that occurred outside of any test execution.</li><li><a href="../../src/@mlunit_progress_listener_gui/mlunit_progress_listener_gui.html" class="code" title="function self = mlunit_progress_listener_gui(progress_bar, text_runs, error_listbox)">mlunit_progress_listener_gui</a>	GUI progress listener implementation.</li><li><a href="../../src/@mlunit_suite_runner/add_listener.html" class="code" title="function self = add_listener(self, listener)">add_listener</a>	Add a progress listener object to the list of subscribers.</li><li><a href="../../src/@mlunit_suite_runner/mlunit_suite_runner.html" class="code" title="function self = mlunit_suite_runner()">mlunit_suite_runner</a>	Execute a single test suite</li><li><a href="../../src/@mlunit_suite_runner/run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>	Load a given suite and execute all its tests.</li><li><a href="../../src/@test_case/str.html" class="code" title="function s = str(self)">str</a>	test_case/str returns a string with the method and class name of the test.</li><li><a href="../../src/@test_case/test_case.html" class="code" title="function self = test_case(name, function_name)">test_case</a>	Base class for a test suite.</li><li><a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li><li><a href="run.html" class="code" title="function self = run(self, test, dock, shorten)">run</a>	mlunit_gui/run is an alternative method to execute the graphical</li></ul>
@@ -69,7 +69,7 @@ This function is called by:
 0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
 0015 <span class="comment">%</span>
 0016 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
-0017 <span class="comment">%  $Id$</span>
+0017 <span class="comment">%  $Id: gui.m 218 2015-05-03 18:30:36Z hetu $</span>
 0018 
 0019 <span class="keyword">global</span> self;
 0020 
@@ -196,121 +196,120 @@ This function is called by:
 0141 set(handles.gui_error, <span class="string">'String'</span>, <span class="string">''</span>);
 0142 set(handles.gui_error, <span class="string">'String'</span>, <span class="string">''</span>);
 0143 set(handles.gui_text_time, <span class="string">'String'</span>, <span class="string">''</span>);
-0144 test_case = builtin(<span class="string">'get'</span>, handles.gui_test_case, <span class="string">'String'</span>);
+0144 <a href="../../src/@test_case/test_case.html" class="code" title="function self = test_case(name, function_name)">test_case</a> = builtin(<span class="string">'get'</span>, handles.gui_test_case, <span class="string">'String'</span>);
 0145 
-0146 suite_runner = mlunit_suite_runner;
-0147 <span class="comment">% constructor also resets the display</span>
-0148 listener = mlunit_progress_listener_gui(<span class="keyword">...</span>
-0149     handles.gui_progress_bar, <span class="keyword">...</span>
-0150     handles.gui_text_runs, <span class="keyword">...</span>
-0151     handles.gui_error_list);
-0152 suite_runner = add_listener(suite_runner, listener);
-0153 
-0154 <span class="comment">% disable html links in stack trace, because they won't display in an edit box</span>
-0155 prev_linktrace_state = mlunit_param(<span class="string">'linked_trace'</span>, false);
-0156 
-0157 time = 0;
-0158 <span class="keyword">try</span>
-0159     [results, time] = run_suite(suite_runner, test_case);
-0160 <span class="keyword">catch</span>
-0161     <span class="comment">% display meta error that prevented the suite to execute</span>
-0162     display_meta_error(listener, lasterror);
-0163 <span class="keyword">end</span>
-0164 
-0165 <span class="comment">% reset previous state</span>
-0166 mlunit_param(<span class="string">'linked_trace'</span>, prev_linktrace_state);
-0167 
-0168 <span class="comment">% display execution time</span>
-0169 set(handles.gui_text_time, <span class="string">'String'</span>, sprintf(<span class="string">'Finished: %.3fs.\n'</span>, time));
-0170 
-0171 <span class="comment">% pretend the user selected one of the errors in order to display something</span>
-0172 <a href="#_sub7" class="code" title="subfunction gui_error_list_callback(hobject, eventdata, handles) ">gui_error_list_callback</a>(handles.gui_error_list, eventdata, handles);
+0146 <span class="comment">% constructor also resets the display</span>
+0147 listener = <a href="../../src/@mlunit_progress_listener_gui/mlunit_progress_listener_gui.html" class="code" title="function self = mlunit_progress_listener_gui(progress_bar, text_runs, error_listbox)">mlunit_progress_listener_gui</a>(<span class="keyword">...</span>
+0148     handles.gui_progress_bar, <span class="keyword">...</span>
+0149     handles.gui_text_runs, <span class="keyword">...</span>
+0150     handles.gui_error_list);
+0151 suite_runner = <a href="../../src/@mlunit_suite_runner/add_listener.html" class="code" title="function self = add_listener(self, listener)">add_listener</a>(<a href="../../src/@mlunit_suite_runner/mlunit_suite_runner.html" class="code" title="function self = mlunit_suite_runner()">mlunit_suite_runner</a>, listener);
+0152 
+0153 <span class="comment">% disable html links in stack trace, because they won't display in an edit box</span>
+0154 prev_linktrace_state = <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'linked_trace'</span>, false);
+0155 
+0156 time = 0;
+0157 <span class="keyword">try</span>
+0158     [results, time] = <a href="../../src/@mlunit_suite_runner/run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>(suite_runner, <a href="../../src/@test_case/test_case.html" class="code" title="function self = test_case(name, function_name)">test_case</a>);
+0159 <span class="keyword">catch</span>
+0160     <span class="comment">% display meta error that prevented the suite to execute</span>
+0161     <a href="../../src/@mlunit_progress_listener_gui/display_meta_error.html" class="code" title="function self = display_meta_error(self, meta_error)">display_meta_error</a>(listener, lasterror);
+0162 <span class="keyword">end</span>
+0163 
+0164 <span class="comment">% reset previous state</span>
+0165 <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'linked_trace'</span>, prev_linktrace_state);
+0166 
+0167 <span class="comment">% display execution time</span>
+0168 set(handles.gui_text_time, <span class="string">'String'</span>, sprintf(<span class="string">'Finished: %.3fs.\n'</span>, time));
+0169 
+0170 <span class="comment">% pretend the user selected one of the errors in order to display something</span>
+0171 <a href="#_sub7" class="code" title="subfunction gui_error_list_callback(hobject, eventdata, handles) ">gui_error_list_callback</a>(handles.gui_error_list, eventdata, handles);
+0172 
 0173 
-0174 
-0175 <span class="comment">% Called when the user selects an error in the list</span>
-0176 <a name="_sub7" href="#_subfunctions" class="code">function gui_error_list_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
-0177 
-0178 <span class="keyword">global</span> self;
-0179 
-0180 <span class="comment">% cell array of error messages</span>
-0181 data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
-0182 <span class="comment">% which item the user selected</span>
-0183 selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
-0184 
-0185 <span class="comment">% only proceed if we actually recorded errors</span>
-0186 <span class="keyword">if</span> ~isempty(data)
-0187     <span class="comment">% set appropriate error message from pool of available messages</span>
-0188     set(handles.gui_error, <span class="string">'String'</span>, <a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>(self, data{selected}));
-0189     
-0190     <span class="comment">% (de)activate the show button; function name and line go into its UserData</span>
-0191     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
-0192     <span class="keyword">if</span> (length(tokens) == 2)
-0193         set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'on'</span>);
-0194         set(handles.gui_show, <span class="string">'UserData'</span>, tokens);
-0195     <span class="keyword">else</span>
-0196         set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'off'</span>);
-0197     <span class="keyword">end</span>;
-0198 <span class="keyword">end</span>;
-0199 
-0200 <a name="_sub8" href="#_subfunctions" class="code">function gui_error_list_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
-0201 
-0202 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
-0203     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
-0204 <span class="keyword">end</span>
-0205 
-0206 <a name="_sub9" href="#_subfunctions" class="code">function gui_error_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
-0207 
-0208 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
-0209     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
-0210 <span class="keyword">end</span>
-0211 
-0212 <a name="_sub10" href="#_subfunctions" class="code">function gui_dock_callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
-0213 
-0214 <span class="keyword">global</span> self;
-0215 
-0216 docked = builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'WindowStyle'</span>);
-0217 <span class="keyword">if</span> (strcmp(docked, <span class="string">'docked'</span>))
-0218     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Normal'</span>);
-0219     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Dock Window'</span>);
-0220     self.dock = 0;
-0221 <span class="keyword">else</span>
-0222     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Docked'</span>);
-0223     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Undock Window'</span>);
-0224     self.dock = 1;
-0225 <span class="keyword">end</span>;
-0226 set(handles.gui_window, <span class="string">'UserData'</span>, self);
-0227 
-0228 <a name="_sub11" href="#_subfunctions" class="code">function gui_shorten_callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
-0229 
-0230 <span class="keyword">global</span> self;
-0231 
-0232 <span class="keyword">if</span> (self.shorten == 0)
-0233     self.shorten = 1;
-0234     set(self.handles.menu_shorten, <span class="string">'Label'</span>, <span class="string">'Long Directory Names'</span>);
-0235 <span class="keyword">else</span>
-0236     self.shorten = 0;
-0237     set(self.handles.menu_shorten, <span class="string">'Label'</span>, <span class="string">'Short Directory Names'</span>);
-0238 <span class="keyword">end</span>;
-0239 set(handles.gui_window, <span class="string">'UserData'</span>, self);
-0240 
-0241 <a href="#_sub7" class="code" title="subfunction gui_error_list_callback(hobject, eventdata, handles) ">gui_error_list_callback</a>(hObject, eventdata, self.handles);
-0242 
-0243 <a name="_sub12" href="#_subfunctions" class="code">function gui_show_Callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
-0244 
-0245 tokens = builtin(<span class="string">'get'</span>, hObject, <span class="string">'UserData'</span>);
-0246 <span class="keyword">if</span> ((length(tokens) == 3) &amp;&amp; (etime(clock, tokens{3}) &lt; 1))
-0247     data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
-0248     selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
-0249     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
-0250     <span class="keyword">if</span> (length(tokens) &gt; 1)
-0251         second = tokens{2};
-0252         opentoline(second{1},str2double(second{2}));
-0253     <span class="keyword">end</span>;
-0254 <span class="keyword">else</span>
-0255     opentoline(tokens{1},str2double(tokens{2}));
-0256     tokens{3} = clock;
-0257     set(hObject, <span class="string">'UserData'</span>, tokens);
-0258 <span class="keyword">end</span>;</pre></div>
-<hr><address>Generated on Tue 14-Apr-2015 12:19:02 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+0174 <span class="comment">% Called when the user selects an error in the list</span>
+0175 <a name="_sub7" href="#_subfunctions" class="code">function gui_error_list_callback(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0176 
+0177 <span class="keyword">global</span> self;
+0178 
+0179 <span class="comment">% cell array of error messages</span>
+0180 data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
+0181 <span class="comment">% which item the user selected</span>
+0182 selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
+0183 
+0184 <span class="comment">% only proceed if we actually recorded errors</span>
+0185 <span class="keyword">if</span> ~isempty(data)
+0186     <span class="comment">% set appropriate error message from pool of available messages</span>
+0187     set(handles.gui_error, <span class="string">'String'</span>, <a href="shorten_error_text.html" class="code" title="function shortened_text = shorten_error_text(self, error_text)">shorten_error_text</a>(self, data{selected}));
+0188     
+0189     <span class="comment">% (de)activate the show button; function name and line go into its UserData</span>
+0190     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
+0191     <span class="keyword">if</span> (length(tokens) == 2)
+0192         set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'on'</span>);
+0193         set(handles.gui_show, <span class="string">'UserData'</span>, tokens);
+0194     <span class="keyword">else</span>
+0195         set(handles.gui_show, <span class="string">'Enable'</span>, <span class="string">'off'</span>);
+0196     <span class="keyword">end</span>;
+0197 <span class="keyword">end</span>;
+0198 
+0199 <a name="_sub8" href="#_subfunctions" class="code">function gui_error_list_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0200 
+0201 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0202     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+0203 <span class="keyword">end</span>
+0204 
+0205 <a name="_sub9" href="#_subfunctions" class="code">function gui_error_createfcn(hobject, eventdata, handles) </a><span class="comment">%#ok</span>
+0206 
+0207 <span class="keyword">if</span> ispc &amp;&amp; isequal(builtin(<span class="string">'get'</span>, hobject,<span class="string">'BackgroundColor'</span>), builtin(<span class="string">'get'</span>, 0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+0208     set(hobject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+0209 <span class="keyword">end</span>
+0210 
+0211 <a name="_sub10" href="#_subfunctions" class="code">function gui_dock_callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
+0212 
+0213 <span class="keyword">global</span> self;
+0214 
+0215 docked = builtin(<span class="string">'get'</span>, handles.gui_window, <span class="string">'WindowStyle'</span>);
+0216 <span class="keyword">if</span> (strcmp(docked, <span class="string">'docked'</span>))
+0217     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Normal'</span>);
+0218     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Dock Window'</span>);
+0219     self.dock = 0;
+0220 <span class="keyword">else</span>
+0221     set(handles.gui_window, <span class="string">'WindowStyle'</span>, <span class="string">'Docked'</span>);
+0222     set(self.handles.menu_dock, <span class="string">'Label'</span>, <span class="string">'Undock Window'</span>);
+0223     self.dock = 1;
+0224 <span class="keyword">end</span>;
+0225 set(handles.gui_window, <span class="string">'UserData'</span>, self);
+0226 
+0227 <a name="_sub11" href="#_subfunctions" class="code">function gui_shorten_callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
+0228 
+0229 <span class="keyword">global</span> self;
+0230 
+0231 <span class="keyword">if</span> (self.shorten == 0)
+0232     self.shorten = 1;
+0233     set(self.handles.menu_shorten, <span class="string">'Label'</span>, <span class="string">'Long Directory Names'</span>);
+0234 <span class="keyword">else</span>
+0235     self.shorten = 0;
+0236     set(self.handles.menu_shorten, <span class="string">'Label'</span>, <span class="string">'Short Directory Names'</span>);
+0237 <span class="keyword">end</span>;
+0238 set(handles.gui_window, <span class="string">'UserData'</span>, self);
+0239 
+0240 <a href="#_sub7" class="code" title="subfunction gui_error_list_callback(hobject, eventdata, handles) ">gui_error_list_callback</a>(hObject, eventdata, self.handles);
+0241 
+0242 <a name="_sub12" href="#_subfunctions" class="code">function gui_show_Callback(hObject, eventdata, handles) </a><span class="comment">%#ok</span>
+0243 
+0244 tokens = builtin(<span class="string">'get'</span>, hObject, <span class="string">'UserData'</span>);
+0245 <span class="keyword">if</span> ((length(tokens) == 3) &amp;&amp; (etime(clock, tokens{3}) &lt; 1))
+0246     data = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'UserData'</span>);
+0247     selected = builtin(<span class="string">'get'</span>, handles.gui_error_list, <span class="string">'Value'</span>);
+0248     [tokens] = regexp(data{selected}, <a href="get_line_expression.html" class="code" title="function expression = get_line_expression(self) %#ok">get_line_expression</a>(self), <span class="string">'tokens'</span>, <span class="string">'once'</span>); <span class="comment">%, 'dotexceptnewline');</span>
+0249     <span class="keyword">if</span> (length(tokens) &gt; 1)
+0250         second = tokens{2};
+0251         opentoline(second{1},str2double(second{2}));
+0252     <span class="keyword">end</span>;
+0253 <span class="keyword">else</span>
+0254     opentoline(tokens{1},str2double(tokens{2}));
+0255     tokens{3} = clock;
+0256     set(hObject, <span class="string">'UserData'</span>, tokens);
+0257 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
