@@ -1,0 +1,12 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  get_function_name [URL="get_function_name.html"];
+  get_name [URL="get_name.html"];
+  set_up [URL="set_up.html"];
+  str [URL="str.html"];
+  suite_set_up [URL="suite_set_up.html"];
+  suite_tear_down [URL="suite_tear_down.html"];
+  tear_down [URL="tear_down.html"];
+  test_case [URL="test_case.html"];
+}

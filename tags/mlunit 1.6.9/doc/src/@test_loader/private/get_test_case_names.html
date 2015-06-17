@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_test_case_names</title>
+  <meta name="keywords" content="get_test_case_names">
+  <meta name="description" content="test_loader/get_test_case_names returns a list of string with all">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">src</a> &gt; <a href="../index.html">@test_loader</a> &gt; <a href="index.html">private</a> &gt; get_test_case_names.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@test_loader\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>get_test_case_names
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>test_loader/get_test_case_names returns a list of string with all</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function names = get_test_case_names(self, test_case_class) %#ok </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">test_loader/get_test_case_names returns a list of string with all
+test* methods from the test_case_class.
+
+  Example
+  =======
+  get_test_case_names is usually called from
+  test_loader/load_tests_from_mfile:
+         names = get_test_case_names(self, test_case_class);
+
+  See also TEST_LOADER/LOAD_TESTS_FROM_MFILE.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../src/@test_loader/load_tests_from_test_case.html" class="code" title="function suite = load_tests_from_test_case(self, test_case_class)">load_tests_from_test_case</a>	test_loader/load_tests_from_test_case returns a test_suite with all</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function meths = loc_get_methods(class_name)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function names = get_test_case_names(self, test_case_class) </a><span class="comment">%#ok</span>
+0002 <span class="comment">%test_loader/get_test_case_names returns a list of string with all</span>
+0003 <span class="comment">%test* methods from the test_case_class.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%  Example</span>
+0006 <span class="comment">%  =======</span>
+0007 <span class="comment">%  get_test_case_names is usually called from</span>
+0008 <span class="comment">%  test_loader/load_tests_from_mfile:</span>
+0009 <span class="comment">%         names = get_test_case_names(self, test_case_class);</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%  See also TEST_LOADER/LOAD_TESTS_FROM_MFILE.</span>
+0012 
+0013 <span class="comment">%  This Software and all associated files are released unter the</span>
+0014 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%  $Id$</span>
+0017 
+0018 names = <a href="#_sub1" class="code" title="subfunction meths = loc_get_methods(class_name)">loc_get_methods</a>(test_case_class);
+0019 <span class="keyword">for</span> i = size(names, 1):-1:1
+0020     <span class="keyword">if</span> (~strncmp(names(i), <span class="string">'test'</span>, 4))
+0021         names(i) = [];
+0022     <span class="keyword">end</span>;
+0023 <span class="keyword">end</span>;
+0024 names = sortrows(names);
+0025 
+0026 <span class="comment">% check that we actually got instances of test_case</span>
+0027 <span class="comment">% this lets the test case constructor execute once more</span>
+0028 <span class="keyword">if</span> ~isempty(names)
+0029     t = eval([test_case_class, <span class="string">'('''</span>, char(names(1)), <span class="string">''')'</span>]);
+0030     <span class="keyword">if</span> (~isa(t, <span class="string">'test_case'</span>))
+0031         error(<span class="string">'MLUNIT:invalidTestObject'</span>, <span class="string">'Found at least one test method, but its object does not inherit from test_case, as it should.'</span>);
+0032     <span class="keyword">end</span>
+0033 <span class="keyword">end</span>
+0034 
+0035 
+0036 <span class="comment">% get methods for a class object or class name</span>
+0037 <span class="comment">% also get inherited methods, but this works for class name arguments only,</span>
+0038 <span class="comment">% if the class has been instantiated at least once, and is known in memory</span>
+0039 <a name="_sub1" href="#_subfunctions" class="code">function meths = loc_get_methods(class_name)</a>
+0040 
+0041     meths = methods(class_name, <span class="string">'-full'</span>);
+0042     <span class="comment">% enforce cell array, even if empty</span>
+0043     <span class="keyword">if</span> isempty(meths), meths = {}; <span class="keyword">end</span>
+0044     <span class="comment">% delete constructor method</span>
+0045     meths(strcmp(class_name, meths)) = [];</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

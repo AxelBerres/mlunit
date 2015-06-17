@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mlunit_fail</title>
+  <meta name="keywords" content="mlunit_fail">
+  <meta name="description" content="MLUNIT_FAIL Raise an error.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">assertions</a> &gt; mlunit_fail.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\assertions&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>mlunit_fail
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>MLUNIT_FAIL Raise an error.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function mlunit_fail(msg, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">MLUNIT_FAIL Raise an error.
+  MLUNIT_FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing
+  the fail message. MSG may contain sprintf arguments, which can be
+  expanded by subsequent arguments in varargin. MSG will only be sprintf-
+  evaluated if subsequent arguments are actually provided.
+
+  Examples
+     % raises a failure with a simple message
+     mlunit_fail('Test failed.');
+
+     % raises a failure with a sprintf message, expanded by a variable
+     mlunit_fail('Test failed, because 3 was not %d.', number);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%MLUNIT_FAIL Raise an error.</span>
+0002 <span class="comment">%  MLUNIT_FAIL(MSG, varargin) raises a MATLAB error. MSG is a string containing</span>
+0003 <span class="comment">%  the fail message. MSG may contain sprintf arguments, which can be</span>
+0004 <span class="comment">%  expanded by subsequent arguments in varargin. MSG will only be sprintf-</span>
+0005 <span class="comment">%  evaluated if subsequent arguments are actually provided.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  Examples</span>
+0008 <span class="comment">%     % raises a failure with a simple message</span>
+0009 <span class="comment">%     mlunit_fail('Test failed.');</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%     % raises a failure with a sprintf message, expanded by a variable</span>
+0012 <span class="comment">%     mlunit_fail('Test failed, because 3 was not %d.', number);</span>
+0013 
+0014 <span class="comment">%  This Software and all associated files are released unter the</span>
+0015 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%  $Id: mlunit_fail.m 182 2015-02-27 12:02:58Z hetu $</span>
+0018 
+0019 <a name="_sub0" href="#_subfunctions" class="code">function mlunit_fail(msg, varargin)</a>
+0020 
+0021 <span class="comment">% set empty message if left empty, take msg, or interpret sprintf arguments</span>
+0022 <span class="keyword">switch</span> nargin
+0023 <span class="keyword">case</span> 0
+0024    msg_string = <span class="string">''</span>;
+0025 <span class="keyword">case</span> 1
+0026    msg_string = msg;
+0027 <span class="keyword">otherwise</span>
+0028    <span class="comment">% avoid multiple sprintf calls on msg later on, in case msg contains masked</span>
+0029    <span class="comment">% sprintf control sequences that should not be interpreted</span>
+0030    msg_string = sprintf(msg, varargin{:});
+0031 <span class="keyword">end</span>
+0032 
+0033 <span class="comment">% raise typed error, mask message string in order to prevent further sprintf expansion</span>
+0034 error(<span class="string">'MLUNIT:Failure'</span>, <span class="string">'%s'</span>, msg_string);</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

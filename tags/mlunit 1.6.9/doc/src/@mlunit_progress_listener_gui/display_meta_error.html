@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of display_meta_error</title>
+  <meta name="keywords" content="display_meta_error">
+  <meta name="description" content="Display an error that occurred outside of any test execution.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_progress_listener_gui</a> &gt; display_meta_error.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_progress_listener_gui&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>display_meta_error
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Display an error that occurred outside of any test execution.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = display_meta_error(self, meta_error) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Display an error that occurred outside of any test execution.
+  We want to put any meta errors up on display in the GUI directly, as users
+  might miss console error dumps when working with the GUI.
+
+  SELF = display_meta_error(SELF, META) puts an error up for display, but does
+  not alter any test/error/failure count. META is an mlunit_errorinfo instance.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li><li><a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>	Information about one error. Formattable.</li><li><a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>	Add an entry to the GUI's error list.</li><li><a href="update_display.html" class="code" title="function update_display(self)">update_display</a>	Update all listener elements of the GUI.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../src/@mlunit_gui/gui.html" class="code" title="function varargout = gui(object, varargin)">gui</a>	mlunit_gui/gui execute the graphical user interface of mlUnit.</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function result = loc_iserror(type)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Display an error that occurred outside of any test execution.</span>
+0002 <span class="comment">%  We want to put any meta errors up on display in the GUI directly, as users</span>
+0003 <span class="comment">%  might miss console error dumps when working with the GUI.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%  SELF = display_meta_error(SELF, META) puts an error up for display, but does</span>
+0006 <span class="comment">%  not alter any test/error/failure count. META is an mlunit_errorinfo instance.</span>
+0007 
+0008 <span class="comment">%  This Software and all associated files are released unter the</span>
+0009 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%  $Id$</span>
+0012 
+0013 <a name="_sub0" href="#_subfunctions" class="code">function self = display_meta_error(self, meta_error)</a>
+0014 
+0015 error(nargchk(2, 2, nargin, <span class="string">'struct'</span>));
+0016 <span class="keyword">if</span> ~<a href="#_sub1" class="code" title="subfunction result = loc_iserror(type)">loc_iserror</a>(meta_error), error(<span class="string">'meta_error argument need be error struct'</span>); <span class="keyword">end</span>
+0017 
+0018 <span class="comment">% don't reset any current gui state; it might be helpful to know how many</span>
+0019 <span class="comment">% testcases executed before breakdown</span>
+0020 errmsg = <a href="../../src/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>(<a href="../../src/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(meta_error));
+0021 <a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>(self, <span class="string">'ERROR'</span>, <span class="string">'mlunit_gui'</span>, errmsg);
+0022 <a href="update_display.html" class="code" title="function update_display(self)">update_display</a>(self);
+0023 
+0024 
+0025 <a name="_sub1" href="#_subfunctions" class="code">function result = loc_iserror(type)</a>
+0026 
+0027     result = isstruct(type) &amp;&amp; <span class="keyword">...</span>
+0028         numel(type) == 1 &amp;&amp; <span class="keyword">...</span>
+0029         all(isfield(type, {<span class="string">'identifier'</span>, <span class="string">'message'</span>, <span class="string">'stack'</span>}));</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

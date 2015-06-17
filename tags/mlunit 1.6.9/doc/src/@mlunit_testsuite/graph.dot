@@ -1,0 +1,11 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  add_test [URL="add_test.html"];
+  count_test_cases [URL="count_test_cases.html"];
+  get_name [URL="get_name.html"];
+  get_setup [URL="get_setup.html"];
+  get_teardown [URL="get_teardown.html"];
+  get_tests [URL="get_tests.html"];
+  mlunit_testsuite [URL="mlunit_testsuite.html"];
+}

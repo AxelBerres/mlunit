@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of get_message_with_stack</title>
+  <meta name="keywords" content="get_message_with_stack">
+  <meta name="description" content="Get an error's message and stack as single string.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_errorinfo</a> &gt; get_message_with_stack.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_errorinfo&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>get_message_with_stack
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Get an error's message and stack as single string.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function message = get_message_with_stack(self) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Get an error's message and stack as single string.
+  get_message_with_stack works on the internally buffered error information
+  that you provided in mlunit_errorinfo's constructor. The actual message and
+  stack get processed according to it being an mlUnit failure or a plain error.
+
+  message = get_message_with_stack(self) returns a char array containing the
+  message and stack.
+
+  The stack format can be changed by the mlUnit parameter 'linked_trace'.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="filter_failure_stack.html" class="code" title="function stack = filter_failure_stack(self, stack)">filter_failure_stack</a>	Restrict a failure's stack to items relevant to the user.</li><li><a href="filter_lasterror_wraps.html" class="code" title="function [message, stack] = filter_lasterror_wraps(self)">filter_lasterror_wraps</a>	Free error message of leading 'Error:' or 'Error using' lines.</li><li><a href="is_failure.html" class="code" title="function result = is_failure(self)">is_failure</a>	Return whether this error represents a failure rather than a common error.</li><li><a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../src/@mlunit_progress_listener_console/next_result.html" class="code" title="function self = next_result(self, result)">next_result</a>	Update display with next test case result.</li><li><a href="../../src/@mlunit_progress_listener_gui/display_meta_error.html" class="code" title="function self = display_meta_error(self, meta_error)">display_meta_error</a>	Display an error that occurred outside of any test execution.</li><li><a href="../../src/@mlunit_progress_listener_gui/next_result.html" class="code" title="function self = next_result(self, result)">next_result</a>	Update display with next test case result.</li><li><a href="../../src/@mlunit_suite_runner/run_suite_collection.html" class="code" title="function self = run_suite_collection(self, testobj, targetdir)">run_suite_collection</a>	Execute one or several test suites.</li><li><a href="../../src/@mlunit_suite_runner/run_test.html" class="code" title="function [result, self, test] = run_test(self, test)">run_test</a>	Execute a single test case.</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function stackstring = loc_print_stack(stack)</a></li><li><a href="#_sub2" class="code">function stackline = loc_print_stackline(stackitem)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Get an error's message and stack as single string.</span>
+0002 <span class="comment">%  get_message_with_stack works on the internally buffered error information</span>
+0003 <span class="comment">%  that you provided in mlunit_errorinfo's constructor. The actual message and</span>
+0004 <span class="comment">%  stack get processed according to it being an mlUnit failure or a plain error.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  message = get_message_with_stack(self) returns a char array containing the</span>
+0007 <span class="comment">%  message and stack.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  The stack format can be changed by the mlUnit parameter 'linked_trace'.</span>
+0010 
+0011 <span class="comment">%  This Software and all associated files are released unter the</span>
+0012 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  $Id$</span>
+0015 
+0016 <a name="_sub0" href="#_subfunctions" class="code">function message = get_message_with_stack(self)</a>
+0017 
+0018 <span class="comment">% obtain message and stack</span>
+0019 [message, stack] = <a href="filter_lasterror_wraps.html" class="code" title="function [message, stack] = filter_lasterror_wraps(self)">filter_lasterror_wraps</a>(self);
+0020 
+0021 <span class="comment">% reduce the stack of failures for better overview</span>
+0022 <span class="keyword">if</span> <a href="is_failure.html" class="code" title="function result = is_failure(self)">is_failure</a>(self)
+0023     stack = <a href="filter_failure_stack.html" class="code" title="function stack = filter_failure_stack(self, stack)">filter_failure_stack</a>(self, stack);
+0024 <span class="keyword">end</span>
+0025 
+0026 <span class="comment">% put message and stack together</span>
+0027 message = [message, <a href="#_sub1" class="code" title="subfunction stackstring = loc_print_stack(stack)">loc_print_stack</a>(stack)];
+0028 
+0029 
+0030 <span class="comment">%Build a single stactracke string out of a stack structure.</span>
+0031 <span class="comment">%If there are stack items at all, start with a leading newline.</span>
+0032 <span class="comment">%  stack is the stack structure as returned by lasterror().stack or dbstack().</span>
+0033 <a name="_sub1" href="#_subfunctions" class="code">function stackstring = loc_print_stack(stack)</a>
+0034 
+0035 stackstring = <span class="string">''</span>;
+0036 <span class="keyword">for</span> i = 1:size(stack, 1)
+0037     stackstring = sprintf(<span class="string">'%s\n%s'</span>, <span class="keyword">...</span>
+0038         stackstring, <span class="keyword">...</span>
+0039         <a href="#_sub2" class="code" title="subfunction stackline = loc_print_stackline(stackitem)">loc_print_stackline</a>(stack(i)));
+0040 <span class="keyword">end</span>
+0041 
+0042 <span class="comment">% Build a single stacktrace line for a single stacktrace item.</span>
+0043 <span class="comment">%   stackitem has fields as returned by lasterror().stack or dbstack().</span>
+0044 <a name="_sub2" href="#_subfunctions" class="code">function stackline = loc_print_stackline(stackitem)</a>
+0045 
+0046 display_name = stackitem.file;
+0047 <span class="keyword">if</span> <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'abbrev_trace'</span>)
+0048     [dummy, filename, ext] = fileparts(stackitem.file);
+0049     display_name = [filename ext];
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="keyword">if</span> <a href="../../src/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'linked_trace'</span>)
+0053     hrefvalue = sprintf(<span class="string">'matlab:opentoline(''%s'',%d)'</span>, <span class="keyword">...</span>
+0054         stackitem.file, stackitem.line);
+0055     stackline = sprintf(<span class="string">'In &lt;a href=&quot;%s&quot;&gt;%s&lt;/a&gt; at line %d'</span>, <span class="keyword">...</span>
+0056         hrefvalue, display_name, stackitem.line);
+0057 <span class="keyword">else</span>
+0058     stackline = sprintf(<span class="string">'In %s at line %d'</span>, <span class="keyword">...</span>
+0059         display_name, stackitem.line);
+0060 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

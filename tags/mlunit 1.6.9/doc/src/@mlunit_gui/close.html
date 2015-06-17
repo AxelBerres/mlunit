@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of close</title>
+  <meta name="keywords" content="close">
+  <meta name="description" content="mlunit_gui/close closes the graphical user interface of mlUnit.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">src</a> &gt; <a href="index.html">@mlunit_gui</a> &gt; close.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for src\@mlunit_gui&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>close
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>mlunit_gui/close closes the graphical user interface of mlUnit.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = close(self) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">mlunit_gui/close closes the graphical user interface of mlUnit.
+
+  Example
+  =======
+         run(mlunit_gui, 'mlunit_all_tests');
+         close(mlunit_gui);
+
+  See also <a href="mlunit_gui.html" class="code" title="function self = mlunit_gui(callback)">mlunit_gui</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="close.html" class="code" title="function self = close(self)">close</a>	mlunit_gui/close closes the graphical user interface of mlUnit.</li><li><a href="get_handle.html" class="code" title="function handle = get_handle(self)">get_handle</a>	mlunit_gui/get_handle returns the graphics handle of the gui window,</li><li><a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>	mlunit_gui/get_object returns the singleton object of the gui window.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="close.html" class="code" title="function self = close(self)">close</a>	mlunit_gui/close closes the graphical user interface of mlUnit.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function self = close(self)</a>
+0002 <span class="comment">%mlunit_gui/close closes the graphical user interface of mlUnit.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  Example</span>
+0005 <span class="comment">%  =======</span>
+0006 <span class="comment">%         run(mlunit_gui, 'mlunit_all_tests');</span>
+0007 <span class="comment">%         close(mlunit_gui);</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  See also mlunit_gui.</span>
+0010 
+0011 <span class="comment">%  This Software and all associated files are released unter the</span>
+0012 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  §Author: Thomas Dohmke &lt;thomas@dohmke.de&gt; §</span>
+0015 <span class="comment">%  $Id: close.m 158 2007-01-03 20:25:39Z thomi $</span>
+0016 
+0017 object = <a href="get_object.html" class="code" title="function self = get_object(self) %#ok">get_object</a>(self);
+0018 <span class="keyword">if</span> (~isempty(object) &amp;&amp; (strcmp(<span class="string">'mlunit_gui'</span>, class(object))))
+0019     handle = <a href="get_handle.html" class="code" title="function handle = get_handle(self)">get_handle</a>(object);
+0020     <span class="keyword">if</span> (~isempty(handle))
+0021         <a href="close.html" class="code" title="function self = close(self)">close</a>(handle);
+0022     <span class="keyword">end</span>;
+0023 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Wed 17-Jun-2015 13:13:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  This Software and all associated files are released unter the 
+  GNU General Public License (GPL), see LICENSE for details.
+
+  $Id$
+  -->
+
+<project name="matlabcommand" default="checkmatlab">
+  <description>
+  MATLAB command task. Open MATLAB, invoke your command, which may
+  consist of several commands, close MATLAB again.
+
+  Use &lt;import&gt; to include matlabcommand in your Ant script. Then use the
+  matlabcommand task in your build targets. Provide a matlab.exec property to
+  the &lt;matlabroot&gt;/bin/win64/MATLAB.exe location you want to use
+  (change to win32 for 32-bit MATLAB).
+  Alternatively, provide a matlab.root property, only referencing the MATLAB
+  directory. If none of these properties is given,
+  matlabcommand will try to call the MATLAB version that is on the cmd shell
+  search path.
+
+  You can only do this once in the same Ant session. In fact, you can execute
+  the matlabcommand task as many times you want, but only with the same
+  matlab.exec/matlab.root configuration within this session.
+  This is in effect from the time either the matlabcommand task, or
+  the checkmatlab target executes for the first time. You input property
+  (matlab.exec or matlab.root) need to be defined at that time.
+
+  The matlabcommand task takes these attributes:
+
+    - "command.string" The MATLAB command string to execute. Mandatory.
+    - "command.dir" Directory that will be added to the MATLAB path
+        before executing the actual command. May be left empty.
+    - "logfile" The location of the MATLAB log file. May be left empty.
+    - "output.property" The name of an Ant property that will receive the
+        command line output of the MATLAB execution.
+    - "success.property" The name of an Ant property that will be true if
+        the MATLAB execution succeeded, or false if not.
+    
+  You may use the included checkmatlab target as dependency for your targets.
+  checkmatlab raises an Ant runtime error if you specified a matlab.exec property
+  that refers to a non-existant file, or if you specified a matlab.root property
+  that is not a proper MATLAB's root directory, or if you specified none of
+  these and MATLAB could not be found on the cmd shell search path.
+  </description>
+
+  <!-- Macro that opens MATLAB and calls a specified command.
+       commanddir attribute will be added as search path via addpath().
+       For argument description see:
+       http://www.mathworks.de/help/techdoc/ref/matlabwindows.html -->
+  <!-- TODO: set @{logfile} to temporary file by default. -->
+  <macrodef name="matlabcommand">
+
+    <attribute name="command.string"/>
+    <attribute name="command.dir" default=""/>
+    <attribute name="logfile" default=""/>
+    <attribute name="output.property" default=""/>
+    <attribute name="success.property" default="no.matlab.success.property"/>
+
+    <sequential>
+        <property name="error.signature" value="MATLAB threw error"/>
+        <construct-matlab-exec/>
+        <echo message="Using MATLAB: ${matlab.exec}"/>
+
+        <!-- Calling MATLAB by means of its core executable, e.g.
+             matlabroot/bin/win32/matlab.exe, not a delegate executable, e.g.
+             matlabroot/bin/matlab.exe or matlab.bat.
+             We let MATLAB write its output into a log file
+             and query its contents in order to determine execution failure.
+             This makes it independent from Ant's logging mechanism and also
+             routes the output through Ant's stdout. -->
+        <exec executable="${matlab.exec}" logError="true">
+          <!-- by default: spawn="false" failonerror="false" -->
+          <arg value="-automation"/>
+          <arg value="-nosplash"/>
+          <arg value="-nodesktop"/>
+          <!-- We may actually have that jvm at a later time... -->
+          <!--arg value="-nojvm"/  yields options conflict with, presumably, -automation-->
+          <!-- -wait option only valid for delegate executables -->
+          <arg value="-r"/>
+          <arg value="addpath('@{command.dir}');try;@{command.string};catch;err=lasterror;disp('${error.signature}');disp(err.message);end;exit;"/>
+          <arg value="-logfile"/>
+          <arg value="@{logfile}"/>
+        </exec>
+
+        <!-- Instead of actual MATLAB output, which may be empty, return content
+             of the logfile. -->
+        <loadfile property="@{output.property}" srcfile="@{logfile}"/>
+
+        <!-- mark succeeded if we do not find the error signature. -->
+        <condition property="@{success.property}">
+          <not>
+            <contains string="${@{output.property}}" substring="${error.signature}"/>
+          </not>
+        </condition>
+    </sequential>
+  </macrodef>
+
+
+  <macrodef name="get-matlab-from-path">
+    <sequential>
+      <!-- get matlab.exe from path, use this rather than the "where" cmd, in
+           order to also work on Windows XP -->
+      <exec executable="cmd.exe" outputproperty="delegator.matlab.exec">
+        <arg value="/C"/>
+        <arg value="for %i in (matlab.exe) do @echo.%~$PATH:i"/>
+      </exec>
+    </sequential>
+  </macrodef>
+
+
+  <!-- Looks for a matlab.root property if available, or defines one from the
+       system path if not. Then defines a matlab.exec property.
+       Can only use this once in the same Ant environment,
+       but not again in the same session with different values. -->
+  <macrodef name="construct-matlab-exec">
+    <sequential>
+
+        <condition property="user.defined.matlab.root" value="true">
+            <isset property="matlab.root"/>
+        </condition>
+
+        <!-- construct a matlab.root property from the system path, if not given by the user -->
+        <get-matlab-from-path/>
+        <dirname property="matlab.root" file="${delegator.matlab.exec}"/>
+
+        <!-- Construct a matlab.exec property from the matlab.root in a way that
+             it definitely points to the core MATLAB executable (not any
+             delegating executables), from either matlabroot directly, or its
+             bin or bin/win32 or bin/win64 sub directories.
+             This works, because the first definition of matlab.exec can never
+             be changed. -->
+
+        <property name="matlabroot.bin.win32.exec" location="${matlab.root}/bin/win32/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.bin.win32.exec}">
+            <available file="${matlabroot.bin.win32.exec}" type="file"/>
+        </condition>
+
+        <property name="matlabroot.bin.win64.exec" location="${matlab.root}/bin/win64/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.bin.win64.exec}">
+            <available file="${matlabroot.bin.win64.exec}" type="file"/>
+        </condition>
+
+        <property name="matlabroot.win32.exec" location="${matlab.root}/win32/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.win32.exec}">
+            <available file="${matlabroot.win32.exec}" type="file"/>
+        </condition>
+
+        <property name="matlabroot.win64.exec" location="${matlab.root}/win64/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.win64.exec}">
+            <available file="${matlabroot.win64.exec}" type="file"/>
+        </condition>
+
+        <property name="matlabroot.exec" location="${matlab.root}/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.exec}">
+            <available file="${matlabroot.exec}" type="file"/>
+        </condition>
+
+        <fail message="Could not find MATLAB. No matlab.exec property was given. A matlab.root property was given, but was not a valid MATLAB root directory: '${matlab.root}'.">
+          <condition>
+            <and>
+              <not>
+                <isset property="matlab.exec"/>
+              </not>
+              <isset property="user.defined.matlab.root"/>
+            </and>
+          </condition>
+        </fail>
+
+        <fail message="Could not find MATLAB. No matlab.exec property was given. Also, no matlab.root property was given, and MATLAB could not be found on the path.">
+          <condition>
+            <and>
+              <not>
+                <isset property="matlab.exec"/>
+              </not>
+              <not>
+                <isset property="user.defined.matlab.root"/>
+              </not>
+            </and>
+          </condition>
+        </fail>
+    </sequential>
+  </macrodef>
+
+
+  <!-- Targets -->
+
+  <target name="checkmatlab" description="Asserts that matlab.exec property is valid.">
+
+    <construct-matlab-exec/>
+
+    <!-- fail if matlab.exec is given or could be constructed, but not available -->
+    <fail message="MATLAB executable was established, but could not be found: matlab.exec=&quot;${matlab.exec}&quot;">
+      <condition>
+        <and>
+          <isset property="matlab.exec"/>
+          <not>
+            <available file="${matlab.exec}" type="file"/>
+          </not>
+        </and>
+      </condition>
+    </fail>
+  </target>
+</project>
