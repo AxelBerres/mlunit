@@ -202,6 +202,13 @@ code that contains javaaddpath or clear calls, consider wrapping them like this:
     javaaddpath(mypath);   % the problematic call, resets breakpoints
     dbstop(dbgstate);      % restore your breakpoints
 
+mlUnit does not reset the javaclasspath as it resets the MATLAB path, the
+working directory, and the mlUnit parameters. That is exactly because changing
+the javaclasspath induces a reset of all persistent variables across the
+MATLAB session, and maybe also a reset of current Java instances.
+It would be a dubious thing to do by default. Therefore, handling the
+javaclasspath is left up to the user.
+
 
 Description of parameters
 -------------------------
