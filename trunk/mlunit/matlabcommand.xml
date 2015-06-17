@@ -33,6 +33,7 @@
     - "command.dir" Directory that will be added to the MATLAB path
         before executing the actual command. May be left empty.
     - "logfile" The location of the MATLAB log file. May be left empty.
+        If left empty, defaults to "matlabcommand_temp.log".
     - "output.property" The name of an Ant property that will receive the
         command line output of the MATLAB execution.
     - "success.property" The name of an Ant property that will be true if
@@ -54,7 +55,8 @@
 
     <attribute name="command.string"/>
     <attribute name="command.dir" default=""/>
-    <attribute name="logfile" default=""/>
+    <!-- logfile must not be empty; we need it to query the result status -->
+    <attribute name="logfile" default="matlabcommand_temp.log"/>
     <attribute name="output.property" default=""/>
     <attribute name="success.property" default="no.matlab.success.property"/>
 

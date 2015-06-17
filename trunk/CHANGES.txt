@@ -11,6 +11,8 @@ mlUnit development snapshot
     However, it is necessary that the Contents.m is living inside a folder
     literally called "mlunit".
 
+  - Fix: matlabcommand.xml's logfile option is not actually optional
+
 
 mlUnit 1.6.9 (2015-06-17)
 -------------------------
