@@ -61,7 +61,7 @@
        the other hand, in order to make inheritance really work.
        -->
   <dirset id="source.dirs" dir="${mlunit.dir}" casesensitive="yes">
-    <include name="src"/>
+    <include name="mlunit"/>
   </dirset>
   <dirset id="source.dirs.shallow" dir="${mlunit.dir}" casesensitive="yes">
     <include name=""/>

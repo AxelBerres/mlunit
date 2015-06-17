@@ -3,6 +3,15 @@
 =====================================
 
 
+mlUnit development snapshot
+---------------------------
+
+  - Let MATLAB find mlUnit as proper toolbox. Users can query mlUnit version
+    information by calling `>> ver('mlunit')` after having loaded mlUnit.
+    However, it is necessary that the Contents.m is living inside a folder
+    literally called "mlunit".
+
+
 mlUnit 1.6.9 (2015-06-17)
 -------------------------
   
