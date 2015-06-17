@@ -39,6 +39,10 @@
         Optional. See matlab.root.
     - "additional.cmd" Any MATLAB command you wish to execute just before mlUnit
         execution.
+    - "failontestfail" Stop the buildprocess if any of the tests failed. Set to
+        true if you rather want test failures to break the build. Set to false
+        if you rather want tests to run but to continue the build any way.
+        Defaults to true.
 
   For testing mlUnit, call Ant with this very build script and provide just the
   matlab.root property, like this:
@@ -79,6 +83,7 @@
     <property name="test.dir" location="${mlunit.dir}/test"/>
     <property name="report.dir" location="${mlunit.dir}/test/reports"/>
     <property name="additional.cmd" value=""/>
+    <property name="failontestfail" value="true"/>
     <pathconvert property="source.dir" pathsep="'), genpath('" refid="source.dirs"/>
     <pathconvert property="source.dir.shallow" pathsep="', '" refid="source.dirs.shallow"/>
 
@@ -99,10 +104,13 @@
                    logfile="${unittest.log}"/>
     <fail message="One or more unit tests failed. See log file &quot;${unittest.log}&quot;.">
       <condition>
-        <or>
-          <contains string="${unittests.output}" substring="FAILED"/>
-          <not><isset property="unittests.success"/></not>
-        </or>
+        <and>
+          <or>
+            <contains string="${unittests.output}" substring="FAILED"/>
+            <not><isset property="unittests.success"/></not>
+          </or>
+          <equals arg1="true" arg2="${failontestfail}"/>
+        </and>
       </condition>
     </fail>
   </target>

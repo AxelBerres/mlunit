@@ -10,6 +10,8 @@ mlUnit development snapshot
     information by calling `>> ver('mlunit')` after having loaded mlUnit.
     However, it is necessary that the Contents.m is living inside a folder
     literally called "mlunit".
+  - Additional failontestfail option in build.xml lets user choose whether the
+    target should fail when tests failed or not.
 
   - Fix: matlabcommand.xml's logfile option is not actually optional
 
