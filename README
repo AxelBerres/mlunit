@@ -50,6 +50,12 @@ DYNAMICAL EMPLOYMENT
    directory. That way, test scripts may use relative paths to refer to data in
    sub directories, e.g. images.
 
+
+REQUIREMENTS
+
+mlUnit is expected to run on all MATLAB versions from R2006b up to any new
+version. However, it has been tested only with R2006b, R2007b, R2011b, R2014b.
+
 ===========================================================================
 
 
@@ -95,6 +101,13 @@ matlab.root property set to your MATLAB executable. E.g.:
 Or even try the MATLAB that's found on your system path:
 
     ant
+
+R2014b gives no output when being executed via Ant. This seems to be a
+change in R2014b. The core MATLAB.EXE no longer outputs on stdout if
+being called with the -automation option. But mlUnit's current
+matlabcommand.xml should recognize failures, even without stdout output,
+as it works on the log file produced.
+
 
 ===========================================================================
 
