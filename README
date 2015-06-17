@@ -32,11 +32,11 @@ INSTALLATION
 1. Unzip mlunit.zip to $HOME.
 2. Change to directory in MATLAB:
 
-   >> cd $HOME/mlunit/src
+   >> cd $HOME/mlunit/mlunit
 
 3. Add directory to MATLAB path:
 
-   >> addpath('$HOME/mlunit/src');
+   >> addpath('$HOME/mlunit/mlunit');
 
 
 DYNAMICAL EMPLOYMENT
