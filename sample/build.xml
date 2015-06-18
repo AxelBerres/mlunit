@@ -25,7 +25,7 @@
   <!-- Call the mlUnit task with overridden report.dir property.
        Always succeed. -->
   <target name="test-samples" depends="init" description="execute unit tests">
-    <subant antfile="build.xml" buildpath="${mlunit.dir}/src" failonerror="false">
+    <subant antfile="build.xml" buildpath="${mlunit.dir}/mlunit" failonerror="false">
       <property name="test.dir" location="${sample.dir}"/>
       <property name="report.dir" location="${report.dir}"/>
       <reference refid="source.dirs"/>
