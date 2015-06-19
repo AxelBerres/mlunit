@@ -4,8 +4,9 @@
 %  followed by the function name where the error occurred. For syntax errors,
 %  this is 'Error:' followed by the function and line where the error occurred.
 %  Strangely, for syntax errors these extra information are not included in the
-%  stack. filter_lasterror_wraps therefore parses the extra line, and adds the
-%  information as stack item.
+%  stack, where for runtime errors they are.
+%  filter_lasterror_wraps therefore parses the extra line, and adds the
+%  information as stack item, for syntax errors.
 %  filter_lasterror_wraps works on the internally buffered error information
 %  that you provided in mlunit_errorinfo's constructor.
 %
