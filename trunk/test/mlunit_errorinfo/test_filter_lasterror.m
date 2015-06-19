@@ -120,7 +120,7 @@ function test_syntax_error_R2007b_msg_and_stack
     assert_equals(expected_msg, actual_msg);
     assert_true(numel(actual_stack) >= 1);
     assert_equals(4, actual_stack(1).line);
-    assert_equals('demo_syntax_error.m', actual_stack(1).name);
+    assert_equals('demo_syntax_error', actual_stack(1).name);
 
 % call 'error(' in a function
 function test_syntax_error_R2010b
