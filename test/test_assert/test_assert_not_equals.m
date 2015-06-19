@@ -29,6 +29,13 @@ function double_test_different_arguments(varargin)
    assert_error(@() assert_equals(varargin{:}));
 
 
+function test_not_equals_inf
+
+    assert_not_equals(Inf, -Inf);
+    assert_not_equals(Inf, -Inf, 0.1);
+    assert_not_equals({Inf}, {-Inf});
+
+
 function test_not_equals_object
 
     % construct a timeseries object for comparison
