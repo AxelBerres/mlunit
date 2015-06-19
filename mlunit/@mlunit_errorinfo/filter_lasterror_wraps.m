@@ -65,9 +65,12 @@ elseif length(tokens_syntax) == num_captures_syntax_err
     % see if we can resolve the full file path
     fullname = which(file);
     if isempty(fullname), fullname = file; end
+
+    % drop .m extension
+    [fpath, fname, fext] = fileparts(file);
     
     % push reconstructed call location onto stack
-    stackitem = struct('file', {fullname}, 'line', {line}, 'name', {file});
+    stackitem = struct('file', {fullname}, 'line', {line}, 'name', {fname});
     stack = [stackitem; stack];
 else
     % unrecognized message format: leave message and stack as they are
