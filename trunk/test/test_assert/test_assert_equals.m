@@ -66,6 +66,18 @@ function double_test_equal_arguments(varargin)
    assert_equals(varargin{:});
    assert_error(@() assert_not_equals(varargin{:}));
 
+
+function test_equals_inf
+
+    assert_equals(Inf, Inf);
+    assert_equals(-Inf, -Inf);
+
+    % also in combination with eps
+    assert_equals(Inf, Inf, 0.1);
+
+    % also when wrapped as cell or some such
+    assert_equals({Inf}, {Inf});
+
    
 function test_equals_object
 

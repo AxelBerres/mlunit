@@ -72,6 +72,13 @@ elseif are_compatible_numerics
       % are NaN
       indices = ~(isnan(expected) & isnan(actual));
    end
+   
+   % Omit comparing equal inf values, e.g. Inf and Inf, or -Inf and -Inf,
+   % because Inf arithmetic is messed up in MATLAB. Consider the results of
+   % (Inf==Inf) vs. (Inf-Inf), for example.
+   equalsigns = (expected < 0) == (actual < 0);
+   equal_infs = isinf(expected) & isinf(actual) & equalsigns;
+   indices = indices & ~equal_infs;
 
    % Build matrix of expected/actual differences. If at one position expected or
    % actual have a NaN, that position's difference will be NaN and fail the eps
