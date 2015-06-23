@@ -50,16 +50,25 @@ elseif nargin >= 4 && ischar(absolute_eps_or_msg)
    custom_msg = sprintf(absolute_eps_or_msg, varargin{:});
 end
 
+% needed predicates
+are_classes_equal = isequal(class(expected), class(actual));
+both_sizes_empty = numel(expected) == 0 && numel(actual) == 0;
+
 % only check against eps if expected and actual both are numeric and have the
 % same type, else MATLAB complains about incompatible types when using
 % subtraction during eps checking later on
-are_compatible_numerics = isnumeric(expected) && isequal(class(expected), class(actual));
+are_compatible_numerics = isnumeric(expected) && are_classes_equal;
 
 % short circuit, if sizes of expected and actual differ
 sizes_differ = ~isequal(size(expected), size(actual));
 
+
 % determine equality
-if are_compatible_numerics && sizes_differ
+if are_classes_equal && both_sizes_empty
+   equals = true;
+   
+% numerics of different size where at least one size is non-empty´are different
+elseif are_compatible_numerics && sizes_differ
    equals = false;
 
 % check contents only for arguments of equal size
@@ -98,6 +107,7 @@ elseif equal_nans
 else
    equals = isequal(actual, expected);
 end
+
 
 % construct message
 if pass_if_equal
