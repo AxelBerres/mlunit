@@ -109,24 +109,25 @@ else
 end
 
 
-% construct message
-if pass_if_equal
-   % In case of failed equality check, prepare special message for large scalar structs
-   isscalarstruct = @(s) isstruct(s) && isscalar(s);
-   if ~equals && isscalarstruct(expected) && isscalarstruct(actual)
-      struct_diffs = find_struct_differences(expected, actual);
-      reason_msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg);
-   else
-      reason_msg = loc_construct_diff_message(expected, actual, '', tolerance_msg);
-   end
-else
-   reason_msg = ['Expected and actual are equal' tolerance_msg '.'];
-end
-
 % fail if pass on equal requested, but is not equal
 % fail if fail on equal requested, and is equal
 % else, pass quietly
 if xor(pass_if_equal, equals)
+    
+    % construct message
+    if pass_if_equal
+       % In case of failed equality check, prepare special message for large scalar structs
+       isscalarstruct = @(s) isstruct(s) && isscalar(s);
+       if ~equals && isscalarstruct(expected) && isscalarstruct(actual)
+          struct_diffs = find_struct_differences(expected, actual);
+          reason_msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg);
+       else
+          reason_msg = loc_construct_diff_message(expected, actual, '', tolerance_msg);
+       end
+    else
+       reason_msg = ['Expected and actual are equal' tolerance_msg '.'];
+    end
+
     % varargin has been evaluated before
     mlunit_fail_with_reason(reason_msg, custom_msg);
 end
