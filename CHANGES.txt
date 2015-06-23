@@ -12,6 +12,7 @@ mlUnit development snapshot
     literally called "mlunit".
   - Additional failontestfail option in build.xml lets user choose whether the
     target should fail when tests failed or not.
+  - Enable diff markers for multi-line char arrays and for cellstr arrays.
 
   - Fix: matlabcommand.xml's logfile option is not actually optional
   - Fix: assert_equals judges Inf and Inf as not equal

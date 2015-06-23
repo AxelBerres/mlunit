@@ -11,6 +11,7 @@ function test_not_two_args %#ok<DEFNU>
 function test_both_empty %#ok<DEFNU>
 
     assert_empty(mark_string_differences('', ''));
+    assert_empty(mark_string_differences(repmat('a',1,0),repmat('a',0,1)));
 
 function test_one_empty %#ok<DEFNU>
 
@@ -38,18 +39,19 @@ function test_deletion %#ok<DEFNU>
     actual = mark_string_differences(s1, s2);
     assert_equals(expected, actual);
 
+function test_multiline_string
+
+          s1 =   '[''foo'';''bar'']';
+          s2 =   '[''fuh'';''bah'']';
+    % actually:   ['fuh';'bah']
+    expected =   '   ^^     ^  ';
+    actual = mark_string_differences(s1, s2);
+    assert_equals(expected, actual);
+    
 
 %% boilerplate code for testing functions that are private to assert functions
 function set_up %#ok<DEFNU>
 
     assertdir = fileparts(which('assert_error'));
     testdir = fullfile(assertdir, 'private');
-    
-    % buffer current path
-    mlunit_param('usertest_isclass', pwd);
     cd(testdir);
-
-function tear_down %#ok<DEFNU>
-
-    % reset to previous dir
-    cd(mlunit_param('usertest_isclass'));
