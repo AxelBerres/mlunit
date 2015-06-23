@@ -16,6 +16,8 @@ mlUnit development snapshot
   - Fix: matlabcommand.xml's logfile option is not actually optional
   - Fix: assert_equals judges Inf and Inf as not equal
   - Fix: stack expansion for syntax errors forgets to remove .m file extension
+  - Fix: assert_equals outputs 'zeros(1,0)' for empty numerical arrays of
+    size [1, 0].
 
 
 mlUnit 1.6.9 (2015-06-17)
