@@ -18,6 +18,7 @@ mlUnit development snapshot
   - Fix: stack expansion for syntax errors forgets to remove .m file extension
   - Fix: assert_equals outputs 'zeros(1,0)' for empty numerical arrays of
     size [1, 0].
+  - Fix: printable fails for empty char array of size [0, 1] or [1, 0].
 
 
 mlUnit 1.6.9 (2015-06-17)
