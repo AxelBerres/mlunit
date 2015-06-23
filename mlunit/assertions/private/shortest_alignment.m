@@ -69,7 +69,7 @@ function alignment = shortest_alignment(s1, s2)
     pos = 1;
     a1 = '';
     a2 = '';
-    blank = '·';
+    blank = '·';   % middle dot, 0xB7 in Windows 1252 and ISO 8859-1 encodings
     while ~isequal([0, 0], (path{step(1), step(2)}))
         nextstep = path{step(1), step(2)};
         

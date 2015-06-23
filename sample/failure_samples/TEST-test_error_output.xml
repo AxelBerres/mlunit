@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.062" hostname="unknown" timestamp="2015-06-05T22:58:25">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.155" hostname="unknown" timestamp="2015-06-23T13:16:24">
   <properties/>
   <testcase classname="test_error_output" name="test_special_characters">
     <error><![CDATA[This some special characters: !"§$%&/()=?. Enjoy.

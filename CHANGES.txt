@@ -24,6 +24,8 @@ mlUnit development snapshot
   - Fix: printable fails for empty char array of size [0, 1] or [1, 0].
   - Fix: assert_equals judges empty arrays not equal, if their (empty) sizes
     differ
+  - Fix: jUnit XML report given and actual encoding mismatch due to gap marker;
+    reports will be ISO-8859-1 in order to avoid manual UTF-8 conversion.
 
 
 mlUnit 1.6.9 (2015-06-17)
