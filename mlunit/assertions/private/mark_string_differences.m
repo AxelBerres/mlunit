@@ -24,7 +24,11 @@ marker_length = max(numel(s1), numel(s2));
 marker = repmat(' ', 1, marker_length);
 
 % mark char differences across the length common to both strings
-marker(s1(1:common_length) ~= s2(1:common_length)) = deal('^');
+% do this only on non-empty common_length, because when s1 and s2 are both
+% empty, but with different sizes, the ~= operator fails
+if common_length > 0
+    marker(s1(1:common_length) ~= s2(1:common_length)) = deal('^');
+end
 
 % mark as different where one string is longer than the other
 marker(common_length+1:marker_length) = deal('^');

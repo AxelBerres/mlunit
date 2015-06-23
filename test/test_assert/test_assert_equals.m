@@ -9,6 +9,16 @@ function test_equals_on_empty
    double_test_equal_arguments('', '');
    double_test_equal_arguments({}, {});
    double_test_equal_arguments(struct([]), struct([]));
+   
+   
+function test_equals_empty_with_different_size_double
+
+   assert_equals(repmat(3, 1, 0), repmat(3, 0, 1));
+
+   
+function test_equals_empty_with_different_size_string
+
+   assert_equals(repmat('a', 1, 0), repmat('a', 0, 1));
 
 
 function test_equals_array
