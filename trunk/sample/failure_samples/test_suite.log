@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.10-SNAPSHOT
-Started: 2015-06-22 21:36:40
+Started: 2015-06-23 09:58:36
 Test object: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ Running suite test_failure_output
 
   test_equals_double_empty FAIL:
     Data not equal:
-      Expected : zeros(1,0)
+      Expected : []
       Actual   : 3
     In test_failure_output.m at line 40
 
@@ -298,7 +298,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 39 tests across 4 suites in 0.81s
+Executed 39 tests across 4 suites in 0.91s
 
 32 tests FAILED
 7 tests had ERRORS
