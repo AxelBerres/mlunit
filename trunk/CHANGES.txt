@@ -13,6 +13,8 @@ mlUnit development snapshot
   - Additional failontestfail option in build.xml lets user choose whether the
     target should fail when tests failed or not.
   - Enable diff markers for multi-line char arrays and for cellstr arrays.
+  - Align strings when preparing for diff marking. Implement alignment according
+    to the shortest Levenshtein distance.
 
   - Fix: matlabcommand.xml's logfile option is not actually optional
   - Fix: assert_equals judges Inf and Inf as not equal
