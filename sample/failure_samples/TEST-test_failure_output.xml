@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="32" tests="33" time="0.562" hostname="unknown" timestamp="2015-06-23T11:13:31">
+<testsuite name="test_failure_output" errors="1" failures="32" tests="33" time="0.671" hostname="unknown" timestamp="2015-06-23T11:37:55">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure><![CDATA[Expected empty expression was actually: 3.
@@ -68,16 +68,16 @@ In test_failure_output.m at line 70]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_multiline_string_asymmetric">
     <failure><![CDATA[Data not equal:
-  Expected : ['foo';'bar']
+  Expected : ['foo·';'bar·']
   Actual   : ['fool';'barz']
-  Changes  :      ^^^^^^^^^^
+  Changes  :      ^      ^
 In test_failure_output.m at line 76]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_multiline_string_vs_singleline">
     <failure><![CDATA[Data not equal:
   Expected : ['foo';'bar']
-  Actual   : 'fool;bar'
-  Changes  : ^^^ ^^^^^^^^^
+  Actual   : ·'fool;·bar'·
+  Changes  : ^    ^ ^    ^
 In test_failure_output.m at line 82]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_cell">

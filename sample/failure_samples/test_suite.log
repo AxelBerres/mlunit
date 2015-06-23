@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.10-SNAPSHOT
-Started: 2015-06-23 11:13:30
+Started: 2015-06-23 11:37:54
 Test object: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -146,16 +146,16 @@ Running suite test_failure_output
 
   test_equals_multiline_string_asymmetric FAIL:
     Data not equal:
-      Expected : ['foo';'bar']
+      Expected : ['foo·';'bar·']
       Actual   : ['fool';'barz']
-      Changes  :      ^^^^^^^^^^
+      Changes  :      ^      ^
     In test_failure_output.m at line 76
 
   test_equals_multiline_string_vs_singleline FAIL:
     Data not equal:
       Expected : ['foo';'bar']
-      Actual   : 'fool;bar'
-      Changes  : ^^^ ^^^^^^^^^
+      Actual   : ·'fool;·bar'·
+      Changes  : ^    ^ ^    ^
     In test_failure_output.m at line 82
 
   test_equals_cell FAIL:
@@ -308,7 +308,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 40 tests across 4 suites in 0.87s
+Executed 40 tests across 4 suites in 0.95s
 
 33 tests FAILED
 7 tests had ERRORS

@@ -182,6 +182,13 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
     change_msg = '';
     % append difference markers for string or cellstr comparisons
     if (ischar(expected) && ischar(actual)) || (iscellstr(expected) && iscellstr(actual))
+        % apply a shortest Levenshtein aligment, if not empty
+        alignment = shortest_alignment(expected_string, actual_string);
+        if ~isempty(alignment)
+            expected_string = alignment(1,:);
+            actual_string = alignment(2,:);
+        end
+        
         change_msg = sprintf('\n  %-9s: %s', 'Changes', mark_string_differences(expected_string, actual_string));
     end
 
