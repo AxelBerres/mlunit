@@ -176,19 +176,18 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
         position_msg = [' at position ' position_info];
     end
     
+    expected_string = printable(expected);
+    actual_string = printable(actual);
+    
     change_msg = '';
-    % append difference markers for string comparisons
-    if ischar(expected) && ischar(actual)
-        change_msg = sprintf('\n  %-9s:  %s', 'Changes', mark_string_differences(expected, actual));
-    % or for cell arrays containing single strings; adjust spaces for additional
-    % opening cell parenthesis "{"
-    elseif iscellstr(expected) && iscellstr(actual) && numel(expected)*numel(actual)==1
-        change_msg = sprintf('\n  %-9s:   %s', 'Changes', mark_string_differences(expected{1}, actual{1}));
+    % append difference markers for string or cellstr comparisons
+    if (ischar(expected) && ischar(actual)) || (iscellstr(expected) && iscellstr(actual))
+        change_msg = sprintf('\n  %-9s: %s', 'Changes', mark_string_differences(expected_string, actual_string));
     end
 
     msg = sprintf('Data not equal%s%s:\n  %-9s: %s\n  %-9s: %s%s', ...
         position_msg, ...
         tolerance_msg, ...
-        'Expected', printable(expected), ...
-        'Actual', printable(actual), ...
+        'Expected', expected_string, ...
+        'Actual', actual_string, ...
         change_msg);

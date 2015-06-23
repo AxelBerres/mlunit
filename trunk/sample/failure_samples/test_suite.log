@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.10-SNAPSHOT
-Started: 2015-06-23 09:58:36
+Started: 2015-06-23 11:13:30
 Test object: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -140,48 +140,57 @@ Running suite test_failure_output
   test_equals_multiline_string FAIL:
     Data not equal:
       Expected : ['foo';'bar']
-      Actual   : ['fool';'barz']
-      Changes  :        ^^
+      Actual   : ['fuh';'bah']
+      Changes  :    ^^     ^
     In test_failure_output.m at line 70
+
+  test_equals_multiline_string_asymmetric FAIL:
+    Data not equal:
+      Expected : ['foo';'bar']
+      Actual   : ['fool';'barz']
+      Changes  :      ^^^^^^^^^^
+    In test_failure_output.m at line 76
 
   test_equals_multiline_string_vs_singleline FAIL:
     Data not equal:
       Expected : ['foo';'bar']
       Actual   : 'fool;bar'
-      Changes  :   ^ ^^^^^
-    In test_failure_output.m at line 76
+      Changes  : ^^^ ^^^^^^^^^
+    In test_failure_output.m at line 82
 
   test_equals_cell FAIL:
     Data not equal:
       Expected : {3, 'foo'}
       Actual   : {3, 'fOo'}
-    In test_failure_output.m at line 83
+    In test_failure_output.m at line 89
 
   test_equals_struct FAIL:
     Data not equal at position .foo:
       Expected : {'hi', 'ho'}
       Actual   : {'ho', 'hi'}
-    In test_failure_output.m at line 91
+      Changes  :    ^     ^
+    In test_failure_output.m at line 97
 
   test_equals_string_struct FAIL:
     Data not equal at position .foo:
       Expected : 'you say \to-'mah-(,)to'
       Actual   : 'you say \to-'mey-(,)to'
       Changes  :                ^^
-    In test_failure_output.m at line 101
+    In test_failure_output.m at line 107
 
   test_equals_scalar_cellstring_struct FAIL:
     Data not equal at position .foo:
       Expected : {'you say \to-'mah-(,)to'}
       Actual   : {'you say \to-'mey-(,)to'}
       Changes  :                 ^^
-    In test_failure_output.m at line 111
+    In test_failure_output.m at line 117
 
   test_equals_nested_struct FAIL:
     Data not equal at position .tee.foo:
       Expected : {'hi', 'ho'}
       Actual   : {'ho', 'hi'}
-    In test_failure_output.m at line 120
+      Changes  :    ^     ^
+    In test_failure_output.m at line 126
 
   test_equals_nested_struct_multiple_differences FAIL:
     Data not equal at position .tee.bar:
@@ -190,7 +199,8 @@ Running suite test_failure_output
     Data not equal at position .tee.foo:
       Expected : {'hi', 'ho'}
       Actual   : {'ho', 'hi'}
-    In test_failure_output.m at line 130
+      Changes  :    ^     ^
+    In test_failure_output.m at line 136
 
   test_equals_nested_struct_many_differences FAIL:
     Data not equal at position .bar:
@@ -203,13 +213,13 @@ Running suite test_failure_output
       Expected : [3 4]
       Actual   : [3 5]
     ... more differences detected, but not displayed.
-    In test_failure_output.m at line 142
+    In test_failure_output.m at line 148
 
   test_equals_structarray FAIL:
     Data not equal:
       Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
       Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
-    In test_failure_output.m at line 150
+    In test_failure_output.m at line 156
 
   test_equals_object FAIL:
     Data not equal:
@@ -239,50 +249,50 @@ Running suite test_failure_output
           Interpolation method  linear
           Size                  [1   1  12]
           Data type             double
-    In test_failure_output.m at line 160
+    In test_failure_output.m at line 166
 
   test_equals_handle FAIL:
     Data not equal:
       Expected : 0
       Actual   : 1
-    In test_failure_output.m at line 175
+    In test_failure_output.m at line 181
 
   test_equals_functionhandle FAIL:
     Data not equal:
       Expected : @(x)x*x+x
       Actual   : @(x)x+x*x
-    In test_failure_output.m at line 191
+    In test_failure_output.m at line 197
 
   test_equals_javaobject FAIL:
     Data not equal:
       Expected : hiho
       Actual   : hiHo
-    In test_failure_output.m at line 197
+    In test_failure_output.m at line 203
 
   test_not_equals FAIL:
     Expected and actual are equal.
-    In test_failure_output.m at line 202
+    In test_failure_output.m at line 208
 
   test_error FAIL:
     Should be error, but 3 alone isn't.
     Error expected, but none occurred.
-    In test_failure_output.m at line 207
+    In test_failure_output.m at line 213
 
   test_typed_error FAIL:
     Error expected, but none occurred.
-    In test_failure_output.m at line 212
+    In test_failure_output.m at line 218
 
   test_wrong_typed_error FAIL:
     Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-    In test_failure_output.m at line 216
+    In test_failure_output.m at line 222
 
   test_warning FAIL:
     No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-    In test_failure_output.m at line 222
+    In test_failure_output.m at line 228
 
   test_implementation_fault ERROR:
     Undefined function or variable 'unknown_function_call'.
-    In test_failure_output.m at line 226
+    In test_failure_output.m at line 232
     In run_test.m at line 21
     In run_test.m at line 50
     In run_suite.m at line 86
@@ -292,15 +302,15 @@ Running suite test_failure_output
 
   test_nested_functions FAIL:
     Nested function test.
-    In test_failure_output.m at line 234
-    In test_failure_output.m at line 230
+    In test_failure_output.m at line 240
+    In test_failure_output.m at line 236
 
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 39 tests across 4 suites in 0.91s
+Executed 40 tests across 4 suites in 0.87s
 
-32 tests FAILED
+33 tests FAILED
 7 tests had ERRORS
 ======================================================================
 

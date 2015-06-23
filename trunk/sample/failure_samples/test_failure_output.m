@@ -65,6 +65,12 @@ function test_equals_scalar_cellstring
     
 function test_equals_multiline_string
 
+    expected =   ['foo';'bar'];
+    actual =   ['fuh';'bah'];
+    assert_equals(expected, actual);
+
+function test_equals_multiline_string_asymmetric
+
     expected = ['foo';'bar'];
     actual = ['fool';'barz'];
     assert_equals(expected, actual);
@@ -72,9 +78,9 @@ function test_equals_multiline_string
 function test_equals_multiline_string_vs_singleline
 
     expected = ['foo';'bar'];
-    actual = ['fool;bar'];
+    actual = 'fool;bar';
     assert_equals(expected, actual);
-
+    
 function test_equals_cell
 
     c = {3, 'foo'};
