@@ -32,7 +32,7 @@ function writeXmlTestsuite(suiteresult, targetdir)
    end
    
    % default xml headline
-   fprintf(fid,'<?xml version="1.0" encoding="UTF-8"?>\n');
+   fprintf(fid,'<?xml version="1.0" encoding="ISO-8859-1"?>\n');
    % wrap this string in a '%s' call in order to prohibit fprintf to parse
    % it
    fprintf(fid, '%s', printXmlTestsuite(suiteresult));
