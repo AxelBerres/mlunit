@@ -5,14 +5,13 @@
 %  
 %  Favors changes over deletions/insertions where ambiguous.
 %  Does not support transpositions.
-%
-%  TODO: calculate matrix backwards instead of forwards; saves eventual string reversal
-%  TODO: drop distance, which is not really needed
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  $Id$
+
+%  TODO: calculate matrix backwards instead of forwards; saves eventual string reversal
 
 function alignment = shortest_alignment(s1, s2)
 
