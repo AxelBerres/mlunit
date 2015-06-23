@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test_failure_output" errors="1" failures="28" tests="29" time="0.452" hostname="unknown" timestamp="2015-06-05T22:58:25">
+<testsuite name="test_failure_output" errors="1" failures="31" tests="32" time="0.484" hostname="unknown" timestamp="2015-06-22T21:36:41">
   <properties/>
   <testcase classname="test_failure_output" name="test_empty">
     <failure><![CDATA[Expected empty expression was actually: 3.
@@ -27,63 +27,83 @@ In test_failure_output.m at line 31]]></failure>
   Actual   : 4
 In test_failure_output.m at line 36]]></failure>
   </testcase>
+  <testcase classname="test_failure_output" name="test_equals_double_empty">
+    <failure><![CDATA[Data not equal:
+  Expected : zeros(1,0)
+  Actual   : 3
+In test_failure_output.m at line 40]]></failure>
+  </testcase>
   <testcase classname="test_failure_output" name="test_equals_array">
     <failure><![CDATA[Data not equal:
   Expected : [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
   Actual   : [1 2 3 4 5 6 7 8 9 10.000001 11 12 13 14 15]
-In test_failure_output.m at line 42]]></failure>
+In test_failure_output.m at line 46]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_arraymatrix">
     <failure><![CDATA[Data not equal:
   Expected : [1 2 3 4;5 6 7 8;9 10 11 12;13 14 15 16]
   Actual   : [1 2 3 4;5 6 7 8;9 10.000001 11 12;13 14 15 16]
-In test_failure_output.m at line 50]]></failure>
+In test_failure_output.m at line 54]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_string">
     <failure><![CDATA[Data not equal:
   Expected : 'foo'
   Actual   : 'fOO'
   Changes  :   ^^
-In test_failure_output.m at line 55]]></failure>
+In test_failure_output.m at line 59]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_scalar_cellstring">
     <failure><![CDATA[Data not equal:
   Expected : {'foo'}
   Actual   : {'fOO'}
   Changes  :    ^^
-In test_failure_output.m at line 60]]></failure>
+In test_failure_output.m at line 64]]></failure>
+  </testcase>
+  <testcase classname="test_failure_output" name="test_equals_multiline_string">
+    <failure><![CDATA[Data not equal:
+  Expected : ['foo';'bar']
+  Actual   : ['fool';'barz']
+  Changes  :        ^^
+In test_failure_output.m at line 70]]></failure>
+  </testcase>
+  <testcase classname="test_failure_output" name="test_equals_multiline_string_vs_singleline">
+    <failure><![CDATA[Data not equal:
+  Expected : ['foo';'bar']
+  Actual   : 'fool;bar'
+  Changes  :   ^ ^^^^^
+In test_failure_output.m at line 76]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_cell">
     <failure><![CDATA[Data not equal:
   Expected : {3, 'foo'}
   Actual   : {3, 'fOo'}
-In test_failure_output.m at line 67]]></failure>
+In test_failure_output.m at line 83]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_struct">
     <failure><![CDATA[Data not equal at position .foo:
   Expected : {'hi', 'ho'}
   Actual   : {'ho', 'hi'}
-In test_failure_output.m at line 75]]></failure>
+In test_failure_output.m at line 91]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_string_struct">
     <failure><![CDATA[Data not equal at position .foo:
   Expected : 'you say \to-'mah-(,)to'
   Actual   : 'you say \to-'mey-(,)to'
   Changes  :                ^^
-In test_failure_output.m at line 85]]></failure>
+In test_failure_output.m at line 101]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_scalar_cellstring_struct">
     <failure><![CDATA[Data not equal at position .foo:
   Expected : {'you say \to-'mah-(,)to'}
   Actual   : {'you say \to-'mey-(,)to'}
   Changes  :                 ^^
-In test_failure_output.m at line 95]]></failure>
+In test_failure_output.m at line 111]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct">
     <failure><![CDATA[Data not equal at position .tee.foo:
   Expected : {'hi', 'ho'}
   Actual   : {'ho', 'hi'}
-In test_failure_output.m at line 104]]></failure>
+In test_failure_output.m at line 120]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct_multiple_differences">
     <failure><![CDATA[Data not equal at position .tee.bar:
@@ -92,7 +112,7 @@ In test_failure_output.m at line 104]]></failure>
 Data not equal at position .tee.foo:
   Expected : {'hi', 'ho'}
   Actual   : {'ho', 'hi'}
-In test_failure_output.m at line 114]]></failure>
+In test_failure_output.m at line 130]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_nested_struct_many_differences">
     <failure><![CDATA[Data not equal at position .bar:
@@ -105,13 +125,13 @@ Data not equal at position .tee.bar:
   Expected : [3 4]
   Actual   : [3 5]
 ... more differences detected, but not displayed.
-In test_failure_output.m at line 126]]></failure>
+In test_failure_output.m at line 142]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_structarray">
     <failure><![CDATA[Data not equal:
   Expected : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'hi', 'ho'}; bar:4}]
   Actual   : [{foo:{'hi', 'ho'}; bar:3}, {foo:{'ho', 'hi'}; bar:4}]
-In test_failure_output.m at line 134]]></failure>
+In test_failure_output.m at line 150]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_object">
     <failure><![CDATA[Data not equal:
@@ -141,50 +161,50 @@ Data characteristics
       Interpolation method  linear
       Size                  [1   1  12]
       Data type             double
-In test_failure_output.m at line 144]]></failure>
+In test_failure_output.m at line 160]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_handle">
     <failure><![CDATA[Data not equal:
   Expected : 0
   Actual   : 1
-In test_failure_output.m at line 159]]></failure>
+In test_failure_output.m at line 175]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_functionhandle">
     <failure><![CDATA[Data not equal:
   Expected : @(x)x*x+x
   Actual   : @(x)x+x*x
-In test_failure_output.m at line 175]]></failure>
+In test_failure_output.m at line 191]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_equals_javaobject">
     <failure><![CDATA[Data not equal:
   Expected : hiho
   Actual   : hiHo
-In test_failure_output.m at line 181]]></failure>
+In test_failure_output.m at line 197]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_not_equals">
     <failure><![CDATA[Expected and actual are equal.
-In test_failure_output.m at line 186]]></failure>
+In test_failure_output.m at line 202]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_error">
     <failure><![CDATA[Should be error, but 3 alone isn't.
 Error expected, but none occurred.
-In test_failure_output.m at line 191]]></failure>
+In test_failure_output.m at line 207]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_typed_error">
     <failure><![CDATA[Error expected, but none occurred.
-In test_failure_output.m at line 196]]></failure>
+In test_failure_output.m at line 212]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_wrong_typed_error">
     <failure><![CDATA[Error occurred, but did not match criteria. Expected error identifier 'MATLAB:SomeError' actually was 'MATLAB:m_improper_grouping'.
-In test_failure_output.m at line 200]]></failure>
+In test_failure_output.m at line 216]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_warning">
     <failure><![CDATA[No warning MATLAB:rmpath:DirNotFound when executing function @()3.
-In test_failure_output.m at line 206]]></failure>
+In test_failure_output.m at line 222]]></failure>
   </testcase>
   <testcase classname="test_failure_output" name="test_implementation_fault">
     <error><![CDATA[Undefined function or variable 'unknown_function_call'.
-In test_failure_output.m at line 210
+In test_failure_output.m at line 226
 In run_test.m at line 21
 In run_test.m at line 50
 In run_suite.m at line 86
@@ -194,8 +214,8 @@ In recursive_test_run.m at line 27]]></error>
   </testcase>
   <testcase classname="test_failure_output" name="test_nested_functions">
     <failure><![CDATA[Nested function test.
-In test_failure_output.m at line 218
-In test_failure_output.m at line 214]]></failure>
+In test_failure_output.m at line 234
+In test_failure_output.m at line 230]]></failure>
   </testcase>
   <system-out/>
   <system-err/>

@@ -34,6 +34,10 @@ function test_equals
 
     assert_equals(3, 3);
     assert_equals(3, 4);
+    
+function test_equals_double_empty
+
+    assert_equals(repmat(3, 1, 0), 3);
 
 function test_equals_array
 
@@ -58,6 +62,18 @@ function test_equals_scalar_cellstring
 
     assert_equals({'foo'}, {'foo'});
     assert_equals({'foo'}, {'fOO'});
+    
+function test_equals_multiline_string
+
+    expected = ['foo';'bar'];
+    actual = ['fool';'barz'];
+    assert_equals(expected, actual);
+
+function test_equals_multiline_string_vs_singleline
+
+    expected = ['foo';'bar'];
+    actual = ['fool;bar'];
+    assert_equals(expected, actual);
 
 function test_equals_cell
 
@@ -93,7 +109,7 @@ function test_equals_scalar_cellstring_struct
     s2.foo = {tomeyto};
     assert_equals(s, s);
     assert_equals(s, s2);
-    
+        
 function test_equals_nested_struct
 
     s = struct('foo', {{'hi', 'ho'}}, 'bar', {[3 4]});
