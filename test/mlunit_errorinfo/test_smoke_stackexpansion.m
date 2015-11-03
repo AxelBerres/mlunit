@@ -8,9 +8,9 @@
 %  
 %  $Id$
 
-function test = test_smoke_stackexpansion
+function test = test_smoke_stackexpansion %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 
 function test_stackexpansion_runtime

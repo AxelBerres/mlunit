@@ -6,7 +6,6 @@ function self = test_loader
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: test_loader.m 35 2006-06-11 16:37:12Z thomi $
+%  $Id$
 
 self = class(struct(), 'test_loader');

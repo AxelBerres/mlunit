@@ -1,6 +1,6 @@
-function test = test_errorfail_output
+function test = test_errorfail_output %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 % This test will end up with a failure AND an error.
 

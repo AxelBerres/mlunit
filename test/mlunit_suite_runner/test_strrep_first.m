@@ -1,6 +1,6 @@
-function test = test_strrep_first
+function test = test_strrep_first %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 function test_empty %#ok<DEFNU>
     

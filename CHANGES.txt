@@ -16,6 +16,10 @@ mlUnit development snapshot
   - Align strings when preparing for diff marking. Implement alignment according
     to the shortest Levenshtein distance.
   - BSD license chosen for find_struct_differences and its test.
+  - Support for MATLAB R2015b. In order to use function test cases with R2015b,
+    the test cases need to be migrated. Instead of
+    `test = load_tests_from_mfile(test_loader)`, use `open_tests_from_mfile`.
+    This is a MATLAB script instead of a proper function.
 
   - Fix: matlabcommand.xml's logfile option is not actually optional
   - Fix: assert_equals judges Inf and Inf as not equal

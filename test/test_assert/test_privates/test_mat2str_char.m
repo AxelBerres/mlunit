@@ -1,6 +1,6 @@
-function test = test_mat2str_char
+function test = test_mat2str_char %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 function test_noargs %#ok<DEFNU>
     

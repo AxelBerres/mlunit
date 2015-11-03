@@ -1,4 +1,4 @@
-function test = test_pass
+function test = test_pass %#ok<STOUT>
 %test_assert/test_pass tests valid assertions.
 %
 %  Example
@@ -10,7 +10,7 @@ function test = test_pass
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: test_fail.m 269 2007-04-02 19:54:39Z thomi $
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 function test_assert_true
 % Without message

@@ -1,6 +1,6 @@
-function test = test_assert_not_equals
+function test = test_assert_not_equals %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 
 function test_not_equals

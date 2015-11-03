@@ -1,10 +1,10 @@
-function test = test_error_output
+function test = test_error_output %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 function test_special_characters
 
-    error('This some special characters: !"§$%&/()=?. Enjoy.');
+    error('This some special characters: !"§$%&/()=?. Enjoy.'); %#ok<CTPCT>
 
 function test_unknown_function
 

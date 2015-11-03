@@ -1,6 +1,6 @@
-function test = test_isclass
+function test = test_isclass %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 function test_noargs %#ok<DEFNU>
     

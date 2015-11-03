@@ -1,6 +1,6 @@
-function test = test_assert_equals_withequalnans
+function test = test_assert_equals_withequalnans %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 
 function test_equal_nans

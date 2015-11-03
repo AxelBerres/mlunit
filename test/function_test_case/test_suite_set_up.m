@@ -3,9 +3,9 @@
 
 %  $Id$
 
-function tests = test_suite_set_up
+function test = test_suite_set_up %#ok<STOUT>
 
-tests = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 loc_capsule('');
 
 

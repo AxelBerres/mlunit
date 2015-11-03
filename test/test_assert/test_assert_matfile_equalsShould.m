@@ -1,5 +1,5 @@
-function test = test_assert_matfile_equalsShould
-   test = load_tests_from_mfile(test_loader);
+function test = test_assert_matfile_equalsShould %#ok<STOUT>
+    output_tests_from_mfile;
    
 function set_up
     basepath = fileparts(mfilename('fullpath'));

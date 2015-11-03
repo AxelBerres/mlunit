@@ -7,9 +7,9 @@
 %  
 %  $Id$
 
-function test = test_filter_lasterror
+function test = test_filter_lasterror %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
     
 
 function test_empty_message

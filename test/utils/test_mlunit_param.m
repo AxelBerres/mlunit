@@ -1,9 +1,9 @@
 % Test mlunit_param function.
 % Be careful here, because we test a function that mlUnit uses for work at the
 % same time.
-function test = test_mlunit_param
+function test = test_mlunit_param  %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
     
 
 function test_single_param

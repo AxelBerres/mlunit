@@ -1,6 +1,6 @@
-function test = test_success_output
+function test = test_success_output %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 % This test will succeed and is only for multi test suite output demonstration.
 

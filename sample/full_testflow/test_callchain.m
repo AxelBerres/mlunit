@@ -1,6 +1,6 @@
-function tests = test_callchain
+function test = test_callchain %#ok<STOUT>
 
-tests = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 disp('Stages of function test suite execution:');
 disp('- suite load');

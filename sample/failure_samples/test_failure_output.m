@@ -1,6 +1,6 @@
-function test = test_failure_output
+function test = test_failure_output %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 % Most of these functions first assert valid expressions.
 % However, each test's last expression will fail, and thereby demonstrate the

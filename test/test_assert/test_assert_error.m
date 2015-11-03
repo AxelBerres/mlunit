@@ -1,6 +1,6 @@
-function test = test_assert_error
+function test = test_assert_error %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 
 function test_proper_errors %#ok<DEFNU>

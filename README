@@ -301,6 +301,19 @@ test directory, which can be run by
 
 MIGRATION
 
+With 1.6.10, function test suites should change their front loading mechanism,
+if they are going to be run under MATLAB R2015b or newer. Proper function suites
+should now look something like:
+
+    function test = test_myimplementation
+        output_tests_from_mfile;
+    ...
+
+The function's return parameter must be called "test" and the
+"output_tests_from_mfile" script must be invoked in this way, instead of the
+now deprecated load_tests_from_mfile. However, load_tests_from_mfile is retained
+for compatibility with old projects on pre R2015b releases.
+
 With 1.6.8, there are several usage changes. In lack of a current write-up,
 please consult the CHANGES.txt for the 1.6.8 release.
 

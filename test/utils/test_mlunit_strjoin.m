@@ -1,6 +1,6 @@
-function test = test_mlunit_strjoin
+function test = test_mlunit_strjoin %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 function test_empty
 

@@ -1,9 +1,9 @@
 % Test mlunit_param persistence.
 % Even faced with calls to clear, javaaddpath or some such, parameters must
 % still be present.
-function test = test_mlunit_param_persistence
+function test = test_mlunit_param_persistence  %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 % define unique parameter in order to detect reset when it turns out absent
 mlunit_param('mlunittest_persistence', 42);

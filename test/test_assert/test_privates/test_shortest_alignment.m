@@ -1,6 +1,6 @@
-function test = test_shortest_alignment
+function test = test_shortest_alignment %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
 
 
 function test_empty

@@ -7,9 +7,9 @@
 %  
 %  $Id$
 
-function test = test_filter_stack
+function test = test_filter_stack %#ok<STOUT>
 
-test = load_tests_from_mfile(test_loader);
+output_tests_from_mfile;
     
 
 function test_empty_stack
