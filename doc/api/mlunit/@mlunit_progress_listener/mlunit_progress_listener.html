@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mlunit_progress_listener</title>
+  <meta name="keywords" content="mlunit_progress_listener">
+  <meta name="description" content="Abstract base class for progress listener implementations.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">mlunit</a> &gt; <a href="index.html">@mlunit_progress_listener</a> &gt; mlunit_progress_listener.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\@mlunit_progress_listener&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>mlunit_progress_listener
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Abstract base class for progress listener implementations.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = mlunit_progress_listener() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Abstract base class for progress listener implementations.
+  Provided as class in order to force implementations into providing
+  specific methods.
+  Each progress listener must implement four methods:
+  
+    init_suites  - called when the number of suites has been determined,
+                   informing the listener of impending suite execution
+    next_suite   - called just before the next suite is being executed
+    init_results - called when the number of test cases of a suite has been
+                   determined, informing the listener of impending test case
+                   execution
+    next_result  - called just after a test case has executed,
+                   providing its result
+
+  Additionally, listeners may implement two optional methods:
+      
+    initialize_execution - called before anything else
+    finalize_execution   - called after anything else
+
+  See also <a href="init_suites.html" class="code" title="function self = init_suites(self, num_results)">init_suites</a>, <a href="next_suite.html" class="code" title="function self = next_suite(self, name)">next_suite</a>, <a href="init_results.html" class="code" title="function self = init_results(self, num_results)">init_results</a>, <a href="next_result.html" class="code" title="function self = next_result(self, result)">next_result</a>, <a href="initialize_execution.html" class="code" title="function self = initialize_execution(self, test_object)">initialize_execution</a>, <a href="finalize_execution.html" class="code" title="function self = finalize_execution(self, results, execution_time)">finalize_execution</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../mlunit/@mlunit_progress_listener_console/mlunit_progress_listener_console.html" class="code" title="function self = mlunit_progress_listener_console()">mlunit_progress_listener_console</a>	Console progress listener implementation.</li><li><a href="../../mlunit/@mlunit_progress_listener_gui/mlunit_progress_listener_gui.html" class="code" title="function self = mlunit_progress_listener_gui(progress_bar, text_runs, error_listbox)">mlunit_progress_listener_gui</a>	GUI progress listener implementation.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Abstract base class for progress listener implementations.</span>
+0002 <span class="comment">%  Provided as class in order to force implementations into providing</span>
+0003 <span class="comment">%  specific methods.</span>
+0004 <span class="comment">%  Each progress listener must implement four methods:</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%    init_suites  - called when the number of suites has been determined,</span>
+0007 <span class="comment">%                   informing the listener of impending suite execution</span>
+0008 <span class="comment">%    next_suite   - called just before the next suite is being executed</span>
+0009 <span class="comment">%    init_results - called when the number of test cases of a suite has been</span>
+0010 <span class="comment">%                   determined, informing the listener of impending test case</span>
+0011 <span class="comment">%                   execution</span>
+0012 <span class="comment">%    next_result  - called just after a test case has executed,</span>
+0013 <span class="comment">%                   providing its result</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  Additionally, listeners may implement two optional methods:</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%    initialize_execution - called before anything else</span>
+0018 <span class="comment">%    finalize_execution   - called after anything else</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%  See also init_suites, next_suite, init_results, next_result, initialize_execution, finalize_execution</span>
+0021 
+0022 <span class="comment">%  This Software and all associated files are released unter the</span>
+0023 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%  $Id$</span>
+0026 
+0027 <a name="_sub0" href="#_subfunctions" class="code">function self = mlunit_progress_listener()</a>
+0028 
+0029 <span class="comment">% create instance</span>
+0030 self = class(struct(), <span class="string">'mlunit_progress_listener'</span>);</pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of shortest_alignment</title>
+  <meta name="keywords" content="shortest_alignment">
+  <meta name="description" content="Align two strings according to their smallest Levenshtein distance.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">mlunit</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; shortest_alignment.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>shortest_alignment
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Align two strings according to their smallest Levenshtein distance.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function alignment = shortest_alignment(s1, s2) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Align two strings according to their smallest Levenshtein distance.
+  A = SHORTEST_ALIGNMENT(S1,S2) calculates a Levenshtein distance matrix and
+  aligns the strings S1 and S2 according to the smallest distance in it.
+  S1 and S2 must be row vectors of char.
+  
+  Favors changes over deletions/insertions where ambiguous.
+  Does not support transpositions.
+
+  Distance calculation implemented as described in [1].
+  Alignment calculation by going backwards a matrix of optimal paths was put on
+  top of it, and later turned out to be quite close to [2].
+  [1] https://en.wikipedia.org/wiki/Levenshtein_distance
+  [2] https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>	ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Align two strings according to their smallest Levenshtein distance.</span>
+0002 <span class="comment">%  A = SHORTEST_ALIGNMENT(S1,S2) calculates a Levenshtein distance matrix and</span>
+0003 <span class="comment">%  aligns the strings S1 and S2 according to the smallest distance in it.</span>
+0004 <span class="comment">%  S1 and S2 must be row vectors of char.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  Favors changes over deletions/insertions where ambiguous.</span>
+0007 <span class="comment">%  Does not support transpositions.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%  Distance calculation implemented as described in [1].</span>
+0010 <span class="comment">%  Alignment calculation by going backwards a matrix of optimal paths was put on</span>
+0011 <span class="comment">%  top of it, and later turned out to be quite close to [2].</span>
+0012 <span class="comment">%  [1] https://en.wikipedia.org/wiki/Levenshtein_distance</span>
+0013 <span class="comment">%  [2] https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm</span>
+0014 
+0015 <span class="comment">%  This Software and all associated files are released unter the</span>
+0016 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%  $Id$</span>
+0019 
+0020 <a name="_sub0" href="#_subfunctions" class="code">function alignment = shortest_alignment(s1, s2)</a>
+0021 
+0022     error(nargchk(nargin,2,2,<span class="string">'struct'</span>));
+0023 
+0024     isrowvector = @(v) isempty(v) || size(v, 1)==1;
+0025     <span class="keyword">if</span> ~isrowvector(s1) || ~ischar(s1), error(<span class="string">'s1 need be row vector or empty, and of class char'</span>); <span class="keyword">end</span>
+0026     <span class="keyword">if</span> ~isrowvector(s2) || ~ischar(s2), error(<span class="string">'s2 need be row vector or empty, and of class char'</span>); <span class="keyword">end</span>
+0027     
+0028     length1 = length(s1);
+0029     length2 = length(s2);
+0030     
+0031     <span class="comment">% Prepare working matrices.</span>
+0032     <span class="comment">% 'distance' is a (n+1 x m+1) array of doubles, which is going to be filled</span>
+0033     <span class="comment">% iteratively with optimal Levenshtein distances.</span>
+0034     <span class="comment">% 'path' is a (n+1 x m+1) array of cells, each of which contains an index</span>
+0035     <span class="comment">% vector indicating the latest index from whence the optimal Levenshtein</span>
+0036     <span class="comment">% distance was taken, describing a path through the matrix.</span>
+0037     distance = repmat(NaN, length1+1, length2+1);
+0038     path = cell(length1+1, length2+1);
+0039     
+0040     <span class="comment">% fill base row/column</span>
+0041     distance(1, 1) = 0;
+0042     path{1, 1} = [0, 0];
+0043     <span class="keyword">for</span> i1 = 2:length1+1
+0044         distance(i1, 1) = i1-1;
+0045         path{i1, 1} = [i1-1, 1];
+0046     <span class="keyword">end</span>
+0047     <span class="keyword">for</span> i2 = 2:length2+1
+0048         distance(1, i2) = i2-1;
+0049         path{1, i2} = [1, i2-1];
+0050     <span class="keyword">end</span>
+0051     
+0052     <span class="comment">% Calculate distances and build path matrix.</span>
+0053     <span class="comment">% Alternatively, the distance matrix may be calculated backwards instead of</span>
+0054     <span class="comment">% forwards in order to save the eventual string reversal.</span>
+0055     <span class="keyword">for</span> i1 = 1:length1
+0056         <span class="keyword">for</span> i2 = 1:length2
+0057             <span class="keyword">if</span> isequal(s1(i1), s2(i2))
+0058                 distance(i1+1, i2+1) = distance(i1,i2);
+0059                 path{i1+1,i2+1} = [i1,i2];
+0060                 <span class="keyword">continue</span>;
+0061             <span class="keyword">end</span>
+0062             
+0063             sources = {<span class="keyword">...</span>
+0064                 [i1, i2], <span class="keyword">...</span><span class="comment">       % change/substitution</span>
+0065                 [i1, i2+1], <span class="keyword">...</span><span class="comment">     % deletion</span>
+0066                 [i1+1, i2], <span class="keyword">...</span><span class="comment">     % insertion</span>
+0067                 };
+0068 
+0069             source_distances = cellfun(@(v) distance(v(1), v(2)), sources);
+0070             minimum = min(source_distances);
+0071             index_minsource = find(minimum == source_distances, 1);
+0072             
+0073             distance(i1+1, i2+1) = minimum + 1;
+0074             path{i1+1, i2+1} = sources{index_minsource};
+0075         <span class="keyword">end</span>
+0076     <span class="keyword">end</span>
+0077     
+0078     <span class="comment">% Work backwards along the optimal path described in the path matrix,</span>
+0079     <span class="comment">% aligning a1 and a2 on the way.</span>
+0080     step = [length1+1, length2+1];
+0081     pos = 1;
+0082     a1 = <span class="string">''</span>;        <span class="comment">% aligned, but reversed s1</span>
+0083     a2 = <span class="string">''</span>;        <span class="comment">% aligned, but reversed s2</span>
+0084     blank = <span class="string">'·'</span>;   <span class="comment">% middle dot, 0xB7 in Windows 1252 and ISO 8859-1 encodings</span>
+0085     <span class="keyword">while</span> ~isequal([0, 0], (path{step(1), step(2)}))
+0086         nextstep = path{step(1), step(2)};
+0087         
+0088         <span class="comment">% deletion</span>
+0089         <span class="keyword">if</span> step(1) == nextstep(1)
+0090             a1(pos) = blank;
+0091             a2(pos) = s2(step(2)-1);
+0092             
+0093         <span class="comment">% insertion</span>
+0094         <span class="keyword">elseif</span> step(2) == nextstep(2)
+0095             a1(pos) = s1(step(1)-1);
+0096             a2(pos) = blank;
+0097 
+0098         <span class="comment">% change/substitution</span>
+0099         <span class="keyword">else</span>
+0100             a1(pos) = s1(step(1)-1);
+0101             a2(pos) = s2(step(2)-1);
+0102         <span class="keyword">end</span>
+0103         
+0104         <span class="comment">% update states</span>
+0105         pos = pos + 1;
+0106         step = nextstep;
+0107     <span class="keyword">end</span>
+0108     
+0109     <span class="comment">% construct string alignment</span>
+0110     alignment = [a1(end:-1:1);a2(end:-1:1)];</pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of printSummary</title>
+  <meta name="keywords" content="printSummary">
+  <meta name="description" content="PRINTSUMMARY Return the result of several suites as printable string.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">mlunit</a> &gt; <a href="../index.html">@mlunit_progress_listener_console</a> &gt; <a href="index.html">private</a> &gt; printSummary.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\@mlunit_progress_listener_console\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>printSummary
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>PRINTSUMMARY Return the result of several suites as printable string.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function report = printSummary(suiteresults, time) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> PRINTSUMMARY Return the result of several suites as printable string.
+
+ Input argument suiteresults is a cellarray of structures with these fields:
+  name           the package name of the test suite
+  errors         the number of errors
+  failures       the number of failures
+  tests          the number of executed tests
+  time           the time used for executing the tests
+  testcaseList   a list of all testcases with specific information</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../mlunit/@mlunit_progress_listener_console/finalize_execution.html" class="code" title="function self = finalize_execution(self, results, execution_time)">finalize_execution</a>	Finalize mlUnit execution</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function s = test_count_string(num_tests)</a></li><li><a href="#_sub2" class="code">function s = plural_form(verb, num_elements)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function report = printSummary(suiteresults, time)</a>
+0002 <span class="comment">% PRINTSUMMARY Return the result of several suites as printable string.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% Input argument suiteresults is a cellarray of structures with these fields:</span>
+0005 <span class="comment">%  name           the package name of the test suite</span>
+0006 <span class="comment">%  errors         the number of errors</span>
+0007 <span class="comment">%  failures       the number of failures</span>
+0008 <span class="comment">%  tests          the number of executed tests</span>
+0009 <span class="comment">%  time           the time used for executing the tests</span>
+0010 <span class="comment">%  testcaseList   a list of all testcases with specific information</span>
+0011 
+0012 <span class="comment">%  This Software and all associated files are released unter the</span>
+0013 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  $Id: printSummary.m 71 2013-12-14 10:39:02Z hetu $</span>
+0016 
+0017 <span class="comment">% helper function for summing up tests, failures, errors</span>
+0018 summarize = @(field) sum(cellfun(@(r) r.(field), suiteresults));
+0019 
+0020 num_suites = numel(suiteresults);
+0021 num_tests = summarize(<span class="string">'tests'</span>);
+0022 num_fails = summarize(<span class="string">'failures'</span>);
+0023 num_errors = summarize(<span class="string">'errors'</span>);
+0024 
+0025 separator = sprintf(<span class="string">'----------------------------------------------------------------------\n'</span>);
+0026 lastseparator = sprintf(<span class="string">'======================================================================\n'</span>);
+0027 
+0028 report = separator;
+0029 report = [report sprintf(<span class="string">'Executed %s across %s in %.2fs\n'</span>, <span class="keyword">...</span>
+0030     <a href="#_sub1" class="code" title="subfunction s = test_count_string(num_tests)">test_count_string</a>(num_tests), <span class="keyword">...</span>
+0031     <a href="#_sub2" class="code" title="subfunction s = plural_form(verb, num_elements)">plural_form</a>(<span class="string">'suite'</span>, num_suites), <span class="keyword">...</span>
+0032     time)];
+0033 report = [report sprintf(<span class="string">'\n'</span>)];
+0034 
+0035 <span class="comment">% output verdict</span>
+0036 <span class="keyword">if</span> num_fails == 0 &amp;&amp; num_errors == 0
+0037     report = [report sprintf(<span class="string">'SUCCESS\n'</span>)];
+0038 <span class="keyword">end</span>
+0039 <span class="keyword">if</span> num_fails &gt; 0
+0040     report = [report sprintf(<span class="string">'%s FAILED\n'</span>, <a href="#_sub1" class="code" title="subfunction s = test_count_string(num_tests)">test_count_string</a>(num_fails))];
+0041 <span class="keyword">end</span>
+0042 <span class="keyword">if</span> num_errors &gt; 0
+0043     report = [report sprintf(<span class="string">'%s had ERRORS\n'</span>, <a href="#_sub1" class="code" title="subfunction s = test_count_string(num_tests)">test_count_string</a>(num_errors))];
+0044 <span class="keyword">end</span>
+0045 
+0046 <span class="comment">% close with separator</span>
+0047 report = [report lastseparator];
+0048 
+0049 
+0050 <span class="comment">% outputs '1 test' or '3 tests', depending on num_tests</span>
+0051 <a name="_sub1" href="#_subfunctions" class="code">function s = test_count_string(num_tests)</a>
+0052 
+0053     s = <a href="#_sub2" class="code" title="subfunction s = plural_form(verb, num_elements)">plural_form</a>(<span class="string">'test'</span>, num_tests);
+0054 
+0055 
+0056 <span class="comment">% outputs '1 test' or '3 tests', depending on num_tests</span>
+0057 <a name="_sub2" href="#_subfunctions" class="code">function s = plural_form(verb, num_elements)</a>
+0058 
+0059     s = sprintf(<span class="string">'%d %s'</span>, num_elements, verb);
+0060 
+0061     <span class="comment">% for many or 0 items, add plural form</span>
+0062     <span class="keyword">if</span> num_elements ~= 1
+0063         s = [s <span class="string">'s'</span>];
+0064     <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

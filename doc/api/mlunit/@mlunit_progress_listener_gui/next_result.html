@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of next_result</title>
+  <meta name="keywords" content="next_result">
+  <meta name="description" content="Update display with next test case result.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">mlunit</a> &gt; <a href="index.html">@mlunit_progress_listener_gui</a> &gt; next_result.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\@mlunit_progress_listener_gui&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>next_result
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Update display with next test case result.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function self = next_result(self, result) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Update display with next test case result.
+  SELF = next_result(SELF, RESULT) notifies the listener of a completed test
+  run, providing it with the result. SELF is a mlunit_progress_listener_gui instance.
+  RESULT is the test result as returned by run_test().
+
+  This method is provided by the user, but should not be called by her.
+
+  See also <a href="init_results.html" class="code" title="function self = init_results(self, maxnum)">init_results</a>, run_test</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../mlunit/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li><li><a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>	Add an entry to the GUI's error list.</li><li><a href="update_display.html" class="code" title="function update_display(self)">update_display</a>	Update all listener elements of the GUI.</li><li><a href="../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li><li><a href="../../mlunit/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>	MLUNIT_PARAM Set or get an mlunit parameter</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Update display with next test case result.</span>
+0002 <span class="comment">%  SELF = next_result(SELF, RESULT) notifies the listener of a completed test</span>
+0003 <span class="comment">%  run, providing it with the result. SELF is a mlunit_progress_listener_gui instance.</span>
+0004 <span class="comment">%  RESULT is the test result as returned by run_test().</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  This method is provided by the user, but should not be called by her.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  See also init_results, run_test</span>
+0009 
+0010 <span class="comment">%  This Software and all associated files are released unter the</span>
+0011 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  $Id$</span>
+0014 
+0015 <a name="_sub0" href="#_subfunctions" class="code">function self = next_result(self, result)</a>
+0016 
+0017 self.num_results = self.num_results + 1;
+0018 
+0019 <span class="comment">% consolidate multiple errors into single string</span>
+0020 msg_and_stack_list = cellfun(@<a href="../../mlunit/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>, result.errors, <span class="string">'UniformOutput'</span>, false);
+0021 errmessages = <a href="../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(msg_and_stack_list, sprintf(<span class="string">'\n'</span>));
+0022 
+0023 has_errors = ~isempty(errmessages);
+0024 has_failed = ~isempty(result.failure);
+0025 
+0026 <span class="keyword">if</span> has_errors
+0027     self.num_errors = self.num_errors + 1;
+0028     <a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>(self, <span class="string">'ERROR'</span>, result.name, errmessages);
+0029 <span class="keyword">end</span>
+0030 
+0031 <span class="keyword">if</span> has_failed
+0032     self.num_failures = self.num_failures + 1;
+0033     <a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>(self, <span class="string">'FAIL'</span>, result.name, result.failure);
+0034 <span class="keyword">end</span>
+0035 
+0036 <span class="keyword">if</span> <a href="../../mlunit/utils/mlunit_param.html" class="code" title="function outvalue = mlunit_param(name, invalue)">mlunit_param</a>(<span class="string">'verbose'</span>) &amp;&amp; ~has_errors &amp;&amp; ~has_failed
+0037     <a href="add_to_errorlist.html" class="code" title="function add_to_errorlist(self, prefix, testname, errmsg)">add_to_errorlist</a>(self, <span class="string">'ok'</span>, result.name, <span class="string">'success'</span>);
+0038 <span class="keyword">end</span>
+0039 
+0040 <a href="update_display.html" class="code" title="function update_display(self)">update_display</a>(self);</pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

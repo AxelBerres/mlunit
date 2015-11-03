@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of build_testsuite_object</title>
+  <meta name="keywords" content="build_testsuite_object">
+  <meta name="description" content="Build a test_suite object from a list of handles.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">mlunit</a> &gt; <a href="index.html">@test_loader</a> &gt; build_testsuite_object.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\@test_loader&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>build_testsuite_object
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Build a test_suite object from a list of handles.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function suite = build_testsuite_object(self, suitename, funs) %#ok<INUSL> </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Build a test_suite object from a list of handles.
+
+Looks out for special functions set_up, tear_down, suite_set_up and
+suite_tear_down and establishes bindings accordingly.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../mlunit/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>	Provides test case integration for a function test case.</li><li><a href="../../mlunit/@mlunit_testsuite/add_test.html" class="code" title="function self = add_test(self, test)">add_test</a>	test_suite/add_test adds a test to the test suite.</li><li><a href="../../mlunit/@mlunit_testsuite/mlunit_testsuite.html" class="code" title="function self = mlunit_testsuite(name, setup_obj, teardown_obj)">mlunit_testsuite</a>	Shallow collection of test cases.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="load_tests_from_mfile.html" class="code" title="function suite = load_tests_from_mfile(self) %#ok<INUSL>">load_tests_from_mfile</a>	test_loader/load_tests_from_mfile returns a test_suite with all</li><li><a href="../../mlunit/test_loader_R2015b/output_tests_from_mfile.html" class="code" title="">output_tests_from_mfile</a>	Build a test_suite with all test* methods from a .m-file.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function suite = build_testsuite_object(self, suitename, funs) </a><span class="comment">%#ok&lt;INUSL&gt;</span>
+0002 <span class="comment">%Build a test_suite object from a list of handles.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%Looks out for special functions set_up, tear_down, suite_set_up and</span>
+0005 <span class="comment">%suite_tear_down and establishes bindings accordingly.</span>
+0006 
+0007 <span class="comment">%  This Software and all associated files are released unter the</span>
+0008 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  $Id$</span>
+0011 
+0012 error(nargchk(3,3,nargin,<span class="string">'struct'</span>));
+0013 <span class="keyword">if</span> ~iscell(funs) || ~all(cellfun(@(f)isa(f,<span class="string">'function_handle'</span>),funs))
+0014     error(<span class="string">'funs need be cell array of function_handle objects'</span>);
+0015 <span class="keyword">end</span>
+0016 
+0017 set_up_handle = 0;
+0018 tear_down_handle = 0;
+0019 
+0020 <span class="comment">% suite setup and teardown need not necessarily be set, therefore use</span>
+0021 <span class="comment">% test_case's implementation by default, and overwrite only if present</span>
+0022 suite_setup_obj = <a href="../../mlunit/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>(0,0,0,<span class="string">''</span>);
+0023 suite_teardown_obj = <a href="../../mlunit/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>(0,0,0,<span class="string">''</span>);
+0024 
+0025 <span class="keyword">for</span> i=1:numel(funs)
+0026     fhandle = funs{i};
+0027     finfo = functions(fhandle);
+0028     fname = finfo.function;
+0029     
+0030     <span class="keyword">switch</span> fname
+0031         <span class="keyword">case</span> <span class="string">'set_up'</span>
+0032             set_up_handle = fhandle;
+0033         <span class="keyword">case</span> <span class="string">'tear_down'</span>
+0034             tear_down_handle = fhandle;
+0035         <span class="keyword">case</span> <span class="string">'suite_set_up'</span>
+0036             suite_setup_obj = <a href="../../mlunit/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>(<span class="keyword">...</span>
+0037                 fhandle, <span class="keyword">...</span>
+0038                 0, <span class="keyword">...</span>
+0039                 0, <span class="keyword">...</span>
+0040                 <span class="string">'suite_set_up'</span>);
+0041         <span class="keyword">case</span> <span class="string">'suite_tear_down'</span>
+0042             suite_teardown_obj = <a href="../../mlunit/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>(<span class="keyword">...</span>
+0043                 fhandle, <span class="keyword">...</span>
+0044                 0, <span class="keyword">...</span>
+0045                 0, <span class="keyword">...</span>
+0046                 <span class="string">'suite_tear_down'</span>);
+0047         <span class="keyword">otherwise</span>
+0048             <span class="comment">% nothing</span>
+0049     <span class="keyword">end</span>
+0050 <span class="keyword">end</span>
+0051 
+0052 suite = <a href="../../mlunit/@mlunit_testsuite/mlunit_testsuite.html" class="code" title="function self = mlunit_testsuite(name, setup_obj, teardown_obj)">mlunit_testsuite</a>(suitename, suite_setup_obj, suite_teardown_obj);
+0053 <span class="keyword">for</span> i=1:numel(funs)
+0054     fhandle = funs{i};
+0055     finfo = functions(fhandle);
+0056     fname = finfo.function;
+0057 
+0058     pos = findstr(<span class="string">'test'</span>, fname);
+0059     <span class="keyword">if</span> (~isempty(pos) &amp;&amp; (pos(1) == 1))
+0060         testobj = <a href="../../mlunit/@function_test_case/function_test_case.html" class="code" title="function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)">function_test_case</a>(<span class="keyword">...</span>
+0061             fhandle,<span class="keyword">...</span>
+0062             set_up_handle,<span class="keyword">...</span>
+0063             tear_down_handle, <span class="keyword">...</span>
+0064             fname);
+0065         suite = <a href="../../mlunit/@mlunit_testsuite/add_test.html" class="code" title="function self = add_test(self, test)">add_test</a>(suite, testobj);
+0066     <span class="keyword">end</span>
+0067 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

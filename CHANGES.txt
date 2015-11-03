@@ -3,8 +3,8 @@
 =====================================
 
 
-mlUnit development snapshot
----------------------------
+mlUnit 1.6.10 (2015-11-03)
+--------------------------
 
   - Let MATLAB find mlUnit as proper toolbox. Users can query mlUnit version
     information by calling `>> ver('mlunit')` after having loaded mlUnit.

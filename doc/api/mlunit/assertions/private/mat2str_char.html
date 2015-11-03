@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mat2str_char</title>
+  <meta name="keywords" content="mat2str_char">
+  <meta name="description" content="MAT2STR_CHAR Emulate MAT2STR output for char input, even on old releases.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">mlunit</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; mat2str_char.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>mat2str_char
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>MAT2STR_CHAR Emulate MAT2STR output for char input, even on old releases.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function outstring = mat2str_char(input) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">MAT2STR_CHAR Emulate MAT2STR output for char input, even on old releases.
+
+  On R2006b, mat2str prints strings awkwardly. Enforce new style:
+  ['foo';'bar'] for character arrays, 'foobar' for single strings
+  Only works on char arrays with ndims&lt;=2, as mat2str does, BTW.
+
+  See also MAT2STR</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function c = loc_cellstr(s)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function outstring = mat2str_char(input)</a>
+0002 <span class="comment">%MAT2STR_CHAR Emulate MAT2STR output for char input, even on old releases.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%  On R2006b, mat2str prints strings awkwardly. Enforce new style:</span>
+0005 <span class="comment">%  ['foo';'bar'] for character arrays, 'foobar' for single strings</span>
+0006 <span class="comment">%  Only works on char arrays with ndims&lt;=2, as mat2str does, BTW.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  See also MAT2STR</span>
+0009 
+0010 <span class="comment">%  This Software and all associated files are released unter the</span>
+0011 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  $Id$</span>
+0014 
+0015 error(nargchk(1,1,nargin,<span class="string">'struct'</span>));
+0016 <span class="keyword">if</span> ~ischar(input), error(<span class="string">'input need be char'</span>); <span class="keyword">end</span>
+0017 
+0018 <span class="comment">% handle empty strings safely</span>
+0019 <span class="keyword">if</span> isempty(input)
+0020     outstring = <span class="string">''''''</span>;
+0021     <span class="keyword">return</span>
+0022 <span class="keyword">end</span>
+0023 
+0024 <span class="comment">% wrap each line in apostrophes</span>
+0025 cellinput = <a href="#_sub1" class="code" title="subfunction c = loc_cellstr(s)">loc_cellstr</a>(input);
+0026 quoted_cellinput = cellfun(@(s) [<span class="string">''''</span> s <span class="string">''''</span>], cellinput, <span class="string">'UniformOutput'</span>, false);
+0027 
+0028 <span class="comment">% separate multiple lines by semicolon and wrap brackets around</span>
+0029 outstring = <a href="../../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(quoted_cellinput, <span class="string">';'</span>);
+0030 <span class="keyword">if</span> numel(quoted_cellinput)&gt;1
+0031     outstring = [<span class="string">'['</span>, outstring, <span class="string">']'</span>];
+0032 <span class="keyword">end</span>
+0033 
+0034 
+0035 <span class="comment">% Roll our own cellstr function without a deblanking &quot;feature&quot;.</span>
+0036 <span class="comment">% MATLAB's cellstr eats trailing whitespace from each row without warning.</span>
+0037 <span class="comment">% MATLAB should eat toast.</span>
+0038 <a name="_sub1" href="#_subfunctions" class="code">function c = loc_cellstr(s)</a>
+0039 
+0040     <span class="keyword">if</span> ischar(s)
+0041         <span class="keyword">if</span> isempty(s)
+0042             c = {<span class="string">''</span>};
+0043         <span class="keyword">else</span>
+0044             <span class="keyword">if</span> ndims(s)~=2
+0045                 error(<span class="string">'MATLAB:cellstr:InputShape'</span>,<span class="string">'S must be 2-D.'</span>)
+0046             <span class="keyword">end</span>
+0047             [rows,cols]=size(s);<span class="comment">%#ok ignore rows</span>
+0048             c = cell(rows,1);    
+0049             <span class="keyword">for</span> i=1:rows
+0050                 c{i} = s(i,:);
+0051             <span class="keyword">end</span>
+0052         <span class="keyword">end</span>
+0053     <span class="keyword">elseif</span> iscellstr(s)
+0054         c = s; 
+0055     <span class="keyword">else</span>
+0056         error(<span class="string">'MATLAB:cellstr:InputClass'</span>,<span class="string">'Input must be a string.'</span>)
+0057     <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

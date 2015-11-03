@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of printable</title>
+  <meta name="keywords" content="printable">
+  <meta name="description" content="PRINTABLE Convert any type into a string suitable for embedding into messages.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">mlunit</a> &gt; <a href="../index.html">assertions</a> &gt; <a href="index.html">private</a> &gt; printable.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\assertions\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>printable
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>PRINTABLE Convert any type into a string suitable for embedding into messages.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function outstring = printable(input) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PRINTABLE Convert any type into a string suitable for embedding into messages.
+  S=PRINTABLE(V) yields a message printable string from value V of any type.
+  Message printable means strings being surrounded by apostrophes, vectors by
+  rectangle parentheses, scalar numerics by nothing, and so on. Leaves numerics
+  and otherwise unknown types to mat2str.
+
+  Cell and struct arrays will be linearized.
+
+  PRINTABLE should probably only be called on small values, so that the result
+  does not span multiple lines. When converting class objects, however, a
+  multi-line output will be generated nonetheless.
+
+  See also MAT2STR, <a href="mat2str_char.html" class="code" title="function outstring = mat2str_char(input)">mat2str_char</a>, <a href="isclass.html" class="code" title="function result = isclass(s)">isclass</a></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="isclass.html" class="code" title="function result = isclass(s)">isclass</a>	ISCLASS True for MATLAB objects</li><li><a href="mat2str_char.html" class="code" title="function outstring = mat2str_char(input)">mat2str_char</a>	MAT2STR_CHAR Emulate MAT2STR output for char input, even on old releases.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li><li><a href="../../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>	MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../mlunit/assertions/assert_empty.html" class="code" title="function assert_empty(expr, varargin)">assert_empty</a>	ASSERT_EMPTY Raise an error if expression does not evaluate to empty.</li><li><a href="../../../mlunit/assertions/assert_error.html" class="code" title="function assert_error(func, errspec, varargin)">assert_error</a>	ASSERT_ERROR Raise an error if a call does not throw an error.</li><li><a href="../../../mlunit/assertions/assert_matfile_equals.html" class="code" title="function assert_matfile_equals(expected, actual, varargin)">assert_matfile_equals</a>	ASSERT_MATFILE_EQUALS Raise an error if two mat Files differ.</li><li><a href="abstract_assert_equals.html" class="code" title="function abstract_assert_equals(pass_if_equal, expected, actual, absolute_eps_or_msg, varargin)">abstract_assert_equals</a>	ABSTRACT_ASSERT_EQUALS Raise an error if two expressions do not compare.</li><li><a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>	PRINTABLE Convert any type into a string suitable for embedding into messages.</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function fieldstrings = fieldname_value_strings(s)</a></li><li><a href="#_sub2" class="code">function outstring = loc_getClassDisplay(classinstance)</a></li><li><a href="#_sub3" class="code">function out = loc_trim_empty_lines(in)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function outstring = printable(input)</a>
+0002 <span class="comment">%PRINTABLE Convert any type into a string suitable for embedding into messages.</span>
+0003 <span class="comment">%  S=PRINTABLE(V) yields a message printable string from value V of any type.</span>
+0004 <span class="comment">%  Message printable means strings being surrounded by apostrophes, vectors by</span>
+0005 <span class="comment">%  rectangle parentheses, scalar numerics by nothing, and so on. Leaves numerics</span>
+0006 <span class="comment">%  and otherwise unknown types to mat2str.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  Cell and struct arrays will be linearized.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%  PRINTABLE should probably only be called on small values, so that the result</span>
+0011 <span class="comment">%  does not span multiple lines. When converting class objects, however, a</span>
+0012 <span class="comment">%  multi-line output will be generated nonetheless.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  See also MAT2STR, mat2str_char, isclass</span>
+0015 
+0016 <span class="comment">%  This Software and all associated files are released unter the</span>
+0017 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%  $Id$</span>
+0020 
+0021 <span class="keyword">if</span> nargin &lt; 1
+0022     outstring = <span class="string">''</span>;
+0023 <span class="keyword">elseif</span> iscell(input)
+0024     items = cellfun(@<a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>, input, <span class="string">'UniformOutput'</span>, false);
+0025     <span class="comment">% linearizes the cell array's matrix structure</span>
+0026     outstring = [<span class="string">'{'</span> <a href="../../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(items) <span class="string">'}'</span>];
+0027 <span class="keyword">elseif</span> isstruct(input)
+0028     print_scalar_struct = @(s) [<span class="string">'{'</span> <a href="../../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(<a href="#_sub1" class="code" title="subfunction fieldstrings = fieldname_value_strings(s)">fieldname_value_strings</a>(s), <span class="string">'; '</span>) <span class="string">'}'</span>];
+0029     items = arrayfun(print_scalar_struct, input, <span class="string">'UniformOutput'</span>, false);
+0030     outstring = [<span class="string">'['</span> <a href="../../../mlunit/utils/internal/mlunit_strjoin.html" class="code" title="function result = mlunit_strjoin(stringcell, separator)">mlunit_strjoin</a>(items) <span class="string">']'</span>];
+0031 <span class="keyword">elseif</span> <a href="isclass.html" class="code" title="function result = isclass(s)">isclass</a>(input)
+0032     outstring = <a href="#_sub2" class="code" title="subfunction outstring = loc_getClassDisplay(classinstance) ">loc_getClassDisplay</a>(input);
+0033 <span class="keyword">elseif</span> isa(input, <span class="string">'function_handle'</span>)
+0034     outstring = func2str(input);
+0035 <span class="keyword">elseif</span> isjava(input)
+0036     <span class="comment">% toString returns a java.lang.String which we need to return as native char</span>
+0037     outstring = char(input.toString());
+0038 <span class="keyword">elseif</span> ischar(input) &amp;&amp; isempty(input)
+0039     <span class="comment">% mat2str blunders when being given a 1x0 char and returns logical instead.</span>
+0040     <span class="comment">% We also need to make sure to preserve the size (0x0 vs 1x0) of the input.</span>
+0041     <span class="comment">% We return the empty string (''). Don't need the previous size information.</span>
+0042     outstring = <span class="string">''''''</span>;
+0043 <span class="keyword">elseif</span> ischar(input) &amp;&amp; ndims(input) &lt;= 2
+0044     <span class="comment">% On R2006b, mat2str prints strings awkwardly. Enforce new style:</span>
+0045     <span class="comment">% ['foo';'bar'] for character arrays, 'foobar' for single strings</span>
+0046     <span class="comment">% Only works on char arrays with ndims&lt;=2, as mat2str does, BTW.</span>
+0047     outstring = <a href="mat2str_char.html" class="code" title="function outstring = mat2str_char(input)">mat2str_char</a>(input);
+0048 <span class="keyword">elseif</span> isnumeric(input) &amp;&amp; isempty(input)
+0049     <span class="comment">% mat2str likes to translate empty numericals into strings like 'zeros(0,1)'</span>
+0050     <span class="comment">% except no one put any zeroes there. Why do we rely on mat2str at all?</span>
+0051     outstring = <span class="string">'[]'</span>;
+0052 <span class="keyword">else</span>
+0053     <span class="comment">% mat2str takes care of everything else or throws an error</span>
+0054     outstring = mat2str(input);
+0055 <span class="keyword">end</span>
+0056 
+0057 outstring = <a href="#_sub3" class="code" title="subfunction out = loc_trim_empty_lines(in)">loc_trim_empty_lines</a>(outstring);
+0058 
+0059 
+0060 <span class="comment">% Works on a scalar structure only.</span>
+0061 <a name="_sub1" href="#_subfunctions" class="code">function fieldstrings = fieldname_value_strings(s)</a>
+0062 
+0063     name_value_pair = @(fieldname) [fieldname <span class="string">':'</span> <a href="printable.html" class="code" title="function outstring = printable(input)">printable</a>(s.(fieldname))];
+0064     fieldstrings = cellfun(name_value_pair, fieldnames(s), <span class="string">'UniformOutput'</span>, false);
+0065 
+0066 <span class="comment">% Some meaningful string representation of any class</span>
+0067 <a name="_sub2" href="#_subfunctions" class="code">function outstring = loc_getClassDisplay(classinstance) </a><span class="comment">%#ok&lt;INUSD&gt;</span>
+0068     <span class="comment">% use what MATLAB shows when we prompt for some object</span>
+0069     <span class="comment">% output is class dependent and has no common access other than the cmd line</span>
+0070     outstring = evalc(<span class="string">'classinstance'</span>);
+0071 
+0072 <span class="comment">% Strip empty lines from the beginning and the end of a multi-line string</span>
+0073 <a name="_sub3" href="#_subfunctions" class="code">function out = loc_trim_empty_lines(in)</a>
+0074 
+0075     clean_front = regexprep(in, <span class="string">'^(\s*\n)*'</span>, <span class="string">''</span>);
+0076     out = regexprep(clean_front, <span class="string">'(\s*\n)*$'</span>, <span class="string">''</span>);</pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

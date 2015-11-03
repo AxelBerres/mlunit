@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of run_test</title>
+  <meta name="keywords" content="run_test">
+  <meta name="description" content="Execute a single test case.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../index.html">Home</a> &gt;  <a href="../index.html">mlunit</a> &gt; <a href="index.html">@mlunit_suite_runner</a> &gt; run_test.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../index.html"><img alt="<" border="0" src="../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\@mlunit_suite_runner&nbsp;<img alt=">" border="0" src="../../right.png"></a></td></tr></table>-->
+
+<h1>run_test
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Execute a single test case.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [result, self, test] = run_test(self, test) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Execute a single test case.
+  RESULT = run_test(SELF, TEST) executes test case TEST.
+  SELF is an mlunit_suite_runner instance. TEST is a test_case instance.
+  TEST must exist.
+  
+  RESULT is a scalar struct with fields:
+    - name    : string, the test case name, mandatory
+    - errors  : cell array of mlunit_errorinfo objects,
+                all errors that occurred during execution
+                empty cell array, if no errors occurred
+    - failure : string, the failure message, empty, if no failure occurred
+    - time    : double, the execution time in seconds
+
+  [RESULT, SELF, TEST] = run_test(SELF, TEST) does the same, but also provides
+  SELF back, the mlunit_suite_runner instance. Its states may have changed 
+  by means of changed listeners. TEST is a copy of the input argument, used by
+  mlUnit's internal unit tests.
+
+  After test execution, the mlUnit environment will be reset to the state it
+  has before test execution.
+
+  See also mlunit_environment.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../mlunit/@function_test_case/set_up.html" class="code" title="function self = set_up(self)">set_up</a>	function_test_case/set_up calls the set_up_function by the function</li><li><a href="../../mlunit/@function_test_case/tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>	test_case/tear_down called calls the tear_down_function by the function</li><li><a href="../../mlunit/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>	Get an error's message and stack as single string.</li><li><a href="../../mlunit/@mlunit_errorinfo/is_failure.html" class="code" title="function result = is_failure(self)">is_failure</a>	Return whether this error represents a failure rather than a common error.</li><li><a href="../../mlunit/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>	Information about one error. Formattable.</li><li><a href="../../mlunit/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>	Notify progress listeners.</li><li><a href="../../mlunit/@mlunit_testsuite/get_name.html" class="code" title="function s = get_name(self)">get_name</a>	Return the name of the test suite.</li><li><a href="../../mlunit/@test_case/get_function_name.html" class="code" title="function n = get_function_name(self)">get_function_name</a>	Return the function name of this function-based test case instance.</li><li><a href="../../mlunit/@test_case/get_name.html" class="code" title="function n = get_name(self)">get_name</a>	Return the method name of this test case instance.</li><li><a href="../../mlunit/@test_case/set_up.html" class="code" title="function self = set_up(self)">set_up</a>	test_case/set_up sets up the fixture and is called everytime before</li><li><a href="../../mlunit/@test_case/tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>	test_case/tear_down called everytime after a test is executed for</li><li><a href="../../mlunit/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>	Save and restore MATLAB/mlUnit environment.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="run_suite.html" class="code" title="function [results, time, self] = run_suite(self, name)">run_suite</a>	Load a given suite and execute all its tests.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%Execute a single test case.</span>
+0002 <span class="comment">%  RESULT = run_test(SELF, TEST) executes test case TEST.</span>
+0003 <span class="comment">%  SELF is an mlunit_suite_runner instance. TEST is a test_case instance.</span>
+0004 <span class="comment">%  TEST must exist.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  RESULT is a scalar struct with fields:</span>
+0007 <span class="comment">%    - name    : string, the test case name, mandatory</span>
+0008 <span class="comment">%    - errors  : cell array of mlunit_errorinfo objects,</span>
+0009 <span class="comment">%                all errors that occurred during execution</span>
+0010 <span class="comment">%                empty cell array, if no errors occurred</span>
+0011 <span class="comment">%    - failure : string, the failure message, empty, if no failure occurred</span>
+0012 <span class="comment">%    - time    : double, the execution time in seconds</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%  [RESULT, SELF, TEST] = run_test(SELF, TEST) does the same, but also provides</span>
+0015 <span class="comment">%  SELF back, the mlunit_suite_runner instance. Its states may have changed</span>
+0016 <span class="comment">%  by means of changed listeners. TEST is a copy of the input argument, used by</span>
+0017 <span class="comment">%  mlUnit's internal unit tests.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%  After test execution, the mlUnit environment will be reset to the state it</span>
+0020 <span class="comment">%  has before test execution.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%  See also mlunit_environment.</span>
+0023 
+0024 
+0025 <span class="comment">%  This Software and all associated files are released unter the</span>
+0026 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%  $Id: load_tests_from_mfile.m 173 2012-06-12 09:26:53Z alexander.roehnsch $</span>
+0029 
+0030 <a name="_sub0" href="#_subfunctions" class="code">function [result, self, test] = run_test(self, test)</a>
+0031 
+0032     start_time = clock;
+0033 
+0034     <span class="comment">% buffer environment for reset after each test case</span>
+0035     previous_environment = <a href="../../mlunit/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>();
+0036     
+0037     <span class="comment">% execute set_up fixture</span>
+0038     errors = {};
+0039     <span class="keyword">try</span>
+0040         test = <a href="../../mlunit/@function_test_case/set_up.html" class="code" title="function self = set_up(self)">set_up</a>(test);
+0041     <span class="keyword">catch</span>
+0042         errors{end+1} = <a href="../../mlunit/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(lasterror, <span class="string">'Error in set_up fixture:'</span>);
+0043     <span class="keyword">end</span>
+0044 
+0045     <span class="comment">% execute test, only if set_up prevailed</span>
+0046     test_failure = <span class="string">''</span>;
+0047     <span class="keyword">if</span> isempty(errors)
+0048         method = <a href="../../mlunit/@mlunit_testsuite/get_name.html" class="code" title="function s = get_name(self)">get_name</a>(test);
+0049         <span class="keyword">try</span>
+0050             test = eval([method, <span class="string">'(test)'</span>]);
+0051         <span class="keyword">catch</span>
+0052             err = lasterror;
+0053             errorinfo = <a href="../../mlunit/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(err);
+0054             <span class="keyword">if</span> <a href="../../mlunit/@mlunit_errorinfo/is_failure.html" class="code" title="function result = is_failure(self)">is_failure</a>(errorinfo)
+0055                 test_failure = <a href="../../mlunit/@mlunit_errorinfo/get_message_with_stack.html" class="code" title="function message = get_message_with_stack(self)">get_message_with_stack</a>(errorinfo);
+0056             <span class="keyword">else</span>
+0057                 <span class="comment">% Previous code added some stack if the field was missing.</span>
+0058                 <span class="comment">% But why would it be missing?</span>
+0059                 <span class="keyword">if</span> (~isfield(err, <span class="string">'stack'</span>))
+0060                     error(<span class="string">'MLUNIT:unexpectedExecution'</span>, <span class="string">'This code seems deprecated, but we did not know when it activated. Please report this bug along with the circumstance in which it occurred.'</span>);
+0061 <span class="comment">%                     err.stack(1).file = char(which(method));</span>
+0062 <span class="comment">%                     err.stack(1).line = '1';</span>
+0063 <span class="comment">%                     err.stack = vertcat(err.stack, dbstack('-completenames'));</span>
+0064                 <span class="keyword">end</span>
+0065 
+0066                 errors{end+1} = errorinfo;
+0067             <span class="keyword">end</span>;
+0068         <span class="keyword">end</span>;
+0069     <span class="keyword">end</span>;
+0070 
+0071     <span class="comment">% execute tear_down fixture in any case, even if set_up or test failed</span>
+0072     <span class="keyword">try</span>
+0073         test = <a href="../../mlunit/@function_test_case/tear_down.html" class="code" title="function self = tear_down(self)">tear_down</a>(test);
+0074     <span class="keyword">catch</span>
+0075         errors{end+1} = <a href="../../mlunit/@mlunit_errorinfo/mlunit_errorinfo.html" class="code" title="function self = mlunit_errorinfo(errorinfo, additional_message)">mlunit_errorinfo</a>(lasterror, <span class="string">'Error in tear_down fixture:'</span>);
+0076     <span class="keyword">end</span>
+0077 
+0078     <span class="comment">% restore previous environment after test and fixtures finished</span>
+0079     <a href="../../mlunit/utils/internal/mlunit_environment.html" class="code" title="function state = mlunit_environment(state)">mlunit_environment</a>(previous_environment);
+0080 
+0081     <span class="comment">% build result structure</span>
+0082     result = struct();
+0083     result.name = <a href="../../mlunit/@test_case/get_function_name.html" class="code" title="function n = get_function_name(self)">get_function_name</a>(test);
+0084     result.errors = errors;
+0085     result.failure = test_failure;
+0086     result.time = etime(clock, start_time);
+0087     
+0088     self = <a href="../../mlunit/@mlunit_suite_runner/private/notify_listeners.html" class="code" title="function self = notify_listeners(self, function_name, varargin)">notify_listeners</a>(self, <span class="string">'next_result'</span>, result);</pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

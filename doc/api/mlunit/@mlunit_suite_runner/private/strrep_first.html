@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of strrep_first</title>
+  <meta name="keywords" content="strrep_first">
+  <meta name="description" content="STRREP_FIRST Replace prefix with another.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../../../index.html">Home</a> &gt;  <a href="../../index.html">mlunit</a> &gt; <a href="../index.html">@mlunit_suite_runner</a> &gt; <a href="index.html">private</a> &gt; strrep_first.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../../../index.html"><img alt="<" border="0" src="../../../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mlunit\@mlunit_suite_runner\private&nbsp;<img alt=">" border="0" src="../../../right.png"></a></td></tr></table>-->
+
+<h1>strrep_first
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>STRREP_FIRST Replace prefix with another.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function result = strrep_first(text, offender, replacement) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">STRREP_FIRST Replace prefix with another.
+  S = STRREP_FIRST(TEXT,OFFENDER,REPLACEMENT) replaces the string OFFENDER in
+  string TEXT with the string REPLACEMENT, but only for its first occurrence
+  if it starts right at TEXT's beginning.
+
+  TEXT may be a cell array or a scalar string.
+
+  See also strrep, strmatch.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="getNestedTestFiles.html" class="code" title="function suitespecs = getNestedTestFiles(basedir)">getNestedTestFiles</a>	GETNESTEDTESTFILES returns a list of all test_*.m files in all</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function result = loc_strrep_first_single(text, offender, replacement)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%STRREP_FIRST Replace prefix with another.</span>
+0002 <span class="comment">%  S = STRREP_FIRST(TEXT,OFFENDER,REPLACEMENT) replaces the string OFFENDER in</span>
+0003 <span class="comment">%  string TEXT with the string REPLACEMENT, but only for its first occurrence</span>
+0004 <span class="comment">%  if it starts right at TEXT's beginning.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  TEXT may be a cell array or a scalar string.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%  See also strrep, strmatch.</span>
+0009 
+0010 <span class="comment">%  This Software and all associated files are released unter the</span>
+0011 <span class="comment">%  GNU General Public License (GPL), see LICENSE for details.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%  $Id$</span>
+0014 
+0015 <a name="_sub0" href="#_subfunctions" class="code">function result = strrep_first(text, offender, replacement)</a>
+0016 
+0017 error(nargchk(3,3,nargin,<span class="string">'struct'</span>));
+0018 <span class="keyword">if</span> ~ischar(text) &amp;&amp; ~iscell(text), error(<span class="string">'text need be char or cell'</span>); <span class="keyword">end</span>
+0019 <span class="keyword">if</span> ~ischar(offender), error(<span class="string">'offender need be char'</span>); <span class="keyword">end</span>
+0020 <span class="keyword">if</span> ~ischar(replacement), error(<span class="string">'replacement need be char'</span>); <span class="keyword">end</span>
+0021 
+0022 wrapcell = ischar(text);
+0023 <span class="keyword">if</span> wrapcell, text = {text}; <span class="keyword">end</span>
+0024 result = cellfun(@(t)<a href="#_sub1" class="code" title="subfunction result = loc_strrep_first_single(text, offender, replacement)">loc_strrep_first_single</a>(t,offender,replacement),text,<span class="string">'UniformOutput'</span>, false);
+0025 <span class="keyword">if</span> wrapcell, result = result{1}; <span class="keyword">end</span>
+0026 
+0027 
+0028 <a name="_sub1" href="#_subfunctions" class="code">function result = loc_strrep_first_single(text, offender, replacement)</a>
+0029 
+0030     <span class="keyword">if</span> ~isempty(strmatch(offender, text))
+0031         result = [replacement text(length(offender)+1:end)];
+0032     <span class="keyword">else</span>
+0033         result = text;
+0034     <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 03-Nov-2015 12:23:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
