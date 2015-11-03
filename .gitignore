@@ -1,0 +1,4 @@
+test/TEST-*.xml
+test/reports/
+sample/reports/
+*.asv
