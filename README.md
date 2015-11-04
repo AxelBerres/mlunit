@@ -38,6 +38,8 @@ INSTALLATION
 
    >> addpath('$HOME/mlunit/mlunit');
 
+4. Save the MATLAB path.
+
 
 DYNAMICAL EMPLOYMENT
 
@@ -54,7 +56,7 @@ DYNAMICAL EMPLOYMENT
 REQUIREMENTS
 
 mlUnit is expected to run on all MATLAB versions from R2006b up to any new
-version. However, it has been tested only with R2006b, R2007b, R2011b, R2014b.
+version. It has been tested with R2006b, R2007b, R2011b, R2014b and R2015b.
 
 ===========================================================================
 
