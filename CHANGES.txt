@@ -3,6 +3,14 @@
 =====================================
 
 
+mlUnit 1.6.11 (in development)
+------------------------------
+
+  - Let recursive_test_run/run_suite_collection fail on test failures, if so
+    desired. This simplifies automation, as we do not rely on specific console
+    output from recursive_test_run anymore.
+
+
 mlUnit 1.6.10 (2015-11-03)
 --------------------------
 
@@ -18,9 +26,9 @@ mlUnit 1.6.10 (2015-11-03)
   - BSD license chosen for find_struct_differences and its test.
   - Support for MATLAB R2015b. In order to use function test cases with R2015b,
     the test cases need to be migrated. Instead of
-    `test = load_tests_from_mfile(test_loader)`, use `open_tests_from_mfile`.
+    `test = load_tests_from_mfile(test_loader)`, use `output_tests_from_mfile`.
     This is a MATLAB script instead of a proper function.
-
+  
   - Fix: matlabcommand.xml's logfile option is not actually optional
   - Fix: assert_equals judges Inf and Inf as not equal
   - Fix: stack expansion for syntax errors forgets to remove .m file extension

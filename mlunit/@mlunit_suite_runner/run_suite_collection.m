@@ -7,6 +7,10 @@
 %  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR) does the same, but
 %  generates jUnit reports into TARGETDIR.
 %
+%  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR, FAIL) additionally lets
+%  the execution fail with a MATLAB error, if FAIL is true. Defaults to false.
+%  Normally, this is unnecessary, but helps with automation.
+%
 %  See also mlunit_gui, mlunit_suite_runner
 
 %  This Software and all associated files are released unter the 
@@ -14,11 +18,12 @@
 %  
 %  $Id$
 
-function self = run_suite_collection(self, testobj, targetdir)
+function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail)
 
-   error(nargchk(2, 3, nargin, 'struct'));
+   error(nargchk(2, 4, nargin, 'struct'));
    if isempty(testobj), error('MLUNIT:invalidTestobj', 'Test object must not be empty.'); end
    write_xml = nargin >= 3;
+   if nargin < 4, fail_on_test_fail = false; end
 
    % start time for calculating execution time
    start_time = clock;
@@ -56,6 +61,11 @@ function self = run_suite_collection(self, testobj, targetdir)
    % finalize display
    execution_time = etime(clock, start_time);
    self = notify_listeners(self, 'finalize_execution', suiteresults, execution_time);
+
+   % fail on test failures, if so requested
+   if fail_on_test_fail
+      error('MLUNIT:testFailures', 'Some tests failed or contained errors.');
+   end
    
 
 function suitespecs = loc_determine_suites(testobj)

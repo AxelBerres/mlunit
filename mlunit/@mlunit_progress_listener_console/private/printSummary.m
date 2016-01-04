@@ -37,8 +37,7 @@ if num_fails == 0 && num_errors == 0
     report = [report sprintf('SUCCESS\n')];
 else
     % In case of any problems, print both failure and error count, even if
-    % one of them is 0. But having both informations boosts confidence and helps
-    % us when evaluating the result in automation.
+    % one of them is 0. But having both informations boosts confidence.
     report = [report sprintf('%s FAILED\n', test_count_string(num_fails))];
     report = [report sprintf('%s had ERRORS\n', test_count_string(num_errors))];
 end

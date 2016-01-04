@@ -1,4 +1,4 @@
-function recursive_test_run(testobj, targetdir)
+function recursive_test_run(testobj, targetdir, fail_on_test_fail)
 %RECURSIVE_TEST_RUN Execute all test script files of a folder and all its
 %subfolders recursively.
 %  RECURSIVE_TEST_RUN(BASEDIR) executes all test scripts found in BASEDIR
@@ -23,6 +23,8 @@ suite_runner = add_listener(mlunit_suite_runner, mlunit_progress_listener_consol
 
 if nargin < 2
     run_suite_collection(suite_runner, testobj);
-else
+elseif nargin < 3
     run_suite_collection(suite_runner, testobj, targetdir);
+else
+    run_suite_collection(suite_runner, testobj, targetdir, fail_on_test_fail);
 end

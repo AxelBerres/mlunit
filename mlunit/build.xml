@@ -105,10 +105,7 @@
     <fail message="One or more unit tests failed. See log file &quot;${unittest.log}&quot;.">
       <condition>
         <and>
-          <or>
-            <contains string="${unittests.output}" substring="FAILED"/>
-            <not><isset property="unittests.success"/></not>
-          </or>
+          <not><isset property="unittests.success"/></not>
           <equals arg1="true" arg2="${failontestfail}"/>
         </and>
       </condition>
