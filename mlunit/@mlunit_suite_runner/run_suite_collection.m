@@ -63,7 +63,8 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
    self = notify_listeners(self, 'finalize_execution', suiteresults, execution_time);
 
    % fail on test failures, if so requested
-   if fail_on_test_fail
+   total_problems = sum(cellfun(@(s)s.errors+s.failures,suiteresults));
+   if fail_on_test_fail && total_problems > 0
       error('MLUNIT:testFailures', 'Some tests failed or contained errors.');
    end
    
