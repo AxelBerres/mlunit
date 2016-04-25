@@ -9,6 +9,12 @@ mlUnit 1.6.11 (in development)
   - Let recursive_test_run/run_suite_collection fail on test failures, if so
     desired. This simplifies automation, as we do not rely on specific console
     output from recursive_test_run anymore.
+  - Fix: Out of memory when using assert_equals on very large cell arrays, or
+    similarly large data. Very large input would cause shortest_alignment to
+    run out of memory, as it has a quadratic memory print.
+  - Reduce assert_equals diagnostic output to a fixed length of about 80
+    characters, and also omit up to about 20 characters to the first real
+    difference.
 
 
 mlUnit 1.6.10 (2015-11-03)

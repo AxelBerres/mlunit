@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.031" hostname="unknown" timestamp="2015-11-03T11:38:16">
+<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.031" hostname="unknown" timestamp="2016-04-25T17:51:53">
   <properties/>
   <testcase classname="test_errorfail_output" name="test_success">
     <error><![CDATA[Error in tear_down fixture:
@@ -8,8 +8,8 @@ In test_errorfail_output.m at line 13
 In tear_down.m at line 21
 In run_test.m at line 73
 In run_suite.m at line 86
-In run_suite_collection.m at line 126
-In run_suite_collection.m at line 45
+In run_suite_collection.m at line 137
+In run_suite_collection.m at line 50
 In recursive_test_run.m at line 27]]></error>
     <failure><![CDATA[(no message available)
 In test_errorfail_output.m at line 9]]></failure>

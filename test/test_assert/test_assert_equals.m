@@ -41,6 +41,15 @@ function test_equals_string
    double_test_equal_arguments(s, s);
 
 
+% When preparing diagnostic message for comparison of very large strings, 
+function test_equals_long_strings
+
+    foo = repmat('a', 50000, 1);
+    bar = repmat('a', 1, 50000);
+    bar(30000) = 'b';
+    assert_error(@() assert_equals(foo,bar), 'MLUNIT:Failure');
+
+
 function test_equals_cell
 
    double_test_equal_arguments({3}, {3});

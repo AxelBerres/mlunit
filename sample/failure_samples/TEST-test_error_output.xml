@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.092" hostname="unknown" timestamp="2015-11-03T11:38:16">
+<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.078" hostname="unknown" timestamp="2016-04-25T17:51:53">
   <properties/>
   <testcase classname="test_error_output" name="test_special_characters">
     <error><![CDATA[This some special characters: !"§$%&/()=?. Enjoy.
@@ -7,8 +7,8 @@ In test_error_output.m at line 7
 In run_test.m at line 21
 In run_test.m at line 50
 In run_suite.m at line 86
-In run_suite_collection.m at line 126
-In run_suite_collection.m at line 45
+In run_suite_collection.m at line 137
+In run_suite_collection.m at line 50
 In recursive_test_run.m at line 27]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_unknown_function">
@@ -17,8 +17,8 @@ In test_error_output.m at line 11
 In run_test.m at line 21
 In run_test.m at line 50
 In run_suite.m at line 86
-In run_suite_collection.m at line 126
-In run_suite_collection.m at line 45
+In run_suite_collection.m at line 137
+In run_suite_collection.m at line 50
 In recursive_test_run.m at line 27]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_invalid_usage">
@@ -28,8 +28,8 @@ In test_error_output.m at line 15
 In run_test.m at line 21
 In run_test.m at line 50
 In run_suite.m at line 86
-In run_suite_collection.m at line 126
-In run_suite_collection.m at line 45
+In run_suite_collection.m at line 137
+In run_suite_collection.m at line 50
 In recursive_test_run.m at line 27]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_syntax_error_ifend">
@@ -39,8 +39,8 @@ In test_error_output.m at line 19
 In run_test.m at line 21
 In run_test.m at line 50
 In run_suite.m at line 86
-In run_suite_collection.m at line 126
-In run_suite_collection.m at line 45
+In run_suite_collection.m at line 137
+In run_suite_collection.m at line 50
 In recursive_test_run.m at line 27]]></error>
   </testcase>
   <testcase classname="test_error_output" name="test_syntax_error_paren">
@@ -50,8 +50,8 @@ In test_error_output.m at line 23
 In run_test.m at line 21
 In run_test.m at line 50
 In run_suite.m at line 86
-In run_suite_collection.m at line 126
-In run_suite_collection.m at line 45
+In run_suite_collection.m at line 137
+In run_suite_collection.m at line 50
 In recursive_test_run.m at line 27]]></error>
   </testcase>
   <system-out/>

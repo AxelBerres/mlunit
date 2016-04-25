@@ -183,6 +183,15 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
     change_msg = '';
     % append difference markers for string or cellstr comparisons
     if (ischar(expected) && ischar(actual)) || (iscellstr(expected) && iscellstr(actual))
+        
+        % but keep the amount of work for shortest_alignment short, by
+        % restricting the strings to the first 80 or so characters after the
+        % first change
+        offensive_length = 80;
+        if length(expected_string) > offensive_length || length(actual_string) > offensive_length
+            [expected_string, actual_string] = loc_cut_long_comparison(expected_string, actual_string, offensive_length);
+        end
+        
         % apply a shortest Levenshtein alignment, if not empty
         alignment = shortest_alignment(expected_string, actual_string);
         if ~isempty(alignment)
@@ -199,3 +208,43 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
         'Expected', expected_string, ...
         'Actual', actual_string, ...
         change_msg);
+
+
+function [a, b] = loc_cut_long_comparison(a, b, cut_length_threshold)
+
+    error(nargchk(3, 3, nargin, 'struct'));
+    
+    % find index of first differing character
+    minlength = min(length(a), length(b));
+    idx_firstchange = find(a(1:minlength) ~= b(1:minlength), 1, 'first');
+    
+    % if no differing character found, it may be beyond the minimal length
+    if isempty(idx_firstchange)
+        idx_firstchange = minlength+1;
+    end
+
+    % cut preceding equal characters if beyond threshold
+    cut_preceding_threshold = 40;
+    if idx_firstchange > cut_preceding_threshold
+        % but leave some preceding characters for orientation
+        cutstring_template = '(..%d chars..)';
+        approx_info_length = 16;    % approximately 4 digits for %d
+        % Approx_info_length must be smaller than cut_threshold!
+        leave_preceding = max(0, cut_preceding_threshold - approx_info_length);
+        
+        % cut preceding equal characters and insert information
+        idx_front = idx_firstchange - leave_preceding;
+        cutstring = sprintf(cutstring_template, idx_front-1);
+        a = [cutstring, a(idx_front:end)];
+        b = [cutstring, b(idx_front:end)];
+    end
+
+    % cut succeeding characters if beyond length threshold
+    cutstring_back = '(..)';
+    idx_back = cut_length_threshold - length(cutstring_back);
+    if length(a) > cut_length_threshold
+        a = [a(1:idx_back) cutstring_back];
+    end
+    if length(b) > cut_length_threshold
+        b = [b(1:idx_back) cutstring_back];
+    end
