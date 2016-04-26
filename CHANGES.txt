@@ -15,6 +15,10 @@ mlUnit 1.6.11 (in development)
   - Reduce assert_equals diagnostic output to a fixed length of about 80
     characters, and also omit up to about 20 characters to the first real
     difference.
+  - Improved execution time when using assert_equals on very large cell arrays.
+    Very large cell arrays will take printable() a long time to prepare.
+    Optimization dropped execution speed for one example from about 40s to
+    about 8s on R2007b.
 
 
 mlUnit 1.6.10 (2015-11-03)

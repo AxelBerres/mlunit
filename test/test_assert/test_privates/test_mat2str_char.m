@@ -29,7 +29,7 @@ function test_ndims_too_many %#ok<DEFNU>
 
     s(1,1,1) = 'a';
     s(1,1,2) = 'b';
-    assert_error(@() mat2str_char(s));
+    assert_equals('''ab''', mat2str_char(s));
 
 
 %% boilerplate code for testing functions that are private to assert functions

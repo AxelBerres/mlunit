@@ -4,6 +4,7 @@ function outstring = mat2str_char(input)
 %  On R2006b, mat2str prints strings awkwardly. Enforce new style:
 %  ['foo';'bar'] for character arrays, 'foobar' for single strings
 %  Only works on char arrays with ndims<=2, as mat2str does, BTW.
+%  However, no explicit error for ndims > 2 is raised, for speed.
 %
 %  See also MAT2STR
 
@@ -12,7 +13,8 @@ function outstring = mat2str_char(input)
 %  
 %  $Id$
 
-error(nargchk(1,1,nargin,'struct'));
+% save execution time by omitting preventable function calls
+if nargin ~= 1, error(nargchk(1,1,nargin,'struct')); end
 if ~ischar(input), error('input need be char'); end
 
 % handle empty strings safely
@@ -22,36 +24,34 @@ if isempty(input)
 end
 
 % wrap each line in apostrophes
-cellinput = loc_cellstr(input);
-quoted_cellinput = cellfun(@(s) ['''' s ''''], cellinput, 'UniformOutput', false);
+quoted_cellinput = loc_cellstr_from_char(input);
+for i=1:numel(quoted_cellinput)
+    quoted_cellinput{i} = ['''' quoted_cellinput{i} ''''];
+end
 
 % separate multiple lines by semicolon and wrap brackets around
-outstring = mlunit_strjoin(quoted_cellinput, ';');
-if numel(quoted_cellinput)>1
-    outstring = ['[', outstring, ']'];
+outstring = '';
+% explicitly instead of mlunit_strjoin for speed
+for i=1:numel(quoted_cellinput)-1
+    outstring = [outstring quoted_cellinput{i} ';']; %#ok<AGROW>
+end
+if numel(quoted_cellinput)>=1
+    outstring = [outstring, quoted_cellinput{end}];
+    if numel(quoted_cellinput)>1
+        outstring = ['[', outstring, ']'];
+    end
 end
 
 
 % Roll our own cellstr function without a deblanking "feature".
 % MATLAB's cellstr eats trailing whitespace from each row without warning.
 % MATLAB should eat toast.
-function c = loc_cellstr(s)
+% For optimized execution time, we outright expect non-empty char input of at
+% most 2 dimensions
+function c = loc_cellstr_from_char(s)
 
-    if ischar(s)
-        if isempty(s)
-            c = {''};
-        else
-            if ndims(s)~=2
-                error('MATLAB:cellstr:InputShape','S must be 2-D.')
-            end
-            [rows,cols]=size(s);%#ok ignore rows
-            c = cell(rows,1);	
-            for i=1:rows
-                c{i} = s(i,:);
-            end
-        end
-    elseif iscellstr(s)
-        c = s; 
-    else
-        error('MATLAB:cellstr:InputClass','Input must be a string.')
+    rows=size(s,1);%#ok ignore rows
+    c = cell(rows,1);	
+    for i=1:rows
+        c{i} = s(i,:);
     end

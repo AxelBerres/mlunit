@@ -1,7 +1,7 @@
 
 ----------------------------------------------------------------------
 mlUnit 1.6.11-SNAPSHOT
-Started: 2016-04-25 17:51:53
+Started: 2016-04-26 12:01:19
 Test object: C:\Users\Alexander\repositories\mlunit\sample\failure_samples
 ----------------------------------------------------------------------
 
@@ -315,7 +315,7 @@ Running suite test_failure_output
 Running suite test_success_output
 
 ----------------------------------------------------------------------
-Executed 41 tests across 4 suites in 20.67s
+Executed 41 tests across 4 suites in 6.47s
 
 34 tests FAILED
 7 tests had ERRORS

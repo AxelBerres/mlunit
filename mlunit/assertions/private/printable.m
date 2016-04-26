@@ -20,21 +20,6 @@ function outstring = printable(input)
 
 if nargin < 1
     outstring = '';
-elseif iscell(input)
-    items = cellfun(@printable, input, 'UniformOutput', false);
-    % linearizes the cell array's matrix structure
-    outstring = ['{' mlunit_strjoin(items) '}'];
-elseif isstruct(input)
-    print_scalar_struct = @(s) ['{' mlunit_strjoin(fieldname_value_strings(s), '; ') '}'];
-    items = arrayfun(print_scalar_struct, input, 'UniformOutput', false);
-    outstring = ['[' mlunit_strjoin(items) ']'];
-elseif isclass(input)
-    outstring = loc_getClassDisplay(input);
-elseif isa(input, 'function_handle')
-    outstring = func2str(input);
-elseif isjava(input)
-    % toString returns a java.lang.String which we need to return as native char
-    outstring = char(input.toString());
 elseif ischar(input) && isempty(input)
     % mat2str blunders when being given a 1x0 char and returns logical instead.
     % We also need to make sure to preserve the size (0x0 vs 1x0) of the input.
@@ -49,6 +34,24 @@ elseif isnumeric(input) && isempty(input)
     % mat2str likes to translate empty numericals into strings like 'zeros(0,1)'
     % except no one put any zeroes there. Why do we rely on mat2str at all?
     outstring = '[]';
+elseif iscell(input)
+    items = cell(size(input));
+    for i=1:numel(input)
+        items{i} = printable(input{i});
+    end
+    % linearizes the cell array's matrix structure
+    outstring = ['{' mlunit_strjoin(items) '}'];
+elseif isstruct(input)
+    print_scalar_struct = @(s) ['{' mlunit_strjoin(fieldname_value_strings(s), '; ') '}'];
+    items = arrayfun(print_scalar_struct, input, 'UniformOutput', false);
+    outstring = ['[' mlunit_strjoin(items) ']'];
+elseif isclass(input)
+    outstring = loc_getClassDisplay(input);
+elseif isa(input, 'function_handle')
+    outstring = func2str(input);
+elseif isjava(input)
+    % toString returns a java.lang.String which we need to return as native char
+    outstring = char(input.toString());
 else
     % mat2str takes care of everything else or throws an error
     outstring = mat2str(input);
@@ -69,8 +72,20 @@ function outstring = loc_getClassDisplay(classinstance) %#ok<INUSD>
     % output is class dependent and has no common access other than the cmd line
     outstring = evalc('classinstance');
 
-% Strip empty lines from the beginning and the end of a multi-line string
+% Strip empty lines from the beginning and the end of a multi-line string.
+% Was once done with a simple regular expression, but was switched to explicit
+% looping in order to improve runtime performance.
 function out = loc_trim_empty_lines(in)
 
-    clean_front = regexprep(in, '^(\s*\n)*', '');
-    out = regexprep(clean_front, '(\s*\n)*$', '');
+    whitespace = char([32, 9, 10]); % space, tab, newline
+
+    front = 1;
+    back = length(in);
+    while front <= back && any(in(front) == whitespace)
+        front = front + 1;
+    end
+    while back >= front && any(in(back) == whitespace)
+        back = back - 1;
+    end
+    
+    out = in(front:back);
