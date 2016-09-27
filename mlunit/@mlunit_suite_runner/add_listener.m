@@ -13,7 +13,7 @@
 
 function self = add_listener(self, listener)
 
-error(nargchk(2,2,nargin,'struct'));
+mlunit_narginchk(2,2,nargin);
 if ~isa(listener, 'mlunit_progress_listener'), error('listener need be mlunit_progress_listener'); end
 
 % Maintain list of listeners as cell array, because R2007b would spit

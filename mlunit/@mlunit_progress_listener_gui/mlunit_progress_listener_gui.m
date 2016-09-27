@@ -13,7 +13,7 @@
 
 function self = mlunit_progress_listener_gui(progress_bar, text_runs, error_listbox)
 
-error(nargchk(3, 3, nargin, 'struct'));
+mlunit_narginchk(3, 3, nargin);
 
 self = struct();
 self.progress_bar = progress_bar;

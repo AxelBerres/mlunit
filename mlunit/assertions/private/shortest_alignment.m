@@ -19,7 +19,7 @@
 
 function alignment = shortest_alignment(s1, s2)
 
-    error(nargchk(nargin,2,2,'struct'));
+    mlunit_narginchk(nargin,2,2);
 
     isrowvector = @(v) isempty(v) || size(v, 1)==1;
     if ~isrowvector(s1) || ~ischar(s1), error('s1 need be row vector or empty, and of class char'); end

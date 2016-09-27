@@ -29,6 +29,6 @@ function assert_not_equals(expected, actual, varargin)
 %  
 %  $Id: assert_not_equals.m 167 2012-06-06 16:10:56Z alexander.roehnsch $
 
-error(nargchk(2,Inf,nargin,'struct'));
+mlunit_narginchk(2,Inf,nargin);
 
 abstract_assert_equals(false, expected, actual, varargin{:});

@@ -15,7 +15,7 @@
 
 function self = next_result(self, result)
 
-error(nargchk(2, 2, nargin, 'struct'));
+mlunit_narginchk(2, 2, nargin);
 if ~isstruct(result), error('result argument need be struct'); end
 
 % consolidate multiple errors into single string

@@ -20,7 +20,7 @@
 
 function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail)
 
-   error(nargchk(2, 4, nargin, 'struct'));
+   mlunit_narginchk(2, 4, nargin);
    if isempty(testobj), error('MLUNIT:invalidTestobj', 'Test object must not be empty.'); end
    write_xml = nargin >= 3;
    if nargin < 4, fail_on_test_fail = false; end

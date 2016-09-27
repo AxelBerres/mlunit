@@ -17,7 +17,7 @@
 
 function add_to_errorlist(self, prefix, testname, errmsg)
 
-error(nargchk(4, 4, nargin, 'struct'));
+mlunit_narginchk(4, 4, nargin);
 
 % get existing error list
 list = builtin('get', self.error_listbox, 'String');

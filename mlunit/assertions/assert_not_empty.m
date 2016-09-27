@@ -25,7 +25,7 @@ function assert_not_empty(expr, varargin)
 %  
 %  $Id$
 
-error(nargchk(1,Inf,nargin,'struct'));
+mlunit_narginchk(1,Inf,nargin);
 
 if isempty(expr)
     fail_msg = 'Expected non-empty expression was actually empty.';

@@ -14,7 +14,7 @@
 
 function result = strrep_first(text, offender, replacement)
 
-error(nargchk(3,3,nargin,'struct'));
+mlunit_narginchk(3,3,nargin);
 if ~ischar(text) && ~iscell(text), error('text need be char or cell'); end
 if ~ischar(offender), error('offender need be char'); end
 if ~ischar(replacement), error('replacement need be char'); end

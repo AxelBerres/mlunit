@@ -30,7 +30,7 @@ function self = mlunit_testsuite(name, setup_obj, teardown_obj)
 %  
 %  $Id: test_suite.m 61 2006-09-21 19:11:35Z thomi $
 
-error(nargchk(3,3,nargin,'struct'));
+mlunit_narginchk(3,3,nargin);
 if ~ischar(name), error('name need be char'); end
 if ~isa(setup_obj, 'test_case'), error('setup_obj need be test_case or child'); end
 if ~isa(teardown_obj, 'test_case'), error('teardown_obj need be test_case or child'); end

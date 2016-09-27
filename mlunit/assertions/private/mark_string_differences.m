@@ -13,7 +13,7 @@
 
 function marker = mark_string_differences(s1, s2)
 
-error(nargchk(2, 2, nargin, 'struct'));
+mlunit_narginchk(2, 2, nargin);
 isrowvector = @(v) isempty(v) || size(v, 1)==1;
 if ~isrowvector(s1) || ~ischar(s1), error('s1 need be row vector or empty, and of class char'); end
 if ~isrowvector(s2) || ~ischar(s2), error('s2 need be row vector or empty, and of class char'); end

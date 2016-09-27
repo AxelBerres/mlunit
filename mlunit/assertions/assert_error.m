@@ -45,7 +45,7 @@ function assert_error(func, errspec, varargin)
 %  
 %  $Id$
 
-error(nargchk(1, Inf, nargin, 'struct'));
+mlunit_narginchk(1, Inf, nargin);
 
 % determine what to check for
 if nargin < 2

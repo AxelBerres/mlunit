@@ -7,7 +7,7 @@
 
 function self = notify_listeners(self, function_name, varargin)
 
-error(nargchk(2,Inf,nargin,'struct'));
+mlunit_narginchk(2,Inf,nargin);
 if ~ischar(function_name), error('function_name need be char'); end
 
 % inform progress listeners of impending test updates; keep self updated

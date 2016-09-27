@@ -7,6 +7,6 @@
 
 function num_errors = mlunit_num_suite_errors(results)
 
-error(nargchk(1, 1, nargin, 'struct'));
+mlunit_narginchk(1, 1, nargin);
 
 num_errors = sum(arrayfun(@(e) all(~isempty(e.errors)), results));

@@ -13,7 +13,7 @@
 
 function stack = filter_failure_stack(self, stack)
 
-error(nargchk(2, 2, nargin, 'struct'));
+mlunit_narginchk(2, 2, nargin);
 
 % Return if empty, some of our calculations don't work on empty structs
 if isempty(stack)

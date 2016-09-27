@@ -50,7 +50,7 @@ function self = test_case(name, function_name)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id$
 
-error(nargchk(1,2,nargin,'struct'));
+mlunit_narginchk(1,2,nargin);
 if ~ischar(name), error('name need be char'); end
 if isempty(name), error('name must not be empty'); end
 

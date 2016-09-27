@@ -14,7 +14,7 @@ function outstring = mat2str_char(input)
 %  $Id$
 
 % save execution time by omitting preventable function calls
-if nargin ~= 1, error(nargchk(1,1,nargin,'struct')); end
+if nargin ~= 1, mlunit_narginchk(1,1,nargin); end
 if ~ischar(input), error('input need be char'); end
 
 % handle empty strings safely

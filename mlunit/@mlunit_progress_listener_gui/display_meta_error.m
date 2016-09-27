@@ -12,7 +12,7 @@
 
 function self = display_meta_error(self, meta_error)
 
-error(nargchk(2, 2, nargin, 'struct'));
+mlunit_narginchk(2, 2, nargin);
 if ~loc_iserror(meta_error), error('meta_error argument need be error struct'); end
 
 % don't reset any current gui state; it might be helpful to know how many

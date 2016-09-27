@@ -21,7 +21,7 @@
 
 function self = mlunit_errorinfo(errorinfo, additional_message)
 
-error(nargchk(1, 2, nargin, 'struct'));
+mlunit_narginchk(1, 2, nargin);
 
 if ~isstruct(errorinfo) || ...
         numel(errorinfo)~=1 || ...

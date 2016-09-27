@@ -114,7 +114,7 @@ function xml = xmlTag(tagname, attributes, content, verbatim)
    if nargin<3, content=''; end
    if nargin<4, verbatim=false; end
 
-   error(nargchk(1, 4, nargin, 'struct'));
+   mlunit_narginchk(1, 4, nargin);
    if ~ischar(tagname), error('tagname need be char'); end
    if ~ischar(content), error('content need be char'); end
    if ~(isempty(attributes) || (iscellstr(attributes) && mod(length(attributes), 2)==0))
@@ -160,7 +160,7 @@ function indentedtext = indentLines(text, indentation)
 
    if nargin<2, indentation='  '; end
 
-   error(nargchk(1, 2, nargin, 'struct'));
+   mlunit_narginchk(1, 2, nargin);
    if ~ischar(text), error('text need be char'); end
    if ~ischar(indentation), error('indentation need be char'); end
 

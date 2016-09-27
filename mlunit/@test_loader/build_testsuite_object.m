@@ -9,7 +9,7 @@ function suite = build_testsuite_object(self, suitename, funs) %#ok<INUSL>
 %  
 %  $Id$
 
-error(nargchk(3,3,nargin,'struct'));
+mlunit_narginchk(3,3,nargin);
 if ~iscell(funs) || ~all(cellfun(@(f)isa(f,'function_handle'),funs))
     error('funs need be cell array of function_handle objects');
 end

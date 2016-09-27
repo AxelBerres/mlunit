@@ -10,7 +10,7 @@
 
 function self = mlunit_progress_listener_console()
 
-error(nargchk(0, 0, nargin, 'struct'));
+mlunit_narginchk(0, 0, nargin);
 
 self = struct();
 self = class(self, 'mlunit_progress_listener_console', mlunit_progress_listener);

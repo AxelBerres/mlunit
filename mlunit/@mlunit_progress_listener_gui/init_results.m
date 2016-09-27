@@ -14,7 +14,7 @@
 
 function self = init_results(self, maxnum)
 
-error(nargchk(2, 2, nargin, 'struct'));
+mlunit_narginchk(2, 2, nargin);
 if ~isnumeric(maxnum) || numel(maxnum)~=1, error('maxnum argument need be scalar numeric'); end
 
 % reset error list entries

@@ -19,7 +19,7 @@ function assert_matfile_equals(expected, actual, varargin)
 %  
 %  $Id: assert_matfile_equals.m 167 2012-06-06 16:10:56Z jens.dorroch $
 
-error(nargchk(2,Inf,nargin,'struct'));
+mlunit_narginchk(2,Inf,nargin);
 
 checkFile( expected, varargin{:});
 checkFile( actual, varargin{:});

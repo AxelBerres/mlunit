@@ -24,7 +24,7 @@ function suite = load_tests_from_mfile(self) %#ok<INUSL>
 %  
 %  $Id$
 
-error(nargchk(1,1,nargin,'struct'));
+mlunit_narginchk(1,1,nargin);
 
 stack = dbstack;
 names = get_subfunction_names(self, stack(2).file);

@@ -37,7 +37,7 @@
 
 function struct_diffs = find_struct_differences(sa, sb, fieldpath)
 
-    error(nargchk(2, 3, nargin, 'struct'));
+    mlunit_narginchk(2, 3, nargin);
     if ~isstruct(sa), error('sa need be struct'); end
     if ~isstruct(sb), error('sb need be struct'); end
     if numel(sa)~=1, error('sa need be scalar, i.e. of size [1 1]'); end
@@ -104,7 +104,7 @@ function type = diff_type(fieldpath, missingin, expected, actual)
         return;
     end
 
-    error(nargchk(1, 4, nargin, 'struct'));
+    mlunit_narginchk(1, 4, nargin);
     if ~ischar(fieldpath), error('fieldpath need be char'); end
     if nargin<2, missingin = ''; end
     if nargin<3, expected = []; end

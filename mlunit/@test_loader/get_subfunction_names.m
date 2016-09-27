@@ -6,7 +6,7 @@ function names = get_subfunction_names(self, filename) %#ok<INUSL>
 %  
 %  $Id$
 
-error(nargchk(2,2,nargin,'struct'));
+mlunit_narginchk(2,2,nargin);
 
 str = textread(filename, '%s', 'whitespace', '', 'delimiter', '\n' );
 idx = regexp(str, '^\s*function\s+\w*', 'start');

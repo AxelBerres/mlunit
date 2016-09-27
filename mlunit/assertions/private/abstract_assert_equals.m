@@ -135,7 +135,7 @@ end
 
 function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
 
-    error(nargchk(2, 2, nargin, 'struct'));
+    mlunit_narginchk(2, 2, nargin);
     
     first_n_items = 3;
 
@@ -167,7 +167,7 @@ function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
     
 function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)
 
-    error(nargchk(2, 4, nargin, 'struct'));
+    mlunit_narginchk(2, 4, nargin);
     
     if nargin < 3, position_info = ''; end
     if nargin < 4, tolerance_msg = ''; end
@@ -212,7 +212,7 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
 
 function [a, b] = loc_cut_long_comparison(a, b, cut_length_threshold)
 
-    error(nargchk(3, 3, nargin, 'struct'));
+    mlunit_narginchk(3, 3, nargin);
     
     % find index of first differing character
     minlength = min(length(a), length(b));

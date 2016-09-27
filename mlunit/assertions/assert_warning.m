@@ -23,7 +23,7 @@ function assert_warning(func, warnid, varargin)
 %  $Id$
 
 % makes sense with both arguments only
-error(nargchk(2, Inf, nargin, 'struct'));
+mlunit_narginchk(2, Inf, nargin);
 
 % set warning state to error in order to catch in try-catch-statement
 prevwarn = warning('error', warnid); %#ok<WNTAG>
