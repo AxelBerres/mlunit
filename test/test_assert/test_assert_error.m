@@ -76,7 +76,7 @@ function test_noargs %#ok<DEFNU>
     catch
         bCaught = true;
         l = lasterror();
-        assert_equals(l.identifier, 'MATLAB:NotEnoughInputs');
+        assert_equals('MATLAB:NotEnoughInputs', l.identifier);
     end
 
     if ~bCaught, mlunit_fail(); end
