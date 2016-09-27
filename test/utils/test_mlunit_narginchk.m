@@ -33,8 +33,9 @@ function assert_nargchk_error(args, errid)
     errfun = @()true;
     try
         mlunit_narginchk(args{:});
-    catch me
-        errfun = @()rethrow(me);
+    catch
+        le = lasterror();
+        errfun = @()rethrow(le);
     end
     
     assert_error(errfun, errid);

@@ -38,5 +38,9 @@ end
 
 % Without output argument, throw exception in caller's workspace. HAH!
 if any(check_fail)
-    throwAsCaller(MException(errstrings{check_fail,:}))
+    if exist('MException', 'file') == 2
+        throwAsCaller(MException(errstrings{check_fail,:}))
+    else
+        error(errstrings{check_fail,:});
+    end
 end
