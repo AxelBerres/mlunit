@@ -19,6 +19,7 @@ mlUnit 1.6.11 (in development)
     Very large cell arrays will take printable() a long time to prepare.
     Optimization dropped execution speed for one example from about 40s to
     about 8s on R2007b.
+  - Provide release agnostic nargchk/narginchk replacement.
 
 
 mlUnit 1.6.10 (2015-11-03)
