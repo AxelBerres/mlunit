@@ -27,13 +27,10 @@ function suite = load_tests_from_mfile(self) %#ok<INUSL>
 mlunit_narginchk(1,1,nargin);
 
 stack = dbstack;
+% There are always at least two items on the call stack.
 names = get_subfunction_names(self, stack(2).file);
 
-handles = cell(size(names));
-for i=1:numel(names)
-    handle_retriever = evalin('caller', ['@() @', names{i}]);
-    handles{i} = handle_retriever();
-end
+handles = get_subfunction_handles(self, stack(2).file, names);
 
 suite = build_testsuite_object(self, stack(2).name, handles);
 

@@ -33,10 +33,12 @@
 
 call_stack = dbstack;
 
-% names = get_subfunction_names(test_loader, call_stack(2).file);
-% handles = cellfun(@str2func, names, 'UniformOutput', false);
-% test = build_testsuite_object(test_loader, call_stack(2).name, handles);
-test = build_testsuite_object(test_loader, call_stack(2).name, cellfun(@str2func, get_subfunction_names(test_loader, call_stack(2).file), 'UniformOutput', false));
+% Contracted version of:
+%   names = get_subfunction_names(test_loader, call_stack(2).file);
+%   handles = get_subfunction_handles(self, stack(2).file, names);
+%   test = build_testsuite_object(test_loader, call_stack(2).name, handles);
+% There are always at least two items on the call stack.
+test = build_testsuite_object(test_loader, call_stack(2).name, get_subfunction_handles(test_loader, call_stack(2).file, get_subfunction_names(test_loader, call_stack(2).file)));
 
 % if exactly two items on call_stack, that's load_tests_from_mfile and the test
 % function, meaning we were called from console directly -> execute suite
