@@ -1,11 +1,27 @@
-%Documentation
+%Obtain the function handle to a subfunction.
+%
+%  The subfunction is referenced by the name of the file it contains, and its
+%  subfunction name. The file must be a function file on the MATLAB path and
+%  must contain a local function/subfunction by the given name.
+%  The local function must not be a nested function.
+%
+%  The handle is obtained by spoofing a serialization byte stream and
+%  deserializing it. The byte stream format is described officially [1].
+%  The deserialization routine is available as C function mxDeserialize defined
+%  in mex.h. From R2011b onwards, there is an undocumented deserialization
+%  command available from the MATLAB console: getArrayFromByteStream.
+%  See also [2].
+%  
+%  Compatibility: R2011b and newer, especially R2015b and R2016b. Will not work
+%  on releases older than R2011b, due to lack of getArrayFromByteStream.
+%
+%  [1] https://www.mathworks.com/help/pdf_doc/matlab/matfile_format.pdf
+%  [2] http://undocumentedmatlab.com/blog/serializing-deserializing-matlab-data
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
-function handle = get_subfunction_handle(filename, subfunc_name)
+function handle = mlunit_get_subfunction_handle(filename, subfunc_name)
     narginchk(2,2);
     
     fullpath = which(filename);

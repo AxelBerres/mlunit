@@ -1,35 +1,23 @@
 %Build a test_suite with all test* methods from a .m-file.
 %
-%Use this in a function test suite's main function in order to let mlUnit access
-%its subfunctions.
+%  DEPRECATED. This function was used to let mlUnit access the
+%  subfunctions of a function test suite on MATLAB release R2015b. However, with
+%  R2016b this did not work anymore. Instead, use the old mechanism again, which
+%  is now fit to work an all MATLAB releases (up to R2016b).
+%  
+%  In the main function of your function test suite, call:
+%       
+%      test = load_tests_from_mfile(test_loader);
 %
-%This needs to be a script rather than a function, in order to obtain the
-%subfunction handles, which, from R2015b on, only works if executed from within
-%the function test suite file.
+%  This approach needed to be a script rather than a function,
+%  in order to obtain the subfunction handles, which, from R2015b on,
+%  only works if executed from within the function test suite file.
+%  However, from R2016b on, scripts will fail, too.
 %
-%Because it is a script, its implementation is tight, i.e. tries not to drop
-%temporary variables unnecessarily. The only variables created are "call_stack"
-%and "test".
-%
-%  Example
-%  =======
-%  output_tests_from_mfile is called from within the .m-file that contains
-%  the test* methods. The return parameter MUST be named "test":
-%
-%         function test = test_example
-%             output_tests_from_mfile;
-%         end
-%
-%         function test_method
-%             assert_true(0 == sin(0));
-%         end
-%
-%  See also FUNCTION_TEST_CASE.
+%  See also FUNCTION_TEST_CASE, TEST_LOADER.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 call_stack = dbstack;
 

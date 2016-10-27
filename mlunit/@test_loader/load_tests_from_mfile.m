@@ -1,8 +1,10 @@
 function suite = load_tests_from_mfile(self) %#ok<INUSL>
-%test_loader/load_tests_from_mfile returns a test_suite with all
-%test* methods from a .m-file.
-%DEPRECATED. Retained for backward compatibility for existing projects. As of
-%R2015b, it is recommended to use output_tests_from_mfile instead.
+%Returns a test_suite with all test* methods from a .m-file.
+%
+%  This is the recommended function for loading tests from a function test
+%  suite.
+%
+%  Compatibility: R2006b and newer
 %
 %  Example
 %  =======
@@ -21,8 +23,6 @@ function suite = load_tests_from_mfile(self) %#ok<INUSL>
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 mlunit_narginchk(1,1,nargin);
 
@@ -30,7 +30,18 @@ stack = dbstack;
 % There are always at least two items on the call stack.
 names = get_subfunction_names(self, stack(2).file);
 
-handles = get_subfunction_handles(self, stack(2).file, names);
+% use direct fetch mechanism if on compatible MATLAB release
+if 5 == exist('getArrayFromByteStream', 'builtin')
+    handles = get_subfunction_handles(self, stack(2).file, names);
+else
+    % on older MATLAB releases we obtain the subfunction handles by querying
+    % them on the caller's workspace
+    handles = cell(size(names));
+    for i=1:numel(names)
+        handle_retriever = evalin('caller', ['@() @', names{i}]);
+        handles{i} = handle_retriever();
+    end
+end
 
 suite = build_testsuite_object(self, stack(2).name, handles);
 
