@@ -12,5 +12,5 @@ function handles = get_subfunction_handles(self, filename, subfunc_names) %#ok<I
 
     mlunit_narginchk(3,3,nargin);
     
-    handles = cellfun(@(sname)get_subfunction_handle(filename, sname), subfunc_names, 'UniformOutput', false);
+    handles = cellfun(@(sname)mlunit_get_subfunction_handle(filename, sname), subfunc_names, 'UniformOutput', false);
 end
