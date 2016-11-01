@@ -16,15 +16,13 @@ is_func = not(cellfun('isempty', idx));
 is_func(find(is_func, 1)) = 0;
 
 tokens = transpose(regexp(str(is_func),...
-    '^\s*function\s+(\w*)\s*\%*.*',...
+    '^\s*function\s+([\]\[,_a-zA-Z0-9 ]+=\s*)?(\w*)\s*\%*.*',...
     'tokens'));
 
 % cell-unwrap tokens twice, as regexp nests its content in a 3-level cell array
-names_withempties = {};
+names = {};
 if ~isempty(tokens)
-    unwrap = @(c)[c{:}];
-    names_withempties = unwrap(unwrap(tokens));
+    first = @(c)c{1};
+    second = @(c)c{2};
+    names = cellfun(second, cellfun(first, tokens, 'UniformOutput', false), 'UniformOutput', false);
 end
-
-% filter empty items, which may result from complex local function signatures
-names = names_withempties(~cellfun('isempty', names_withempties));

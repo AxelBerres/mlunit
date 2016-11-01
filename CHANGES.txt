@@ -21,6 +21,7 @@ mlUnit 1.6.11 (in development)
   - Fix: Out of memory when using assert_equals on very large cell arrays, or
     similarly large data. Very large input would cause shortest_alignment to
     run out of memory, as it has a quadratic memory print.
+  - Fix: get_subfunction_names mistakes single output arguments for function names.
 
 
 mlUnit 1.6.10 (2015-11-03)
