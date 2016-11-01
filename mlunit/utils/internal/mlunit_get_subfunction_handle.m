@@ -22,7 +22,7 @@
 %  GNU General Public License (GPL), see LICENSE for details.
 
 function handle = mlunit_get_subfunction_handle(filename, subfunc_name)
-    narginchk(2,2);
+    mlunit_narginchk(2,2,nargin);
     
     fullpath = which(filename);
     [dummy, func_name] = fileparts(filename);
