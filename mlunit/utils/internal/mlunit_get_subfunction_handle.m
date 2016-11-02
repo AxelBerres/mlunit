@@ -140,7 +140,7 @@ end
 
 function bs = char_section(character)
     
-    assert(isscalar(text));
+    assert(isscalar(character));
 
     type_info = bytes([6, 8, 4, 0, 5, 8, 1, 1, 1, 0]);
     
