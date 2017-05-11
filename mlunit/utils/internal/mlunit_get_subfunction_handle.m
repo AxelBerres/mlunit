@@ -30,7 +30,13 @@ function handle = mlunit_get_subfunction_handle(filename, subfunc_name)
     bs = bytestream_container(fullpath,func_name,subfunc_name);
     
     try
+        % getArrayFromByteStream only available from R2011b on
+        if 5 == exist('getArrayFromByteStream', 'builtin')
         handle = getArrayFromByteStream(bs);
+        % got to use C interface for releases older than R2011b
+        else
+           handle = deserialize(bs);
+        end
     catch me
         if strcmp('MATLAB:dispatcher:UnableToResolveHiddenFunction', me.identifier)
             handle = [];
