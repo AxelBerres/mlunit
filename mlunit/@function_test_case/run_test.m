@@ -18,4 +18,6 @@ function self = run_test(self)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: run_test.m 33 2006-06-11 16:02:51Z thomi $
 
-self.test_function();
+if isa(self.test_function, 'function_handle') % Could be 0 for non-defined suite_setup and suite_teardown
+    self.test_function();
+end
