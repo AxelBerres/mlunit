@@ -1,4 +1,4 @@
-function suite = load_tests_from_mfile(self) %#ok<INUSL>
+function suite = load_tests_from_mfile(self, explicitNames) %#ok<INUSL>
 %test_loader/load_tests_from_mfile returns a test_suite with all
 %test* methods from a .m-file.
 %DEPRECATED. Retained for backward compatibility for existing projects. As of
@@ -19,15 +19,20 @@ function suite = load_tests_from_mfile(self) %#ok<INUSL>
 %
 %  See also FUNCTION_TEST_CASE.
 
-%  This Software and all associated files are released unter the 
+%  This Software and all associated files are released unter the
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
 %  $Id$
 
-mlunit_narginchk(1,1,nargin);
+mlunit_narginchk(1,2,nargin);
 
 stack = dbstack;
-names = get_subfunction_names(self, stack(2).file);
+if nargin < 2
+% There are always at least two items on the call stack.
+   names = get_subfunction_names(self, stack(2).file);
+else
+   names = explicitNames;
+end
 
 handles = cell(size(names));
 for i=1:numel(names)
