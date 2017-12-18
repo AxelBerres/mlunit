@@ -1,4 +1,4 @@
-function suite = load_tests_from_mfile(self) %#ok<INUSL>
+function suite = load_tests_from_mfile(self, explicitNames) %#ok<INUSL>
 %Returns a test_suite with all test* methods from a .m-file.
 %
 %  This is the recommended function for loading tests from a function test
@@ -21,14 +21,18 @@ function suite = load_tests_from_mfile(self) %#ok<INUSL>
 %
 %  See also FUNCTION_TEST_CASE.
 
-%  This Software and all associated files are released unter the 
+%  This Software and all associated files are released unter the
 %  GNU General Public License (GPL), see LICENSE for details.
 
-mlunit_narginchk(1,1,nargin);
+mlunit_narginchk(1,2,nargin);
 
 stack = dbstack;
+if nargin < 2
 % There are always at least two items on the call stack.
-names = get_subfunction_names(self, stack(2).file);
+   names = get_subfunction_names(self, stack(2).file);
+else
+   names = explicitNames;
+end
 
 % use direct fetch mechanism if on compatible MATLAB release
 if 5 == exist('getArrayFromByteStream', 'builtin')
