@@ -28,7 +28,7 @@ mlunit_narginchk(1,2,nargin);
 
 stack = dbstack;
 if nargin < 2
-% There are always at least two items on the call stack.
+   % There are always at least two items on the call stack.
    names = get_subfunction_names(self, stack(2).file);
 else
    names = explicitNames;
