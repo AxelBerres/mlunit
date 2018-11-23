@@ -19,8 +19,6 @@ function assert_warning(func, warnid, varargin)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 % makes sense with both arguments only
 mlunit_narginchk(2, Inf, nargin);

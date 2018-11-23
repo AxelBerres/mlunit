@@ -23,8 +23,6 @@ function assert_empty(expr, varargin)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 if nargin >= 1 && ~isempty(expr)
     reason = sprintf('Expected empty expression was actually: %s.', printable(expr));
