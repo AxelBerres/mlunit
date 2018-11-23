@@ -42,8 +42,6 @@ function assert_error(func, errspec, varargin)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 mlunit_narginchk(1, Inf, nargin);
 
