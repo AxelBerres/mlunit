@@ -83,9 +83,8 @@ function xml = printXmlTestcase(testcase)
    newline = sprintf('\n');
 
    attributes = {'classname', testcase.classname, ...
-                 'name', testcase.name};
-                 % time not available:
-                 %'time', num2str(testcase.time), ...
+                 'name', testcase.name, ...
+                 'time', num2str(testcase.time)}; % includes set_up and tear_down time
 
    content = '';
    if ~isempty(testcase.error)
