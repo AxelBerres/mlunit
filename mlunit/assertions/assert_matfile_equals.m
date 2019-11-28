@@ -12,12 +12,10 @@ function assert_matfile_equals(expected, actual, varargin)
 %     % asserts that giving files they are equal
 %     assert_matfile_equals('reference.mat', 'actual.mat');
 %
-%  See also  assert_file_equals
+%  See also  assert_exist_file
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id: assert_matfile_equals.m 167 2012-06-06 16:10:56Z jens.dorroch $
 
 mlunit_narginchk(2,Inf,nargin);
 

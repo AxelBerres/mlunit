@@ -30,7 +30,11 @@ function test_proper_errors %#ok<DEFNU>
 
     % with variable injection
     v1 = 3; v2 = {};
-    assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');
+    if verLessThan('matlab', '9.3')
+        assert_error(@() max(v1, v2), 'MATLAB:UndefinedFunction');
+    else
+        assert_error(@() max(v1, v2), 'MATLAB:max:wrongSecondInput');
+    end
 
 
 function proxy_deep_stack_error

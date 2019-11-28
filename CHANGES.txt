@@ -3,9 +3,10 @@
 =====================================
 
 
-mlUnit 1.6.11 (in development)
-------------------------------
+mlUnit 1.7.0 (2018-11-21)
+-------------------------
 
+  - assert_exist_file checks for existence of a file.
   - Let recursive_test_run/run_suite_collection fail on test failures, if so
     desired. This simplifies automation, as we do not rely on specific console
     output from recursive_test_run anymore.
