@@ -43,5 +43,5 @@ function loc_restore_environment(state)
     mlunit_param(state.config);
     path(state.path);
     blockdiagrams_loaded_now = find_system('SearchDepth', 0);
-    new_blockdiagrams_loaded = setdiff(blockdiagrams_loaded_now, state.all_bds_loaded);
+    new_blockdiagrams_loaded = setdiff(blockdiagrams_loaded_now, state.blockdiagrams_loaded);
     bdclose(new_blockdiagrams_loaded);
