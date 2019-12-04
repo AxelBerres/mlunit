@@ -9,7 +9,10 @@
 %  
 %  When the environment is restored, the block diagrams are closed that are
 %  loaded but not saved in the state. However, no block diagrams are loaded
-%  that are saved in the state but not currently loaded.
+%  that are saved in the state but not currently loaded. The Simulink or
+%  TargetLink libraries are not closed if they were not in the state
+%  before, to allow test cases to load these libraries for safety's sake
+%  without closing them every time after the test.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
@@ -42,6 +45,14 @@ function loc_restore_environment(state)
     cd(state.pwd);
     mlunit_param(state.config);
     path(state.path);
+    loc_restore_blockdiagrams_loaded(state);
+    
+% Close the block diagrams that are not saved in the state (excluding the
+% simulink and TargetLink library)
+function loc_restore_blockdiagrams_loaded(state)
+
     blockdiagrams_loaded_now = find_system('SearchDepth', 0);
-    new_blockdiagrams_loaded = setdiff(blockdiagrams_loaded_now, state.blockdiagrams_loaded);
-    bdclose(new_blockdiagrams_loaded);
+    blockdiagrams_to_close = setdiff(blockdiagrams_loaded_now, state.blockdiagrams_loaded);
+    blockdiagrams_to_close = blockdiagrams_to_close(~strcmpi(blockdiagrams_to_close, 'simulink'));
+    blockdiagrams_to_close = blockdiagrams_to_close(~strcmpi(blockdiagrams_to_close, 'tllib'));
+    bdclose(blockdiagrams_to_close);
