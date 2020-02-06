@@ -9,6 +9,7 @@ function writeXmlTestsuite(suiteresult, targetdir)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
+%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 %
 %  Input argument targetdir defines the target directory for the XML
@@ -46,6 +47,7 @@ function writeXmlTestsuite(suiteresult, targetdir)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
+%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 function xml = printXmlTestsuite(suiteresult)
 
@@ -64,7 +66,11 @@ function xml = printXmlTestsuite(suiteresult)
    for tc = 1:length(suiteresult.testcaseList)
       content = [content printXmlTestcase(suiteresult.testcaseList{tc})]; %#ok<AGROW>
    end
-   content = [content xmlTag('system-out')];
+   if isempty(suiteresult.console)
+      content = [content xmlTag('system-out')];
+   else
+      content = [content xmlTag('system-out', {}, suiteresult.console, true)];
+   end
    content = [content xmlTag('system-err')];
    
    xml = xmlTag('testsuite', attributes, content);
@@ -77,7 +83,8 @@ function xml = printXmlTestsuite(suiteresult)
 %                 relative path name and the test suite file name
 %     .error      a description of its error. [] if no error.
 %     .failure    a description of its failure. [] if no failure.
-%     (.time)     the time used. Not supported.
+%     .time       the time used.
+%     .console    the console output of the test. Empty string if no output.
 function xml = printXmlTestcase(testcase)
 
    newline = sprintf('\n');
@@ -92,6 +99,9 @@ function xml = printXmlTestcase(testcase)
    end
    if ~isempty(testcase.failure)
       content = [content xmlTag('failure', {}, testcase.failure, true)];
+   end
+   if ~isempty(testcase.console)
+      content = [content xmlTag('system-out', {}, testcase.console, true)];
    end
 
    xml = xmlTag('testcase', attributes, content);

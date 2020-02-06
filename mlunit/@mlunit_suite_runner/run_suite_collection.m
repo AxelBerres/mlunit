@@ -119,6 +119,7 @@ function suitespecs = loc_determine_suites(testobj)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
+%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 %     .name       the test case name
 %     .classname  the name of the class/package, constructed from the
@@ -126,6 +127,7 @@ function suitespecs = loc_determine_suites(testobj)
 %     .error      a description of its error. [] if no error.
 %     .failure    a description of its failure. [] if no failure.
 %     .time       the time used in seconds
+%     .console    the console output of the test. Empty string if no output.
 function [suiteresult, self] = runTestsuite(self, suitespec)
 
    self = notify_listeners(self, 'next_suite', suitespec.testname);
@@ -134,11 +136,11 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
    % or class) even if shadowed. Pwd will be restored with mlunit_environment.
    prevpwd = cd(suitespec.fulldir);
 
-   [results, time, self] = run_suite(self, strip_classprefix(suitespec.testname));
+   [results, time, consoleOutput, self] = run_suite(self, strip_classprefix(suitespec.testname));
    
    cd(prevpwd);
    
-   suiteresult = build_suiteresult(results, time, suitespec);
+   suiteresult = build_suiteresult(results, time, suitespec, consoleOutput);
    
    
 % The results arguments is a struct array with each element representing a test
@@ -149,7 +151,8 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
 %               0x0 struct with these fields, if no errors occurred
 %   - failure : string, the failure message, empty, if no failure occurred
 %   - time    : double, the execution time in seconds
-function suiteresult = build_suiteresult(results, time, suitespec)
+%   - console : string, the console output of the test, empty string if no output
+function suiteresult = build_suiteresult(results, time, suitespec, consoleOutput)
 
    suiteresult = struct();
    suiteresult.time = time;
@@ -157,6 +160,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
    suiteresult.errors = mlunit_num_suite_errors(results);
    suiteresult.failures = mlunit_num_suite_failures(results);
    suiteresult.tests = numel(results);
+   suiteresult.console = consoleOutput;
    
    % iterate list of test cases in suite
    suiteresult.testcaseList = cell(size(results));
@@ -168,6 +172,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
       testcase.failure = results(t).failure;
+      testcase.console = results(t).console;
       
       % save into list of testcases results
       suiteresult.testcaseList{t} = testcase;

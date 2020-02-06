@@ -36,18 +36,20 @@ function [result, self, test] = run_test(self, test)
     
     % execute set_up fixture
     errors = {};
+    outputSetup = '';
     try
-        test = set_up(test);
+        [outputSetup, test] = evalc('set_up(test);');
     catch
         errors{end+1} = mlunit_errorinfo(lasterror, 'Error in set_up fixture:');
     end
 
     % execute test, only if set_up prevailed
     test_failure = '';
+    outputTest = '';
     if isempty(errors)
         method = get_name(test);
         try
-            test = eval([method, '(test)']);
+            [outputTest, test] = evalc([method, '(test);']);
         catch
             err = lasterror;
             errorinfo = mlunit_errorinfo(err);
@@ -64,13 +66,14 @@ function [result, self, test] = run_test(self, test)
                 end
 
                 errors{end+1} = errorinfo;
-            end;
-        end;
-    end;
+            end
+        end
+    end
 
     % execute tear_down fixture in any case, even if set_up or test failed
+    outputTeardown = '';
     try
-        test = tear_down(test);
+        [outputTeardown, test] = evalc('tear_down(test);');
     catch
         errors{end+1} = mlunit_errorinfo(lasterror, 'Error in tear_down fixture:');
     end
@@ -84,5 +87,6 @@ function [result, self, test] = run_test(self, test)
     result.errors = errors;
     result.failure = test_failure;
     result.time = etime(clock, start_time);
+    result.console = mlunit_strjoin({outputSetup, outputTest, outputTeardown}, '');
     
     self = notify_listeners(self, 'next_result', result);
