@@ -21,7 +21,8 @@ assert_equals(1, numel(result.errors));
 % the actual error message differs across the MATLAB releases
 releases_errmsgs = {...
     'Unbalanced or misused parentheses or brackets.', ...
-    'Unbalanced or unexpected parenthesis or bracket.'};
+    'Unbalanced or unexpected parenthesis or bracket.', ...
+    'Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.'};
 filtered_message = filter_lasterror_wraps(result.errors{1});
 assertmsg = sprintf('Unexpected filtered error message: ''%s''.', filtered_message);
 assert_true(ismember(filtered_message, releases_errmsgs), assertmsg);
