@@ -17,6 +17,8 @@ function tear_down
 
 function test_A
    disp('Test A execution');
+   fprintf('Some [%corange]%c text.\n', 8, 8);
 
 function test_B
    disp('Test B execution');
+   fprintf(2, 'Some red text.\n');

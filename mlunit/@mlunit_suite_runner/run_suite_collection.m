@@ -160,7 +160,7 @@ function suiteresult = build_suiteresult(results, time, suitespec, consoleOutput
    suiteresult.errors = mlunit_num_suite_errors(results);
    suiteresult.failures = mlunit_num_suite_failures(results);
    suiteresult.tests = numel(results);
-   suiteresult.console = consoleOutput;
+   suiteresult.console = clearFormattingMarkers(consoleOutput);
    
    % iterate list of test cases in suite
    suiteresult.testcaseList = cell(size(results));
@@ -172,7 +172,7 @@ function suiteresult = build_suiteresult(results, time, suitespec, consoleOutput
       msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
       testcase.failure = results(t).failure;
-      testcase.console = results(t).console;
+      testcase.console = clearFormattingMarkers(results(t).console);
       
       % save into list of testcases results
       suiteresult.testcaseList{t} = testcase;
@@ -206,3 +206,13 @@ function name = strip_classprefix(name)
     if ~isempty(name) && ('@' == name(1))
         name = name(2:end);
     end
+
+
+% Delete strings that MATLAB uses for formatting warnings.
+% These are '['+<BACKSPACE> and ']'+<BACKSPACE>.
+% These are not allowed as part of HTML CDATA sections.
+function s = clearFormattingMarkers(s)
+
+   backspace = char(8);
+   s = strrep(s, ['[', backspace], '');
+   s = strrep(s, [']', backspace], '');
