@@ -22,6 +22,8 @@
 %     'verbose'      - Logical false displays errors and failures only.
 %                      Defaults to false. Logical true also displays successful
 %                      test cases. Use for debugging.
+%     'catch_output'
+%     'mark_testphase'
 %
 %  VALL = MLUNIT_PARAM() returns all of the currently set mlunit parameters,
 %  as a structure. The structure's fields will represent name of parameters,
@@ -91,6 +93,8 @@ function defaults = default_values
     defaults.linked_trace = true;
     defaults.abbrev_trace = true;
     defaults.verbose = false;
+    defaults.catch_output = true;
+    defaults.mark_testphase = true;
 
 
 function value = default_value(name)

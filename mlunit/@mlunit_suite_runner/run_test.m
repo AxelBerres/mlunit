@@ -10,6 +10,7 @@
 %                empty cell array, if no errors occurred
 %    - failure : string, the failure message, empty, if no failure occurred
 %    - time    : double, the execution time in seconds
+%    - console : string, the console output of the test and its fixtures
 %
 %  [RESULT, SELF, TEST] = run_test(SELF, TEST) does the same, but also provides
 %  SELF back, the mlunit_suite_runner instance. Its states may have changed 
@@ -38,7 +39,11 @@ function [result, self, test] = run_test(self, test)
     errors = {};
     outputSetup = '';
     try
-        [outputSetup, test] = evalc('set_up(test);');
+        if mlunit_param('catch_output')
+            [outputSetup, test] = evalc('set_up(test);');
+        else
+            test = set_up(test);
+        end
     catch
         errors{end+1} = mlunit_errorinfo(lasterror, 'Error in set_up fixture:');
     end
@@ -49,7 +54,11 @@ function [result, self, test] = run_test(self, test)
     if isempty(errors)
         method = get_name(test);
         try
-            [outputTest, test] = evalc([method, '(test);']);
+            if mlunit_param('catch_output')
+                [outputTest, test] = evalc([method, '(test);']);
+            else
+                test = eval([method, '(test);']);
+            end
         catch
             err = lasterror;
             errorinfo = mlunit_errorinfo(err);
@@ -73,7 +82,11 @@ function [result, self, test] = run_test(self, test)
     % execute tear_down fixture in any case, even if set_up or test failed
     outputTeardown = '';
     try
-        [outputTeardown, test] = evalc('tear_down(test);');
+        if mlunit_param('catch_output')
+            [outputTeardown, test] = evalc('tear_down(test);');
+        else
+            test = tear_down(test);
+        end
     catch
         errors{end+1} = mlunit_errorinfo(lasterror, 'Error in tear_down fixture:');
     end
@@ -87,6 +100,31 @@ function [result, self, test] = run_test(self, test)
     result.errors = errors;
     result.failure = test_failure;
     result.time = etime(clock, start_time);
-    result.console = mlunit_strjoin({outputSetup, outputTest, outputTeardown}, '');
+    
+    if mlunit_param('mark_testphase')
+        result.console = mlunit_strjoin({...
+            prepend(outputSetup, '[setup] ') ...
+            prepend(outputTest, '[test]  ') ...
+            prepend(outputTeardown, '[tdown] ') ...
+            }, '');
+    else
+        result.console = mlunit_strjoin({outputSetup, outputTest, outputTeardown}, '');
+    end
     
     self = notify_listeners(self, 'next_result', result);
+
+
+function prepended_text = prepend(text, pretext)
+
+    if isempty(text)
+        prepended_text = text;
+    else
+        lines = mlunit_strsplit(text, char(10));
+        % prepend pretext to text, preserving whitespace in pretext
+        prepended_lines = strcat({pretext}, lines);
+        % preserve a final newline whithout pretext
+        if ~isempty(lines) && isempty(lines{end})
+            prepended_lines{end} = '';
+        end
+        prepended_text = mlunit_strjoin(prepended_lines, char(10));
+    end
