@@ -22,7 +22,7 @@
 %  
 %  $Id$
 
-function [results, time, consoleOutput, self] = run_suite(self, name)
+function [results, time, self] = run_suite(self, name)
 
 % reload test case file if modified in the same GUI session, e.g. during
 % debugging
@@ -64,10 +64,9 @@ try
     % would be no fall-back to test_case's suite_set_up in case there is no
     % override
     if isa(setup_obj, 'function_test_case')
-        outputSetup = evalc('run_test(setup_obj);');
+        run_test(setup_obj);
     else
         suite_set_up(setup_obj);
-        outputSetup = '';
     end
 catch
     suite_setup_error = mlunit_errorinfo(lasterror, 'Error in suite_set_up (occurred once for this suite, but is relevant for every test case):');
@@ -104,10 +103,9 @@ try
     % invocation is different for function based or class based test cases
     % see also suite_set_up above
     if isa(teardown_obj, 'function_test_case')
-        outputTeardown = evalc('run_test(teardown_obj);');
+        run_test(teardown_obj);
     else
         suite_tear_down(teardown_obj);
-        outputTeardown = '';
     end
 catch
     suite_teardown_error = mlunit_errorinfo(lasterror, 'Error in suite_tear_down (occurred once for this suite, but is relevant for every test case):');
@@ -127,7 +125,6 @@ if ~params_were_locked
 end
 
 time = etime(clock, suite_start_time);
-consoleOutput = mlunit_strjoin({outputSetup, outputTeardown}, '');
 
 
 function result = loc_single_result(name, error)

@@ -7,7 +7,6 @@
 %      failures       the number of failures
 %      tests          the number of executed tests
 %      time           the time used for executing the tests
-%      console        the console output of the suite_set_up and suite_tear_down fixtures
 %      testcaseList   struct array of all testcases with specific information
 %         .name       the test case name
 %         .classname  the name of the class/package, constructed from the
@@ -15,7 +14,6 @@
 %         .error      a description of its error. [] if no error.
 %         .failure    a description of its failure. [] if no failure.
 %         .time       the time used in seconds
-%         .console    the console output of the test. Empty string if no output.
 %
 %  This method is provided by the user, but should not be called by her.
 %

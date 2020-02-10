@@ -136,11 +136,11 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
    % or class) even if shadowed. Pwd will be restored with mlunit_environment.
    prevpwd = cd(suitespec.fulldir);
 
-   [results, time, consoleOutput, self] = run_suite(self, strip_classprefix(suitespec.testname));
+   [results, time, self] = run_suite(self, strip_classprefix(suitespec.testname));
    
    cd(prevpwd);
    
-   suiteresult = build_suiteresult(results, time, suitespec, consoleOutput);
+   suiteresult = build_suiteresult(results, time, suitespec);
    
    
 % The results arguments is a struct array with each element representing a test
@@ -152,7 +152,7 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
 %   - failure : string, the failure message, empty, if no failure occurred
 %   - time    : double, the execution time in seconds
 %   - console : string, the console output of the test, empty string if no output
-function suiteresult = build_suiteresult(results, time, suitespec, consoleOutput)
+function suiteresult = build_suiteresult(results, time, suitespec)
 
    suiteresult = struct();
    suiteresult.time = time;
@@ -160,7 +160,6 @@ function suiteresult = build_suiteresult(results, time, suitespec, consoleOutput
    suiteresult.errors = mlunit_num_suite_errors(results);
    suiteresult.failures = mlunit_num_suite_failures(results);
    suiteresult.tests = numel(results);
-   suiteresult.console = clearFormattingMarkers(consoleOutput);
    
    % iterate list of test cases in suite
    suiteresult.testcaseList = cell(size(results));

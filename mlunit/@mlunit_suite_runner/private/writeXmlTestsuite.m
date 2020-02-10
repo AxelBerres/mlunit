@@ -9,7 +9,6 @@ function writeXmlTestsuite(suiteresult, targetdir)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
-%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 %
 %  Input argument targetdir defines the target directory for the XML
@@ -47,7 +46,6 @@ function writeXmlTestsuite(suiteresult, targetdir)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
-%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 function xml = printXmlTestsuite(suiteresult)
 
@@ -66,11 +64,7 @@ function xml = printXmlTestsuite(suiteresult)
    for tc = 1:length(suiteresult.testcaseList)
       content = [content printXmlTestcase(suiteresult.testcaseList{tc})]; %#ok<AGROW>
    end
-   if isempty(suiteresult.console)
-      content = [content xmlTag('system-out')];
-   else
-      content = [content xmlTag('system-out', {}, suiteresult.console, true)];
-   end
+   content = [content xmlTag('system-out')];
    content = [content xmlTag('system-err')];
    
    xml = xmlTag('testsuite', attributes, content);

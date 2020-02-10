@@ -7,7 +7,6 @@ function report = printSummary(suiteresults, time)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
-%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 
 %  This Software and all associated files are released unter the 
