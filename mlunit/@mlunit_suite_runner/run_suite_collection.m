@@ -210,8 +210,14 @@ function name = strip_classprefix(name)
 % Delete strings that MATLAB uses for formatting warnings.
 % These are '['+<BACKSPACE> and ']'+<BACKSPACE>.
 % These are not allowed as part of HTML CDATA sections.
+% Older '{'+<BACKSPACE> markers are allowed in HTML CDATA,
+% but show curly brackets for no apparent reason.
 function s = clearFormattingMarkers(s)
 
    backspace = char(8);
+   % newer R2018b compatible markers
    s = strrep(s, ['[', backspace], '');
    s = strrep(s, [']', backspace], '');
+   % older R2011b compatible markers
+   s = strrep(s, ['{', backspace], '');
+   s = strrep(s, ['}', backspace], '');
