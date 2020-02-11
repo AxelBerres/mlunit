@@ -1,6 +1,6 @@
-=================
-   m l U n i t
-=================
+
+m l U n i t
+===========
 
 mlUnit is a unit test framework for the MATLAB M language.
 It follows patterns of the xUnit family, including assertions,
@@ -17,17 +17,15 @@ This software and all associated files are released unter the GNU General
 Public License (GPL) as published by the Free Software Foundation (see 
 LICENSE file).
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
-PREPARATION
+INSTALLATION
+============
 
 
 mlUnit may be installed (paths registered in MATLAB), or employed dynamically
 on a per-use base.
-
-
-INSTALLATION
 
 1. Unzip mlunit.zip to $HOME.
 2. Change to directory in MATLAB:
@@ -42,6 +40,7 @@ INSTALLATION
 
 
 DYNAMICAL EMPLOYMENT
+--------------------
 
 1. Add all source file directories to the MATLAB search path.
 2. Add mlUnit to the MATLAB search path, including sub directories.
@@ -54,14 +53,16 @@ DYNAMICAL EMPLOYMENT
 
 
 REQUIREMENTS
+------------
 
 mlUnit is expected to run on all MATLAB versions from R2007b up to any new
 version. It has been tested with R2007b, R2011b, R2014b, R2015b, R2016b, R2017b.
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 USAGE
+=====
 
 
 Execute mlUnit manually or automatically from within MATLAB, or
@@ -111,10 +112,11 @@ matlabcommand.xml should recognize failures, even without stdout output,
 as it works on the log file produced.
 
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 HOW TO TEST
+===========
 
 
 As an example a test for the built-in sin function is written:
@@ -185,10 +187,11 @@ Be careful when using a custom report base directory that is longer than the
 directory containing your test cases. Otherwise, MATLAB may not be able
 to write the jUnit reports.
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 PARAMETERS AND BRIDGING FIXTURES
+================================
 
 
 You can define parameters in order to change mlUnit's behaviour. For example,
@@ -300,21 +303,23 @@ in unit tests and should be avoided where possible, let this serve as example:
       fid = mlunit_param('my_precious_fid');
       fclose(fid);
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 MLUNIT TESTS
+============
 
 
-As mlUnit was developed loosely test-driven, there are a number of tests in the
+As mlUnit was developed somewhat test-driven, there are a number of tests in the
 test directory, which can be run by
 
 >> recursive_test_run('$MLUNIT\mlunit\test')
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 MIGRATION
+=========
 
 With 1.6.10, function test suites should change their front loading mechanism,
 if they are going to be run under MATLAB R2015b or newer. Proper function suites
@@ -337,10 +342,11 @@ calls with calls to assert_true() in test cases. In places where you actually
 want to assert a constraint in production code rather than a test case, use the
 MATLAB built-ins assert() or error().
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 QUESTIONS, COMMENTS, BUGS
+=========================
 
 If you have a question, a comment or a bug report, please send an email to 
 any of the maintainers.
