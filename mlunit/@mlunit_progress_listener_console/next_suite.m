@@ -18,5 +18,5 @@ function self = next_suite(self, name)
 
     % Add succeeding newlines here, in order for debug output of tests to show
     % up near that test's status output
-    snippet = sprintf('Running suite %s\n', name);
+    snippet = sprintf('\nRunning suite %s', name);
     disp(snippet);
