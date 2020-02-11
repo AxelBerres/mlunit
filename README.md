@@ -55,8 +55,8 @@ DYNAMICAL EMPLOYMENT
 
 REQUIREMENTS
 
-mlUnit is expected to run on all MATLAB versions from R2006b up to any new
-version. It has been tested with R2006b, R2007b, R2011b, R2014b and R2015b.
+mlUnit is expected to run on all MATLAB versions from R2007b up to any new
+version. It has been tested with R2007b, R2011b, R2014b, R2015b, R2016b, R2017b.
 
 ===========================================================================
 
@@ -255,6 +255,19 @@ executed.
 However, sometimes you may need to also know which test cases succeeded, or
 in which order the test cases executed, or to what test case some interposing
 debug output belongs. In these cases, set verbose to true.
+
+catch_output -- By default, output to the MATLAB console that occurs during
+the test, interleaves with output from mlUnit. This will be very distracting
+if your tests, or the tested functions, output a lot of information. By setting
+catch_output, all console output emitted by tests, or set_up and tear_down
+fixtures, is caught. It can then only be seen in the jUnit report for that
+test suite. Since all considered jUnit displays ignore output on the testsuite
+level, mlUnit does not catch suite_set_up and suite_tear_down output. Please
+keep your suite_set_up and suite_tear_down function clean of any output.
+
+mark_testphase -- If you choose to catch test output in order to put it into
+the jUnit XML, mark_testphase will prepend each output line with the source
+from whence it came.
 
 For details of how to employ these parameters, see:
 

@@ -2,6 +2,21 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.8.0 (in development)
+-----------------------------
+
+  - mlUnit parameter catch_output catches console output that occurs during
+    tests (and test-level fixtures), and includes it in the jUnit report.
+  - If warnings are included in caught test output, their hilight markers
+    (making the text orange in MATLAB) are deleted, because they are
+    incompatible with XML.
+  - Compatibility with MATLAB R2018b.
+  - Execution time is now given for each test case in the jUnit report.
+  - Console output now produces space above new items, instead of below them.
+
+  - Fix: Guard mlUnit parameters against `clear` being called in user's
+    code provided in the Ant script's `additional.cmd` property.
+
 
 mlUnit 1.7.0 (2018-11-21)
 -------------------------

@@ -119,7 +119,6 @@ function suitespecs = loc_determine_suites(testobj)
 %  failures       the number of failures
 %  tests          the number of executed tests
 %  time           the time used for executing the tests
-%  console        the console output of the suite_set_up and suite_tear_down fixtures
 %  testcaseList   a list of all testcases with specific information
 %     .name       the test case name
 %     .classname  the name of the class/package, constructed from the

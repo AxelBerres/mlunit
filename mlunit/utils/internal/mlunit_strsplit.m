@@ -1,8 +1,10 @@
 function result = mlunit_strsplit(text, separator)
-%MLUNIT_STRJOIN Concatenate a string cell's items, using a separator.
-%  S=MLUNIT_STRJOIN(C,SEP) yields the single string S: the concatenation of all of the
-%  items from string cell C. Every two items are joined with the separator SEP.
-%  SEP defaults to ', '.
+%MLUNIT_STRSPLIT Split a string at all occurences of a delimiting string.
+%  C=MLUNIT_STRSPLIT(T,SEP) yields the cell array of strings C, containing
+%  the parts of input text T that are separated by SEP.
+%  SEP defaults to ','.
+%  C will contain empty items, if T contains two separators immediately
+%  after one another, or if T start or ends on a separator.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
