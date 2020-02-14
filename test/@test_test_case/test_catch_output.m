@@ -11,7 +11,11 @@ test = mock_test_catch_output('test_method');
 assert_not_empty(result.console);
 
 % releases earlier than R2012b use {}, R2012b and later use []
-if verLessThan('matlab', '8.0')
+% releases earlier than R2011b have no warning markers
+if verLessThan('matlab', '7.13')
+    warning_start_marker = '';
+    warning_close_marker = '';
+elseif verLessThan('matlab', '8.0')
     warning_start_marker = ['{' char(8)];
     warning_close_marker = ['}' char(8)];
 else
@@ -22,9 +26,8 @@ end
 expected_output_front = sprintf([...
     '[setup] Mock test set up fixture\n' ...
     '[test]  Mock test body\n' ...
-    '[test]  %sWarning: Mock test warning%s \n' ...
-    '[test]  %s> In' ...
-    ], warning_start_marker, warning_close_marker, warning_start_marker);
+    '[test]  %sWarning: Mock test warning%s' ...
+    ], warning_start_marker, warning_close_marker);
 len = numel(expected_output_front);
 assert_equals(expected_output_front, result.console(1:len));
 

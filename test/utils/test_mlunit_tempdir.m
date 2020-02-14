@@ -118,7 +118,7 @@ function test_copyfile_relative
 function test_copy_multiple_items
 
     source_zip = fullfile('test_mlunit_tempdir_data', 'zipdata.zip');
-    source_dir = fullfile('test_mlunit_tempdir_data');
+    source_dir = 'test_mlunit_tempdir_data';
     basedir = fileparts(mfilename('fullpath'));
     source_file = fullfile(basedir, 'test_mlunit_tempdir_data', 'files', 'hello.txt');
 

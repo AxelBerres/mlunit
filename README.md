@@ -9,7 +9,7 @@ test cases and suites as well as the fixture.
 In contrast to MATLAB's own unit test framework:
 
 * mlUnit outputs jUnit compatible XML reports
-* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2006b
+* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2007b
 * mlUnit offers specialised assert functions, e.g. assert_empty, assert_warning,
   and many more.
 
