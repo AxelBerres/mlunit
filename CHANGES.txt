@@ -5,17 +5,21 @@
 mlUnit 1.8.0 (in development)
 -----------------------------
 
+  - mlunit_tempdir creates a temporary directory, optionally copies content,
+    then removes the directory automatically, after the test's tear_down.
+    This should help with some integration tests.
+
   - mlUnit parameter catch_output catches console output that occurs during
     tests (and test-level fixtures), and includes it in the jUnit report.
-  - If warnings are included in caught test output, their hilight markers
-    (making the text orange in MATLAB) are deleted, because they are
-    incompatible with XML.
-  - Compatibility with MATLAB R2018b.
   - Execution time is now given for each test case in the jUnit report.
+  - Compatibility with MATLAB R2018b.
   - Console output now produces space above new items, instead of below them.
 
   - Fix: Guard mlUnit parameters against `clear` being called in user's
     code provided in the Ant script's `additional.cmd` property.
+  - Fix: If warnings are included in caught test output, their hilight markers
+    (making the text orange in MATLAB) are deleted, because they are
+    incompatible with XML.
 
 
 mlUnit 1.7.0 (2018-11-21)

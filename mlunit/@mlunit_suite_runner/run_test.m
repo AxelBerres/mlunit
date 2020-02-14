@@ -92,7 +92,10 @@ function [result, self, test] = run_test(self, test)
     end
 
     % restore previous environment after test and fixtures finished
-    mlunit_environment(previous_environment);
+    [dummy, rmdirErrors] = mlunit_environment(previous_environment);
+    if ~isempty(rmdirErrors)
+        errors{end+1} = mlunit_errorinfo(rmdirErrors, 'Error(s) removing temporary directories after tear_down fixture. Maybe due to open file handles?');
+    end
 
     % build result structure
     result = struct();

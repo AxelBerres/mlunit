@@ -99,6 +99,7 @@ end
 
 % execute suite tear_down
 teardown_obj = get_teardown(testsuite);
+teardownFailResult = [];
 try
     % invocation is different for function based or class based test cases
     % see also suite_set_up above
@@ -109,15 +110,25 @@ try
     end
 catch
     suite_teardown_error = mlunit_errorinfo(lasterror, 'Error in suite_tear_down (occurred once for this suite, but is relevant for every test case):');
-    result = loc_single_result('suite_tear_down', suite_teardown_error);
-    
+    teardownFailResult = loc_single_result('suite_tear_down', suite_teardown_error);
+end
+
+% restore environment after suite execution
+[dummy, rmdirErrors] = mlunit_environment(previous_environment);
+if ~isempty(rmdirErrors)
+    rmdirErrorinfo = mlunit_errorinfo(rmdirErrors, 'Error(s) removing temporary directories after suite_test_down fixture:');
+    if isempty(teardownFailResult)
+        teardownFailResult = loc_single_result('suite_tear_down', rmdirErrorinfo);
+    else
+        teardownFailResult.errors{end+1} = rmdirErrorinfo;
+    end
+end
+
+if ~isempty(teardownFailResult)
     % notify listeners of surplus test carrying the teardown error; add to list
     self = notify_listeners(self, 'next_result', result);
     results(end+1) = result;
 end
-
-% restore environment after suite execution
-mlunit_environment(previous_environment);
 
 % restore previous lock state of mlunit_param
 if ~params_were_locked
