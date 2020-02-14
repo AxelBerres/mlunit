@@ -134,3 +134,4 @@ function result = loc_single_result(name, error)
     result.errors = {error};
     result.failure = '';
     result.time = 0;
+    result.console = '';
