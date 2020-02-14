@@ -5,11 +5,17 @@ function result = mlunit_strsplit(text, separator)
 %  SEP defaults to ','.
 %  C will contain empty items, if T contains two separators immediately
 %  after one another, or if T start or ends on a separator.
+%
+%  Examples
+%
+%     % returns {'a', 'b', 'c'}
+%     c = mlunit_strsplit('a,b,c');
+%
+%     % returns {'', 'f', 'bar', 'da'}
+%     c = mlunit_strsplit('oofoobarooda', 'oo');
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 if nargin < 1, result = {}; return; end
 if nargin < 2, separator = ','; end

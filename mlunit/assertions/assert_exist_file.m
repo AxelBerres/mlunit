@@ -3,7 +3,7 @@ function assert_exist_file(expr, varargin)
 %  ASSERT_EXIST_FILE(FILE) calls exist(FILE, 'file') and raises a MATLAB error if it does
 %  not yield 2.
 %
-%  ASSERT_EXIST_FILE(EXPR, MSG, varargin) does the same, but with the custom
+%  ASSERT_EXIST_FILE(FILE, MSG, varargin) does the same, but with the custom
 %  error message MSG. MSG may contain sprintf arguments, which can be
 %  expanded by subsequent arguments in varargin.
 %
@@ -11,7 +11,7 @@ function assert_exist_file(expr, varargin)
 %
 %  Examples
 %     % assert that MATLAB's own function 'ver' exists
-%     assert_exist_file(ver, 'MATLAB is not correctly installed.');
+%     assert_exist_file('ver', 'MATLAB is not correctly installed.');
 %
 %     % (wrongly) assert that a temporary file exists
 %     assert_exist_file(tempname, 'Temporary path has not been created yet.');
