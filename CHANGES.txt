@@ -5,6 +5,7 @@
 mlUnit 1.8.0 (in development)
 -----------------------------
 
+  - assert_contains checks if a search string can be found in a text.
   - mlunit_tempdir creates a temporary directory, optionally copies content,
     then removes the directory automatically, after the test's tear_down.
     This should help with some integration tests.
