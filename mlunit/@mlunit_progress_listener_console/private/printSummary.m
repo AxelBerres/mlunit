@@ -21,6 +21,7 @@ num_suites = numel(suiteresults);
 num_tests = summarize('tests');
 num_fails = summarize('failures');
 num_errors = summarize('errors');
+num_skipped = summarize('skipped');
 
 separator = sprintf('----------------------------------------------------------------------\n');
 lastseparator = sprintf('======================================================================\n');
@@ -31,6 +32,10 @@ report = [report sprintf('Executed %s across %s in %.2fs\n', ...
     plural_form('suite', num_suites), ...
     time)];
 report = [report sprintf('\n')];
+
+if num_skipped > 0
+    report = [report sprintf('%s SKIPPED\n', test_count_string(num_skipped))];
+end
 
 % output verdict
 if num_fails == 0 && num_errors == 0

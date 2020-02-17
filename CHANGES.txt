@@ -10,6 +10,9 @@ mlUnit 1.8.0 (in development)
   - mlunit_tempdir creates a temporary directory, optionally copies content,
     then removes the directory automatically, after the test's tear_down.
     This should help with some integration tests.
+  - mlunit_skip skips a test at run time. Skipped tests will generally count
+    as passed. However their respective tear_down will still run, and may
+    ultimately throw an error.
 
   - mlUnit parameter catch_output catches console output that occurs during
     tests (and test-level fixtures), and includes it in the jUnit report.
@@ -23,6 +26,10 @@ mlUnit 1.8.0 (in development)
   - Fix: If warnings are included in caught test output, their hilight markers
     (making the text orange in MATLAB) are deleted, because they are
     incompatible with XML.
+  - Fix: Output order of test events now is 1. Failed, 2. Skipped, 3. Errors.
+    This reflects the order of occurence. If one test has a failure and an error,
+    this may only have come from an error in its tear_down fixture.
+    Failure and skip can not happen at the same time in one test.
 
 
 mlUnit 1.7.0 (2018-11-21)

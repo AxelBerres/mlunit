@@ -125,6 +125,7 @@ function suitespecs = loc_determine_suites(testobj)
 %                 relative path name and the test suite file name
 %     .error      a description of its error. [] if no error.
 %     .failure    a description of its failure. [] if no failure.
+%     .skip       a description of why the test was skipped. [] if no skip.
 %     .time       the time used in seconds
 %     .console    the console output of the test. Empty string if no output.
 function [suiteresult, self] = runTestsuite(self, suitespec)
@@ -158,6 +159,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
    suiteresult.name = packageFromRelativeDir(suitespec.reldir, suitespec.testname);
    suiteresult.errors = mlunit_num_suite_errors(results);
    suiteresult.failures = mlunit_num_suite_failures(results);
+   suiteresult.skipped = mlunit_num_suite_skipped(results);
    suiteresult.tests = numel(results);
    
    % iterate list of test cases in suite
@@ -170,6 +172,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
       testcase.failure = results(t).failure;
+      testcase.skipped = results(t).skipped;
       testcase.console = clearFormattingMarkers(results(t).console);
       
       % save into list of testcases results

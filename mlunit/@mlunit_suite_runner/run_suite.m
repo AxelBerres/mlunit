@@ -144,5 +144,6 @@ function result = loc_single_result(name, error)
     result.name = name;
     result.errors = {error};
     result.failure = '';
+    result.skipped = '';
     result.time = 0;
     result.console = '';

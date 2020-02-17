@@ -27,6 +27,7 @@ set(self.error_listbox, 'Value', 0);
 self.num_results = 0;
 self.num_errors = 0;
 self.num_failures = 0;
+self.num_skipped = 0;
 
 self.max_num_results = maxnum;
 

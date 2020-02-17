@@ -9,6 +9,7 @@
 %                all errors that occurred during execution
 %                empty cell array, if no errors occurred
 %    - failure : string, the failure message, empty, if no failure occurred
+%    - skipped : string, the skip message, empty, if not skipped
 %    - time    : double, the execution time in seconds
 %    - console : string, the console output of the test and its fixtures
 %
@@ -50,6 +51,7 @@ function [result, self, test] = run_test(self, test)
 
     % execute test, only if set_up prevailed
     test_failure = '';
+    test_skipped = '';
     outputTest = '';
     if isempty(errors)
         method = get_name(test);
@@ -64,6 +66,8 @@ function [result, self, test] = run_test(self, test)
             errorinfo = mlunit_errorinfo(err);
             if is_failure(errorinfo)
                 test_failure = get_message_with_stack(errorinfo);
+            elseif is_skipped(errorinfo)
+                test_skipped = filter_lasterror_wraps(errorinfo);
             else
                 % Previous code added some stack if the field was missing.
                 % But why would it be missing?
@@ -102,6 +106,7 @@ function [result, self, test] = run_test(self, test)
     result.name = get_function_name(test);
     result.errors = errors;
     result.failure = test_failure;
+    result.skipped = test_skipped;
     result.time = etime(clock, start_time);
     
     if mlunit_param('mark_testphase')
