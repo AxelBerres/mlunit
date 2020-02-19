@@ -32,4 +32,7 @@ stack_lines = strread(get_message_with_stack(result.errors{1}), '%s', 'delimiter
 mlunit_param('linked_trace', prev_linkedtrace);
 
 assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(stack_lines(2)))));
-assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));
+
+% Test boilerplate is filtered in the stack output, so that the user more easily
+% recognizes his/her own functions.
+% assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));
