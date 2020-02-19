@@ -28,5 +28,9 @@ otherwise
    msg_string = sprintf(msg, varargin{:});
 end
 
+if isempty(msg_string)
+    msg_string = 'Test failed during execution.';
+end
+
 % raise typed error, mask message string in order to prevent further sprintf expansion
 error('MLUNIT:Failure', '%s', msg_string);
