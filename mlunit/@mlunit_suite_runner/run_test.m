@@ -26,8 +26,6 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id: load_tests_from_mfile.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
 function [result, self, test] = run_test(self, test)
 
@@ -37,6 +35,8 @@ function [result, self, test] = run_test(self, test)
     previous_environment = mlunit_environment();
     
     % execute set_up fixture
+    test_failure = '';
+    test_skipped = '';
     errors = {};
     outputSetup = '';
     try
@@ -46,14 +46,24 @@ function [result, self, test] = run_test(self, test)
             test = set_up(test);
         end
     catch
-        errors{end+1} = mlunit_errorinfo(lasterror, 'Error in set_up fixture:');
+        err = lasterror;
+        errorinfo = mlunit_errorinfo(err);
+        if is_failure(errorinfo)
+            errorinfo = set_additional_cause(errorinfo, 'In set_up fixture:');
+            test_failure = get_message_with_stack(errorinfo);
+        elseif is_skipped(errorinfo)
+            errorinfo = set_additional_cause(errorinfo, 'In set_up fixture:');
+            test_skipped = get_message_with_stack(errorinfo);
+        else
+            legacy_stack_handling(err);
+            errorinfo = set_additional_cause(errorinfo, 'Error in set_up fixture:');
+            errors{end+1} = errorinfo;
+        end
     end
 
     % execute test, only if set_up prevailed
-    test_failure = '';
-    test_skipped = '';
     outputTest = '';
-    if isempty(errors)
+    if isempty(errors) && isempty(test_failure) && isempty(test_skipped)
         method = get_name(test);
         try
             if mlunit_param('catch_output')
@@ -67,17 +77,9 @@ function [result, self, test] = run_test(self, test)
             if is_failure(errorinfo)
                 test_failure = get_message_with_stack(errorinfo);
             elseif is_skipped(errorinfo)
-                test_skipped = filter_lasterror_wraps(errorinfo);
+                test_skipped = get_message_with_stack(errorinfo);
             else
-                % Previous code added some stack if the field was missing.
-                % But why would it be missing?
-                if (~isfield(err, 'stack'))
-                    error('MLUNIT:unexpectedExecution', 'This code seems deprecated, but we did not know when it activated. Please report this bug along with the circumstance in which it occurred.');
-%                     err.stack(1).file = char(which(method));
-%                     err.stack(1).line = '1';
-%                     err.stack = vertcat(err.stack, dbstack('-completenames'));
-                end
-
+                legacy_stack_handling(err);
                 errors{end+1} = errorinfo;
             end
         end
@@ -92,7 +94,19 @@ function [result, self, test] = run_test(self, test)
             test = tear_down(test);
         end
     catch
-        errors{end+1} = mlunit_errorinfo(lasterror, 'Error in tear_down fixture:');
+        errorinfo = mlunit_errorinfo(lasterror);
+        if is_failure(errorinfo)
+            errorinfo = set_additional_cause(errorinfo, 'Assertion failed in tear_down fixture, which is not allowed and treated as error:');
+        elseif is_skipped(errorinfo)
+            errorinfo = set_additional_cause(errorinfo, 'Skipping is not possible in tear_down fixture:');
+        else
+            errorinfo = set_additional_cause(errorinfo, 'Error in tear_down fixture:');
+        end
+        
+        % Skips and failures during tear_down get mapped to errors, because tear_down is
+        % always executed as a fail-safe. If we allowed skips and failures, this means
+        % that a test could have several failures and several skips.
+        errors{end+1} = errorinfo;
     end
 
     % restore previous environment after test and fixtures finished
@@ -122,6 +136,7 @@ function [result, self, test] = run_test(self, test)
     self = notify_listeners(self, 'next_result', result);
 
 
+% Prepend each line of a multi-line string with the same pretext.
 function prepended_text = prepend(text, pretext)
 
     if isempty(text)
@@ -135,4 +150,15 @@ function prepended_text = prepend(text, pretext)
             prepended_lines{end} = '';
         end
         prepended_text = mlunit_strjoin(prepended_lines, char(10));
+    end
+
+function legacy_stack_handling(err)
+        
+    % Previous code added some stack if the field was missing.
+    % But why would it be missing?
+    if (~isfield(err, 'stack'))
+        warning('MLUNIT:unexpectedExecution', 'This code seems deprecated, but we did not know when it activated. Please report this bug along with the circumstance in which it occurred.');
+%         err.stack(1).file = char(which(method));
+%         err.stack(1).line = '1';
+%         err.stack = vertcat(err.stack, dbstack('-completenames'));
     end
