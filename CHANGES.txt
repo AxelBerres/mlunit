@@ -13,8 +13,10 @@ mlUnit 1.8.0 (in development)
   - mlunit_skip skips a test at run time. Skipped tests will generally count
     as passed. However their respective tear_down will still run, and may
     ultimately throw an error.
-
-  - mlUnit parameter catch_output catches console output that occurs during
+  - You may statically disable tests by providing arguments 'skip' and a cellstr
+    of test names in load_tests_from_mfile. These tests will also be skipped,
+    but their set_up and tear_down fixtures will not run.
+  - mlUnit parameter 'catch_output' catches console output that occurs during
     tests (and test-level fixtures), and includes it in the jUnit report.
   - Execution time is now given for each test case in the jUnit report.
   - Compatibility with MATLAB R2018b.

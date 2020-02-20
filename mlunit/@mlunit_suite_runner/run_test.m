@@ -23,11 +23,19 @@
 %
 %  See also mlunit_environment.
 
+%#ok<*CHARTEN>
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
 function [result, self, test] = run_test(self, test)
+
+    % if disabled statically, don't really execute any fixture or test
+    if get_disabled(test)
+        result = construct_disabled_result(test);
+        self = notify_listeners(self, 'next_result', result);
+        return
+    end
 
     start_time = clock;
 
@@ -135,6 +143,16 @@ function [result, self, test] = run_test(self, test)
     
     self = notify_listeners(self, 'next_result', result);
 
+
+function result = construct_disabled_result(test)
+    % build result structure
+    result = struct();
+    result.name = get_function_name(test);
+    result.errors = {};
+    result.failure = '';
+    result.skipped = 'Test disabled.';
+    result.time = 0;
+    result.console = '';
 
 % Prepend each line of a multi-line string with the same pretext.
 function prepended_text = prepend(text, pretext)

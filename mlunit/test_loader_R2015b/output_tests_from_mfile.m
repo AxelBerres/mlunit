@@ -36,7 +36,7 @@ call_stack = dbstack;
 % names = get_subfunction_names(test_loader, call_stack(2).file);
 % handles = cellfun(@str2func, names, 'UniformOutput', false);
 % test = build_testsuite_object(test_loader, call_stack(2).name, handles);
-test = build_testsuite_object(test_loader, call_stack(2).name, cellfun(@str2func, get_subfunction_names(test_loader, call_stack(2).file), 'UniformOutput', false));
+test = build_testsuite_object(test_loader, call_stack(2).name, cellfun(@str2func, get_subfunction_names(test_loader, call_stack(2).file), 'UniformOutput', false), {});
 
 % if exactly two items on call_stack, that's load_tests_from_mfile and the test
 % function, meaning we were called from console directly -> execute suite

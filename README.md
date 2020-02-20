@@ -187,6 +187,35 @@ Be careful when using a custom report base directory that is longer than the
 directory containing your test cases. Otherwise, MATLAB may not be able
 to write the jUnit reports.
 
+Disabling and skipping tests
+----------------------------
+
+You may disable specific tests statically, in order to exclude them from running.
+For disabled tests, mlUnit also omits the set_up or tear_down fixture.
+Disabled tests will appear in reports as skipped.
+In order to disable tests, provide their names along with the 'skip' flag when
+calling load_tests_from_mfile:
+
+    function test = test_example
+        test = load_tests_from_mfile(test_loader, 'skip', {'test_foo', 'test_bar'});
+    end
+
+You may also skip test dynamically. For example, if the reason for skipping a test
+can only be determined at run time. In order to skip tests, call mlunit_skip in
+the test or its set_up fixture:
+
+    function test_foo
+        if ~foobar_available
+            mlunit_skip('No foobar on system.');
+        end
+    end
+
+For skipped tests, mlUnit will run the set_up and tear_down fixture, because
+skipping can only be determined during execution of the set_up or the test.
+Since the set_up fixture did run, the tear_down fixture needs to be able to
+clean up, too.
+Skipped tests will appear in reports as skipped.
+
 -------------------------------------------------------------------------------
 
 
