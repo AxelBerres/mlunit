@@ -32,11 +32,12 @@ stack = self.err.stack;
 % lasterror wraps runtime errors with either:
 %    'Error using ==>...' on R2006b to R2010b, or
 %    'Error using <a href...' from R2011b on
+%    'Error using myfunction' when MATLAB runs with arguments -automation -nodesktop
+%    No sensible regexp comes to mind, therefore we just skip anything after "Error using"
 regexp_runtime_err = ['^Error using ' ...   % always starts with 'Error using'
-                      '(==>|<a href)' ...   % '==>' before R2011b, as <a> after
                       '[^\n]*' ...          % skip anything on this line
                       '\n(.*)'];            % capture the next line(s)
-num_captures_runtime_err = 2;               % 2 capture groups if successful
+num_captures_runtime_err = 1;               % 2 capture groups if successful
 
 % lasterror wraps syntax errors really awkwardly across the releases
 % for details, see test_mlunit_errorinfo
@@ -57,7 +58,7 @@ tokens_syntax = regexp(message, regexp_syntax_err, 'tokens', 'once');
 
 % match either a runtime or a syntax error
 if length(tokens_runtime) == num_captures_runtime_err
-    message = char(tokens_runtime(2));
+    message = char(tokens_runtime(1));
 elseif length(tokens_syntax) == num_captures_syntax_err
     message = char(tokens_syntax(6));
     file = char(tokens_syntax(2));

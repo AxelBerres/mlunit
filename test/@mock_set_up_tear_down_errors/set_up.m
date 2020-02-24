@@ -1,6 +1,7 @@
 function self = set_up(self)
 
-test_name_contains = @(q) ~isempty(strfind(get_name(self.test_case), q));
+name = get_name(self.test_case);
+test_name_contains = @(q) ~isempty(strfind(name, q));
 
 if test_name_contains('set_up_assert')
     mlunit_fail('This is an assert_* call in set_up.');
