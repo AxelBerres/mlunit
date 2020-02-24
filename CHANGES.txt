@@ -28,6 +28,8 @@ mlUnit 1.8.0 (in development)
   - Fix: If warnings are included in caught test output, their hilight markers
     (making the text orange in MATLAB) are deleted, because they are
     incompatible with XML.
+  - Fix: The Ant build script is now able to display MATLAB output while running
+    even for newer MATLAB versions (R2015b and newer).
   - Fix: Output order of test events now is 1. Failed, 2. Skipped, 3. Errors.
     This reflects the order of occurence. If one test has a failure and an error,
     this may only have come from an error in its tear_down fixture.

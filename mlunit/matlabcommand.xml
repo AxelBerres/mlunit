@@ -24,8 +24,8 @@
   the matlabcommand task as many times you want, but only with the same
   matlab.exec/matlab.root configuration within this session.
   This is in effect from the time either the matlabcommand task, or
-  the checkmatlab target executes for the first time. You input property
-  (matlab.exec or matlab.root) need to be defined at that time.
+  the checkmatlab target executes for the first time. Your input property
+  (matlab.exec or matlab.root) needs to be defined at that time.
 
   The matlabcommand task takes these attributes:
 
@@ -63,32 +63,56 @@
     <sequential>
         <property name="error.signature" value="MATLAB threw error"/>
         <construct-matlab-exec/>
+        <construct-release-specific-args/>
         <echo message="Using MATLAB: ${matlab.exec}"/>
 
         <!-- Calling MATLAB by means of its core executable, e.g.
              matlabroot/bin/win32/matlab.exe, not a delegate executable, e.g.
-             matlabroot/bin/matlab.exe or matlab.bat.
-             We let MATLAB write its output into a log file
-             and query its contents in order to determine execution failure.
-             This makes it independent from Ant's logging mechanism and also
-             routes the output through Ant's stdout. -->
-        <exec executable="${matlab.exec}" logError="true">
+             matlabroot/bin/matlab.exe or matlab.bat. The delegate executables
+             sometimes return before MATLAB is finished, and sometimes do not
+             route output through stdout and stderr on releases prior to R2015b.
+             We let MATLAB write its output on stdout/stderr, so that users
+             can see the progress as MATLAB runs, and write it into a log file
+             afterwards. -->
+        
+        <exec executable="${matlab.exec}">
+          <!-- <exec>'s logError attribute only applies if also using output/
+               outputproperty, but not error/errorproperty; then logError only
+               includes stdout, but not stderr, which goes to Ant's stdout, as
+               it would have without using output/outputproperty. -->
           <!-- by default: spawn="false" failonerror="false" -->
           <arg value="-automation"/>
           <arg value="-nosplash"/>
           <arg value="-nodesktop"/>
-          <!-- We may actually have that jvm at a later time... -->
           <!--arg value="-nojvm"/  yields options conflict with, presumably, -automation-->
-          <!-- -wait option only valid for delegate executables -->
+          <!-- -wait option only valid for delegate executables on newer MATLABs -->
           <arg value="-r"/>
           <arg value="addpath('@{command.dir}');try;@{command.string};catch;err=lasterror;disp('${error.signature}');disp(err.message);end;exit;"/>
-          <arg value="-logfile"/>
-          <arg value="@{logfile}"/>
+          <arg value="${release-specific-args}"/>
+          
+          <!-- Newer MATLABs (e.g. R2018b) do not output to stdout anymore.
+               However, if using the '-log' flag, they do, only to
+               stderr instead of stdout, for whatever reason.
+               Unfortunately, you can only choose '-log', or '-logfile', not both.
+               As we want to see MATLAB's output live on Ant's stdout, and also
+               put it in a log file at the same time, and check its contents in
+               an Ant property, we use Ant's redirector to mirror
+               MATLAB's stderr to Ant's stdout and a log file. -->
+          <redirector alwayslog="true" outputproperty="partial.output" errorproperty="partial.error"/>
+          <!-- with 'alwayslog', 'logError="false"', and outputproperty, the console
+               gets the text double. This would be the approach that worked on old
+               and new MATLAB versions, however does not work due to an Ant bug:
+               https://bz.apache.org/bugzilla/show_bug.cgi?id=53506
+               -->
         </exec>
 
-        <!-- Instead of actual MATLAB output, which may be empty, return content
-             of the logfile. -->
-        <loadfile property="@{output.property}" srcfile="@{logfile}"/>
+        <!-- Construct output from the concatenation of stdout and stderr.
+             We expect only one of those to contain text, therefore we
+             do not need a ${line.separator}. -->
+        <property name="@{output.property}" value="${partial.output}${partial.error}"/>
+
+        <!-- write logfile -->
+        <echo file="@{logfile}" message="${@{output.property}}"/>
 
         <!-- mark succeeded if we do not find the error signature. -->
         <condition property="@{success.property}">
@@ -134,14 +158,21 @@
              This works, because the first definition of matlab.exec can never
              be changed. -->
 
+        <!-- Construct matlab.exec from a matlab.root that points to the correct root dir -->
+        <property name="matlabroot.bin.win64.exec" location="${matlab.root}/bin/win64/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.bin.win64.exec}">
+            <available file="${matlabroot.bin.win64.exec}" type="file"/>
+        </condition>
+        
         <property name="matlabroot.bin.win32.exec" location="${matlab.root}/bin/win32/MATLAB.exe"/>
         <condition property="matlab.exec" value="${matlabroot.bin.win32.exec}">
             <available file="${matlabroot.bin.win32.exec}" type="file"/>
         </condition>
 
-        <property name="matlabroot.bin.win64.exec" location="${matlab.root}/bin/win64/MATLAB.exe"/>
-        <condition property="matlab.exec" value="${matlabroot.bin.win64.exec}">
-            <available file="${matlabroot.bin.win64.exec}" type="file"/>
+        <!-- Construct matlab.exec from a matlab.root that to <matlabroot>/bin -->
+        <property name="matlabroot.win64.exec" location="${matlab.root}/win64/MATLAB.exe"/>
+        <condition property="matlab.exec" value="${matlabroot.win64.exec}">
+            <available file="${matlabroot.win64.exec}" type="file"/>
         </condition>
 
         <property name="matlabroot.win32.exec" location="${matlab.root}/win32/MATLAB.exe"/>
@@ -149,15 +180,12 @@
             <available file="${matlabroot.win32.exec}" type="file"/>
         </condition>
 
-        <property name="matlabroot.win64.exec" location="${matlab.root}/win64/MATLAB.exe"/>
-        <condition property="matlab.exec" value="${matlabroot.win64.exec}">
-            <available file="${matlabroot.win64.exec}" type="file"/>
-        </condition>
-
+        <!-- Construct matlab.exec from a matlab.root that points <matlabroot>/bin/win64 -->
         <property name="matlabroot.exec" location="${matlab.root}/MATLAB.exe"/>
         <condition property="matlab.exec" value="${matlabroot.exec}">
             <available file="${matlabroot.exec}" type="file"/>
         </condition>
+      
 
         <fail message="Could not find MATLAB. No matlab.exec property was given. A matlab.root property was given, but was not a valid MATLAB root directory: '${matlab.root}'.">
           <condition>
@@ -182,6 +210,46 @@
             </and>
           </condition>
         </fail>
+    </sequential>
+  </macrodef>
+
+  <!-- MATLAB R2015b and newer don't output on stdout anymore. Using the
+       undocumented command argument -log, they output on stderr, which
+       we use. However, older MATLABs don't understand -log and output
+       a message, distracting the user. Therefore on older MATLABs we
+       need to map -log to an empty argument.
+       For that purpose, we call "matlab -help", which outputs a version
+       string. We need to call the delegate <matlabroot/bin/MATLAB.exe,
+       as only this outputs the help text. It also does not start MATLAB,
+       and therefore finishes quickly. -->
+  <macrodef name="construct-release-specific-args">
+    <sequential>
+      <!-- Construct from final matlab.exec -->
+      <dirname property="matlab.exec.dir" file="${matlab.exec}"/>
+
+      <!-- Construct matlab.help.exec from a matlab.exec.dir that points to the core MATLAB.exe -->
+      <property name="matlab.oneup.help.exec" location="${matlab.exec.dir}/../matlab.exe"/>
+      <condition property="matlab.help.exec" value="${matlab.oneup.help.exec}">
+        <available file="${matlab.oneup.help.exec}" type="file"/>
+      </condition>
+      <!-- Construct matlab.help.exec from a matlab.exec.dir that points to the delegate MATLAB.exe -->
+      <property name="matlab.help.exec" location="${matlab.exec.dir}/matlab.exe"/>
+
+      <!-- call by "cmd /c matlab -help & rem" in order to suppress output of the return result of -1 -->
+      <exec executable="cmd" outputproperty="help.text">
+        <arg value="/c"/>
+        <arg value="${matlab.help.exec} -help &amp; rem"/>
+      </exec>
+
+      <!-- Recognize versions 7.5 (R2007b) through 7.14 (2012a), and 
+           versions 8.0 (R2012b) through 8.5 (R2015a).
+           We don't support earlier versions, and switch to the -log option for
+           newer versions (R2015b and later). -->
+      <condition property="release-specific-args" value="" else="-log">
+        <matches pattern="Version: (7\.[5-9]|7\.1[0-4]|8\.[0-5])\.[0-9]+,[0-9]+" string="${help.text}"/>
+      </condition>
+
+      <echo message="Determined release specific arguments: ${release-specific-args}"/>
     </sequential>
   </macrodef>
 
