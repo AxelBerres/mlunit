@@ -53,6 +53,7 @@ function xml = printXmlTestsuite(suiteresult)
    attributes = {'name', suiteresult.name, ...
                  'errors', num2str(suiteresult.errors), ...
                  'failures', num2str(suiteresult.failures), ...
+                 'skipped', num2str(suiteresult.skipped), ...
                  'tests', num2str(suiteresult.tests), ...
                  'time', num2str(suiteresult.time), ...
                  'hostname', 'unknown', ...
@@ -77,7 +78,9 @@ function xml = printXmlTestsuite(suiteresult)
 %                 relative path name and the test suite file name
 %     .error      a description of its error. [] if no error.
 %     .failure    a description of its failure. [] if no failure.
-%     (.time)     the time used. Not supported.
+%     .skip       a description of why the test was skipped. [] if no skip.
+%     .time       the time used.
+%     .console    the console output of the test. Empty string if no output.
 function xml = printXmlTestcase(testcase)
 
    newline = sprintf('\n');
@@ -92,6 +95,12 @@ function xml = printXmlTestcase(testcase)
    end
    if ~isempty(testcase.failure)
       content = [content xmlTag('failure', {}, testcase.failure, true)];
+   end
+   if ~isempty(testcase.skipped)
+      content = [content xmlTag('skipped', {}, testcase.skipped, true)];
+   end
+   if ~isempty(testcase.console)
+      content = [content xmlTag('system-out', {}, testcase.console, true)];
    end
 
    xml = xmlTag('testcase', attributes, content);

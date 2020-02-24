@@ -1,6 +1,6 @@
-=================
-   m l U n i t
-=================
+
+m l U n i t
+===========
 
 mlUnit is a unit test framework for the MATLAB M language.
 It follows patterns of the xUnit family, including assertions,
@@ -9,7 +9,7 @@ test cases and suites as well as the fixture.
 In contrast to MATLAB's own unit test framework:
 
 * mlUnit outputs jUnit compatible XML reports
-* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2006b
+* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2007b
 * mlUnit offers specialised assert functions, e.g. assert_empty, assert_warning,
   and many more.
 
@@ -17,17 +17,15 @@ This software and all associated files are released unter the GNU General
 Public License (GPL) as published by the Free Software Foundation (see 
 LICENSE file).
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
-PREPARATION
+INSTALLATION
+============
 
 
 mlUnit may be installed (paths registered in MATLAB), or employed dynamically
 on a per-use base.
-
-
-INSTALLATION
 
 1. Unzip mlunit.zip to $HOME.
 2. Change to directory in MATLAB:
@@ -42,6 +40,7 @@ INSTALLATION
 
 
 DYNAMICAL EMPLOYMENT
+--------------------
 
 1. Add all source file directories to the MATLAB search path.
 2. Add mlUnit to the MATLAB search path, including sub directories.
@@ -54,14 +53,16 @@ DYNAMICAL EMPLOYMENT
 
 
 REQUIREMENTS
+------------
 
-mlUnit is expected to run on all MATLAB versions from R2006b up to any new
-version. It has been tested with R2006b, R2007b, R2011b, R2014b and R2015b.
+mlUnit is expected to run on all MATLAB versions from R2007b up to any new
+version. It has been tested with R2007b, R2011b, R2014b, R2015b, R2016b, R2017b.
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 USAGE
+=====
 
 
 Execute mlUnit manually or automatically from within MATLAB, or
@@ -111,10 +112,11 @@ matlabcommand.xml should recognize failures, even without stdout output,
 as it works on the log file produced.
 
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 HOW TO TEST
+===========
 
 
 As an example a test for the built-in sin function is written:
@@ -185,10 +187,40 @@ Be careful when using a custom report base directory that is longer than the
 directory containing your test cases. Otherwise, MATLAB may not be able
 to write the jUnit reports.
 
-===========================================================================
+Disabling and skipping tests
+----------------------------
+
+You may disable specific tests statically, in order to exclude them from running.
+For disabled tests, mlUnit also omits the set_up or tear_down fixture.
+Disabled tests will appear in reports as skipped.
+In order to disable tests, provide their names along with the 'skip' flag when
+calling load_tests_from_mfile:
+
+    function test = test_example
+        test = load_tests_from_mfile(test_loader, 'skip', {'test_foo', 'test_bar'});
+    end
+
+You may also skip test dynamically. For example, if the reason for skipping a test
+can only be determined at run time. In order to skip tests, call mlunit_skip in
+the test or its set_up fixture:
+
+    function test_foo
+        if ~foobar_available
+            mlunit_skip('No foobar on system.');
+        end
+    end
+
+For skipped tests, mlUnit will run the set_up and tear_down fixture, because
+skipping can only be determined during execution of the set_up or the test.
+Since the set_up fixture did run, the tear_down fixture needs to be able to
+clean up, too.
+Skipped tests will appear in reports as skipped.
+
+-------------------------------------------------------------------------------
 
 
 PARAMETERS AND BRIDGING FIXTURES
+================================
 
 
 You can define parameters in order to change mlUnit's behaviour. For example,
@@ -256,6 +288,19 @@ However, sometimes you may need to also know which test cases succeeded, or
 in which order the test cases executed, or to what test case some interposing
 debug output belongs. In these cases, set verbose to true.
 
+catch_output -- By default, output to the MATLAB console that occurs during
+the test, interleaves with output from mlUnit. This will be very distracting
+if your tests, or the tested functions, output a lot of information. By setting
+catch_output, all console output emitted by tests, or set_up and tear_down
+fixtures, is caught. It can then only be seen in the jUnit report for that
+test suite. Since all considered jUnit displays ignore output on the testsuite
+level, mlUnit does not catch suite_set_up and suite_tear_down output. Please
+keep your suite_set_up and suite_tear_down function clean of any output.
+
+mark_testphase -- If you choose to catch test output in order to put it into
+the jUnit XML, mark_testphase will prepend each output line with the source
+from whence it came.
+
 For details of how to employ these parameters, see:
 
    >> help mlunit_param
@@ -287,21 +332,23 @@ in unit tests and should be avoided where possible, let this serve as example:
       fid = mlunit_param('my_precious_fid');
       fclose(fid);
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 MLUNIT TESTS
+============
 
 
-As mlUnit was developed loosely test-driven, there are a number of tests in the
+As mlUnit was developed somewhat test-driven, there are a number of tests in the
 test directory, which can be run by
 
 >> recursive_test_run('$MLUNIT\mlunit\test')
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 MIGRATION
+=========
 
 With 1.6.10, function test suites should change their front loading mechanism,
 if they are going to be run under MATLAB R2015b or newer. Proper function suites
@@ -324,10 +371,11 @@ calls with calls to assert_true() in test cases. In places where you actually
 want to assert a constraint in production code rather than a test case, use the
 MATLAB built-ins assert() or error().
 
-===========================================================================
+-------------------------------------------------------------------------------
 
 
 QUESTIONS, COMMENTS, BUGS
+=========================
 
 If you have a question, a comment or a bug report, please send an email to 
 any of the maintainers.

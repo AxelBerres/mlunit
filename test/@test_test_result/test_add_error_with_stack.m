@@ -21,7 +21,8 @@ assert_equals(1, numel(result.errors));
 % the actual error message differs across the MATLAB releases
 releases_errmsgs = {...
     'Unbalanced or misused parentheses or brackets.', ...
-    'Unbalanced or unexpected parenthesis or bracket.'};
+    'Unbalanced or unexpected parenthesis or bracket.', ...
+    'Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.'};
 filtered_message = filter_lasterror_wraps(result.errors{1});
 assertmsg = sprintf('Unexpected filtered error message: ''%s''.', filtered_message);
 assert_true(ismember(filtered_message, releases_errmsgs), assertmsg);
@@ -31,4 +32,7 @@ stack_lines = strread(get_message_with_stack(result.errors{1}), '%s', 'delimiter
 mlunit_param('linked_trace', prev_linkedtrace);
 
 assert_false(isempty(findstr('test_unbalanced_parentheses.m at line', char(stack_lines(2)))));
-assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));
+
+% Test boilerplate is filtered in the stack output, so that the user more easily
+% recognizes his/her own functions.
+% assert_false(isempty(findstr('run_test.m at line', char(stack_lines(3)))));

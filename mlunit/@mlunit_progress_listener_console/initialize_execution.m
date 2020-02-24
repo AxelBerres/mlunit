@@ -25,4 +25,4 @@ function report = printHeader(test_object)
     report = [report sprintf('mlUnit %s\n', ver(mlunit, true))];
     report = [report sprintf('Started: %s\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'))];
     report = [report sprintf('Test object: %s\n', test_object)];
-    report = [report sprintf('----------------------------------------------------------------------\n')];
+    report = [report sprintf('----------------------------------------------------------------------')];

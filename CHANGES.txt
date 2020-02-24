@@ -2,6 +2,39 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.8.0 (in development)
+-----------------------------
+
+  - assert_exist_dir checks for existence of a directory.
+  - assert_contains checks if a search string can be found in a text.
+  - mlunit_tempdir creates a temporary directory, optionally copies content,
+    then removes the directory automatically, after the test's tear_down.
+    This should help with some integration tests.
+  - mlunit_skip skips a test at run time. Skipped tests will generally count
+    as passed. However their respective tear_down will still run, and may
+    ultimately throw an error.
+  - You may statically disable tests by providing arguments 'skip' and a cellstr
+    of test names in load_tests_from_mfile. These tests will also be skipped,
+    but their set_up and tear_down fixtures will not run.
+  - mlUnit parameter 'catch_output' catches console output that occurs during
+    tests (and test-level fixtures), and includes it in the jUnit report.
+  - Execution time is now given for each test case in the jUnit report.
+  - Compatibility with MATLAB R2018b.
+  - Compatibility with MATLAB R2007b. Scrapped R2006b support.
+  - Console output now produces space above new items, instead of below them.
+
+  - Fix: Guard mlUnit parameters against `clear` being called in user's
+    code provided in the Ant script's `additional.cmd` property.
+  - Fix: If warnings are included in caught test output, their hilight markers
+    (making the text orange in MATLAB) are deleted, because they are
+    incompatible with XML.
+  - Fix: The Ant build script is now able to display MATLAB output while running
+    even for newer MATLAB versions (R2015b and newer).
+  - Fix: Output order of test events now is 1. Failed, 2. Skipped, 3. Errors.
+    This reflects the order of occurence. If one test has a failure and an error,
+    this may only have come from an error in its tear_down fixture.
+    Failure and skip can not happen at the same time in one test.
+
 
 mlUnit 1.7.0 (2018-11-21)
 -------------------------

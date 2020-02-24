@@ -22,6 +22,17 @@
 %     'verbose'      - Logical false displays errors and failures only.
 %                      Defaults to false. Logical true also displays successful
 %                      test cases. Use for debugging.
+%     'catch_output' - Logical true catches the console output of test functions
+%                      and of set_up and tear_down fixtures. These are then
+%                      included separately in the jUnit report.
+%                      Logical false will mix mlUnit output and test output on
+%                      MATLAB console.
+%                      suite_set_up and suite_tear_down are never caught, because
+%                      we cannot display it. All currently used jUnit displays
+%                      omit testsuite-level system-out content.
+%     'mark_testphase' Logical true prepends caught test output with markers
+%                      indicating the output origin: [setup], [test], [tdown].
+%                      Logical false does not. Requires 'catch_output' of true.
 %
 %  VALL = MLUNIT_PARAM() returns all of the currently set mlunit parameters,
 %  as a structure. The structure's fields will represent name of parameters,
@@ -91,6 +102,8 @@ function defaults = default_values
     defaults.linked_trace = true;
     defaults.abbrev_trace = true;
     defaults.verbose = false;
+    defaults.catch_output = true;
+    defaults.mark_testphase = true;
 
 
 function value = default_value(name)

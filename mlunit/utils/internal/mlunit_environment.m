@@ -11,11 +11,16 @@
 %  
 %  $Id$
 
-function state = mlunit_environment(state)
+function [state, errors] = mlunit_environment(state)
+
+    errors = [];
 
     % if input argument, reset states to it
     if nargin > 0
-        loc_restore_environment(state);
+        rmdirErrors = loc_restore_environment(state);
+        if ~isempty(rmdirErrors)
+            errors = struct('message', {rmdirErrors});
+        end
     end
 
     % return current environment state
@@ -31,8 +36,38 @@ function state = loc_current_environment()
     state.path = path;
 
 % Reset the environment to the information stored in the state variable.
-function loc_restore_environment(state)
+function errors = loc_restore_environment(state)
 
+    errors = loc_delete_tempdirs(state.config);
     cd(state.pwd);
     mlunit_param(state.config);
     path(state.path);
+
+% Delete mlunit_tempdir directories that have been added since the previous recorded state
+function errors = loc_delete_tempdirs(prevConfig)
+
+    prevTempdirs = {};
+    if isfield(prevConfig, 'mlunit_tempdirs') && ~isempty(prevConfig.mlunit_tempdirs)
+        prevTempdirs = prevConfig.mlunit_tempdirs;
+    end
+    
+    currTempdirs = mlunit_param('mlunit_tempdirs');
+    if isempty(currTempdirs)
+        currTempdirs = {};
+    end
+    
+    removeTempdirs = setdiff(currTempdirs, prevTempdirs);
+    errors = '';
+    for i = 1:numel(removeTempdirs)
+        [success, message, msgid] = rmdir(removeTempdirs{i}, 's');
+        % record errors, but accept when the directory has already been deleted
+        if ~success && ~strcmp('MATLAB:RMDIR:NotADirectory', msgid)
+            errors = [errors, sprintf([...
+                'Error removing temporary directory:\n' ...
+                '    directory: %s\n' ...
+                '    messageid: %s\n' ...
+                '    message  : %s\n' ...
+                ], removeTempdirs{i}, msgid, message)]; %#ok<AGROW>
+        end
+        % if the dir contains open files, rmdir issues MATLAB:RMDIR:NoDirectoriesRemoved
+    end

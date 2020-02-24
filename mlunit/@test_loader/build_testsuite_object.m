@@ -1,4 +1,4 @@
-function suite = build_testsuite_object(self, suitename, funs) %#ok<INUSL>
+function suite = build_testsuite_object(self, suitename, funs, excludes) %#ok<INUSL>
 %Build a test_suite object from a list of handles.
 %
 %Looks out for special functions set_up, tear_down, suite_set_up and
@@ -6,12 +6,13 @@ function suite = build_testsuite_object(self, suitename, funs) %#ok<INUSL>
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
-mlunit_narginchk(3,3,nargin);
+mlunit_narginchk(4, 4, nargin);
 if ~iscell(funs) || ~all(cellfun(@(f)isa(f,'function_handle'),funs))
     error('funs need be cell array of function_handle objects');
+end
+if ~iscellstr(excludes)
+    error('excludes need be cellstr array');
 end
 
 set_up_handle = 0;
@@ -54,14 +55,15 @@ for i=1:numel(funs)
     fhandle = funs{i};
     finfo = functions(fhandle);
     fname = finfo.function;
+    disabled = any(strcmp(fname, excludes));
 
-    pos = findstr('test', fname);
-    if (~isempty(pos) && (pos(1) == 1))
+    if strncmp(fname, 'test', 4)
         testobj = function_test_case(...
             fhandle,...
             set_up_handle,...
             tear_down_handle, ...
-            fname);
+            fname, ...
+            disabled);
         suite = add_test(suite, testobj);
     end
 end

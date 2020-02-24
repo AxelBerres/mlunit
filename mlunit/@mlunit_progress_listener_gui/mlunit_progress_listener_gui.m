@@ -25,6 +25,7 @@ self.max_num_results = 0;
 self.num_results = 0;
 self.num_errors = 0;
 self.num_failures = 0;
+self.num_skipped = 0;
 
 self = class(self, 'mlunit_progress_listener_gui', mlunit_progress_listener);
 

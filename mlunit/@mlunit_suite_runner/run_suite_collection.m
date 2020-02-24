@@ -125,7 +125,9 @@ function suitespecs = loc_determine_suites(testobj)
 %                 relative path name and the test suite file name
 %     .error      a description of its error. [] if no error.
 %     .failure    a description of its failure. [] if no failure.
+%     .skip       a description of why the test was skipped. [] if no skip.
 %     .time       the time used in seconds
+%     .console    the console output of the test. Empty string if no output.
 function [suiteresult, self] = runTestsuite(self, suitespec)
 
    self = notify_listeners(self, 'next_suite', suitespec.testname);
@@ -149,6 +151,7 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
 %               0x0 struct with these fields, if no errors occurred
 %   - failure : string, the failure message, empty, if no failure occurred
 %   - time    : double, the execution time in seconds
+%   - console : string, the console output of the test, empty string if no output
 function suiteresult = build_suiteresult(results, time, suitespec)
 
    suiteresult = struct();
@@ -156,6 +159,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
    suiteresult.name = packageFromRelativeDir(suitespec.reldir, suitespec.testname);
    suiteresult.errors = mlunit_num_suite_errors(results);
    suiteresult.failures = mlunit_num_suite_failures(results);
+   suiteresult.skipped = mlunit_num_suite_skipped(results);
    suiteresult.tests = numel(results);
    
    % iterate list of test cases in suite
@@ -168,6 +172,8 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
       testcase.failure = results(t).failure;
+      testcase.skipped = results(t).skipped;
+      testcase.console = clearFormattingMarkers(results(t).console);
       
       % save into list of testcases results
       suiteresult.testcaseList{t} = testcase;
@@ -201,3 +207,19 @@ function name = strip_classprefix(name)
     if ~isempty(name) && ('@' == name(1))
         name = name(2:end);
     end
+
+
+% Delete strings that MATLAB uses for formatting warnings.
+% These are '['+<BACKSPACE> and ']'+<BACKSPACE>.
+% These are not allowed as part of HTML CDATA sections.
+% Older '{'+<BACKSPACE> markers are allowed in HTML CDATA,
+% but show curly brackets for no apparent reason.
+function s = clearFormattingMarkers(s)
+
+   backspace = char(8);
+   % newer R2018b compatible markers
+   s = strrep(s, ['[', backspace], '');
+   s = strrep(s, [']', backspace], '');
+   % older R2011b compatible markers
+   s = strrep(s, ['{', backspace], '');
+   s = strrep(s, ['}', backspace], '');
