@@ -34,6 +34,9 @@ mlUnit 1.8.0 (in development)
     This reflects the order of occurence. If one test has a failure and an error,
     this may only have come from an error in its tear_down fixture.
     Failure and skip can not happen at the same time in one test.
+  - Fix: Filter runtime error messages in the same way when being run with or
+    without MATLAB argument -automation.
+  - Fix: Filter new assert functions in stack output.
 
 
 mlUnit 1.7.0 (2018-11-21)
