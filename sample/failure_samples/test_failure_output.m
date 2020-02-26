@@ -245,3 +245,23 @@ function test_nested_functions
 function loc_delegated_assert
 
     mlunit_fail('Nested function test.');
+
+function test_exist_dir
+
+    assert_exist_dir(tempname);
+
+function test_exist_file
+
+    assert_exist_file(tempname);
+
+function test_contains
+
+    assert_contains('foobar', 'pi')
+
+function test_equals_precision
+
+    assert_equals(0.3, 0.1+0.2)
+
+function test_equals_precision_given
+
+    assert_equals(0.2, 0.4, 0.1)

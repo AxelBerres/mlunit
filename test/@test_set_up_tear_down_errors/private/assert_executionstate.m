@@ -5,6 +5,6 @@ function results = assert_executionstate(idxTest, nErrors, bAssert, bSkip)
     stack = dbstack();
     assert_equals(stack(2).name, results(idxTest).name, 'Mock test and actual test name do not match.');
     
-    assert_equals(nErrors, numel(results(idxTest).errors));
-    assert_equals(bAssert, ~isempty(results(idxTest).failure));
-    assert_equals(bSkip, ~isempty(results(idxTest).skipped));
+    assert_equals(nErrors, numel(results(idxTest).errors), 'Unexpected number of errors');
+    assert_equals(bAssert, ~isempty(results(idxTest).failure), 'Unexpected number of failures');
+    assert_equals(bSkip, ~isempty(results(idxTest).skipped), 'Unexpected number of skips');
