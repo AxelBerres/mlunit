@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.8.0 (in development)
------------------------------
+mlUnit 1.8.0 (2020-02-26)
+-------------------------
 
   - assert_exist_dir checks for existence of a directory.
   - assert_contains checks if a search string can be found in a text.
