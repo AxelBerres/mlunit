@@ -2,6 +2,13 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+
+mlUnit 1.8.1 (in development)
+-----------------------------
+
+  - Fix: Call MATLAB on paths containing spaces.
+
+
 mlUnit 1.8.0 (2020-02-26)
 -------------------------
 
