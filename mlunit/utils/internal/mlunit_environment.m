@@ -7,12 +7,20 @@
 %  path configuration, the Simulink block diagrams loaded and the current
 %  mlunit parameter configuration.
 %  
-%  When the environment is restored, the block diagrams are closed that are
-%  loaded but not saved in the state. However, no block diagrams are loaded
-%  that are saved in the state but not currently loaded. The Simulink or
-%  TargetLink libraries are not closed if they were not in the state
-%  before, to allow test cases to load these libraries for safety's sake
-%  without closing them every time after the test.
+%  When the environment is restored, mlUnit will close new block diagrams,
+%  i.e. block diagrams that have been loaded after the latest state save.
+%  On the other hand, mlUnit leaves missing block diagrams closed, i.e.
+%  block diagrams that were loaded before the latest state save, but have
+%  been closed thereafter by the test.
+%
+%  The Simulink library ('simulink') and TargetLink library ('tllib') are
+%  treated differently when restoring the environment. These libraries are
+%  usually loaded in Matlab, but may have been closed by bdclose('all')
+%  before running the tests. If a test needs these libraries, it should
+%  load the libraries itself. For runtime reasons, mlunit does not close
+%  these large libraries when restoring the environment, to prevent these
+%  libraries from being reloaded repeatedly. Since these libraries are
+%  normally loaded anyway, closing them is not necessary.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
