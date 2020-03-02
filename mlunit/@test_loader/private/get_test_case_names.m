@@ -12,8 +12,6 @@ function names = get_test_case_names(self, test_case_class) %#ok
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 names = loc_get_methods(test_case_class);
 for i = size(names, 1):-1:1

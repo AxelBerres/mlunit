@@ -13,7 +13,9 @@
 %                     relative path name and the test suite file name
 %         .error      a description of its error. [] if no error.
 %         .failure    a description of its failure. [] if no failure.
+%         .skip       a description of why the test was skipped. [] if no skip.
 %         .time       the time used in seconds
+%         .console    the console output of the test. Empty string if no output.
 %
 %  This method is provided by the user, but should not be called by her.
 %

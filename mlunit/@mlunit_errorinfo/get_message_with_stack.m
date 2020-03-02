@@ -18,10 +18,10 @@ function message = get_message_with_stack(self)
 % obtain message and stack
 [message, stack] = filter_lasterror_wraps(self);
 
-% reduce the stack of failures for better overview
-if is_failure(self)
+% reduce the stack of failures or skips for better overview
+% if is_failure(self) || is_skipped(self)
     stack = filter_failure_stack(self, stack);
-end
+% end
 
 % put message and stack together
 message = [message, loc_print_stack(stack)];

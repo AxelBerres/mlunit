@@ -24,24 +24,32 @@ errmessages = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
 
 has_errors = ~isempty(errmessages);
 has_failed = ~isempty(result.failure);
+has_skipped = ~isempty(result.skipped);
 
 report = '';
 
-if has_errors
-    report = [report sprintf('  %s ERROR:\n%s\n', result.name, indent(errmessages))];
+if has_skipped
+    msg = sprintf('\n  %s SKIPPED', result.name);
+    if ~strcmp('(no message available)', result.skipped)
+        msg = [msg sprintf(':\n%s', indent(result.skipped))];
+    end
+    report = [report msg];
+    
+elseif has_failed
+    report = [report sprintf('\n  %s FAIL:\n%s', result.name, indent(result.failure))];
 end
 
-if has_failed
-    if has_errors
-        % inject additional newline for joining error and fail block of the same
+if has_errors
+    if has_skipped || has_failed
+        % inject additional newline for joining fail/skip and error block of the same
         % test case
         report = [report sprintf('\n')];
     end
-    report = [report sprintf('  %s FAIL:\n%s\n', result.name, indent(result.failure))];
+    report = [report sprintf('\n  %s ERROR:\n%s', result.name, indent(errmessages))];
 end
 
-if mlunit_param('verbose') && ~has_errors && ~has_failed
-    report = [report sprintf('  %s\n', result.name)];
+if mlunit_param('verbose') && ~has_errors && ~has_failed && ~has_skipped
+    report = [report sprintf('  %s', result.name)];
 end
 
 disp(report);

@@ -1,4 +1,4 @@
-function self = test_case(name, function_name)
+function self = test_case(name, function_name, disabled)
 %Base class for a test suite.
 %  Inherit your class-based test suite from this base class. Fixture methods
 %  (set_up and tear_down) get inherited or overloaded. You should not overload
@@ -46,11 +46,8 @@ function self = test_case(name, function_name)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id$
 
-mlunit_narginchk(1,2,nargin);
+mlunit_narginchk(1,3,nargin);
 if ~ischar(name), error('name need be char'); end
 if isempty(name), error('name must not be empty'); end
 
@@ -59,7 +56,10 @@ if isempty(name), error('name must not be empty'); end
 % test_case. function_test_case based cases set this argument
 if nargin < 2, function_name = name; end
 
+if nargin < 3, disabled = false; end
+
 self.name = name;
 self.function_name = function_name;
+self.disabled = disabled;
 
 self = class(self, 'test_case');

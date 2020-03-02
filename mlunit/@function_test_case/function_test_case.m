@@ -1,4 +1,4 @@
-function self = function_test_case(test_function, set_up_function, tear_down_function, function_name)
+function self = function_test_case(test_function, set_up_function, tear_down_function, function_name, disabled)
 %Provides test case integration for a function test case.
 %  Inherits from @test_case, but only comprises one single function test case.
 %  This makes it easier to handle and is not visible outside the test case
@@ -42,17 +42,16 @@ function self = function_test_case(test_function, set_up_function, tear_down_fun
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id: function_test_case.m 173 2012-06-12 09:26:53Z alexander.roehnsch $
 
-mlunit_narginchk(0,4,nargin);
+mlunit_narginchk(0,5,nargin);
 if nargin < 1, test_function = 0; end
 if nargin < 2, set_up_function = 0; end
 if nargin < 3, tear_down_function = 0; end
 if nargin < 4, function_name = ''; end
+if nargin < 5, disabled = false; end
 
 self.test_function = test_function;
 self.set_up_function = set_up_function;
 self.tear_down_function = tear_down_function;
-t = test_case('run_test', function_name);
+t = test_case('run_test', function_name, disabled);
 self = class(self, 'function_test_case', t);

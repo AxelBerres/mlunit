@@ -3,11 +3,17 @@ function result = mlunit_strjoin(stringcell, separator)
 %  S=MLUNIT_STRJOIN(C,SEP) yields the single string S: the concatenation of all of the
 %  items from string cell C. Every two items are joined with the separator SEP.
 %  SEP defaults to ', '.
+%
+%  Examples
+%
+%     % returns 'a, b, c'
+%     str = mlunit_strjoin({'a', 'b', 'c'});
+%
+%     % returns 'oofoobarooda'
+%     str = mlunit_strjoin({'', 'f', 'bar', 'da'}, 'oo');
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 if nargin < 1, stringcell = {}; end
 if nargin < 2, separator = ', '; end
