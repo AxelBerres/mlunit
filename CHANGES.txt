@@ -9,6 +9,10 @@ mlUnit 1.8.1 (in development)
   - You may statically disable tests by calling the disable_tests method
     on the result of load_tests_from_mfile. This supersedes the disable
     arguments to load_tests_from_mfile introduces in mlUnit 1.8.0.
+  - Loading tests from MFiles works across all MATLAB versions by using
+    load_tests_from_mfile. This deprecates output_tests_from_mfile.
+  - mlUnit closes Simulink block diagrams opened by tests or set_up or
+    tear_down fixtures.
 
   - Fix: Call MATLAB on paths containing spaces.
   - Fix: Handle suite_tear_down errors properly.

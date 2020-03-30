@@ -55,11 +55,11 @@ function state = loc_current_environment()
 % Reset the environment to the information stored in the state variable.
 function errors = loc_restore_environment(state)
 
+    loc_restore_blockdiagrams_loaded(state);
     errors = loc_delete_tempdirs(state.config);
     cd(state.pwd);
     mlunit_param(state.config);
     path(state.path);
-    loc_restore_blockdiagrams_loaded(state);
 
 % Delete mlunit_tempdir directories that have been added since the previous recorded state
 function errors = loc_delete_tempdirs(prevConfig)
@@ -89,6 +89,7 @@ function errors = loc_delete_tempdirs(prevConfig)
         end
         % if the dir contains open files, rmdir issues MATLAB:RMDIR:NoDirectoriesRemoved
     end
+
 % Close the block diagrams that are not saved in the state (excluding the
 % simulink and TargetLink library)
 function loc_restore_blockdiagrams_loaded(state)
