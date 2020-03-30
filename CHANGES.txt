@@ -7,6 +7,8 @@ mlUnit 1.8.1 (in development)
 -----------------------------
 
   - Fix: Call MATLAB on paths containing spaces.
+  - Fix: Handle suite_tear_down errors properly.
+  - Fix: Restore Ant XML files to UTF-8 format, which was mangled before.
 
 
 mlUnit 1.8.0 (2020-02-26)
