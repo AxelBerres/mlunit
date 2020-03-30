@@ -150,7 +150,11 @@ function result = construct_disabled_result(test)
     result.name = get_function_name(test);
     result.errors = {};
     result.failure = '';
-    result.skipped = 'Test disabled.';
+    [~, reason] = get_disabled(test);
+    if isempty(reason)
+       reason = 'Test disabled.';
+    end
+    result.skipped = reason;
     result.time = 0;
     result.console = '';
 

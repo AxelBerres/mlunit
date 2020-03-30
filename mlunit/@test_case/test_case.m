@@ -61,5 +61,6 @@ if nargin < 3, disabled = false; end
 self.name = name;
 self.function_name = function_name;
 self.disabled = disabled;
+self.disabled_reason = '';
 
 self = class(self, 'test_case');
