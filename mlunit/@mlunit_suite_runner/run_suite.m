@@ -126,8 +126,8 @@ end
 
 if ~isempty(teardownFailResult)
     % notify listeners of surplus test carrying the teardown error; add to list
-    self = notify_listeners(self, 'next_result', result);
-    results(end+1) = result;
+    self = notify_listeners(self, 'next_result', teardownFailResult);
+    results(end+1) = teardownFailResult;
 end
 
 % restore previous lock state of mlunit_param
