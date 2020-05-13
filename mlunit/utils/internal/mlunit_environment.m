@@ -24,8 +24,6 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 function [state, errors] = mlunit_environment(state)
 
@@ -33,9 +31,9 @@ function [state, errors] = mlunit_environment(state)
 
     % if input argument, reset states to it
     if nargin > 0
-        rmdirErrors = loc_restore_environment(state);
-        if ~isempty(rmdirErrors)
-            errors = struct('message', {rmdirErrors});
+        envErrors = loc_restore_environment(state);
+        if ~isempty(envErrors)
+            errors = struct('message', {envErrors});
         end
     end
 
@@ -55,8 +53,10 @@ function state = loc_current_environment()
 % Reset the environment to the information stored in the state variable.
 function errors = loc_restore_environment(state)
 
-    loc_restore_blockdiagrams_loaded(state);
-    errors = loc_delete_tempdirs(state.config);
+    errorsRestore = loc_restore_blockdiagrams_loaded(state);
+    errorsDelete = loc_delete_tempdirs(state.config);
+    errors = [errorsRestore, errorsDelete];
+    
     cd(state.pwd);
     mlunit_param(state.config);
     path(state.path);
@@ -92,10 +92,42 @@ function errors = loc_delete_tempdirs(prevConfig)
 
 % Close the block diagrams that are not saved in the state (excluding the
 % simulink and TargetLink library)
-function loc_restore_blockdiagrams_loaded(state)
+function errors = loc_restore_blockdiagrams_loaded(state)
 
     blockdiagrams_loaded_now = find_system('SearchDepth', 0);
     blockdiagrams_to_close = setdiff(blockdiagrams_loaded_now, state.blockdiagrams_loaded);
     blockdiagrams_to_close = blockdiagrams_to_close(~strcmpi(blockdiagrams_to_close, 'simulink'));
     blockdiagrams_to_close = blockdiagrams_to_close(~strcmpi(blockdiagrams_to_close, 'tllib'));
-    bdclose(blockdiagrams_to_close);
+    
+    % Close diagrams item by item. Otherwise, in case of multiple problems, bdclose
+    % encapsulates individual problem's messages in a structured
+    % "Error due to multiple causes" error, which would need structured handling anyway.
+    errors = '';
+    for i = 1:numel(blockdiagrams_to_close)
+        try
+            bdclose(blockdiagrams_to_close{i});
+        catch bdcloseException
+            if strcmpi('Simulink:Engine:InvModelClose', bdcloseException.identifier)
+                % Just the message for a lagging compile is telling enough.
+                errors = [errors, sprintf( ...
+                    'Error: %s\n', ...
+                    loc_filter_html_anchors(bdcloseException.message))]; %#ok<AGROW>
+            else
+                % Simulink's exception reports usually start with "Error" themselves.
+                errors = [errors, sprintf( ...
+                    '%s\n', ...
+                    loc_filter_html_anchors(bdcloseException.getReport()))]; %#ok<AGROW>
+            end
+        end
+    end
+
+function plaintext = loc_filter_html_anchors(htmltext)
+    
+    if ~mlunit_param('linked_trace')
+        expression = ['<a href=[^>]*>' ...  % <a> tags with any href attribute
+                      '([^<]*)' ...         % tag content
+                      '</a>'];              % </a> closing tag
+        plaintext = regexprep(htmltext, expression, '$1');
+    else
+        plaintext = htmltext;
+    end

@@ -2,6 +2,11 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.9.1 (2020-05-13)
+
+  - Fix: Handle bdclose exceptions that may occur when mlUnit closes
+    a model during environment reset, but the model is in compile mode.
+
 
 mlUnit 1.9.0 (2020-03-30)
 -------------------------

@@ -114,13 +114,13 @@ catch
 end
 
 % restore environment after suite execution
-[dummy, rmdirErrors] = mlunit_environment(previous_environment);
-if ~isempty(rmdirErrors)
-    rmdirErrorinfo = mlunit_errorinfo(rmdirErrors, 'Error(s) removing temporary directories after suite_test_down fixture:');
+[dummy, envErrors] = mlunit_environment(previous_environment);
+if ~isempty(envErrors)
+    envErrorinfo = mlunit_errorinfo(envErrors, 'Error(s) during environment reset after suite_tear_down fixture:');
     if isempty(teardownFailResult)
-        teardownFailResult = loc_single_result('suite_tear_down', rmdirErrorinfo);
+        teardownFailResult = loc_single_result('suite_tear_down', envErrorinfo);
     else
-        teardownFailResult.errors{end+1} = rmdirErrorinfo;
+        teardownFailResult.errors{end+1} = envErrorinfo;
     end
 end
 
