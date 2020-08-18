@@ -18,3 +18,11 @@ function test_missing_dir
 function test_empty_string
 
    assert_error(@() assert_exist_dir(''), 'MLUNIT:Failure');
+
+function test_assert_not_exist
+
+   assert_exist_dir(tempname, 0);
+
+function test_assert_not_exist_fail
+
+   assert_error(@() assert_exist_dir(matlabroot, 0), 'MLUNIT:Failure');
