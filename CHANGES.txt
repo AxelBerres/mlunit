@@ -2,7 +2,14 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.9.2 (in development)
+-----------------------------
+
+  - Skipped tests don't tell the call stack any more.
+
+
 mlUnit 1.9.1 (2020-05-13)
+-------------------------
 
   - Fix: Handle bdclose exceptions that may occur when mlUnit closes
     a model during environment reset, but the model is in compile mode.
@@ -13,7 +20,7 @@ mlUnit 1.9.0 (2020-03-30)
 
   - You may statically disable tests by calling the disable_tests method
     on the result of load_tests_from_mfile. This supersedes the disable
-    arguments to load_tests_from_mfile introduces in mlUnit 1.8.0.
+    arguments to load_tests_from_mfile introduced in mlUnit 1.8.0.
   - Loading tests from MFiles works across all MATLAB versions by using
     load_tests_from_mfile. This deprecates output_tests_from_mfile.
   - mlUnit closes Simulink block diagrams opened by tests or set_up or

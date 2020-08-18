@@ -85,7 +85,7 @@ function [result, self, test] = run_test(self, test)
             if is_failure(errorinfo)
                 test_failure = get_message_with_stack(errorinfo);
             elseif is_skipped(errorinfo)
-                test_skipped = get_message_with_stack(errorinfo);
+                test_skipped = filter_lasterror_wraps(errorinfo);
             else
                 legacy_stack_handling(err);
                 errors{end+1} = errorinfo;
