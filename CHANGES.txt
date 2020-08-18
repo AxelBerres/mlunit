@@ -8,6 +8,7 @@ mlUnit 1.9.2 (in development)
   - Skipped tests don't tell the call stack any more.
   - assert_exist_file and assert_exist_dir may take an optional argument,
     specifying the expected exist return value.
+  - assert_not_exist_file checks for absence of a file or directory.
 
 
 mlUnit 1.9.1 (2020-05-13)
