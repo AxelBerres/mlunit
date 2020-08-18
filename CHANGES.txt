@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.9.2 (in development)
------------------------------
+mlUnit 1.9.2 (2020-08-18)
+-------------------------
 
   - Skipped tests don't tell the call stack any more.
   - assert_exist_file and assert_exist_dir may take an optional argument,
