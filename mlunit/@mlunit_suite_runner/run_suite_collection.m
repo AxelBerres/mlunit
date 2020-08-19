@@ -22,7 +22,7 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
 
    mlunit_narginchk(2, 4, nargin);
    if isempty(testobj), error('MLUNIT:invalidTestobj', 'Test object must not be empty.'); end
-   write_xml = nargin >= 3;
+   write_xml = nargin >= 3 && ~isempty(targetdir);
    if nargin < 4, fail_on_test_fail = false; end
 
    % start time for calculating execution time

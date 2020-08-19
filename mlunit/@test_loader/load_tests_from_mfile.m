@@ -41,7 +41,7 @@ mlunit_narginchk(1,3,nargin);
 
 excludes = {};
 if nargin >= 3
-    if ~ischar(explicitNames) && ~strcmpi('skip', explicitNames)
+    if ~ischar(explicitNames) || ~strcmpi('skip', explicitNames)
         error('MLUNIT:inputString', 'When giving 3 arguments, the second argument, FLAG, must be the string ''skip''.');
     end
     if ~iscellstr(excludeNames)
