@@ -6,6 +6,12 @@
 %  GNU General Public License (GPL), see LICENSE for details.
 
 function typeString = mlunit_getExistType(existValue)
+
+   mlunit_narginchk(1, 1, nargin);
+   if ~isnumeric(existValue) || ~isscalar(existValue)
+      error('input argument need be scalar numerical');
+   end
+
    switch existValue
       case 0
          typeString = 'missing';
