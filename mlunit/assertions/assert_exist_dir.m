@@ -1,4 +1,4 @@
-function assert_exist_dir(expr, varargin)
+function assert_exist_dir(dir, varargin)
 %ASSERT_EXIST_DIR Raise an error if a directory does not exist.
 %  ASSERT_EXIST_DIR(DIR) calls exist(DIR, 'dir') and raises a MATLAB error if it does
 %  not yield 7.
@@ -27,7 +27,7 @@ function assert_exist_dir(expr, varargin)
 %  GNU General Public License (GPL), see LICENSE for details.
 
 if nargin >= 1
-   existResult = exist(expr, 'dir');
+   existResult = exist(dir, 'dir');
    
    % Check against user-given types
    if nargin >= 2 && isnumeric(varargin{1})
@@ -38,7 +38,7 @@ if nargin >= 1
          return
       end
       
-      reason = loc_customTypeFailMessage(expr, expectedType, existResult);
+      reason = loc_customTypeFailMessage(dir, expectedType, existResult);
    
    % Check against default types
    else
@@ -46,16 +46,16 @@ if nargin >= 1
          case 7  % valid dir
             return
          case 0
-            reason = sprintf('Expected directory does not exist: %s', expr);
+            reason = sprintf('Expected directory does not exist: %s', dir);
          otherwise
-            reason = sprintf('Expected directory is actually %s: %s', mlunit_getExistType(existResult), expr);
+            reason = sprintf('Expected directory is actually %s: %s', mlunit_getExistType(existResult), dir);
       end
    end
    
    mlunit_fail_with_reason(reason, varargin{:});
 end
 
-function reason = loc_customTypeFailMessage(expr, expectedType, existResult)
+function reason = loc_customTypeFailMessage(dir, expectedType, existResult)
 
    if 1 == numel(expectedType)
       expectedText = sprintf('%s (%s)', mat2str(expectedType), mlunit_getExistType(expectedType));
@@ -64,6 +64,6 @@ function reason = loc_customTypeFailMessage(expr, expectedType, existResult)
    end
    actualText = sprintf('%s (%s)', mat2str(existResult), mlunit_getExistType(existResult));
    reason = sprintf('Expected exist result does not match actual result:\n  %-9s: %s\n  %-9s: %s\n  %-9s: %s', ...
-      'Directory', expr, ...
+      'Directory', dir, ...
       'Expected', expectedText, ...
       'Actual', actualText);

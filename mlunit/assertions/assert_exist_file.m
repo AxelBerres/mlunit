@@ -1,4 +1,4 @@
-function assert_exist_file(expr, varargin)
+function assert_exist_file(file, varargin)
 %ASSERT_EXIST_FILE Raise an error if a file does not exist.
 %  ASSERT_EXIST_FILE(FILE) calls exist(FILE, 'file') and raises a MATLAB error if it does
 %  not yield 2, 3, 4, or 6 (file, mex-file, Simulink model, p-code file).
@@ -37,7 +37,7 @@ function assert_exist_file(expr, varargin)
 %  GNU General Public License (GPL), see LICENSE for details.
 
 if nargin >= 1
-   existResult = exist(expr, 'file');
+   existResult = exist(file, 'file');
    
    % Check against user-given types
    if nargin >= 2 && isnumeric(varargin{1})
@@ -48,7 +48,7 @@ if nargin >= 1
          return
       end
       
-      reason = loc_customTypeFailMessage(expr, expectedType, existResult);
+      reason = loc_customTypeFailMessage(file, expectedType, existResult);
    
    % Check against default types
    else
@@ -56,16 +56,16 @@ if nargin >= 1
          case {2, 3, 4, 6}  % valid files
             return
          case 0
-            reason = sprintf('Expected file does not exist: %s', expr);
+            reason = sprintf('Expected file does not exist: %s', file);
          otherwise
-            reason = sprintf('Expected file is actually %s: %s', mlunit_getExistType(existResult), expr);
+            reason = sprintf('Expected file is actually %s: %s', mlunit_getExistType(existResult), file);
       end
    end
    
    mlunit_fail_with_reason(reason, varargin{:});
 end
 
-function reason = loc_customTypeFailMessage(expr, expectedType, existResult)
+function reason = loc_customTypeFailMessage(file, expectedType, existResult)
 
    if 1 == numel(expectedType)
       expectedText = sprintf('%s (%s)', mat2str(expectedType), mlunit_getExistType(expectedType));
@@ -74,6 +74,6 @@ function reason = loc_customTypeFailMessage(expr, expectedType, existResult)
    end
    actualText = sprintf('%s (%s)', mat2str(existResult), mlunit_getExistType(existResult));
    reason = sprintf('Expected exist result does not match actual result:\n  %-9s: %s\n  %-9s: %s\n  %-9s: %s', ...
-      'File', expr, ...
+      'File', file, ...
       'Expected', expectedText, ...
       'Actual', actualText);

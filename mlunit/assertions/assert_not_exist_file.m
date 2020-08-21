@@ -1,4 +1,4 @@
-function assert_not_exist_file(expr, varargin)
+function assert_not_exist_file(file, varargin)
 %ASSERT_NOT_EXIST_FILE Raise an error if a file or directory exists.
 %  ASSERT_NOT_EXIST_FILE(FILE) calls exist(FILE, 'file') and raises a MATLAB
 %  error if it does not yield 0. This also works for directories.
@@ -21,12 +21,12 @@ function assert_not_exist_file(expr, varargin)
 %  GNU General Public License (GPL), see LICENSE for details.
 
 if nargin >= 1
-   existResult = exist(expr, 'file');
+   existResult = exist(file, 'file');
    
    if 0 == existResult
       return
    else
-      reason = sprintf('Expected absent entity exists as %s: %s', mlunit_getExistType(existResult), expr);
+      reason = sprintf('Expected absent entity exists as %s: %s', mlunit_getExistType(existResult), file);
    end
    
    mlunit_fail_with_reason(reason, varargin{:});
