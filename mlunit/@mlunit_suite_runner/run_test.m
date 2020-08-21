@@ -61,7 +61,7 @@ function [result, self, test] = run_test(self, test)
             test_failure = get_message_with_stack(errorinfo);
         elseif is_skipped(errorinfo)
             errorinfo = set_additional_cause(errorinfo, 'In set_up fixture:');
-            test_skipped = get_message_with_stack(errorinfo);
+            test_skipped = filter_lasterror_wraps(errorinfo);
         else
             legacy_stack_handling(err);
             errorinfo = set_additional_cause(errorinfo, 'Error in set_up fixture:');
