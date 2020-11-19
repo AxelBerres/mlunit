@@ -6,7 +6,7 @@
   $Id$
   -->
 
-<project name="matlabcommand" default="checkmatlab">
+<project name="matlabcommand" default="checkmatlab" xmlns:if="ant:if">
   <description>
   MATLAB command task. Open MATLAB, invoke your command, which may
   consist of several commands, close MATLAB again.
@@ -45,6 +45,14 @@
   that is not a proper MATLAB's root directory, or if you specified none of
   these and MATLAB could not be found on the cmd shell search path.
   </description>
+
+  <condition property="is_windows">
+    <os family="windows"/>
+  </condition>
+
+  <condition property="is_unix">
+    <os family="unix"/>
+  </condition>
 
   <!-- Macro that opens MATLAB and calls a specified command.
        commanddir attribute will be added as search path via addpath().
@@ -128,9 +136,14 @@
     <sequential>
       <!-- get matlab.exe from path, use this rather than the "where" cmd, in
            order to also work on Windows XP -->
-      <exec executable="cmd.exe" outputproperty="delegator.matlab.exec">
+      <exec executable="cmd.exe" outputproperty="delegator.matlab.exec" if:true="${is_windows}">
         <arg value="/C"/>
         <arg value="for %i in (matlab.exe) do @echo.%~$PATH:i"/>
+      </exec>
+      
+      <exec executable="bash" outputproperty="delegator.matlab.exec" if:true="${is_unix}">
+        <arg value="which"/>
+        <arg value="matlab"/>
       </exec>
     </sequential>
   </macrodef>
@@ -236,7 +249,7 @@
       <property name="matlab.help.exec" location="${matlab.exec.dir}/matlab.exe"/>
 
       <!-- call by "cmd /c matlab -help & rem" in order to suppress output of the return result of -1 -->
-      <exec executable="cmd" outputproperty="help.text">
+      <exec executable="cmd" outputproperty="help.text" if:true="is_windows">
         <arg value="/c"/>
         <arg value="&quot;${matlab.help.exec}&quot; -help &amp; rem"/>
       </exec>
@@ -245,9 +258,11 @@
            versions 8.0 (R2012b) through 8.5 (R2015a).
            We don't support earlier versions, and switch to the -log option for
            newer versions (R2015b and later). -->
-      <condition property="release-specific-args" value="" else="-log">
+      <condition property="release-specific-args" value="" else="-log" if:true="is_windows">
         <matches pattern="Version: (7\.[5-9]|7\.1[0-4]|8\.[0-5])\.[0-9]+,[0-9]+" string="${help.text}"/>
       </condition>
+
+      <property name="release-specific-args" value="-logfile" if:true="is_unix"/>
 
       <echo message="Determined release specific arguments: ${release-specific-args}"/>
     </sequential>

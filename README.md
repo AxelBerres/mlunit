@@ -56,7 +56,10 @@ REQUIREMENTS
 ------------
 
 mlUnit is expected to run on all MATLAB versions from R2007b up to any new
-version. It has been tested with R2007b, R2011b, R2014b, R2015b, R2016b, R2017b.
+version. It has been tested with R2007b, R2011b, R2013b, R2015b, R2016b, R2018b, R2020a.
+
+mlUnit has been tested on Windows and Linux.
+However, Linux has only been tested with R2020a.
 
 -------------------------------------------------------------------------------
 
@@ -90,6 +93,10 @@ Ant automation
 You may skip all of the above steps, even preparation, and execute
 your unit tests with an Apache Ant script, or on the Windows console.
 
+Ant 1.9.1 or newer is required, mainly because mlUnit uses Ant's
+[If And Unless](https://ant.apache.org/manual/ifunless.html)
+attributes for cross platform support:.
+
 In your own Ant script, define a property named matlab.root that defines the
 directory of the MATLAB installation you want to invoke.
 Make a call like <ant antfile="mlunit/build.xml"/> to execute all unit
@@ -110,6 +117,8 @@ change in R2014b. The core MATLAB.EXE no longer outputs on stdout if
 being called with the -automation option. But mlUnit's current
 matlabcommand.xml should recognize failures, even without stdout output,
 as it works on the log file produced.
+
+On Linux, please use the matlab.exec property. Support for matlab.root is untested.
 
 
 -------------------------------------------------------------------------------
@@ -193,11 +202,12 @@ Disabling and skipping tests
 You may disable specific tests statically, in order to exclude them from running.
 For disabled tests, mlUnit also omits the set_up or tear_down fixture.
 Disabled tests will appear in reports as skipped.
-In order to disable tests, provide their names along with the 'skip' flag when
+In order to disable tests, call `disable_tests` on the testsuite object when
 calling load_tests_from_mfile:
 
     function test = test_example
-        test = load_tests_from_mfile(test_loader, 'skip', {'test_foo', 'test_bar'});
+        test = load_tests_from_mfile(test_loader);
+        test = disable_tests(test, {'test_foo', 'test_bar'}, 'Foo and Bar not supported during development.');
     end
 
 You may also skip test dynamically. For example, if the reason for skipping a test
