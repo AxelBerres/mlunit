@@ -32,7 +32,11 @@ function writeXmlTestsuite(suiteresult, targetdir)
    end
    
    % default xml headline
-   fprintf(fid,'<?xml version="1.0" encoding="ISO-8859-1"?>\n');
+   if verLessThan('matlab', '9.8')  % prior to R2020a
+      fprintf(fid,'<?xml version="1.0" encoding="ISO-8859-1"?>\n');
+   else                             % R2020a and later
+      fprintf(fid,'<?xml version="1.0" encoding="UTF-8"?>\n');
+   end
    % wrap this string in a '%s' call in order to prohibit fprintf to parse
    % it
    fprintf(fid, '%s', printXmlTestsuite(suiteresult));
