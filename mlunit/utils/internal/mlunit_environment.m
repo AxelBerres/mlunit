@@ -56,11 +56,15 @@ function errors = loc_restore_environment(state)
     errorsRestore = loc_restore_blockdiagrams_loaded(state);
     
     cd(state.pwd);
-    mlunit_param(state.config);
     path(state.path);
 
+    % Delete tempdirs after resetting the path, otherwise MATLAB may warn about it
+    % removing dirs from the MATLAB search path on its own account.
     errorsDelete = loc_delete_tempdirs(state.config);
     errors = [errorsRestore, errorsDelete];
+    
+    % Reset states last, as loc_delete_tempdirs needs the current state.
+    mlunit_param(state.config);
     
 % Delete mlunit_tempdir directories that have been added since the previous recorded state
 function errors = loc_delete_tempdirs(prevConfig)
