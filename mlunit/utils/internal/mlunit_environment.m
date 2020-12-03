@@ -54,13 +54,14 @@ function state = loc_current_environment()
 function errors = loc_restore_environment(state)
 
     errorsRestore = loc_restore_blockdiagrams_loaded(state);
-    errorsDelete = loc_delete_tempdirs(state.config);
-    errors = [errorsRestore, errorsDelete];
     
     cd(state.pwd);
     mlunit_param(state.config);
     path(state.path);
 
+    errorsDelete = loc_delete_tempdirs(state.config);
+    errors = [errorsRestore, errorsDelete];
+    
 % Delete mlunit_tempdir directories that have been added since the previous recorded state
 function errors = loc_delete_tempdirs(prevConfig)
 
