@@ -25,20 +25,16 @@ function writeXmlTestsuite(suiteresult, targetdir)
    % cannot be circumvented by cding first and calling fopen with only the file name
    source = fullfile(targetdir, s_fileName);
    
-   fid = fopen(source,'w');
+   fid = fopen(source, 'w', 'native', 'UTF-8');
    if fid == -1
        warning('MLUNIT:noFileAccess', 'Could not open file for writing: ''%s''.', source);
        return;
    end
    
    % default xml headline
-   if verLessThan('matlab', '9.8')  % prior to R2020a
-      fprintf(fid,'<?xml version="1.0" encoding="ISO-8859-1"?>\n');
-   else                             % R2020a and later
-      fprintf(fid,'<?xml version="1.0" encoding="UTF-8"?>\n');
-   end
-   % wrap this string in a '%s' call in order to prohibit fprintf to parse
-   % it
+   fprintf(fid,'<?xml version="1.0" encoding="UTF-8"?>\n');
+   
+   % wrap this string in a '%s' call in order to prevent fprintf from parsing it
    fprintf(fid, '%s', printXmlTestsuite(suiteresult));
    fclose(fid);
 

@@ -7,8 +7,7 @@ mlUnit 1.9.3 (in development)
 
   - Support UNIX/Linux execution of build.xml Ant scripts.
   - Fix: Tests skipped during set_up don't tell the call stack any more.
-  - Fix: Proper encoding in jUnit reports. From MATLAB R2020a on, this
-    is UTF-8. On older MATLABs, it is ISO-8859-1.
+  - Fix: Proper encoding in jUnit reports. Always UTF-8.
 
 
 mlUnit 1.9.2 (2020-08-18)
