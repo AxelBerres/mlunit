@@ -128,8 +128,8 @@ if xor(pass_if_equal, equals)
        reason_msg = ['Expected and actual are equal' tolerance_msg '.'];
     end
 
-    % varargin has been evaluated before
-    mlunit_fail_with_reason(reason_msg, custom_msg);
+    % varargin has been evaluated before; prevent further evaluation
+    mlunit_fail_with_reason(reason_msg, '%s', custom_msg);
 end
 
 
