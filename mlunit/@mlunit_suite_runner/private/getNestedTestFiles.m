@@ -40,6 +40,8 @@ function suitespecs = getNestedTestFiles(basedir)
               spec.testname = classname;
               spec.reldir = strrep_first(classpath, basedir, '');
               spec.fulldir = classpath;
+              spec.object = [];
+              spec.testselection = {};
               suitespecs{end+1} = spec;
           end
           continue;
@@ -58,6 +60,8 @@ function suitespecs = getNestedTestFiles(basedir)
             spec.testname = name;
             spec.reldir = reldirlist{iDir};
             spec.fulldir = dirlist{iDir};
+            spec.object = [];
+            spec.testselection = {};
 
             suitespecs{end+1} = spec;
          end

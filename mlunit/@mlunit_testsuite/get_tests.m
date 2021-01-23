@@ -7,6 +7,12 @@
 %  
 %  $Id$
 
-function t = get_tests(self)
+function t = get_tests(self, preselection)
 
-t = self.tests;
+if nargin < 2
+    t = self.tests;
+else
+    allnames = cellfun(@get_function_name, self.tests, 'UniformOutput', false);
+    indices = ismember(allnames, preselection);
+    t = self.tests(indices);
+end

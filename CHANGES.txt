@@ -7,6 +7,10 @@ mlUnit 1.9.3 (in development)
 
   - Support UNIX/Linux execution of build.xml Ant scripts.
   - Allow disabling all of a suite's test cases when using disable_tests.
+  - mlunit_rerun allows replay of the most recent suite run (triggered
+    by calling run_suite_collection or recursive_test_run). Replaying the
+    latest fails and/or errors, allows you to concentrate on them,
+    quickly fix them and verify your fix.
 
   - Fix: Tests skipped during set_up don't tell the call stack any more.
   - Fix: Proper encoding in jUnit reports. Always UTF-8.

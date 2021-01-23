@@ -2,7 +2,9 @@
 %  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ) executes all tests of all suites
 %  relating to TESTOBJ. If TESTOBJ is a directory, all nested test suites will
 %  be collected and executed. If TESTOBJ is a single test suite name, then that
-%  only will be executed.
+%  only will be executed. If TESTOBJ is a test suite object already, then that
+%  only will be executed. If TESTOBJ is a cell array of 'testsuite.testname' strings,
+%  only these tests across their containing suites will be executed.
 %
 %  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR) does the same, but
 %  generates jUnit reports into TARGETDIR.
@@ -35,7 +37,7 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
    previous_environment = mlunit_environment();
 
    % initialize display
-   self = notify_listeners(self, 'initialize_execution', testobj);
+   self = notify_listeners(self, 'initialize_execution', loc_get_testobj_string(testobj));
    
    % get test suite(s)
    suitespecs = loc_determine_suites(testobj);
@@ -62,6 +64,9 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
    execution_time = etime(clock, start_time);
    self = notify_listeners(self, 'finalize_execution', suiteresults, execution_time);
 
+   % save run information for subsequent reruns
+   mlunit_rerun('save', struct('suiteresults', {suiteresults}, 'testobj', {loc_get_testobj_string(testobj)}));
+   
    % fail on test failures, if so requested
    total_problems = sum(cellfun(@(s)s.errors+s.failures,suiteresults));
    if fail_on_test_fail && total_problems > 0
@@ -71,6 +76,29 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
 
 function suitespecs = loc_determine_suites(testobj)
 
+    % in case of object, prep up some custom suitespec
+    if isa(testobj, 'mlunit_testsuite')
+        spec = struct();
+        spec.reldir = '';
+        spec.testname = get_name(testobj);
+        spec.fulldir = fileparts(which(spec.testname));
+        spec.object = testobj;
+        spec.testselection = {};
+        suitespecs = {spec};
+        return
+    end
+    
+    if isstruct(testobj) && ~isempty(testobj) && isfield(testobj, 'suitespecs')
+        suitespecs = testobj.suitespecs;
+        return
+    end
+
+    selected_test = '';
+    if iscellstr(testobj) && numel(testobj) == 1
+        [testobj, rest] = strtok(testobj{1}, '.');
+        selected_test = strtok(rest, '.');
+    end
+    
     % neither dir nor file, must be some error
     if ~any(exist(testobj, 'file') == [2,7])
         error('MLUNIT:invalidTestobj', 'Given test object is neither a directory nor a file: ''%s''', testobj);
@@ -82,7 +110,7 @@ function suitespecs = loc_determine_suites(testobj)
         if dirname(1) ~= '@'
             % Get test files. They may be in basedir or its subdirectories.
             suitespecs = getNestedTestFiles(testobj);
-            return;
+            return
         end
         
         % delegate to constructor method
@@ -109,8 +137,26 @@ function suitespecs = loc_determine_suites(testobj)
         spec.fulldir = filepath;
     end
     
+    spec.object = [];
+    spec.testselection = {};
+    if ~isempty(selected_test)
+       spec.testselection = {selected_test};
+    end
     suitespecs = {spec};
 
+    
+function testobjstring = loc_get_testobj_string(testobj)
+
+    if isa(testobj, 'mlunit_testsuite')
+        testobjstring = get_name(testobj);
+    elseif isstruct(testobj) && ~isempty(testobj) && isfield(testobj, 'testobj')
+        testobjstring = testobj.testobj;
+    elseif iscellstr(testobj) && numel(testobj) == 1
+        testobjstring = testobj{1};
+    else
+        testobjstring = testobj;
+    end
+    
 
 % Run test suite, collect suite and test case attributes and return them.
 % suiteresult is a cell array of structures. Each structure contains:
@@ -136,7 +182,17 @@ function [suiteresult, self] = runTestsuite(self, suitespec)
    % or class) even if shadowed. Pwd will be restored with mlunit_environment.
    prevpwd = cd(suitespec.fulldir);
 
-   [results, time, self] = run_suite(self, strip_classprefix(suitespec.testname));
+   if ~isempty(suitespec.object)
+       target = suitespec.object;
+   else
+       target = strip_classprefix(suitespec.testname);
+   end
+   
+   if ~isempty(suitespec.testselection)
+       [results, time, self] = run_suite(self, target, suitespec.testselection);
+   else
+       [results, time, self] = run_suite(self, target);
+   end
    
    cd(prevpwd);
    
@@ -157,6 +213,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
    suiteresult = struct();
    suiteresult.time = time;
    suiteresult.name = packageFromRelativeDir(suitespec.reldir, suitespec.testname);
+   suiteresult.suitespec = suitespec;
    suiteresult.errors = mlunit_num_suite_errors(results);
    suiteresult.failures = mlunit_num_suite_failures(results);
    suiteresult.skipped = mlunit_num_suite_skipped(results);

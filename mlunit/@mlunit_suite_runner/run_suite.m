@@ -22,7 +22,7 @@
 %  
 %  $Id$
 
-function [results, time, self] = run_suite(self, name)
+function [results, time, self] = run_suite(self, name, preselection)
 
 % reload test case file if modified in the same GUI session, e.g. during
 % debugging
@@ -44,7 +44,10 @@ previous_environment = mlunit_environment();
 % Load suite. Let errors bubble through, as we have no meaningful way of
 % reporting them. This is equivalent to jUnit behaviour, where we are guaranteed
 % to execute the tests only when they compiled, i.e. have no syntax errors.
-if isempty(name)
+if isa(name, 'mlunit_testsuite')
+    % given directly
+    testsuite = name;
+elseif isempty(name)
     % empty name
     error('MLUNIT:emptyTestName', 'Test suite name is empty.');
 elseif is_class_test(name)
@@ -72,7 +75,11 @@ catch
     suite_setup_error = mlunit_errorinfo(lasterror, 'Error in suite_set_up (occurred once for this suite, but is relevant for every test case):');
 end
 
-tests = get_tests(testsuite);
+if nargin >= 3 && ~isempty(preselection)
+    tests = get_tests(testsuite, preselection);
+else
+    tests = get_tests(testsuite);
+end
 num_tests = numel(tests);
 
 % execute tests only if no error in suite setup
