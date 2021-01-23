@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.9.3 (in development)
------------------------------
+mlUnit 1.9.3 (2021-01-25)
+-------------------------
 
   - Support UNIX/Linux execution of build.xml Ant scripts.
   - Allow disabling all of a suite's test cases when using disable_tests.
