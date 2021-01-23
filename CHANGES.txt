@@ -11,6 +11,7 @@ mlUnit 1.9.3 (in development)
     by calling run_suite_collection or recursive_test_run). Replaying the
     latest fails and/or errors, allows you to concentrate on them,
     quickly fix them and verify your fix.
+  - mlunit_single run only a single test out of a function test suite.
 
   - Fix: Tests skipped during set_up don't tell the call stack any more.
   - Fix: Proper encoding in jUnit reports. Always UTF-8.
