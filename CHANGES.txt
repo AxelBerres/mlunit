@@ -6,9 +6,11 @@ mlUnit 1.9.3 (in development)
 -----------------------------
 
   - Support UNIX/Linux execution of build.xml Ant scripts.
+  - Allow disabling all of a suite's test cases when using disable_tests.
+
   - Fix: Tests skipped during set_up don't tell the call stack any more.
   - Fix: Proper encoding in jUnit reports. Always UTF-8.
-  - Fix: When adding a directory to the MATLAB serach path, that is
+  - Fix: When adding a directory to the MATLAB search path, that is
     a descendant of a mlunit_tempdir controlled directory, mlUnit does
     not trigger a MATLAB warning anymore.
   - Fix: Prevent double sprintf evaluation when using message arguments

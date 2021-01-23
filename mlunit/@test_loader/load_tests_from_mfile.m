@@ -1,4 +1,4 @@
-function suite = load_tests_from_mfile(self, explicitNames, excludeNames) %#ok<INUSL>
+function suite = load_tests_from_mfile(self, includeNames, excludeNames) %#ok<INUSL>
 %Returns a test_suite with all test* methods from a .m-file.
 %
 %  This is the recommended function for loading tests from a function test
@@ -41,8 +41,8 @@ mlunit_narginchk(1,3,nargin);
 
 excludes = {};
 if nargin >= 3
-    if ~ischar(explicitNames) || ~strcmpi('skip', explicitNames)
-        error('MLUNIT:inputString', 'When giving 3 arguments, the second argument, FLAG, must be the string ''skip''.');
+    if ~iscellstr(includeNames) && (~ischar(includeNames) || ~strcmpi('skip', includeNames))
+        error('MLUNIT:inputString', 'When giving 3 arguments, the second argument must either be a cellstr array, or the string ''skip''.');
     end
     if ~iscellstr(excludeNames)
         error('MLUNIT:inputCellstr', 'When giving 3 arguments, the third argument, EXCLUDES must be a cellstr array.');
@@ -50,21 +50,19 @@ if nargin >= 3
     excludes = excludeNames;
 end
 
-useExplicitNames = false;
-if nargin == 2
-    if ~iscellstr(explicitNames)
-        error('MLUNIT:inputCellstr', 'When giving 2 arguments, the second argument, NAMES must be a cellstr array.');
+includes = {};
+includeAll = true;
+if nargin >= 2
+    if ~iscellstr(includeNames)
+        error('MLUNIT:inputCellstr', 'When giving 2 arguments, the second argument, INCLUDES must be a cellstr array.');
     end
-    useExplicitNames = true;
+    includes = includeNames;
+    includeAll = false;
 end
 
 stack = dbstack;
-if useExplicitNames
-   names = explicitNames;
-else
-   % There are always at least two items on the call stack.
-   names = get_subfunction_names(self, stack(2).file);
-end
+% There are always at least two items on the call stack.
+names = get_subfunction_names(self, stack(2).file);
 
 % use direct fetch mechanism if on compatible MATLAB release
 if 5 == exist('getArrayFromByteStream', 'builtin')
@@ -79,12 +77,16 @@ else
     end
 end
 
-suite = build_testsuite_object(self, stack(2).name, handles, excludes);
+if ~includeAll
+   excludes = union(excludes, setdiff(names, includes));
+end
+
+suitename = stack(2).name;
+suite = build_testsuite_object(self, suitename, handles, excludes);
 
 % if exactly two items on stack, that's load_tests_from_mfile and the test
 % function, meaning we were called from console directly -> execute suite
-suitename = stack(2).name;
 if numel(stack) == 2
     suite_runner = add_listener(mlunit_suite_runner, mlunit_progress_listener_console);
-    run_suite_collection(suite_runner, suitename);
+    run_suite_collection(suite_runner, suite);
 end
