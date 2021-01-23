@@ -103,8 +103,12 @@
       However, mlunit_param needs to be locked and unlocked, in case additionalusercmd
       invokes MATLAB's clear, or derivatives like javaaddpath. Setting the mlunit_params
       before additionalusercmd allows the user to override the values set before.
+
+      Deactivating 'linked_trace' and 'abbrev_trace' for precise paths on text-only output.
+      Activating 'catch_output' for output only about the tests, and fro encapsulation of
+      any test output.
       -->
-    <property name="command.string" value="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);mlunit_param('abbrev_trace',false);mlunit_param('-mlock');${additionalusercmd};munlock('mlunit_param');recursive_test_run('${test.dir}', '${report.dir}', true)"></property>
+    <property name="command.string" value="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);mlunit_param('abbrev_trace',false);mlunit_param('catch_output',true);mlunit_param('-mlock');${additionalusercmd};munlock('mlunit_param');recursive_test_run('${test.dir}', '${report.dir}', true)"></property>
     <matlabcommand
         command.string="${command.string}"
         output.property="unittests.output"

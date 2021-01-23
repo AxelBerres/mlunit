@@ -12,6 +12,11 @@ mlUnit 1.9.3 (in development)
     latest fails and/or errors, allows you to concentrate on them,
     quickly fix them and verify your fix.
   - mlunit_single run only a single test out of a function test suite.
+  - Default 'catch_output' to false, so that manual test runs display
+    test output by default. Otherwise, testers will overlook problems
+    in the test setup, when they manifest as output, not as error.
+    Ant build.xml execution still defaults to 'catch_output' of true,
+    so that automation logs are clean and capture output in the jUnit XML.
 
   - Fix: Tests skipped during set_up don't tell the call stack any more.
   - Fix: Proper encoding in jUnit reports. Always UTF-8.

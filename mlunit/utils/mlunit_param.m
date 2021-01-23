@@ -25,6 +25,7 @@
 %     'catch_output' - Logical true catches the console output of test functions
 %                      and of set_up and tear_down fixtures. These are then
 %                      included separately in the jUnit report.
+%                      Defaults to false, but is set to true in the Ant build.xml.
 %                      Logical false will mix mlUnit output and test output on
 %                      MATLAB console.
 %                      suite_set_up and suite_tear_down are never caught, because
@@ -102,7 +103,7 @@ function defaults = default_values
     defaults.linked_trace = true;
     defaults.abbrev_trace = true;
     defaults.verbose = false;
-    defaults.catch_output = true;
+    defaults.catch_output = false;
     defaults.mark_testphase = true;
 
 
