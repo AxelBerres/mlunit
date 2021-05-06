@@ -105,7 +105,7 @@
       before additionalusercmd allows the user to override the values set before.
 
       Deactivating 'linked_trace' and 'abbrev_trace' for precise paths on text-only output.
-      Activating 'catch_output' for output only about the tests, and fro encapsulation of
+      Activating 'catch_output' for output only about the tests, and for encapsulation of
       any test output.
       -->
     <property name="command.string" value="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);mlunit_param('abbrev_trace',false);mlunit_param('catch_output',true);mlunit_param('-mlock');${additionalusercmd};munlock('mlunit_param');recursive_test_run('${test.dir}', '${report.dir}', true)"></property>
