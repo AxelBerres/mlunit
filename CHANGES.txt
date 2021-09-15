@@ -2,6 +2,12 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.9.4 (in development)
+-----------------------------
+
+  - Compatibility with MATLAB R2021a.
+
+
 mlUnit 1.9.3 (2021-01-25)
 -------------------------
 

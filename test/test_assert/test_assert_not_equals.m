@@ -91,7 +91,7 @@ function test_not_equals_javaobject
 % type of object. Needs Simulink installed.
 function test_not_equals_object_SimulinkModelWorkspace
 
-    s1 = 'fuelsys';
+    s1 = 'sldemo_fuelsys';
     s2 = 'sldemo_autotrans';
     [wasloaded_s1, ws_s1] = loc_getModelWorkspace(s1);
     [wasloaded_s2, ws_s2] = loc_getModelWorkspace(s2);

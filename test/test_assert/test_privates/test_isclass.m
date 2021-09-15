@@ -39,7 +39,7 @@ function test_object %#ok<DEFNU>
 % type of object. Needs Simulink installed.
 function test_object_SimulinkModelWorkspace
 
-    sysname = 'fuelsys';
+    sysname = 'sldemo_fuelsys';
     [was_loaded, workspace] = loc_getModelWorkspace(sysname);
 
     % We need to examine the Simulink.ModelWorkspace in a hot state, i.e. with
