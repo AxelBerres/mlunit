@@ -37,11 +37,11 @@ stack = self.err.stack;
 regexp_runtime_err = ['^Error using ' ...   % always starts with 'Error using'
                       '[^\n]*' ...          % skip anything on this line
                       '\n(.*)'];            % capture the next line(s)
-num_captures_runtime_err = 1;               % 2 capture groups if successful
+num_captures_runtime_err = 1;               % 1 capture group if successful
 
 % lasterror wraps syntax errors really awkwardly across the releases
 % for details, see test_mlunit_errorinfo
-regexp_syntax_err = ['^Error: ' ...         % starts with 'Error:'
+regexp_syntax_err = ['^(Error: )?' ...      % may start with 'Error:'
                      '(<a[^>]*>)?' ...      % puts an anchor around the file
                      'File: ' ...
                      '([\w\ \.,$&\/\(\)\\:@]+.[mp])' ...  % file name or path
@@ -50,7 +50,7 @@ regexp_syntax_err = ['^Error: ' ...         % starts with 'Error:'
                      '.*' ...               % any further character
                      '(<\/a>\n|\n<\/a>|\n)' ... % anchor closing tag may be before or after newline or none at all
                      '(.*)'];               % this is the actual message
-num_captures_syntax_err = 6;                % 6 capture groups if successful
+num_captures_syntax_err = 7;                % 7 capture groups if successful
 
 % run both 
 tokens_runtime = regexp(message, regexp_runtime_err, 'tokens', 'once');
@@ -60,9 +60,9 @@ tokens_syntax = regexp(message, regexp_syntax_err, 'tokens', 'once');
 if length(tokens_runtime) == num_captures_runtime_err
     message = char(tokens_runtime(1));
 elseif length(tokens_syntax) == num_captures_syntax_err
-    message = char(tokens_syntax(6));
-    file = char(tokens_syntax(2));
-    line = str2double(char(tokens_syntax(3)));
+    message = char(tokens_syntax(7));
+    file = char(tokens_syntax(3));
+    line = str2double(char(tokens_syntax(4)));
     
     % see if we can resolve the full file path
     fullname = which(file);
