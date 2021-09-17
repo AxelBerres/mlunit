@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.9.4 (in development)
------------------------------
+mlUnit 1.9.4 (2021-09-17)
+-------------------------
 
   - Compatibility with MATLAB R2021a.
   - Don't execute suite_set_up and suite_tear_down, when a test suite
