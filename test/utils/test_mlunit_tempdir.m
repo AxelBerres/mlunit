@@ -37,7 +37,13 @@ function test_error_remove
     assert_equals(1, numel(results), 'Unexpected number of tests in mock_test_mlunit_tempdir_remove');
     assert_equals('test_tempdir_error_remove', results(1).name);
     assert_empty(results(1).failure, 'Unexpected failure in mock_test_mlunit_tempdir_remove');
-    assert_equals(1, numel(results(1).errors), 'Unexpected number of errors in mock rmdir test.');
+    
+    expected_errors = 1;
+    if isunix
+        % Linux is actually fine with removing currently open files
+        expected_errors = 0;
+    end
+    assert_equals(expected_errors, numel(results(1).errors), 'Unexpected number of errors in mock rmdir test.');
     
     % check expected error message
     expected_msg_front = sprintf([...
@@ -58,7 +64,11 @@ function test_error_remove_cleanup
     end
     assert_equals(0, fclose(cleanupinfo.fid), 'Could not close file handle from previous test.');
     [status, msg, msgid] = rmdir(cleanupinfo.tempdir, 's');
-    assert_equals(1, status, 'Ultimate removal of tempdir did not succeed.\n  dir:%s\n  msg:%s\n  id :%s', cleanupinfo.tempdir, msg, msgid);
+    if ispc
+        % Linux already deleted this
+        assert_equals(1, status, 'Ultimate removal of tempdir did not succeed.\n  dir:%s\n  msg:%s\n  id :%s', cleanupinfo.tempdir, msg, msgid);
+    end
+    assert_equals(0, exist(cleanupinfo.tempdir, 'dir'), 'mlUnit controlled tempdir was not deleted.');
     
 function test_error_mkdir
 
