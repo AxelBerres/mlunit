@@ -38,21 +38,19 @@ function test_error_remove
     assert_equals('test_tempdir_error_remove', results(1).name);
     assert_empty(results(1).failure, 'Unexpected failure in mock_test_mlunit_tempdir_remove');
     
-    expected_errors = 1;
-    if isunix
-        % Linux is actually fine with removing currently open files
-        expected_errors = 0;
+    % Linux is actually fine with removing currently open files
+    if ispc
+        assert_equals(1, numel(results(1).errors), 'Unexpected number of errors in mock rmdir test.');
+
+        % check expected error message
+        expected_msg_front = sprintf([...
+            'Error(s) during environment reset after tear_down fixture. Maybe due to open file handles? Models left in compile state?\n' ...
+            'Error removing temporary directory:'
+            ]);
+        errormsg = get_message_with_stack(results(1).errors{1});
+        assert_equals(expected_msg_front, errormsg(1:numel(expected_msg_front)), 'Unexpected error message start');
+        assert_not_empty(strfind(errormsg, 'MATLAB:RMDIR:NoDirectoriesRemoved'), 'Could not find message ID MATLAB:RMDIR:NoDirectoriesRemoved in error message.');
     end
-    assert_equals(expected_errors, numel(results(1).errors), 'Unexpected number of errors in mock rmdir test.');
-    
-    % check expected error message
-    expected_msg_front = sprintf([...
-        'Error(s) during environment reset after tear_down fixture. Maybe due to open file handles? Models left in compile state?\n' ...
-        'Error removing temporary directory:'
-        ]);
-    errormsg = get_message_with_stack(results(1).errors{1});
-    assert_equals(expected_msg_front, errormsg(1:numel(expected_msg_front)), 'Unexpected error message start');
-    assert_not_empty(strfind(errormsg, 'MATLAB:RMDIR:NoDirectoriesRemoved'), 'Could not find message ID MATLAB:RMDIR:NoDirectoriesRemoved in error message.');
     
 % Clean up fid and tempdir left open by test_tempdir_error_remove.
 % Requires that test_tempdir_error_remove has run before.
