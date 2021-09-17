@@ -65,16 +65,17 @@ else
     tests = get_tests(testsuite);
 end
 num_tests = numel(tests);
+% count only tests that are not disabled
+num_enabled_tests = sum(~cellfun(@(x)get_disabled(x), tests));
 
 % initialize results
 results = cell(size(tests));
 teardownFailResult = [];
+suite_setup_error = [];
 
-% only execute suite set_up if actual tests are to be executed
-if num_tests > 0
-
-    % execute suite set_up
-    suite_setup_error = [];
+% execute suite set_up, but only if actual tests are to be run
+if num_enabled_tests > 0
+    
     setup_obj = get_setup(testsuite);
     try
         % invocation is different for function based or class based test cases
@@ -89,30 +90,33 @@ if num_tests > 0
     catch
         suite_setup_error = mlunit_errorinfo(lasterror, 'Error in suite_set_up (occurred once for this suite, but is relevant for every test case):');
     end
+end
 
+% execute tests only if no error in suite setup
+if isempty(suite_setup_error)
 
-    % execute tests only if no error in suite setup
-    if isempty(suite_setup_error)
+    self = notify_listeners(self, 'init_results', num_tests);
 
-        self = notify_listeners(self, 'init_results', num_tests);
-
-        % run each test of the suite; be sure to update the self state with each call
-        for t=1:numel(tests)
-            [results{t}, self] = run_test(self, tests{t});
-        end
-        % convert back into normal array; we went around by using a cell array, because
-        % MATLAB is picky when we put them into a plain array directly in the loop
-        results = [results{:}];
-
-    % In case of suite setup error, patch together one single test result,
-    % so that the setup error is contained and inform listeners accordingly.
-    else
-        self = notify_listeners(self, 'init_results', 1);
-        results = loc_single_result('suite_set_up', suite_setup_error);
-        self = notify_listeners(self, 'next_result', results(1));
+    % run each test of the suite; be sure to update the self state with each call
+    % run tests even if disabled; will be handled within
+    for t=1:numel(tests)
+        [results{t}, self] = run_test(self, tests{t});
     end
+    % convert back into normal array; we went around by using a cell array, because
+    % MATLAB is picky when we put them into a plain array directly in the loop
+    results = [results{:}];
 
-    % execute suite tear_down
+% In case of suite setup error, patch together one single test result,
+% so that the setup error is contained and inform listeners accordingly.
+else
+    self = notify_listeners(self, 'init_results', 1);
+    results = loc_single_result('suite_set_up', suite_setup_error);
+    self = notify_listeners(self, 'next_result', results(1));
+end
+
+% execute suite tear_down, but only if actual tests were run
+if num_enabled_tests > 0
+    
     teardown_obj = get_teardown(testsuite);
     try
         % invocation is different for function based or class based test cases
