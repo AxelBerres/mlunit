@@ -6,6 +6,9 @@ mlUnit 1.9.4 (in development)
 -----------------------------
 
   - Compatibility with MATLAB R2021a.
+  - Don't execute suite_set_up and suite_tear_down, when a test suite
+    contains no tests. Either because no test_* functions exist, or
+    because all test_* functions were disabled.
 
 
 mlUnit 1.9.3 (2021-01-25)
