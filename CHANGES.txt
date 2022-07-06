@@ -2,10 +2,18 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.9.5 (in development)
+-----------------------------
+
+  - Compatibility with MATLAB R2022a.
+  - Offer initial rerun help for default action.
+
+
 mlUnit 1.9.4 (2021-09-17)
 -------------------------
 
   - Compatibility with MATLAB R2021a.
+  - Linux compatibility of mlUnit internal test suites.
   - Don't execute suite_set_up and suite_tear_down, when a test suite
     contains no tests. Either because no test_* functions exist, or
     because all test_* functions were disabled.
