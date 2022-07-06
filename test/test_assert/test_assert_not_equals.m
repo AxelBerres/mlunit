@@ -92,7 +92,7 @@ function test_not_equals_javaobject
 function test_not_equals_object_SimulinkModelWorkspace
 
     s1 = 'sldemo_fuelsys';
-    s2 = 'sldemo_autotrans';
+    s2 = 'busdemo';
     [wasloaded_s1, ws_s1] = loc_getModelWorkspace(s1);
     [wasloaded_s2, ws_s2] = loc_getModelWorkspace(s2);
 
