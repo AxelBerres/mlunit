@@ -26,6 +26,9 @@
 % mlunit_rerun()            - If a single test has been selected, default to 'current',
 %                             rerunning only that particular test.
 %
+% mlunit_rerun('what')      - Tell what mlunit_run would do as default action, i.e.
+%                             if being called with no arguments.
+%
 % The following call is reserved for internal use only, and is necessary for
 % run_suite_collection to communicate its latest test run to mlunit_rerun.
 %
@@ -48,19 +51,26 @@ function mlunit_rerun(flag, data)
         loc_cache('current', 0);
         return
     end
-    
-    % Determine default flag value
-    if nargin == 0 || isempty(flag)
+
+    % Determine default rerun action, optionally return after help
+    doHelp = nargin > 0 && strncmpi(flag, 'what', 4);
+    if nargin == 0 || isempty(flag) || doHelp
         if loc_cache('inIteration')
-            flag = 'current';
-            disp('Rerunning current test');
+            defaultAction = 'current';
+            disp('Rerunning current test.');
         elseif loc_cache('hasIssues')
-            flag = 'issues';
+            defaultAction = 'issues';
             disp('Rerunning remaining issues.');
         else
-            flag = 'all';
-            disp('Rerunning all tests.');
+            defaultAction = 'all';
+            disp('Rerunning all previously run tests.');
         end
+
+        if doHelp
+           return
+        end
+
+        flag = defaultAction;
     end
     
     % Normalize flag value
