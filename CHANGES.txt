@@ -7,6 +7,10 @@ mlUnit 1.9.5 (in development)
 
   - Compatibility with MATLAB R2022a.
   - Offer initial rerun help for default action.
+  - Give a warning when a test function has the same name as a directory.
+
+  - Fix: When calling a test function on the MATLAB console, and a
+    directory of the same name exists, no tests actually execute.
 
 
 mlUnit 1.9.4 (2021-09-17)

@@ -99,13 +99,21 @@ function suitespecs = loc_determine_suites(testobj)
         selected_test = strtok(rest, '.');
     end
     
+    isFileTestObj = exist(testobj, 'file') == 2;
+    isDirTestObj = exist(testobj, 'dir') == 7;
+
     % neither dir nor file, must be some error
-    if ~any(exist(testobj, 'file') == [2,7])
+    if ~isFileTestObj && ~isDirTestObj
         error('MLUNIT:invalidTestobj', 'Given test object is neither a directory nor a file: ''%s''', testobj);
     end
 
+    % dir as well as file, prefer file and tell user
+    if isFileTestObj && isDirTestObj
+        warning('MLUNIT:testNameDirCollision', 'The test object ''%s'' exists as a file and as a directory. Please rename either one.\nRight now, only the file will be executed.', testobj);
+    end
+
     % in case of dir, go down recursively
-    if exist(testobj, 'dir') == 7
+    if ~isFileTestObj && isDirTestObj
         [dirpath, dirname] = fileparts(testobj);
         if dirname(1) ~= '@'
             % Get test files. They may be in basedir or its subdirectories.
