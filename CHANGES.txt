@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.9.5 (in development)
------------------------------
+mlUnit 1.9.5 (2021-07-19)
+-------------------------
 
   - Compatibility with MATLAB R2022a.
   - mlunit_rerun('what') prints what mlunit_rerun would do as a default action,
