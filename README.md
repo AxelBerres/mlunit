@@ -30,11 +30,11 @@ on a per-use base.
 1. Unzip mlunit.zip to $HOME.
 2. Change to directory in MATLAB:
 
-   >> cd $HOME/mlunit/mlunit
+       >> cd $HOME/mlunit/mlunit
 
 3. Add directory to MATLAB path:
 
-   >> addpath('$HOME/mlunit/mlunit');
+       >> addpath('$HOME/mlunit/mlunit');
 
 4. Save the MATLAB path.
 
