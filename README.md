@@ -18,8 +18,10 @@ Public License (GPL) as published by the Free Software Foundation (see
 LICENSE file).
 
 
+
+
 Installation
-------------
+============
 
 
 mlUnit may be installed (paths registered in MATLAB), or employed dynamically
@@ -37,7 +39,8 @@ on a per-use base.
 4. Save the MATLAB path.
 
 
-### Dynamical Employment
+Dynamical Employment
+--------------------
 
 1. Add all source file directories to the MATLAB search path.
 2. Add mlUnit to the MATLAB search path, including sub directories.
@@ -49,7 +52,8 @@ on a per-use base.
    sub directories, e.g. images.
 
 
-### Requirements
+Requirements
+------------
 
 mlUnit is expected to run on all MATLAB versions from R2007b up to any new
 version. It has been tested with R2007b, R2011b, R2013b, R2015b, R2016b, R2018b, R2020a.
@@ -58,27 +62,32 @@ mlUnit has been tested on Windows and Linux.
 However, Linux has only been tested with R2020a.
 
 
+
+
 Usage
------
+=====
 
 Execute mlUnit manually or automatically from within MATLAB, or
 fully automatized from your Ant automation script or the Windows console.
 
 
-### Manual Execution
+Manual Execution
+----------------
 
 Execute run(mlunit). Provide the name of a test script file in the
 dialog and apply.
 
 
-### Automatic Execution
+Automatic Execution
+-------------------
 
 Execute recursive_test_run. Provide one input argument: The full path to the
 test directory. Provide an optional second input argument: The full path to the
 target directory receiving the jUnit XML reports.
 
 
-### Ant automation
+Ant automation
+--------------
 
 You may skip all of the above steps, even preparation, and execute
 your unit tests with an Apache Ant script, or on the Windows console.
@@ -111,8 +120,10 @@ as it works on the log file produced.
 On Linux, please use the matlab.exec property. Support for matlab.root is untested.
 
 
+
+
 How To Test
------------
+===========
 
 As an example a test for the built-in sin function is written:
 
@@ -183,7 +194,8 @@ directory containing your test cases. Otherwise, MATLAB may not be able
 to write the jUnit reports.
 
 
-### Disabling and skipping tests
+Disabling and skipping tests
+----------------------------
 
 You may disable specific tests statically, in order to exclude them from running.
 For disabled tests, mlUnit also omits the set_up or tear_down fixture.
@@ -213,9 +225,10 @@ clean up, too.
 Skipped tests will appear in reports as skipped.
 
 
-Parameters And Bridging Fixtures
---------------------------------
 
+
+Parameters And Bridging Fixtures
+================================
 
 You can define parameters in order to change mlUnit's behaviour. For example,
 in order to let assert_equals handle NaN values as equal, call:
@@ -251,7 +264,8 @@ It would be a dubious thing to do by default. Therefore, handling the
 javaclasspath is left up to the user.
 
 
-### Description of parameters
+Description of parameters
+-------------------------
 
 equal_nans -- Normally, MATLAB judges two NaN values incomparable. That is,
 a call like isequal(NaN, NaN) yields false. This also holds in mlUnit when using
@@ -299,7 +313,8 @@ For details of how to employ these parameters, see:
     >> help mlunit_param
 
 
-### Bridging fixtures
+Bridging fixtures
+-----------------
 
 You can use these parameters for your own purposes, too. Just be careful
 not to employ names known to mlUnit. Check the list of known parameters with:
@@ -325,17 +340,10 @@ in unit tests and should be avoided where possible, let this serve as example:
         fclose(fid);
 
 
-mlUnit Tests
-------------
-
-As mlUnit was developed somewhat test-driven, there are a number of tests in the
-test directory, which can be run by
-
-    >> recursive_test_run('$MLUNIT\mlunit\test')
 
 
 Migration
----------
+=========
 
 With 1.9.0, function test suites should change their front loading mechanism
 back to `load_tests_from_mfile` on all supported MATLAB versions.
@@ -363,8 +371,10 @@ want to assert a constraint in production code rather than a test case, use the
 MATLAB built-ins assert() or error().
 
 
+
+
 Questions, Comments, Bugs
--------------------------
+=========================
 
 If you have a question, a comment or a bug report, please send an email to 
 any of the maintainers.
@@ -377,3 +387,12 @@ With 1.9.3, mlunit_rerun will abort with an error:
 
   - if a rerun introduces an error within the suite_set_up fixture, or
   - if a rerun heals an error within the suite_set_up fixture.
+
+
+mlUnit Tests
+------------
+
+As mlUnit was developed somewhat test-driven, there are a number of tests in the
+test directory, which can be run by
+
+    >> recursive_test_run('$MLUNIT\mlunit\test')
