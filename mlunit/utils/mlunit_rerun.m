@@ -3,7 +3,7 @@
 % Rerun all tests or a certain subset of the tests that have run in the latest execution
 % of run_suite_collection or recursive_test_run (or any single test suite execution).
 % Test results of any succeeding mlunit_rerun call will update the latest results.
-% This allows for easy, iterative fixing of test failures/errors.
+% This allows for iterative fixing of test failures/errors.
 %
 % Any next call to run_suite_collection or recursive_test_run will reset a previous run.
 %
@@ -26,7 +26,7 @@
 % mlunit_rerun()            - If a single test has been selected, default to 'current',
 %                             rerunning only that particular test.
 %
-% mlunit_rerun('what')      - Tell what mlunit_run would do as default action, i.e.
+% mlunit_rerun('what')      - Print what mlunit_rerun would do as default action, i.e.
 %                             if being called with no arguments.
 %
 % The following call is reserved for internal use only, and is necessary for
@@ -54,20 +54,26 @@ function mlunit_rerun(flag, data)
 
     % Determine default rerun action, optionally return after help
     doHelp = nargin > 0 && strncmpi(flag, 'what', 4);
-    if nargin == 0 || isempty(flag) || doHelp
-        if loc_cache('inIteration')
+    doDefaultAction = nargin == 0 || isempty(flag);
+    if doDefaultAction || doHelp
+
+        inIteration = loc_cache('inIteration');
+        hasIssues = loc_cache('hasIssues');
+
+        if inIteration
             defaultAction = 'current';
-            disp('Rerunning current test.');
-        elseif loc_cache('hasIssues')
+            disp('Rerunning current issue.');
+        elseif hasIssues
             defaultAction = 'issues';
             disp('Rerunning remaining issues.');
         else
             defaultAction = 'all';
-            disp('Rerunning all previously run tests.');
+            disp('Rerunning all previously executed tests.');
         end
-
+        
         if doHelp
-           return
+            loc_printHelp(inIteration, hasIssues);
+            return
         end
 
         flag = defaultAction;
@@ -119,6 +125,49 @@ function mlunit_rerun(flag, data)
     loc_cache('data', data);
 end
 
+% Print overview over tests marked for rerun.
+function loc_printHelp(inIteration, hasIssues)
+    if inIteration
+        [rerun_entries, numSuites, idxCurrent] = loc_getIssuesInfo();
+        for i = 1:numel(rerun_entries)
+            if i == idxCurrent
+                rerun_entries{i} = ['--> ', rerun_entries{i}];
+            else
+                rerun_entries{i} = ['    ', rerun_entries{i}];
+            end
+        end
+    
+        disp(' ');
+        disp(mlunit_strjoin(rerun_entries, '\n'));
+        disp(' ');
+        fprintf('    One out of %d tests across %d suites\n\n', numel(rerun_entries), numSuites);
+    elseif hasIssues
+        [rerun_entries, numSuites] = loc_getIssuesInfo();
+    
+        disp(' ');
+        disp(['    ', mlunit_strjoin(rerun_entries, '\n    ')]);
+        disp(' ');
+        fprintf('    %s across %s\n\n', loc_grammaticNumeral(numel(rerun_entries), 'test'), loc_grammaticNumeral(numSuites, 'suite'));
+    else
+        rerun_entries = loc_getSuiteNames();
+    
+        if ~isempty(rerun_entries)
+            disp(' ');
+            disp(['    ', mlunit_strjoin(rerun_entries, '\n    ')]);
+        end
+        disp(' ');
+        fprintf('    %s\n\n', loc_grammaticNumeral(numel(rerun_entries), 'suite'));
+    end
+end
+
+% Output '1 apple' but '4 apples' and '0 apples'.
+function out = loc_grammaticNumeral(count, name)
+    if count == 1
+        out = sprintf('%d %s', count, name);
+    else
+        out = sprintf('%d %ss', count, name);
+    end
+end
 
 % Get tests subset for the requested rerun, in the form of a session-transferable
 % suitespec container.
@@ -230,6 +279,54 @@ function hasIssues = loc_hasIssues(suiteresults, issueType)
     end
     
     hasIssues = nextIssue(1) > 0;
+end
+
+% Find the names of all tests that are either failures or errors.
+function [info, numSuites, idxCurrent] = loc_getIssuesInfo()
+
+    data = loc_cache('data');
+    current = loc_cache('current');
+    suiteresults = data.suiteresults;
+
+    info = {};
+    idxCurrent = 0;
+    markedSuites = zeros(size(suiteresults));
+    for idxSuite = 1:numel(suiteresults)
+
+        tests = suiteresults{idxSuite}.testcaseList;
+        for idxTest = 1:numel(tests)
+
+            isError = ~isempty(tests{idxTest}.error);
+            isFailure = ~isempty(tests{idxTest}.failure);
+            isCurrent = current(1) == idxSuite && current(2) == idxTest;
+
+            if isError || isFailure || isCurrent
+                testName = [suiteresults{idxSuite}.name, '.', tests{idxTest}.name];
+                markedSuites(idxSuite) = 1;
+
+                if isError
+                    info{end+1} = [testName, ' (error)']; %#ok<AGROW> 
+                elseif isFailure
+                    info{end+1} = [testName, ' (failure)']; %#ok<AGROW> 
+                else
+                    % This branch only applies if the user healed the currently selected
+                    % test case. Then we still want to list it in the overview.
+                    info{end+1} = [testName, ' (passed)']; %#ok<AGROW> 
+                end
+
+                if isCurrent
+                    idxCurrent = numel(info);
+                end
+            end
+        end
+    end
+    numSuites = sum(markedSuites);
+end
+
+% Get all suite names.
+function names = loc_getSuiteNames()
+    data = loc_cache('data');
+    names = cellfun(@(s)s.name, data.suiteresults, 'UniformOutput', false);
 end
 
 % Which issue is the prior one, while being valid (not [0, 0])?

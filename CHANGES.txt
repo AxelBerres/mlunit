@@ -6,7 +6,8 @@ mlUnit 1.9.5 (in development)
 -----------------------------
 
   - Compatibility with MATLAB R2022a.
-  - Offer initial rerun help for default action.
+  - mlunit_rerun('what') prints what mlunit_rerun would do as a default action,
+    i.e. if being called with no arguments.
   - Give a warning when a test function has the same name as a directory.
 
   - Fix: When calling a test function on the MATLAB console, and a
