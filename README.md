@@ -1,6 +1,6 @@
 
-m l U n i t
-===========
+mlUnit
+======
 
 mlUnit is a unit test framework for the MATLAB M language.
 It follows patterns of the xUnit family, including assertions,
@@ -9,7 +9,7 @@ test cases and suites as well as the fixture.
 In contrast to MATLAB's own unit test framework:
 
 * mlUnit outputs jUnit compatible XML reports
-* mlUnit is compatible with Your MATLAB (not just R2013b), down to R2007b
+* mlUnit is compatible down to R2011b (not just R2013b)
 * mlUnit offers specialised assert functions, e.g. assert_empty, assert_warning,
   and many more.
 
@@ -17,11 +17,9 @@ This software and all associated files are released unter the GNU General
 Public License (GPL) as published by the Free Software Foundation (see 
 LICENSE file).
 
--------------------------------------------------------------------------------
 
-
-INSTALLATION
-============
+Installation
+------------
 
 
 mlUnit may be installed (paths registered in MATLAB), or employed dynamically
@@ -39,8 +37,7 @@ on a per-use base.
 4. Save the MATLAB path.
 
 
-DYNAMICAL EMPLOYMENT
---------------------
+### Dynamical Employment
 
 1. Add all source file directories to the MATLAB search path.
 2. Add mlUnit to the MATLAB search path, including sub directories.
@@ -52,8 +49,7 @@ DYNAMICAL EMPLOYMENT
    sub directories, e.g. images.
 
 
-REQUIREMENTS
-------------
+### Requirements
 
 mlUnit is expected to run on all MATLAB versions from R2007b up to any new
 version. It has been tested with R2007b, R2011b, R2013b, R2015b, R2016b, R2018b, R2020a.
@@ -61,34 +57,28 @@ version. It has been tested with R2007b, R2011b, R2013b, R2015b, R2016b, R2018b,
 mlUnit has been tested on Windows and Linux.
 However, Linux has only been tested with R2020a.
 
--------------------------------------------------------------------------------
 
-
-USAGE
-=====
-
+Usage
+-----
 
 Execute mlUnit manually or automatically from within MATLAB, or
 fully automatized from your Ant automation script or the Windows console.
 
 
-Manual Execution
-----------------
+### Manual Execution
 
 Execute run(mlunit). Provide the name of a test script file in the
 dialog and apply.
 
 
-Automatic Execution
--------------------
+### Automatic Execution
 
 Execute recursive_test_run. Provide one input argument: The full path to the
 test directory. Provide an optional second input argument: The full path to the
 target directory receiving the jUnit XML reports.
 
 
-Ant automation
---------------
+### Ant automation
 
 You may skip all of the above steps, even preparation, and execute
 your unit tests with an Apache Ant script, or on the Windows console.
@@ -121,23 +111,19 @@ as it works on the log file produced.
 On Linux, please use the matlab.exec property. Support for matlab.root is untested.
 
 
--------------------------------------------------------------------------------
-
-
-HOW TO TEST
-===========
-
+How To Test
+-----------
 
 As an example a test for the built-in sin function is written:
 
 1. Create a new directory @test_sin: 
 
-   >> mkdir @test_sin
-   >> cd @test_sin
+       >> mkdir @test_sin
+       >> cd @test_sin
 
 2. Create a new .m file test_sin.m (the constructor):
 
-   >> edit test_sin.m
+       >> edit test_sin.m
 
 3. Add the following lines to test_sin.m:
 
@@ -155,8 +141,8 @@ As an example a test for the built-in sin function is written:
 
 5. Run the test:
 
-   >> cd('sample');
-   >> run(mlunit);
+       >> cd('sample');
+       >> run(mlunit);
 
    Enter 'test_sin' and press 'Run'.
    You should see a green bar and the text:
@@ -196,8 +182,8 @@ Be careful when using a custom report base directory that is longer than the
 directory containing your test cases. Otherwise, MATLAB may not be able
 to write the jUnit reports.
 
-Disabling and skipping tests
-----------------------------
+
+### Disabling and skipping tests
 
 You may disable specific tests statically, in order to exclude them from running.
 For disabled tests, mlUnit also omits the set_up or tear_down fixture.
@@ -226,11 +212,9 @@ Since the set_up fixture did run, the tear_down fixture needs to be able to
 clean up, too.
 Skipped tests will appear in reports as skipped.
 
--------------------------------------------------------------------------------
 
-
-PARAMETERS AND BRIDGING FIXTURES
-================================
+Parameters And Bridging Fixtures
+--------------------------------
 
 
 You can define parameters in order to change mlUnit's behaviour. For example,
@@ -267,8 +251,7 @@ It would be a dubious thing to do by default. Therefore, handling the
 javaclasspath is left up to the user.
 
 
-Description of parameters
--------------------------
+### Description of parameters
 
 equal_nans -- Normally, MATLAB judges two NaN values incomparable. That is,
 a call like isequal(NaN, NaN) yields false. This also holds in mlUnit when using
@@ -313,16 +296,15 @@ from whence it came.
 
 For details of how to employ these parameters, see:
 
-   >> help mlunit_param
+    >> help mlunit_param
 
 
-Bridging fixtures
------------------
+### Bridging fixtures
 
 You can use these parameters for your own purposes, too. Just be careful
 not to employ names known to mlUnit. Check the list of known parameters with:
 
-   >> help mlunit_param
+    >> help mlunit_param
 
 That being said, you can use parameters for your own purposes,
 e.g. to bridge information between fixture calls.
@@ -331,34 +313,33 @@ and want to access it in your tear_down fixture, store it as an mlUnit
 parameter. Although file and directory dependencies are generally discouraged
 in unit tests and should be avoided where possible, let this serve as example:
 
-   function set_up
-      % open file for reading
-      fid = fopen('my/path/myfile.txt');
-      % remember file id
-      mlunit_param('my_precious_fid', fid);
+    function set_up
+        % open file for reading
+        fid = fopen('my/path/myfile.txt');
+        % remember file id
+        mlunit_param('my_precious_fid', fid);
 
-   function tear_down
-      % recall file id and close it
-      fid = mlunit_param('my_precious_fid');
-      fclose(fid);
-
--------------------------------------------------------------------------------
+    function tear_down
+        % recall file id and close it
+        fid = mlunit_param('my_precious_fid');
+        fclose(fid);
 
 
-MLUNIT TESTS
-============
-
+mlUnit Tests
+------------
 
 As mlUnit was developed somewhat test-driven, there are a number of tests in the
 test directory, which can be run by
 
->> recursive_test_run('$MLUNIT\mlunit\test')
-
--------------------------------------------------------------------------------
+    >> recursive_test_run('$MLUNIT\mlunit\test')
 
 
-MIGRATION
-=========
+Migration
+---------
+
+With 1.9.0, function test suites should change their front loading mechanism
+back to `load_tests_from_mfile` on all supported MATLAB versions.
+The intermediary `output_tests_from_mfile` is now deprecated.
 
 With 1.6.10, function test suites should change their front loading mechanism,
 if they are going to be run under MATLAB R2015b or newer. Proper function suites
@@ -381,11 +362,18 @@ calls with calls to assert_true() in test cases. In places where you actually
 want to assert a constraint in production code rather than a test case, use the
 MATLAB built-ins assert() or error().
 
--------------------------------------------------------------------------------
 
-
-QUESTIONS, COMMENTS, BUGS
-=========================
+Questions, Comments, Bugs
+-------------------------
 
 If you have a question, a comment or a bug report, please send an email to 
 any of the maintainers.
+
+
+Known Issues
+------------
+
+With 1.9.3, mlunit_rerun will abort with an error:
+
+  - if a rerun introduces an error within the suite_set_up fixture, or
+  - if a rerun heals an error within the suite_set_up fixture.
