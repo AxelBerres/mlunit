@@ -14,7 +14,7 @@ function test_norun_all_default
     mlunit_rerun('save', struct('suiteresults', {{}}, 'testobj', {''}));
 
     text = evalc('mlunit_rerun');
-    assert_contains(text, 'Rerunning all previously run tests.');
+    assert_contains(text, 'Rerunning all previously executed tests.');
     assert_contains(text, 'Executed 0 tests across 0 suites');
     
 function test_norun_next
