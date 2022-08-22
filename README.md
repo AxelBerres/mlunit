@@ -55,11 +55,9 @@ Dynamical Employment
 Requirements
 ------------
 
-mlUnit is expected to run on all MATLAB versions from R2007b up to any new
-version. It has been tested with R2007b, R2011b, R2013b, R2015b, R2016b, R2018b, R2020a.
-
-mlUnit has been tested on Windows and Linux.
-However, Linux has only been tested with R2020a.
+mlUnit is expected to run on all MATLAB versions from R2011b up to any new
+version. It has been tested with R2011b, R2013b, R2015b, R2016b, R2018b, R2020b, R2022b on Windows,
+and with R2020b on Linux.
 
 
 
