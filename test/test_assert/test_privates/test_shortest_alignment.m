@@ -49,6 +49,20 @@ function test_complex_edit
                  'G·AGTTACA'];
     assert_alignment('GCAGTGCU', 'GAGTTACA', alignment);
 
+function test_large_edit_runtime
+
+   % Compare two random gene sequences of 512 characters length
+   repeats = 4;
+   seed1 = 'ACCGCTGTGTAGCGGACAGTCTGAGCTACCCTCTCAAGCACGAGATCTACAGGGCGGGGTAGAAGCCGTCGCTTCGGGTCCATGCGGGGGGTAAAACCCTGTTTAAGAGGTCCGGGCAGCATACGCGC';
+   seed2 = 'GGCACCCATCTCTCTTCATTCGCTTATTGTGAACGTTCGAAAGCACAATGTGGTTTATGTGCTACTGTGGAGAGGGTTTGTGAATCTAGGAGCACAAAAAAGCGGCGCACTTCAGGCATAAAAGGAGC';
+   seq1 = repmat(seed1, 1, repeats);
+   seq2 = repmat(seed2, 1, repeats);
+   
+   before = cputime;
+   shortest_alignment(seq1, seq2);
+   passed = cputime - before;
+   assert_true(passed < 4, 'shortest_alignment is expected to finish during 4s on strings that are 512 characters long. But it used %.1fs.', passed);
+
 
 %% local assert function
 function assert_alignment(s1, s2, expected_alignment)
