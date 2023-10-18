@@ -2,6 +2,13 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.9.6 (2023-10-20)
+-------------------------
+
+  - Fix: When using the Ant automation, MATLAB's console output will
+    now actually be put out again.
+
+
 mlUnit 1.9.5 (2021-07-19)
 -------------------------
 

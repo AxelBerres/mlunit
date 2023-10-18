@@ -249,7 +249,7 @@
       <property name="matlab.help.exec" location="${matlab.exec.dir}/matlab.exe"/>
 
       <!-- call by "cmd /c matlab -help & rem" in order to suppress output of the return result of -1 -->
-      <exec executable="cmd" outputproperty="help.text" if:true="is_windows">
+      <exec executable="cmd" outputproperty="help.text" if:true="${is_windows}">
         <arg value="/c"/>
         <arg value="&quot;${matlab.help.exec}&quot; -help &amp; rem"/>
       </exec>
@@ -258,11 +258,11 @@
            versions 8.0 (R2012b) through 8.5 (R2015a).
            We don't support earlier versions, and switch to the -log option for
            newer versions (R2015b and later). -->
-      <condition property="release-specific-args" value="" else="-log" if:true="is_windows">
+      <condition property="release-specific-args" value="" else="-log" if:true="${is_windows}">
         <matches pattern="Version: (7\.[5-9]|7\.1[0-4]|8\.[0-5])\.[0-9]+,[0-9]+" string="${help.text}"/>
       </condition>
 
-      <property name="release-specific-args" value="-logfile" if:true="is_unix"/>
+      <property name="release-specific-args" value="-logfile" if:true="${is_unix}"/>
 
       <echo message="Determined release specific arguments: ${release-specific-args}"/>
     </sequential>
