@@ -91,35 +91,14 @@ function test_not_equals_javaobject
 % type of object. Needs Simulink installed.
 function test_not_equals_object_SimulinkModelWorkspace
 
-    s1 = 'sldemo_fuelsys';
-    s2 = 'busdemo';
-    [wasloaded_s1, ws_s1] = loc_getModelWorkspace(s1);
-    [wasloaded_s2, ws_s2] = loc_getModelWorkspace(s2);
-
+    % Load two different models, query the ModelWorkspace parameter and leave them open.
+    syshandle(1) = new_system();
+    syshandle(2) = new_system();
+    ws1 = get_param(syshandle(1), 'ModelWorkspace');
+    ws2 = get_param(syshandle(2), 'ModelWorkspace');
+    
     % We need to examine the Simulink.ModelWorkspace in a hot state, i.e. with
-    % the model still loaded. We want to make sure to close the system
-    % afterwards, if it was not loaded already. Therefore, we have to
-    % temporarily catch any assert_equals errors and rethrow them only after we
-    % closed the system.
-    err = struct([]);
-    try
-        assert_not_equals(ws_s1, ws_s2);
-    catch
-        err = lasterror;
-    end
-    
-    if ~wasloaded_s1, close_system(s1, 0); end
-    if ~wasloaded_s2, close_system(s2, 0); end
-
-    if ~isempty(err)
-        rethrow(err);
-    end
-
-% Load a specific model, query its ModelWorkspace parameter and leave it open.    
-function [loaded_initially, mdlWorkspace] = loc_getModelWorkspace(sysname)
-
-    isloaded = @(sysname) ~isempty(find_system('Name', sysname, 'Parent', ''));
-    loaded_initially = isloaded(sysname);
-    
-    load_system(sysname);
-    mdlWorkspace = get_param(sysname, 'ModelWorkspace');
+    % the model still loaded. Close it only afterwards, but in any case.
+    close_system_hook(1) = onCleanup(@() close_system(syshandle(1), 0));
+    close_system_hook(2) = onCleanup(@() close_system(syshandle(2), 0));
+    assert_not_equals(ws1, ws2);

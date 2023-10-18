@@ -39,27 +39,14 @@ function test_object %#ok<DEFNU>
 % type of object. Needs Simulink installed.
 function test_object_SimulinkModelWorkspace
 
-    sysname = 'sldemo_fuelsys';
-    [was_loaded, workspace] = loc_getModelWorkspace(sysname);
+    % Load a model, query its ModelWorkspace parameter and leave it open.
+    syshandle = new_system();
+    mdlWorkspace = get_param(syshandle, 'ModelWorkspace');
 
     % We need to examine the Simulink.ModelWorkspace in a hot state, i.e. with
-    % the model still loaded. Buffer isclass' result.
-    isclass_result = isclass(workspace);
-    
-    if ~was_loaded
-        close_system(sysname, 0);
-    end
-    
-    assert_true(isclass_result);
-
-% Load a specific model, query its ModelWorkspace parameter and leave it open.    
-function [loaded_initially, mdlWorkspace] = loc_getModelWorkspace(sysname)
-
-    isloaded = @(sysname) ~isempty(find_system('Name', sysname, 'Parent', ''));
-    loaded_initially = isloaded(sysname);
-    
-    load_system(sysname);
-    mdlWorkspace = get_param(sysname, 'ModelWorkspace');
+    % the model still loaded. Close it only afterwards, but in any case.
+    close_system_hook = onCleanup(@() close_system(syshandle, 0));
+    assert_true(isclass(mdlWorkspace));
 
 
 
