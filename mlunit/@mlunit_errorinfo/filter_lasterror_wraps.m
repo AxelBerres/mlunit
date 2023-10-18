@@ -33,18 +33,18 @@ stack = self.err.stack;
 %    'Error using ==>...' on R2006b to R2010b, or
 %    'Error using <a href...' from R2011b on
 %    'Error using myfunction' when MATLAB runs with arguments -automation -nodesktop
-%    No sensible regexp comes to mind, therefore we just skip anything after "Error using"
-regexp_runtime_err = ['^Error using ' ...   % always starts with 'Error using'
+%    No sensible regexp comes to mind, therefore we just skip anything after "Error using "
+regexp_runtime_err = ['^Error using ' ...   % always starts with 'Error using '
                       '[^\n]*' ...          % skip anything on this line
                       '\n(.*)'];            % capture the next line(s)
 num_captures_runtime_err = 1;               % 1 capture group if successful
 
 % lasterror wraps syntax errors really awkwardly across the releases
 % for details, see test_mlunit_errorinfo
-regexp_syntax_err = ['^(Error: )?' ...      % may start with 'Error:'
+regexp_syntax_err = ['^(Error: )?' ...      % may start with 'Error: '
                      '(<a[^>]*>)?' ...      % puts an anchor around the file
                      'File: ' ...
-                     '([\w\ \.,$&\/\(\)\\:@]+.[mp])' ...  % file name or path
+                     '([\w\ \.,$&\/\(\)\\:@]+\.[mp])' ...  % file name or path
                      ' Line: (\d+)' ...
                      ' Column: (\d+)' ...
                      '.*' ...               % any further character
