@@ -13,6 +13,9 @@
 %       test = disable_tests(test, 'test_case1', 'KnownIssue #5773');
 %     end
 %
+% However, this only works in automation, i.e. when running recursive_test_run or the ant script.
+% If you run a single test suite, then disable_tests cannot work.
+%
 % test = disable_tests(test, TC, MSG) disables the single test case TC. If TC is a cellstr
 % array, all contained test case names are disabled. MSG is a char array denoting the
 % reason for disabling these tests.
@@ -60,4 +63,18 @@ for tidx = 1:numel(self.tests)
    if excludeAll || any(strcmp(testName, excludes))
       self.tests{tidx} = set_disabled(self.tests{tidx}, reason);
    end
+end
+
+% if exactly two items on stack, that's from a single test execution,
+% meaning we were called from console directly
+% in that case we have no way of actually disabling the tests -> warn the user
+if numel(dbstack) == 2
+    % The current suite has already been executed by load_tests_from_mfile
+    % if run as a stand-along suite. There's just no mechanism for disable_tests
+    % to come in between the setup and execution of the suite.
+    % We cannot get ahold of the suite variable in the caller's context, because
+    % it changes during the process and the workspace is cleared upon onCleanup;
+    % and there's no way for load_tests to determine if there's an impending
+    % disable_tests call, short of actually (improperly) parsing the whole function.
+    warning('MLUNIT:disablingImpossible', 'Tests that should''ve been ignored actually ran, because this suite was triggered individually.\n  These tests will be ignored when being run in automation or by GUI.\n  Alternatively, use mlunit_skip or additional load_tests_from_mfile arguments.');
 end
