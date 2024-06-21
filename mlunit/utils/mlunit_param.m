@@ -77,7 +77,11 @@ function outvalue = mlunit_param(name, invalue)
     end
 
     % usage for single parameters
-    clean_name = genvarname(name);
+    if isvarname(name)
+        clean_name = name;
+    else
+        clean_name = genvarname(name);
+    end
 
     % return single parameter value before its new value is set
     if isfield(parameters, clean_name)

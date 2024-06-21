@@ -35,10 +35,11 @@ function [state, errors] = mlunit_environment(state)
         if ~isempty(envErrors)
             errors = struct('message', {envErrors});
         end
-    end
 
     % return current environment state
-    state = loc_current_environment();
+    else
+        state = loc_current_environment();
+    end
 
 % Collect environment information in a single state variable
 % This collects the current directory, the current MATLAB path configuration,
@@ -56,7 +57,9 @@ function errors = loc_restore_environment(state)
     errorsRestore = loc_restore_blockdiagrams_loaded(state);
     
     cd(state.pwd);
-    path(state.path);
+    if (~isequal(state.path, path))
+        path(state.path);
+    end
 
     % Delete tempdirs after resetting the path, otherwise MATLAB may warn about it
     % removing dirs from the MATLAB search path on its own account.
