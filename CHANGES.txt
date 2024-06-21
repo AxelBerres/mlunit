@@ -2,7 +2,7 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.9.7 (in development)
+mlUnit 1.9.7 (2024-06-21)
 -------------------------
 
   - Support MATLAB strings for comparison and output.
