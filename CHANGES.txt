@@ -2,6 +2,16 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.9.7 (in development)
+-------------------------
+
+  - Support for multidimensional cell array output.
+    When assert_equals outputs diff information, the structure of 2D cell
+    arrays is maintained. The structure of higher dimensions gets linearized.
+  - Warn if disable_tests is ineffective, because a suite has been triggered
+    individually.
+
+
 mlUnit 1.9.6 (2023-10-20)
 -------------------------
 

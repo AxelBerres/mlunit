@@ -13,10 +13,8 @@ function outstring = printable(input)
 %
 %  See also MAT2STR, mat2str_char, isclass
 
-%  This Software and all associated files are released unter the 
+%  This Software and all associated files are released unter the
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 if nargin < 1
     outstring = '';
@@ -39,8 +37,24 @@ elseif iscell(input)
     for i=1:numel(input)
         items{i} = printable(input{i});
     end
-    % linearizes the cell array's matrix structure
-    outstring = ['{' mlunit_strjoin(items) '}'];
+
+    if numel(items) > 0
+        % Linearize all dimensions but the second. That way, we lose some structure
+        % information for 3D cell matrices, but at least include their content.
+        % It's difficult to walk over everything but the second dimension
+        % in a general manner in MATLAB, but here you go:
+        outerSize = size(items);
+        outerSize(2) = [];
+        outerLength = numel(items) / size(items, 2); % same as prod(outerSize)
+        outerItems = cell(outerLength, 1);
+        for idxOuter = 1:outerLength
+            [dim1st, dimOthers] = ind2sub(outerSize, idxOuter);
+            outerItems{idxOuter} = mlunit_strjoin(items(dim1st, :, dimOthers));
+        end
+        outstring = ['{' mlunit_strjoin(outerItems, '; ') '}'];
+    else
+        outstring = '{}';
+    end
 elseif isstruct(input)
     print_scalar_struct = @(s) ['{' mlunit_strjoin(fieldname_value_strings(s), '; ') '}'];
     items = arrayfun(print_scalar_struct, input, 'UniformOutput', false);
@@ -87,5 +101,5 @@ function out = loc_trim_empty_lines(in)
     while back >= front && any(in(back) == whitespace)
         back = back - 1;
     end
-    
+
     out = in(front:back);
