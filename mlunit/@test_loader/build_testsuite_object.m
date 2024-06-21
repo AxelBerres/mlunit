@@ -14,8 +14,8 @@ end
 if ~iscellstr(excludes)
     error('excludes need be cellstr array');
 end
-if ~ischar(excludesReason)
-    error('excludesReason need be char array');
+if ~ischar(excludeReason)
+    error('excludeReason need be char array');
 end
 
 set_up_handle = 0;

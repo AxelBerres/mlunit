@@ -37,7 +37,7 @@ function suite = load_tests_from_mfile(self, includeNames, excludeNames, exclude
 %  This Software and all associated files are released unter the
 %  GNU General Public License (GPL), see LICENSE for details.
 
-mlunit_narginchk(1,3,nargin);
+mlunit_narginchk(1,4,nargin);
 
 if nargin < 4
     excludeReason = '';
@@ -56,7 +56,7 @@ end
 
 includes = {};
 includeAll = true;
-if nargin >= 2
+if nargin == 2
     if ~iscellstr(includeNames)
         error('MLUNIT:inputCellstr', 'When giving 2 arguments, the second argument, INCLUDES must be a cellstr array.');
     end
