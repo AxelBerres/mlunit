@@ -36,7 +36,36 @@ function test_cell_matrix
 
 function test_cell_complex
 
-    assert_equals('{1, {2, [{three:4}]}; 5, ''six''}', printable({1 {2, struct('three', 4)}; 5, 'six'}));
+    assert_equals('{1, {2, [{three:4}]}; 5, "six"}', printable({1 {2, struct('three', 4)}; 5, "six"}));
+
+function test_char_empty
+
+    assert_equals('''''', printable(''));
+    assert_equals('''''', printable(repmat('a',0,1)));
+
+function test_char_vectors
+
+    assert_equals('''a''', printable('a'));
+    assert_equals('''foo''', printable('foo'));
+    assert_equals('[''f'';''o'';''o'']', printable(('foo')'));
+
+function test_char_matrix
+
+    assert_equals('[''foo'';''bar'']', printable(['foo';'bar']));
+
+function test_string_empty
+
+    assert_equals('[]', printable(strings(0)));
+
+function test_string_scalars
+
+    assert_equals('""', printable(""));
+    assert_equals('"a"', printable("a"));
+    assert_equals('"foo"', printable("foo"));
+
+function test_string_matrix
+
+    assert_equals('["foo";"bar"]', printable(["foo";"bar"]));
 
 
 %% boilerplate code for testing functions that are private to assert functions
