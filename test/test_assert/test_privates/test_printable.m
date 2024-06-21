@@ -55,7 +55,7 @@ function test_char_matrix
 
 function test_string_empty
 
-    if 0 == exist('isstring', 'builtin')
+    if verLessThan('matlab', '9.3')
         mlunit_skip('Runs only on MATLABs that support the string type.');
     end
     
@@ -63,7 +63,7 @@ function test_string_empty
 
 function test_string_scalars
 
-    if 0 == exist('isstring', 'builtin')
+    if verLessThan('matlab', '9.3')
         mlunit_skip('Runs only on MATLABs that support the string type.');
     end
 
@@ -73,7 +73,7 @@ function test_string_scalars
 
 function test_string_matrix
 
-    if 0 == exist('isstring', 'builtin')
+    if verLessThan('matlab', '9.3')
         mlunit_skip('Runs only on MATLABs that support the string type.');
     end
 
