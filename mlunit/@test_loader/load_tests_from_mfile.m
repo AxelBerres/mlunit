@@ -1,4 +1,4 @@
-function suite = load_tests_from_mfile(self, includeNames, excludeNames) %#ok<INUSL>
+function suite = load_tests_from_mfile(self, includeNames, excludeNames, excludeReason) %#ok<INUSL>
 %Returns a test_suite with all test* methods from a .m-file.
 %
 %  This is the recommended function for loading tests from a function test
@@ -38,6 +38,10 @@ function suite = load_tests_from_mfile(self, includeNames, excludeNames) %#ok<IN
 %  GNU General Public License (GPL), see LICENSE for details.
 
 mlunit_narginchk(1,3,nargin);
+
+if nargin < 4
+    excludeReason = '';
+end
 
 excludes = {};
 if nargin >= 3
@@ -82,7 +86,7 @@ if ~includeAll
 end
 
 suitename = stack(2).name;
-suite = build_testsuite_object(self, suitename, handles, excludes);
+suite = build_testsuite_object(self, suitename, handles, excludes, excludeReason);
 
 % if exactly two items on stack, that's load_tests_from_mfile and the test
 % function, meaning we were called from console directly -> execute suite

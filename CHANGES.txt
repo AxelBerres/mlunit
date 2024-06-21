@@ -11,6 +11,7 @@ mlUnit 1.9.7 (in development)
     arrays is maintained. The structure of higher dimensions gets linearized.
   - Warn if disable_tests is ineffective, because a suite has been triggered
     individually.
+  - Support a reason when excluding functions with load_tests_from_mfile.
 
 
 mlUnit 1.9.6 (2023-10-20)
