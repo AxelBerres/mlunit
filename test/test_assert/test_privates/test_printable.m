@@ -36,7 +36,7 @@ function test_cell_matrix
 
 function test_cell_complex
 
-    assert_equals('{1, {2, [{three:4}]}; 5, "six"}', printable({1 {2, struct('three', 4)}; 5, "six"}));
+    assert_equals('{1, {2, [{three:4}]}; 5, ''six''}', printable({1 {2, struct('three', 4)}; 5, 'six'}));
 
 function test_char_empty
 
@@ -55,17 +55,29 @@ function test_char_matrix
 
 function test_string_empty
 
+    if 0 == exist('isstring', 'builtin')
+        mlunit_skip('Runs only on MATLABs that support the string type.');
+    end
+    
     assert_equals('[]', printable(strings(0)));
 
 function test_string_scalars
 
-    assert_equals('""', printable(""));
-    assert_equals('"a"', printable("a"));
-    assert_equals('"foo"', printable("foo"));
+    if 0 == exist('isstring', 'builtin')
+        mlunit_skip('Runs only on MATLABs that support the string type.');
+    end
+
+    assert_equals('""', printable(eval('""')));
+    assert_equals('"a"', printable(eval('"a"')));
+    assert_equals('"foo"', printable(eval('"foo"')));
 
 function test_string_matrix
 
-    assert_equals('["foo";"bar"]', printable(["foo";"bar"]));
+    if 0 == exist('isstring', 'builtin')
+        mlunit_skip('Runs only on MATLABs that support the string type.');
+    end
+
+    assert_equals('["foo";"bar"]', printable(eval('["foo";"bar"]')));
 
 
 %% boilerplate code for testing functions that are private to assert functions
