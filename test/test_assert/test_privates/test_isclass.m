@@ -27,6 +27,11 @@ function test_functionhandle %#ok<DEFNU>
 
 function test_javaobject %#ok<DEFNU>
 
+    % Skip for MATLAB R2015b, and maybe R2015a and R2016a.
+    % Works in R2014b and R2016b and beyond.
+    if verLessThan('matlab', '9.1') && ~verLessThan('matlab', '8.6')
+        mlunit_skip('This test would trigger isstring(java.lang.String(''lovely'')), crashing MATLAB R2015b.');
+    end
     jo = java.lang.String('hiho');
     assert_true(isjava(jo));
     assert_false(isclass(jo));
