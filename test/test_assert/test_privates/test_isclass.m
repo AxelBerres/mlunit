@@ -37,7 +37,7 @@ function test_object %#ok<DEFNU>
 
 % Test on a Simulink.ModelWorkspace object, which seems to be a special
 % type of object. Needs Simulink installed.
-function test_object_SimulinkModelWorkspace
+function test_object_SimulinkModelWorkspace %#ok<DEFNU>
 
     % Load a model, query its ModelWorkspace parameter and leave it open.
     syshandle = new_system();

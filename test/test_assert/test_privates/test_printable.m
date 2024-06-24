@@ -6,7 +6,7 @@ function test = test_printable
 function test_empty
 
     assert_equals('[]', printable([]));
-    assert_equals('[]', printable(repmat(NaN,0,1)));
+    assert_equals('[]', printable(NaN,0,1));
 
 
 function test_cell_empty
