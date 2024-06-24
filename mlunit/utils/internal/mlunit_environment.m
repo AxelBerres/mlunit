@@ -35,6 +35,7 @@ function [state, errors] = mlunit_environment(state)
         if ~isempty(envErrors)
             errors = struct('message', {envErrors});
         end
+        state = [];
 
     % return current environment state
     else
@@ -57,7 +58,7 @@ function errors = loc_restore_environment(state)
     errorsRestore = loc_restore_blockdiagrams_loaded(state);
     
     cd(state.pwd);
-    if (~isequal(state.path, path))
+    if (~strcmp(state.path, path))
         path(state.path);
     end
 
