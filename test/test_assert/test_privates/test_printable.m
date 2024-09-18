@@ -30,9 +30,14 @@ function test_cell_matrix
     assert_equals('{1, 2; 3, 4}', printable({1 2; 3, 4}));
     
     % 3D
-    c(:,:,1) = {1, 2; 3, 4};
-    c(:,:,2) = {5, 6; 7, 8};
-    assert_equals('{1, 2; 3, 4; 5, 6; 7, 8}', printable(c));
+    c3(:,:,1) = {1, 2; 3, 4};
+    c3(:,:,2) = {5, 6; 7, 8};
+    assert_equals('{1, 2; 3, 4; 5, 6; 7, 8}', printable(c3));
+
+    % 4D
+    c4(:,:,:,1) = c3;
+    c4(:,:,:,2) = c3;
+    assert_equals('{1, 2; 3, 4; 5, 6; 7, 8; 1, 2; 3, 4; 5, 6; 7, 8}', printable(c4));
 
 function test_cell_complex
 

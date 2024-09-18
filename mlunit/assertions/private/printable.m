@@ -45,6 +45,11 @@ elseif iscell(input)
         % in a general manner in MATLAB, but here you go:
         outerSize = size(items);
         outerSize(2) = [];
+        if numel(outerSize) < 2
+            % If just one dimension at this point, add a dummy dimension of 1,
+            % because R2024b's ind2sub doesn't deem single entries a proper size anymore.
+            outerSize(2) = 1;
+        end
         outerLength = numel(items) / size(items, 2); % same as prod(outerSize)
         outerItems = cell(outerLength, 1);
         for idxOuter = 1:outerLength
