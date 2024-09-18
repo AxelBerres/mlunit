@@ -182,7 +182,7 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
     
     change_msg = '';
     % append difference markers for string or cellstr comparisons
-    if (ischar(expected) && ischar(actual)) || (iscellstr(expected) && iscellstr(actual)) || (~verLessThan('matlab', '9.1') && isstring(expected) && isstring(actual))
+    if (ischar(expected) && ischar(actual)) || (iscell(expected) && iscell(actual)) || (~verLessThan('matlab', '9.1') && isstring(expected) && isstring(actual))
         
         % but keep the amount of work for shortest_alignment short, by
         % restricting the strings to the first 80 or so characters after the
