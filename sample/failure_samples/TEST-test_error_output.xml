@@ -1,58 +1,28 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<testsuite name="test_error_output" errors="5" failures="0" tests="5" time="0.078" hostname="unknown" timestamp="2016-04-26T12:01:19">
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test_error_output" errors="5" failures="0" skipped="0" tests="5" time="0.318" hostname="unknown" timestamp="2024-09-18T18:04:43">
   <properties/>
-  <testcase classname="test_error_output" name="test_special_characters">
+  <testcase classname="test_error_output" name="test_special_characters" time="0.027">
     <error><![CDATA[This some special characters: !"§$%&/()=?. Enjoy.
-In test_error_output.m at line 7
-In run_test.m at line 21
-In run_test.m at line 50
-In run_suite.m at line 86
-In run_suite_collection.m at line 137
-In run_suite_collection.m at line 50
-In recursive_test_run.m at line 27]]></error>
+In test_error_output.m at line 7]]></error>
   </testcase>
-  <testcase classname="test_error_output" name="test_unknown_function">
-    <error><![CDATA[Undefined function or variable 'do_you_know_this'.
-In test_error_output.m at line 11
-In run_test.m at line 21
-In run_test.m at line 50
-In run_suite.m at line 86
-In run_suite_collection.m at line 137
-In run_suite_collection.m at line 50
-In recursive_test_run.m at line 27]]></error>
+  <testcase classname="test_error_output" name="test_unknown_function" time="0.014">
+    <error><![CDATA[Unrecognized function or variable 'do_you_know_this'.
+In test_error_output.m at line 11]]></error>
   </testcase>
-  <testcase classname="test_error_output" name="test_invalid_usage">
-    <error><![CDATA[Input argument "name" is undefined.
-In fileparts.m at line 16
-In test_error_output.m at line 15
-In run_test.m at line 21
-In run_test.m at line 50
-In run_suite.m at line 86
-In run_suite_collection.m at line 137
-In run_suite_collection.m at line 50
-In recursive_test_run.m at line 27]]></error>
+  <testcase classname="test_error_output" name="test_invalid_usage" time="0.006">
+    <error><![CDATA[Not enough input arguments.
+In fileparts.m at line 6
+In test_error_output.m at line 15]]></error>
   </testcase>
-  <testcase classname="test_error_output" name="test_syntax_error_ifend">
+  <testcase classname="test_error_output" name="test_syntax_error_ifend" time="0.007">
     <error><![CDATA[Illegal use of reserved keyword "end".
 In sample_syntax_error_ifend.m at line 3
-In test_error_output.m at line 19
-In run_test.m at line 21
-In run_test.m at line 50
-In run_suite.m at line 86
-In run_suite_collection.m at line 137
-In run_suite_collection.m at line 50
-In recursive_test_run.m at line 27]]></error>
+In test_error_output.m at line 19]]></error>
   </testcase>
-  <testcase classname="test_error_output" name="test_syntax_error_paren">
-    <error><![CDATA[Unbalanced or unexpected parenthesis or bracket.
+  <testcase classname="test_error_output" name="test_syntax_error_paren" time="0.013">
+    <error><![CDATA[Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.
 In sample_syntax_error_paren.m at line 3
-In test_error_output.m at line 23
-In run_test.m at line 21
-In run_test.m at line 50
-In run_suite.m at line 86
-In run_suite_collection.m at line 137
-In run_suite_collection.m at line 50
-In recursive_test_run.m at line 27]]></error>
+In test_error_output.m at line 23]]></error>
   </testcase>
   <system-out/>
   <system-err/>

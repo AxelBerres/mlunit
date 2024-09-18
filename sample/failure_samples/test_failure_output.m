@@ -61,6 +61,13 @@ function test_equals_string
 function test_equals_long_string
 
     foo = repmat({'a'}, 50000, 1);
+    bar = repmat({'a'}, 50000, 1);
+    bar(30000) = {'b'};
+    assert_equals(foo, bar);
+
+function test_equals_long_string_twisted
+
+    foo = repmat({'a'}, 50000, 1);
     bar = repmat({'a'}, 1, 50000);
     bar(30000) = {'b'};
     assert_equals(foo, bar);

@@ -5,7 +5,7 @@
 
   <!-- set local build properties -->
   <property name="mlunit.dir" location=".."/>
-  <property name="sample.dir" location="${basedir}"/>
+  <property name="sample.dir" location="${basedir}/failure_samples"/>
   <property name="report.dir" location="${sample.dir}/reports"/>
   
   <!-- Directories that will be added recursively to the path. -->
@@ -28,6 +28,7 @@
     <subant antfile="build.xml" buildpath="${mlunit.dir}/mlunit" failonerror="false">
       <property name="test.dir" location="${sample.dir}"/>
       <property name="report.dir" location="${report.dir}"/>
+      <property name="additional.cmd" value="mlunit_param('abbrev_trace', true);"/>
       <reference refid="source.dirs"/>
     </subant>
   </target>

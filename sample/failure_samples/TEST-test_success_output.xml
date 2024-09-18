@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<testsuite name="test_success_output" errors="0" failures="0" tests="1" time="0.016" hostname="unknown" timestamp="2016-04-26T12:01:25">
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test_success_output" errors="0" failures="0" skipped="0" tests="1" time="0.042" hostname="unknown" timestamp="2024-09-18T18:04:48">
   <properties/>
-  <testcase classname="test_success_output" name="test_success"/>
+  <testcase classname="test_success_output" name="test_success" time="0.003"/>
   <system-out/>
   <system-err/>
 </testsuite>

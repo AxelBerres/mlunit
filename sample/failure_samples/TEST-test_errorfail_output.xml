@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<testsuite name="test_errorfail_output" errors="1" failures="1" tests="1" time="0.031" hostname="unknown" timestamp="2016-04-26T12:01:19">
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test_errorfail_output" errors="1" failures="1" skipped="0" tests="1" time="0.03" hostname="unknown" timestamp="2024-09-18T18:04:43">
   <properties/>
-  <testcase classname="test_errorfail_output" name="test_success">
+  <testcase classname="test_errorfail_output" name="test_success" time="0.007">
     <error><![CDATA[Error in tear_down fixture:
-Undefined function or variable 'unknown_function_call'.
+Unrecognized function or variable 'unknown_function_call'.
 In test_errorfail_output.m at line 13
-In tear_down.m at line 21
-In run_test.m at line 73
-In run_suite.m at line 86
-In run_suite_collection.m at line 137
-In run_suite_collection.m at line 50
-In recursive_test_run.m at line 27]]></error>
-    <failure><![CDATA[(no message available)
+In tear_down.m at line 21]]></error>
+    <failure><![CDATA[Test failed during execution.
 In test_errorfail_output.m at line 9]]></failure>
   </testcase>
   <system-out/>
