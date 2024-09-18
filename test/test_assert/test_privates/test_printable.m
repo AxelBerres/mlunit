@@ -68,8 +68,8 @@ function test_string_empty
 
 function test_string_scalars
 
-    if verLessThan('matlab', '9.1')
-        mlunit_skip('Runs only on MATLABs that support the string type.');
+    if verLessThan('matlab', '9.3')
+        mlunit_skip('Runs only on MATLABs that support using double quotes to create a string type.');
     end
 
     assert_equals('""', printable(eval('""')));
@@ -78,8 +78,8 @@ function test_string_scalars
 
 function test_string_matrix
 
-    if verLessThan('matlab', '9.1')
-        mlunit_skip('Runs only on MATLABs that support the string type.');
+    if verLessThan('matlab', '9.3')
+        mlunit_skip('Runs only on MATLABs that support using double quotes to create a string type.');
     end
 
     assert_equals('["foo";"bar"]', printable(eval('["foo";"bar"]')));
