@@ -10,6 +10,7 @@ mlUnit 1.9.8 (in development)
     but still had errors.
   - When using assert_equals functions, also output difference markers
     for common cell arrays.
+  - Improve run time by resetting the path only when it changes.
 
 
 mlUnit 1.9.7 (2024-06-21)
