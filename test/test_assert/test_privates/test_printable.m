@@ -60,7 +60,7 @@ function test_char_matrix
 
 function test_string_empty
 
-    if verLessThan('matlab', '9.3')
+    if verLessThan('matlab', '9.1')
         mlunit_skip('Runs only on MATLABs that support the string type.');
     end
     
@@ -68,7 +68,7 @@ function test_string_empty
 
 function test_string_scalars
 
-    if verLessThan('matlab', '9.3')
+    if verLessThan('matlab', '9.1')
         mlunit_skip('Runs only on MATLABs that support the string type.');
     end
 
@@ -78,7 +78,7 @@ function test_string_scalars
 
 function test_string_matrix
 
-    if verLessThan('matlab', '9.3')
+    if verLessThan('matlab', '9.1')
         mlunit_skip('Runs only on MATLABs that support the string type.');
     end
 

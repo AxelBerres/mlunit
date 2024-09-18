@@ -6,6 +6,8 @@ mlUnit 1.9.8 (in development)
 -----------------------------
 
   - Compatibility with MATLAB R2024b.
+  - Fix printable output on R2015b, where isstring was included,
+    but still had errors.
 
 
 mlUnit 1.9.7 (2024-06-21)

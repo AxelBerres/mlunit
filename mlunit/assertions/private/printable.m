@@ -28,9 +28,10 @@ elseif ischar(input) && ndims(input) <= 2
     % ['foo';'bar'] for character arrays, 'foobar' for single strings
     % Only works on char arrays with ndims<=2, as mat2str does, BTW.
     outstring = mat2str_char(input);
-elseif (isnumeric(input) || (5 == exist('isstring', 'builtin') && isstring(input))) && isempty(input)
+elseif (isnumeric(input) || (~verLessThan('matlab', '9.1') && isstring(input))) && isempty(input)
     % mat2str likes to translate empty numericals into strings like 'zeros(0,1)'
     % except no one put any zeroes there. Why do we rely on mat2str at all?
+    % MATLAB string types cannot test with isempty.
     outstring = '[]';
 elseif iscell(input)
     items = cell(size(input));

@@ -103,7 +103,7 @@ elseif are_compatible_numerics
 
 % all non-numeric types, or mixed types are checked by isequal.
 elseif equal_nans
-   equals = isequalwithequalnans(actual, expected);
+   equals = isequalwithequalnans(actual, expected); %#ok<DISEQN> R2011b compatibility
 else
    equals = isequal(actual, expected);
 end
@@ -162,7 +162,7 @@ function msg = loc_prepare_message_from_diffs(struct_diffs, tolerance_msg)
     % prevent preallocated empty items from being joined into the message string
     msgs(sd+1:end) = [];
     
-    msg = mlunit_strjoin(msgs, sprintf('\n'));
+    msg = mlunit_strjoin(msgs, sprintf('\n')); %#ok<SPRINTFN> R2011b compatibility
 
     
 function msg = loc_construct_diff_message(expected, actual, position_info, tolerance_msg)
@@ -182,7 +182,7 @@ function msg = loc_construct_diff_message(expected, actual, position_info, toler
     
     change_msg = '';
     % append difference markers for string or cellstr comparisons
-    if (ischar(expected) && ischar(actual)) || (iscellstr(expected) && iscellstr(actual)) || (isstring(expected) && isstring(actual))
+    if (ischar(expected) && ischar(actual)) || (iscellstr(expected) && iscellstr(actual)) || (~verLessThan('matlab', '9.1') && isstring(expected) && isstring(actual))
         
         % but keep the amount of work for shortest_alignment short, by
         % restricting the strings to the first 80 or so characters after the
