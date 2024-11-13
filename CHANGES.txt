@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-mlUnit 1.9.8 (in development)
------------------------------
+mlUnit 1.9.8 (2024-11-13)
+-------------------------
 
   - Compatibility with MATLAB R2024b.
   - Fix printable output on R2015b, where isstring was included,
