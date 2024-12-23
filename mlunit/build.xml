@@ -37,6 +37,7 @@
         Optional. See matlab.root.
     - "additional.cmd" Any MATLAB command you wish to execute just before mlUnit
         execution.
+    - "final.cmd" Any MATLAB command you wish to execute after mlUnit execution.
     - "failontestfail" Stop the buildprocess if any of the tests failed. Set to
         true if you rather want test failures to break the build. Set to false
         if you rather want tests to run but to continue the build any way.
@@ -81,6 +82,7 @@
     <property name="test.dir" location="${mlunit.dir}/test"/>
     <property name="report.dir" location="${mlunit.dir}/test/reports"/>
     <property name="additional.cmd" value=""/>
+    <property name="final.cmd" value=""/>
     <property name="failontestfail" value="true"/>
     <pathconvert property="source.dir" pathsep="'), genpath('" refid="source.dirs"/>
     <pathconvert property="source.dir.shallow" pathsep="', '" refid="source.dirs.shallow"/>
@@ -92,6 +94,7 @@
     <property name="addsourcepathscmd" value="addpath(genpath('${source.dir}'))"/>
     <property name="addshallowsourcepathscmd" value="addpath('${source.dir.shallow}')"/>
     <property name="additionalusercmd" value="try;${additional.cmd};catch;disp(['Your additional MATLAB command failed with message: ' lasterr '.']);end"/>
+    <property name="finalusercmd" value="try;${final.cmd};catch;disp(['Your final MATLAB command failed with message: ' lasterr '.']);end"/>
 
     <mkdir dir="${report.dir}"/>
     <echo message="Report dir: ${report.dir}"/>
@@ -106,7 +109,7 @@
       Activating 'catch_output' for output only about the tests, and for encapsulation of
       any test output.
       -->
-    <property name="command.string" value="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);mlunit_param('abbrev_trace',false);mlunit_param('catch_output',true);mlunit_param('-mlock');${additionalusercmd};munlock('mlunit_param');recursive_test_run('${test.dir}', '${report.dir}', true)"></property>
+    <property name="command.string" value="addpath(genpath('${mlunit.src.dir}'));${addsourcepathscmd};${addshallowsourcepathscmd};mlunit_param('linked_trace',false);mlunit_param('abbrev_trace',false);mlunit_param('catch_output',true);mlunit_param('-mlock');${additionalusercmd};munlock('mlunit_param');recursive_test_run('${test.dir}', '${report.dir}', true);${finalusercmd}"></property>
     <matlabcommand
         command.string="${command.string}"
         output.property="unittests.output"
