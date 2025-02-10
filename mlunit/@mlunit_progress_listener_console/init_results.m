@@ -9,12 +9,10 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 function self = init_results(self, maxnum)
 
 mlunit_narginchk(2, 2, nargin);
 if ~isnumeric(maxnum) || numel(maxnum)~=1, error('maxnum argument need be scalar numeric'); end
 
-% nothing to be done here
+self.has_preceding_detailed_output = false;

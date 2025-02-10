@@ -11,8 +11,6 @@ function report = printSummary(suiteresults, time)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id: printSummary.m 71 2013-12-14 10:39:02Z hetu $
 
 % helper function for summing up tests, failures, errors
 summarize = @(field) sum(cellfun(@(r) r.(field), suiteresults));

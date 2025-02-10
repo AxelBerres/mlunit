@@ -34,6 +34,13 @@
 %     'mark_testphase' Logical true prepends caught test output with markers
 %                      indicating the output origin: [setup], [test], [tdown].
 %                      Logical false does not. Requires 'catch_output' of true.
+%     'all_variations_skip' Logical true skips a test if all variations were
+%                      skipped using mlunit_skip_variation. Doesn't affect
+%                      anything if the test doesn't use variations or if no
+%                      variations were generated. Use this to control skip
+%                      behaviour when you mix variations and normal assertions in
+%                      the same test. Defaults to false, in which case
+%                      the test succeeds, even if all variations were skipped.
 %
 %  VALL = MLUNIT_PARAM() returns all of the currently set mlunit parameters,
 %  as a structure. The structure's fields will represent name of parameters,
@@ -50,8 +57,7 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
+
 function outvalue = mlunit_param(name, invalue)
 
     % get and initialize parameters
@@ -109,6 +115,7 @@ function defaults = default_values
     defaults.verbose = false;
     defaults.catch_output = false;
     defaults.mark_testphase = true;
+    defaults.all_variations_skip = false;
 
 
 function value = default_value(name)

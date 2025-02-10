@@ -61,7 +61,7 @@ function test_large_edit_runtime
    before = cputime;
    shortest_alignment(seq1, seq2);
    passed = cputime - before;
-   assert_true(passed < 4, 'shortest_alignment is expected to finish during 4s on strings that are 512 characters long. But it used %.1fs.', passed);
+   assert_true(passed < 4, 'shortest_alignment is expected to finish during 4s on strings that are %d characters long. But it used %.1fs.', repeats*numel(seed1), passed);
 
 
 %% local assert function

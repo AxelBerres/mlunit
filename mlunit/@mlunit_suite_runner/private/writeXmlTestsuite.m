@@ -16,8 +16,6 @@ function writeXmlTestsuite(suiteresult, targetdir)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
   
    s_fileName = ['TEST-' suiteresult.name '.xml'];
 

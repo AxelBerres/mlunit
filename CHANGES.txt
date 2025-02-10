@@ -2,8 +2,21 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 1.10 (2025-02-10)
+------------------------
+
+  - Added mlunit_variation, providing parameter variations for tests.
+    A test can call mlunit_variation to define a dynamic or static
+    list of parameter configurations that are used to call the same
+    function several times, but with different parameters.
+    If any of the variations fail or raise an error, the others
+    continue to run. The test result will be the worst result of
+    its variations.
+
+
 mlUnit 1.9.9 (2024-12-23)
 -------------------------
+
   - Added support for a final MATLAB command to the Ant automation,
     so that a command can be run after the tests. For example,
     for cleaning up without triggering a Save dialog.

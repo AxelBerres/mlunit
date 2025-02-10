@@ -69,6 +69,9 @@ function [result, self, test] = run_test(self, test)
         end
     end
 
+    % reset variation data
+    mlunit_variation('reset');
+
     % execute test, only if set_up prevailed
     outputTest = '';
     if isempty(errors) && isempty(test_failure) && isempty(test_skipped)
@@ -92,6 +95,9 @@ function [result, self, test] = run_test(self, test)
             end
         end
     end
+
+    % get variation data and reset
+    variation_data = mlunit_variation('reset');
 
     % execute tear_down fixture in any case, even if set_up or test failed
     outputTeardown = '';
@@ -130,6 +136,7 @@ function [result, self, test] = run_test(self, test)
     result.failure = test_failure;
     result.skipped = test_skipped;
     result.time = etime(clock, start_time);
+    result.variations = variation_data;
     
     if mlunit_param('mark_testphase')
         result.console = mlunit_strjoin({...
@@ -157,6 +164,7 @@ function result = construct_disabled_result(test)
     result.skipped = reason;
     result.time = 0;
     result.console = '';
+    result.variations = [];
 
 % Prepend each line of a multi-line string with the same pretext.
 function prepended_text = prepend(text, pretext)
