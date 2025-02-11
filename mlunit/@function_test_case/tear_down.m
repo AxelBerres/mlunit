@@ -13,10 +13,15 @@ function self = tear_down(self)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id: tear_down.m 33 2006-06-11 16:02:51Z thomi $
 
 if (strcmp(class(self.tear_down_function), 'function_handle'))
-    self.tear_down_function();
-end;
+    
+    takes_input = nargin(self.tear_down_function) ~= 0;
+
+    if takes_input
+        self.tear_down_function(self.data);
+    else
+        self.tear_down_function();
+    end
+
+end

@@ -54,5 +54,7 @@ if nargin < 6, disabledReason = ''; end
 self.test_function = test_function;
 self.set_up_function = set_up_function;
 self.tear_down_function = tear_down_function;
+self.data = [];
+self.function_name = function_name;
 t = test_case('run_test', function_name, disabled, disabledReason);
 self = class(self, 'function_test_case', t);

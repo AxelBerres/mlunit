@@ -314,28 +314,57 @@ For details of how to employ these parameters, see:
 Bridging fixtures
 -----------------
 
-You can use these parameters for your own purposes, too. Just be careful
+When using class-based test suites, you can define class data, and read and change
+it in the set_up fixture, your tests, and the tear_down fixture, thereby
+passing information around.
+
+When using function-based test suites, you can pass data between the set_up fixture,
+your tests, and the tear_down fixture by using input and output arguments.
+mlUnit will determine if test functions or test fixtures can receive an input
+argument, or if they provide an output argument, then use that to pass information.
+Only one argument is supported. If you need to pass complex information,
+contain them within the one argument.
+
+These signatures work. Each input/output argument may also be omitted.
+
+    % May receive the test name as input argument.
+    % May provide a variable as output argument to pass to its test function.
+    function data = set_up(test_name)
+
+    % May receive set_up data as input argument.
+    % If the set_up fixture did not provide an output argument, data_in is empty.
+    % May provide/overwrite a variable as output argument to pass to tear_down.
+    function data_out = test_my_test(data_in)
+
+    % May receive data from its test function as input argument.
+    % If the test function did not provide an output argument, then this is
+    % the output argument of the set_up fixture, or empty.
+    function tear_down(data)
+
+Here's an example that prepares a file handle in the set_up fixture,
+reads from it in the test, closes it in the tear_down fixture.
+Although file and directory dependencies are generally discouraged
+in unit tests and should be avoided where possible, let this serve as example:
+
+    function my_precious_fid = set_up
+        % open file for reading
+        my_precious_fid = fopen('my/path/myfile.txt');
+
+    function test_access(my_precious_fid)
+        % read file
+        assert_equals('foobar', fread(my_precious_fid));
+
+    function tear_down(my_precious_fid)
+        % close file
+        fclose(my_precious_fid);
+
+In mlUnit 1.10 and earlier, function-based tests were not able to exchange data.
+Instead, tests needed to abuse mlunit_param to pass around information.
+You can still use mlunit_param for your own purposes, e.g. to bridge information
+between fixture calls, or for other purposes. Just be careful
 not to employ names known to mlUnit. Check the list of known parameters with:
 
     >> help mlunit_param
-
-That being said, you can use parameters for your own purposes,
-e.g. to bridge information between fixture calls.
-For example, if you calculate some path name in your set_up fixture,
-and want to access it in your tear_down fixture, store it as an mlUnit
-parameter. Although file and directory dependencies are generally discouraged
-in unit tests and should be avoided where possible, let this serve as example:
-
-    function set_up
-        % open file for reading
-        fid = fopen('my/path/myfile.txt');
-        % remember file id
-        mlunit_param('my_precious_fid', fid);
-
-    function tear_down
-        % recall file id and close it
-        fid = mlunit_param('my_precious_fid');
-        fclose(fid);
 
 
 

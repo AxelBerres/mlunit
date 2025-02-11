@@ -2,6 +2,14 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+currently in development
+------------------------
+
+  - Allow data exchange between tests and their fixtures in a function test suite.
+    When using function-based test suites, you can pass data between the set_up fixture,
+    your tests, and the tear_down fixture by using input and output arguments.
+
+
 mlUnit 1.10 (2025-02-10)
 ------------------------
 
