@@ -34,7 +34,7 @@ on a per-use base.
 
 3. Add directory to MATLAB path:
 
-       >> addpath('$HOME/mlunit/mlunit');
+       >> setpath;
 
 4. Save the MATLAB path.
 
@@ -56,7 +56,7 @@ Requirements
 ------------
 
 mlUnit is expected to run on all MATLAB versions from R2011b up to any new version.
-It has been tested with several versions ranging from R2011b to R2023b on Windows,
+It has been tested with several versions ranging from R2011b to R2024b on Windows,
 and with R2020b and R2021b on Linux.
 
 
@@ -103,7 +103,7 @@ further instructions.
 On the console, make sure to have Ant on your path. Then call Ant with the
 matlab.root property set to your MATLAB executable. E.g.:
 
-    ant -Dmatlab.root="C:\Program Files\MATLAB\R2007b"
+    ant -Dmatlab.root="C:\Program Files\MATLAB\R2011b"
 
 Or even try the MATLAB that's found on your system path:
 
@@ -305,6 +305,15 @@ keep your suite_set_up and suite_tear_down function clean of any output.
 mark_testphase -- If you choose to catch test output in order to put it into
 the jUnit XML, mark_testphase will prepend each output line with the source
 from whence it came.
+
+all_variations_skip -- When using parameter variations, single variations may
+be skipped using mlunit_skip_variation. In the face of skipped variations,
+mlUnit will not mark the test itself as skipped, because it assumes that
+meaningful testing still happened in the other variations. This is also the
+case if all variations are skipped. By setting all_variations_skip to true,
+mlUnit will mark the test itself as skipped, if all variations were skipped.
+In that case, any assert calls after the skipped mlunit_variation command
+will not run.
 
 For details of how to employ these parameters, see:
 
