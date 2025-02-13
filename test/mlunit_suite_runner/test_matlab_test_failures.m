@@ -19,6 +19,10 @@ function suite_tear_down
 %% Tests
 function test_matlab_test_failures_errors
     
+    if verLessThan('matlab', '9.7.0')
+        mlunit_skip('Only testable on R2019b or newer.');
+    end
+
     % Run a MATLAB unit test suites containing errors and failures
     run_suite_collection(mlunit_suite_runner, 'testfolder');
 
