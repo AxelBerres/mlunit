@@ -13,19 +13,28 @@
 %  the execution fail with a MATLAB error, if FAIL is true. Defaults to false.
 %  Normally, this is unnecessary, but helps with automation.
 %
+%  SELF = RUN_SUITE_COLLECTION(SELF, TESTOBJ, TARGETDIR, FAIL, INCLUDEMATLABTESTS)
+%  additionally includes MATLAB unit tests if set to true. Defaults to true.
+%
 %  See also mlunit_gui, mlunit_suite_runner
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
-function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail)
+function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail, include_matlab_tests)
 
-   mlunit_narginchk(2, 4, nargin);
+   mlunit_narginchk(2, 5, nargin);
    if isempty(testobj), error('MLUNIT:invalidTestobj', 'Test object must not be empty.'); end
-   write_xml = nargin >= 3 && ~isempty(targetdir);
-   if nargin < 4, fail_on_test_fail = false; end
+   if nargin < 3 || isempty(targetdir), targetdir = ''; end
+   write_xml = ~isempty(targetdir);
+   if nargin < 4 || isempty(fail_on_test_fail), fail_on_test_fail = false; end
+   if nargin < 5 || isempty(include_matlab_tests), include_matlab_tests = true; end
+   if verLessThan('matlab', '9.7.0')
+       if include_matlab_tests
+           warning('MLUNIT:noMatlabUnitTests', 'mlUnit supports running MATLAB unit tests only from MATLAB R2019b onwards. Here, MATLAB unit tests will be ignored.');
+       end
+       include_matlab_tests = false;
+   end
 
    % start time for calculating execution time
    start_time = clock;
@@ -40,7 +49,7 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
    self = notify_listeners(self, 'initialize_execution', loc_get_testobj_string(testobj));
    
    % get test suite(s)
-   suitespecs = loc_determine_suites(testobj);
+   suitespecs = loc_determine_suites(testobj, include_matlab_tests);
 
    % update display with number of test suites
    count_suites = numel(suitespecs);
@@ -49,8 +58,8 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
    % Execute each test suite file.
    suiteresults = cell(size(suitespecs));
    for suite=1:count_suites
-      [suiteresults{suite}, self] = runTestsuite(self, suitespecs{suite});
-      if write_xml
+      [suiteresults{suite}, self] = runTestsuite(self, suitespecs{suite}, targetdir);
+      if write_xml && ~isfield(suiteresults{suite}, 'jUnitAlreadyCreated')
          writeXmlTestsuite(suiteresults{suite}, targetdir);
       end
    end
@@ -73,8 +82,7 @@ function self = run_suite_collection(self, testobj, targetdir, fail_on_test_fail
       error('MLUNIT:testFailures', 'Some tests failed or contained errors.');
    end
    
-
-function suitespecs = loc_determine_suites(testobj)
+function suitespecs = loc_determine_suites(testobj, include_matlab_tests)
 
     % in case of object, prep up some custom suitespec
     if isa(testobj, 'mlunit_testsuite')
@@ -117,7 +125,7 @@ function suitespecs = loc_determine_suites(testobj)
         [dirpath, dirname] = fileparts(testobj);
         if dirname(1) ~= '@'
             % Get test files. They may be in basedir or its subdirectories.
-            suitespecs = getNestedTestFiles(testobj);
+            suitespecs = getNestedTestFiles(testobj, include_matlab_tests);
             return
         end
         
@@ -182,10 +190,16 @@ function testobjstring = loc_get_testobj_string(testobj)
 %     .skip       a description of why the test was skipped. [] if no skip.
 %     .time       the time used in seconds
 %     .console    the console output of the test. Empty string if no output.
-function [suiteresult, self] = runTestsuite(self, suitespec)
+function [suiteresult, self] = runTestsuite(self, suitespec, targetdir)
 
    self = notify_listeners(self, 'next_suite', suitespec.testname);
    
+   % handle MATLAB unit tests separately
+   if isfield(suitespec, 'matlabtests') && ~isempty(suitespec.matlabtests)
+       [suiteresult, self] = runMatlabTestsuite(self, suitespec, targetdir);
+       return
+   end
+
    % Change to test suite directory. This lets us execute the test suite (function
    % or class) even if shadowed. Pwd will be restored with mlunit_environment.
    prevpwd = cd(suitespec.fulldir);
@@ -243,6 +257,35 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       % save into list of testcases results
       suiteresult.testcaseList{t} = testcase;
    end
+
+function suiteresult = build_suiteresult_matlab(results, suitespec)
+
+   suiteresult = struct();
+   suiteresult.time = sum([results.time]);
+   suiteresult.name = suitespec.testname;
+   suiteresult.suitespec = suitespec; % rerun not supported for MATLAB unit tests
+   suiteresult.errors = mlunit_num_suite_errors(results);
+   suiteresult.failures = mlunit_num_suite_failures(results);
+   suiteresult.skipped = mlunit_num_suite_skipped(results);
+   suiteresult.tests = numel(results);
+   suiteresult.jUnitAlreadyCreated = true;
+   
+   % iterate list of test cases in suite
+   suiteresult.testcaseList = cell(size(results));
+   for t = 1:numel(results)
+      testcase = struct();
+      testcase.name = results(t).name;
+      testcase.classname = suiteresult.name;
+      testcase.time = results(t).time;
+      msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
+      testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
+      testcase.failure = results(t).failure;
+      testcase.skipped = results(t).skipped;
+      testcase.console = clearFormattingMarkers(results(t).console);
+            
+      % save into list of testcases results
+      suiteresult.testcaseList{t} = testcase;
+   end
    
    
 %% Construct package name from relative dir and testname
@@ -288,3 +331,77 @@ function s = clearFormattingMarkers(s)
    % older R2011b compatible markers
    s = strrep(s, ['{', backspace], '');
    s = strrep(s, ['}', backspace], '');
+
+
+function [suiteresult, self] = runMatlabTestsuite(self, suitespec, targetdir)
+
+    write_xml = nargin >= 3 && ~isempty(targetdir);
+
+    self = notify_listeners(self, 'init_results', numel(suitespec.matlabtests));
+
+    if verLessThan('matlab', '9.10') % testrunner introduced with R2021a
+        runner = matlab.unittest.TestRunner.withNoPlugins;
+    else
+        runner = testrunner('minimal');
+    end
+
+    if write_xml
+        filename = fullfile(targetdir, ['TEST-', suitespec.testname, '.xml']);
+        addPlugin(runner, matlab.unittest.plugins.XMLPlugin.producingJUnitFormat(filename));
+    end
+
+    if verLessThan('matlab', '23.2')
+        runFcn = @run; %#ok<NASGU> 
+        arrayfun(@(plugin)runner.addPlugin(plugin), suitespec.matlabparser_results.Plugins);
+        [output, matlab_results] = evalc('runFcn(runner, suitespec.matlabtests)');
+    elseif verLessThan('matlab', '24.2') %#ok<VERLESSMATLAB> compatibility
+        runFcn = matlab.unittest.internal.getRunFcn(suitespec.matlabparser_results.Options, suitespec.matlabparser_results.Plugins, suitespec.matlabtests, runner.ArtifactsRootFolder); %#ok<NASGU> evalc
+        arrayfun(@(plugin)runner.addPlugin(plugin), suitespec.matlabparser_results.Plugins);
+        [output, matlab_results] = evalc('runFcn(runner, suitespec.matlabtests)');
+    else
+        testOutputHandler = suitespec.matlabparser_results.Options.TestViewHandler_; %#ok<NASGU>
+        [output, matlab_results] = evalc('testOutputHandler.runTests(suitespec.matlabparser_results.Options, suitespec.matlabparser_results.Plugins, suitespec.matlabtests, runner)');
+    end
+
+    results = cell(size(matlab_results));
+    for t = 1:numel(matlab_results)
+        result = struct();
+        result.name = get_matlab_testname(matlab_results(t).Name);
+        result.time = matlab_results(t).Duration;
+        result.console = output;
+        result.variations = [];
+
+        if matlab_results(t).Failed && matlab_results(t).Incomplete
+            result.errors = {mlunit_errorinfo(struct('message', {matlab_results(t).Details.DiagnosticRecord.Report}))};
+        else
+            result.errors = {};
+        end
+
+        if matlab_results(t).Failed && ~matlab_results(t).Incomplete
+            result.failure = matlab_results(t).Details.DiagnosticRecord.Report;
+        else
+            result.failure = '';
+        end
+
+        if ~matlab_results(t).Failed && matlab_results(t).Incomplete
+            result.skipped = matlab_results(t).Details.DiagnosticRecord.Report;
+        else
+            result.skipped = '';
+        end
+
+        % pretend this was just executed
+        self = notify_listeners(self, 'next_result', result);
+
+        % save into list of testcases results
+        results{t} = result;
+    end
+
+    % convert to array, expected by build_suiteresult_matlab
+    results = [results{:}];
+    suiteresult = build_suiteresult_matlab(results, suitespec);
+
+
+function name = get_matlab_testname(suite_name)
+
+    parts = mlunit_strsplit(suite_name, '/');
+    name = parts{2};

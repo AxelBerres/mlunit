@@ -5,6 +5,14 @@
 currently in development
 ------------------------
 
+  - Include MATLAB unit tests in mlUnit runs.
+    This is helpful for using test features that mlUnit may be lacking,
+    and for iteratively migrating tests.
+    Any MATLAB unit tests subclassing matlab.unittest.TestCase
+    that can be found in the test object folder, will be included
+    in mlUnit runs that execute all suites of a folder.
+    Includes only class-based MATLAB unit tests, not script-based MATLAB unit tests,
+    so that MATLAB does not misinterpret random test scripts as MATLAB unit tests.
   - Allow data exchange between tests and their fixtures in a function test suite.
     When using function-based test suites, you can pass data between the set_up fixture,
     your tests, and the tear_down fixture by using input and output arguments.

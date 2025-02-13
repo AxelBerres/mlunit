@@ -1,10 +1,11 @@
-function suitespecs = getNestedTestFiles(basedir)
+function suitespecs = getNestedTestFiles(basedir, include_matlab_tests)
 % GETNESTEDTESTFILES returns a list of all test_*.m files in all
 % subdirectories. The subdirectories are queried by genpath(). Therefore,
 % subdirectories beginning with @ will be excluded.
 %
-% GETNESTEDTESTFILES(BASEDIR) returns a list of all test_*.m files in
-% BASEDIR.
+% GETNESTEDTESTFILES(BASEDIR, INCLUDEMATLABTESTS) returns a list of all
+% test_*.m files in BASEDIR. If INCLUDEMATLABTESTS is true, then MATLAB unit tests
+% are included as well.
 %
 % The return value is a cell array of structures. Each structure contains:
 %     testname the name of the found test file
@@ -14,8 +15,6 @@ function suitespecs = getNestedTestFiles(basedir)
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
    % get list of directories
    dirlist = dirset(basedir);
@@ -68,6 +67,41 @@ function suitespecs = getNestedTestFiles(basedir)
       end
    end
 
+   if include_matlab_tests
+      
+      % let MATLAB find its tests itself, but only class-based tests
+      if verLessThan('matlab', '9.9.0')
+         % does not find classes in packages at all
+         parse_results = matlab.unittest.internal.runtestsParser(basedir, 'IncludeSubfolders', true, 'SuperClass', 'matlab.unittest.TestCase');
+         matlab_tests = testsuite(parse_results.TestsuiteInputs{:});
+
+      % from R2020b onwards, use the new parser call
+      else
+         % finds test classes in packages only from R2022a onwards
+         [parse_results, matlab_tests] = matlab.unittest.internal.runtestsParser(@testsuite, basedir, 'IncludeSubfolders', true, 'SuperClass', 'matlab.unittest.TestCase');
+      end
+
+      % segment all found MATLAB tests into their respective suites
+      all_suite_names = cellfun(@get_matlab_classname, {matlab_tests.Name}, 'UniformOutput', false);
+      unique_suite_names = unique(all_suite_names);
+
+      for i = 1:numel(unique_suite_names)
+
+          matches = strcmp(all_suite_names, unique_suite_names{i});
+          
+          spec = struct();
+          spec.matlabtests = matlab_tests(matches);
+          spec.matlabparser_results = parse_results;
+          spec.testname = unique_suite_names{i};
+          spec.reldir = strrep_first(spec.matlabtests(1).BaseFolder, basedir, '');
+          spec.fulldir = spec.matlabtests(1).BaseFolder;
+          spec.object = [];
+          spec.testselection = {};
+
+          suitespecs{end+1} = spec;
+      end
+   end
+
    
 function bIsClass = isclassdir(name)
 
@@ -78,3 +112,8 @@ function name = clean_classname(name)
     if ~isempty(name)
         name = name(2:end);
     end
+
+function name = get_matlab_classname(suite_name)
+
+    parts = mlunit_strsplit(suite_name, '/');
+    name = parts{1};

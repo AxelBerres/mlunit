@@ -223,6 +223,36 @@ clean up, too.
 Skipped tests will appear in reports as skipped.
 
 
+Including MATLAB unit tests
+---------------------------
+
+When running multiple test suites (by either recursive_test_run or the Ant automation),
+mlUnit includes MATLAB unit tests in the execution. This is helpful for using test
+features that mlUnit may be lacking, and for iteratively migrating tests.
+
+mlUnit includes only MATLAB unit tests subclassing matlab.unittest.TestCase,
+not script-based tests.
+
+mlUnit includes MATLAB unit tests when being run on MATLAB R2019b or newer.
+On older MATLAB versions, only mlUnit tests will be included in test runs.
+You can switch of MATLAB unit test inclusion by setting to false the INCLUDEMATLABTESTS
+input argument of recursive_test_run.
+
+When requesting mlUnit to output jUnit XML reports, it lets MATLAB generate the reports
+for MATLAB unit tests.
+
+While the package structure of mlUnit tests is determined by the folder hierarchy
+of the tests, MATLAB unit test classes are independent of their specific folder location.
+Instead, put MATLAB classes into namespaces using "plus" prepended folder names like "+myfolder".
+However, MATLAB detects namespaced test classes only from R2022a onwards.
+
+MATLAB unit tests can also be rerun using mlunit_rerun. However, mlunit_rerun focuses
+on the tests. Since we run MATLAB suites wholesale, tests end up being rerun several times.
+
+Single MATLAB unit tests can not be run in the mlUnit GUI, but with MATLAB's own toolchain.
+mlUnit tests are being run test by test, whereas MATLAB unit tests are being run suite by suite.
+
+
 
 
 Parameters And Bridging Fixtures
