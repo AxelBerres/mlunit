@@ -82,7 +82,8 @@ function test_string_matrix
         mlunit_skip('Runs only on MATLABs that support using double quotes to create a string type.');
     end
 
-    assert_equals('["foo";"bar"]', printable(eval('["foo";"bar"]')));
+    assert_equals('["foo";"bar"]', printable(eval('["foo"; "bar"]')));
+    assert_equals('["foo" "bar"]', printable(eval('["foo","bar"]')));
 
 
 %% boilerplate code for testing functions that are private to assert functions

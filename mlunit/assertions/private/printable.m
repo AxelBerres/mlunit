@@ -33,6 +33,41 @@ elseif (isnumeric(input) || (~verLessThan('matlab', '9.1') && isstring(input))) 
     % except no one put any zeroes there. Why do we rely on mat2str at all?
     % MATLAB string types cannot test with isempty.
     outstring = '[]';
+elseif ~verLessThan('matlab', '9.1') && verLessThan('matlab', '9.5') && isstring(input) && isscalar(input)
+    % spoof string output on R2017b specifically, because mat2str fails to
+    % process string arguments there. Fixed in R2018b.
+    outstring = ['"' char(input) '"'];
+    % outstring = ['string(' printable(cellstr(input)) ')'];
+elseif ~verLessThan('matlab', '9.1') && verLessThan('matlab', '9.5') && isstring(input)
+    % on R2017b, handle string arrays similarly to cell arrays, as mat2str
+    % hasn't been yet extended to work with string arrays.
+    items = cell(size(input));
+    for i=1:numel(input)
+        items{i} = printable(input(i));
+    end
+
+    if numel(items) > 0
+        % Linearize all dimensions but the second. That way, we lose some structure
+        % information for 3D cell matrices, but at least include their content.
+        % It's difficult to walk over everything but the second dimension
+        % in a general manner in MATLAB, but here you go:
+        outerSize = size(items);
+        outerSize(2) = [];
+        if numel(outerSize) < 2
+            % If just one dimension at this point, add a dummy dimension of 1,
+            % because R2024b's ind2sub doesn't deem single entries a proper size anymore.
+            outerSize(2) = 1;
+        end
+        outerLength = numel(items) / size(items, 2); % same as prod(outerSize)
+        outerItems = cell(outerLength, 1);
+        for idxOuter = 1:outerLength
+            [dim1st, dimOthers] = ind2sub(outerSize, idxOuter);
+            outerItems{idxOuter} = mlunit_strjoin(items(dim1st, :, dimOthers), ' ');
+        end
+        outstring = ['[' mlunit_strjoin(outerItems, ';') ']'];
+    else
+        outstring = '[]';
+    end
 elseif iscell(input)
     items = cell(size(input));
     for i=1:numel(input)

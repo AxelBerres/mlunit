@@ -16,6 +16,7 @@ currently in development
   - Allow data exchange between tests and their fixtures in a function test suite.
     When using function-based test suites, you can pass data between the set_up fixture,
     your tests, and the tear_down fixture by using input and output arguments.
+  - Fix partial incompatibility with R2017b.
 
 
 mlUnit 1.10 (2025-02-10)
