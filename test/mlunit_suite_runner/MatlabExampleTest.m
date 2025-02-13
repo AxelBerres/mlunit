@@ -1,3 +1,4 @@
+% Test general fitness of mlUnit to run MATLAB unit tests.
 classdef MatlabExampleTest < matlab.unittest.TestCase
     methods(Test)
 
@@ -15,10 +16,6 @@ classdef MatlabExampleTest < matlab.unittest.TestCase
 
         function fewInputs(testCase)
             testCase.verifyError(@()MatlabExampleTest.doublethis(), 'MATLAB:minrhs')
-        end
-
-        function skippedTest(testCase)
-            assumeFail(testCase)
         end
 
     end
