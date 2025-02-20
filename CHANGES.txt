@@ -19,6 +19,8 @@ currently in development
     You can also pass data from the suite_set_up fixture to the test set_up fixture,
     and to the suite_tear_down fixture similarly.
   - Fix partial incompatibility with R2017b.
+  - Fix a recently introduced run time error that happened when an error in the
+    suite_tear_down fixture was about to be added to previous errors of that suite.
 
 
 mlUnit 1.10 (2025-02-10)

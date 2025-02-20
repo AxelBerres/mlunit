@@ -172,3 +172,4 @@ function result = loc_single_result(name, error)
     result.skipped = '';
     result.time = 0;
     result.console = '';
+    result.variations = [];
