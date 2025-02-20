@@ -19,8 +19,6 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 function [results, time, self] = run_suite(self, name, preselection)
 
@@ -72,6 +70,7 @@ num_enabled_tests = sum(~cellfun(@(x)get_disabled(x), tests));
 results = cell(size(tests));
 teardownFailResult = [];
 suite_setup_error = [];
+function_suite_set_up_data = [];
 
 % execute suite set_up, but only if actual tests are to be run
 if num_enabled_tests > 0
@@ -83,7 +82,10 @@ if num_enabled_tests > 0
         % would be no fall-back to test_case's suite_set_up in case there is no
         % override
         if isa(setup_obj, 'function_test_case')
-            run_test(setup_obj);
+            setup_obj = run_test(setup_obj);
+            % receive suite_set_up data, which users may pass around to tests and
+            % suite_tear_down
+            function_suite_set_up_data = get_data(setup_obj);
         else
             suite_set_up(setup_obj);
         end
@@ -100,6 +102,9 @@ if isempty(suite_setup_error)
     % run each test of the suite; be sure to update the self state with each call
     % run tests even if disabled; will be handled within
     for t=1:numel(tests)
+        if isa(tests{t}, 'function_test_case')
+            tests{t} = set_data(tests{t}, function_suite_set_up_data);
+        end
         [results{t}, self] = run_test(self, tests{t});
     end
     % convert back into normal array; we went around by using a cell array, because
@@ -122,6 +127,7 @@ if num_enabled_tests > 0
         % invocation is different for function based or class based test cases
         % see also suite_set_up above
         if isa(teardown_obj, 'function_test_case')
+            teardown_obj = set_data(teardown_obj, function_suite_set_up_data);
             run_test(teardown_obj);
         else
             suite_tear_down(teardown_obj);

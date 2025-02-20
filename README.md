@@ -366,19 +366,28 @@ contain them within the one argument.
 
 These signatures work. Each input/output argument may also be omitted.
 
-    % May receive the test name as input argument.
+    % Does not receive anything.
+    % May provide a variable as output argument to pass to the impending
+    % set_up calls, and to suite_tear_down.
+    function data = suite_set_up()
+
+    % May receive suite_set_up data as input argument.
     % May provide a variable as output argument to pass to its test function.
-    function data = set_up(test_name)
+    function data_out = set_up(data_in)
 
     % May receive set_up data as input argument.
-    % If the set_up fixture did not provide an output argument, data_in is empty.
+    % If neither the set_up fixture nor the suite_set_up fixture provided
+    % an output argument, data_in is empty.
     % May provide/overwrite a variable as output argument to pass to tear_down.
     function data_out = test_my_test(data_in)
 
     % May receive data from its test function as input argument.
     % If the test function did not provide an output argument, then this is
-    % the output argument of the set_up fixture, or empty.
+    % the output argument of the set_up fixture, or the suite_set_up fixture, or empty.
     function tear_down(data)
+
+    % May receive data from suite_set_up
+    function suite_tear_down(data)
 
 Here's an example that prepares a file handle in the set_up fixture,
 reads from it in the test, closes it in the tear_down fixture.
@@ -396,6 +405,9 @@ in unit tests and should be avoided where possible, let this serve as example:
     function tear_down(my_precious_fid)
         % close file
         fclose(my_precious_fid);
+
+Additionally, the set_up, test, and tear_down calls may receive a second input argument,
+which is the current test's name.
 
 In mlUnit 1.10 and earlier, function-based tests were not able to exchange data.
 Instead, tests needed to abuse mlunit_param to pass around information.
@@ -448,6 +460,9 @@ any of the maintainers.
 
 Known Issues
 ------------
+
+With 2.0, mlunit_rerun pretends to rerun failed test suites, but really doesn't,
+if the test suite failed only in its suite_tear_down fixture.
 
 With 1.9.3, mlunit_rerun will abort with an error:
 

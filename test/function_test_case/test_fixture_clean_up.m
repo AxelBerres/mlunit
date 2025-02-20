@@ -7,7 +7,7 @@ function test = test_fixture_clean_up
 test = load_tests_from_mfile(test_loader);
 
 
-function data = set_up(test_name)
+function data = set_up(~, test_name)
 
     data = struct();
     data.name = test_name;

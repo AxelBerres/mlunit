@@ -14,14 +14,4 @@ function self = tear_down(self)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
-if (strcmp(class(self.tear_down_function), 'function_handle'))
-    
-    takes_input = nargin(self.tear_down_function) ~= 0;
-
-    if takes_input
-        self.tear_down_function(self.data);
-    else
-        self.tear_down_function();
-    end
-
-end
+self = call_with_data(self, self.tear_down_function);
