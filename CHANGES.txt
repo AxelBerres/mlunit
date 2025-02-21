@@ -2,8 +2,8 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
-currently in development
-------------------------
+mlUnit 2.0 (2025-03-14)
+-----------------------
 
   - Include MATLAB unit tests in mlUnit runs.
     This is helpful for using test features that mlUnit may be lacking,

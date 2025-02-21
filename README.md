@@ -407,7 +407,8 @@ in unit tests and should be avoided where possible, let this serve as example:
         fclose(my_precious_fid);
 
 Additionally, the set_up, test, and tear_down calls may receive a second input argument,
-which is the current test's name.
+which is the current test's name. The suite_set_up and suite_tear_down fixtures do not
+receive a second argument, as they are independent of single tests.
 
 In mlUnit 1.10 and earlier, function-based tests were not able to exchange data.
 Instead, tests needed to abuse mlunit_param to pass around information.
