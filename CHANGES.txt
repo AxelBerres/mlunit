@@ -2,6 +2,18 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+mlUnit 2.1 (2025-07-08)
+-----------------------
+
+  - Compatibility with MATLAB R2025a.
+  - Break the build if mlUnit itself exits with a non-test error.
+    On non-test errors, we expect the build to pass on the error,
+    even if failontestfail has been set, because there may be no
+    unit test results documenting anything wrong.
+    Non-test errors may be poorly set up unit tests or internal mlUnit errors.
+  - Fix stack trace filtering of internal mlUnit calls to also filter call_with_data.
+
+
 mlUnit 2.0 (2025-03-14)
 -----------------------
 
