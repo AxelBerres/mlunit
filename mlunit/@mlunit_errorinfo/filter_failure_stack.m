@@ -62,7 +62,10 @@ end
 % muddle the output. Delete everything after the last/highest-up occurrence of
 % the test file. Use the test file in order to account for test functions, but
 % also tear_down and set_up.
-first_handler_idx = find(strcmp({stack.filename}, 'run_test'), 1, 'first');
+first_handler_idx = find(strcmp({stack.filename}, 'call_with_data'), 1, 'first');
+if isempty(first_handler_idx)
+    first_handler_idx = find(strcmp({stack.filename}, 'run_test'), 1, 'first');
+end
 stack(first_handler_idx:end) = [];
 
 % remove temporary filename field
