@@ -38,8 +38,9 @@ function test_single_name_collision
     % construct two parameter names that differ only after the namelengthmax
     % restriction, typically after the 63rd character
     seed = 'abc';
-    name1 = repmat(seed, 1, namelengthmax/length(seed) + 1);
-    name2 = [name1(1:end-1) 'd'];
+    namebase = repmat(seed, 1, ceil(namelengthmax/length(seed)) + 1);
+    name1 = [namebase(1:namelengthmax) 'x'];
+    name2 = [namebase(1:namelengthmax) 'd'];
     val1 = 'foo';
     val2 = 'bar';
 
