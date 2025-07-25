@@ -2,6 +2,16 @@
    m l U n i t   C H A N G E L O G
 =====================================
 
+
+mlUnit 2.2 (2025-07-25)
+-----------------------
+
+  - Select discovery of MATLAB unit tests in Ant automation.
+
+    Allow setting the includematlabtests flag to false
+    in test environments where no MATLAB unit tests are present.
+
+
 mlUnit 2.1 (2025-07-08)
 -----------------------
 
