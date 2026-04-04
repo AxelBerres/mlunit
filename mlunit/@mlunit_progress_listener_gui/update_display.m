@@ -27,14 +27,13 @@ else
 end
 
 % TODO: disable Run button
-% TODO: fix Show button
 % TODO: make error output selectable and copyable
 % TODO: maintain a recently used list somehow
 % TODO: anything possible about that GUI test itself?
 % TODO: Make message more prominent and distinguish it from the stack trace
 % TODO: Fix awkward wrap behaviour for running '1'
 % TODO: reenable saving mechanism?
-% TODO: What's the shorten directory names mechanism?
+% TODO: The shorten directory names mechanism eats white space. Fix it or drop it.
 % TODO: Support docked any more? Yes, do we need it? Yes, it's nice.
 %       But the functionality is hidden. Can we make it visible somehow?
 

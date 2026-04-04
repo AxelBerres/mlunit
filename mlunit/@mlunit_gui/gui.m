@@ -232,6 +232,7 @@ if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'
     set(hobject,'BackgroundColor','white');
 end
 
+
 function gui_dock_callback(hObject, eventdata, handles) %#ok
 
 global self;
@@ -248,6 +249,7 @@ else
 end
 set(handles.mlunit_gui_window, 'UserData', self);
 
+
 function gui_shorten_callback(hObject, eventdata, handles) %#ok
 
 global self;
@@ -263,22 +265,19 @@ set(handles.mlunit_gui_window, 'UserData', self);
 
 gui_error_list_callback(hObject, eventdata, self.handles);
 
+
 function gui_show_Callback(hObject, eventdata, handles) %#ok
 
 tokens = builtin('get', hObject, 'UserData');
-if ((length(tokens) == 3) && (etime(clock, tokens{3}) < 1))
-    data = builtin('get', handles.gui_error_list, 'UserData');
-    selected = builtin('get', handles.gui_error_list, 'Value');
-    [tokens] = regexp(data{selected}, get_line_expression(self), 'tokens', 'once'); %, 'dotexceptnewline');
-    if (length(tokens) > 1)
-        second = tokens{2};
-        opentoline(second{1},str2double(second{2}));
-    end
-else
-    opentoline(tokens{1},str2double(tokens{2}));
-    tokens{3} = clock;
-    set(hObject, 'UserData', tokens);
-end
+
+mfile = tokens{1};
+line = tokens{2};
+
+% opentoline struggles with class methods. Help it find them.
+mfile = which(mfile);
+
+opentoline(mfile, str2double(line));
+
 
 % Relevant gui.fig contents
 %
