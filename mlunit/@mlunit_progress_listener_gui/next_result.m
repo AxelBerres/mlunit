@@ -9,12 +9,11 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 function self = next_result(self, result)
 
 self.num_results = self.num_results + 1;
+self.num_all_results = self.num_all_results + 1;
 
 % consolidate multiple errors into single string
 msg_and_stack_list = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);

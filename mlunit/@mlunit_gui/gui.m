@@ -13,8 +13,7 @@ function varargout = gui(object, varargin)
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 %  
-%  §Author: Thomas Dohmke <thomas@dohmke.de> §
-%  $Id$
+%  Author: Thomas Dohmke <thomas@dohmke.de>
 
 global self;
 
@@ -25,8 +24,8 @@ elseif ((object.callback == 1) && (isempty(self)))
     try
         self = builtin('get', handles.gui_window, 'UserData');
     catch
-    end;
-end;
+    end
+end
 
 gui_singleton = 1;
 gui_state = struct('gui_Name', mfilename, ...
@@ -68,17 +67,17 @@ self.handles.menu_shorten = uimenu(menu, 'Label', 'Short Directory Names', 'Call
 if (~isempty(self.dock) && isnumeric(self.dock) && self.dock)
     set(handles.gui_window, 'WindowStyle', 'Docked');
     set(self.handles.menu_dock, 'Label', 'Undock Window');
-end;
+end
 
 if (~ischar(self.test_case))
     try
         test_str = str(self.test_case);
     catch
         test_str = '';
-    end;
+    end
 else
     test_str = self.test_case;
-end;
+end
 if (ischar(test_str) && ~isempty(test_str))
     set(handles.gui_test_case, 'String', test_str);
     gui_run_callback(hobject, eventdata, handles);
@@ -102,10 +101,10 @@ if nargin>=3 && ~isempty(handles)
    position = builtin('get', hobject, 'Position');
    if (position(4) < 20)
        position(4) = 20;
-   end;
+   end
    if (position(3) < 50)
        position(3) = 50;
-   end;
+   end
 
    space = position(4) - 30.0;
 
@@ -123,9 +122,10 @@ end
 
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
+% accept enter to run immediately
 if (double(builtin('get', handles.gui_window, 'CurrentCharacter')) == 13)
     gui_run_callback(hobject, eventdata, handles);
-end;
+end
 
 function gui_test_case_createfcn(hobject, eventdata, handles) %#ok
 
@@ -147,15 +147,15 @@ test_case = builtin('get', handles.gui_test_case, 'String');
 listener = mlunit_progress_listener_gui(...
     handles.gui_progress_bar, ...
     handles.gui_text_runs, ...
-    handles.gui_error_list);
+    handles.gui_error_list, ...
+    handles.gui_text_time);
 suite_runner = add_listener(mlunit_suite_runner, listener);
 
 % disable html links in stack trace, because they won't display in an edit box
 prev_linktrace_state = mlunit_param('linked_trace', false);
 
-time = 0;
 try
-    [results, time] = run_suite(suite_runner, test_case);
+    run_suite_collection(suite_runner, test_case);
 catch
     % display meta error that prevented the suite to execute
     display_meta_error(listener, lasterror);
@@ -164,8 +164,7 @@ end
 % reset previous state
 mlunit_param('linked_trace', prev_linktrace_state);
 
-% display execution time
-set(handles.gui_text_time, 'String', sprintf('Finished: %.3fs.\n', time));
+% execution time gets displayed in the finalize_execution handler
 
 % pretend the user selected one of the errors in order to display something
 gui_error_list_callback(handles.gui_error_list, eventdata, handles);
@@ -193,8 +192,8 @@ if ~isempty(data)
         set(handles.gui_show, 'UserData', tokens);
     else
         set(handles.gui_show, 'Enable', 'off');
-    end;
-end;
+    end
+end
 
 function gui_error_list_createfcn(hobject, eventdata, handles) %#ok
 
@@ -221,7 +220,7 @@ else
     set(handles.gui_window, 'WindowStyle', 'Docked');
     set(self.handles.menu_dock, 'Label', 'Undock Window');
     self.dock = 1;
-end;
+end
 set(handles.gui_window, 'UserData', self);
 
 function gui_shorten_callback(hObject, eventdata, handles) %#ok
@@ -234,7 +233,7 @@ if (self.shorten == 0)
 else
     self.shorten = 0;
     set(self.handles.menu_shorten, 'Label', 'Short Directory Names');
-end;
+end
 set(handles.gui_window, 'UserData', self);
 
 gui_error_list_callback(hObject, eventdata, self.handles);
@@ -249,9 +248,9 @@ if ((length(tokens) == 3) && (etime(clock, tokens{3}) < 1))
     if (length(tokens) > 1)
         second = tokens{2};
         opentoline(second{1},str2double(second{2}));
-    end;
+    end
 else
     opentoline(tokens{1},str2double(tokens{2}));
     tokens{3} = clock;
     set(hObject, 'UserData', tokens);
-end;
+end
