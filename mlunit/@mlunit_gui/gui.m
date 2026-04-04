@@ -155,6 +155,15 @@ suite_runner = add_listener(mlunit_suite_runner, listener);
 % disable html links in stack trace, because they won't display in an edit box
 prev_linktrace_state = mlunit_param('linked_trace', false);
 
+% Wrap single test specifications if not a valid file/dir.
+% Single test specifications contain a dot and their first part needs to be an m file.
+test_case_parts = mlunit_strsplit(test_case, '.');
+if 0 == exist(test_case, 'file') && ...
+        numel(test_case_parts) > 1 && ...
+        0 < exist(test_case_parts{1}, 'file')
+    test_case = {test_case};
+end
+
 try
     run_suite_collection(suite_runner, test_case);
 catch

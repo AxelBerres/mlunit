@@ -3,6 +3,22 @@
 =====================================
 
 
+mlUnit 2.3 (in development)
+-----------------------
+
+  - Allow the GUI to run several test suites.
+    The input field now allows not only single test suites,
+    but also an absolute directory. It then runs all tests
+    from that directory, much like recursive_test_run.
+  - Allow the GUI to run just a single test case from a test suite.
+    Use the same argument naming as with mlunit_single.
+  - Improve rendering of the GUI's progress bar.
+    This used to be a horizontal bar chart, and is now just a resizing rectangle.
+    Also, don't force drawnow all the time, but only
+    for the very first and very last suites.
+  - Update some GUI labels to newer nomenclature.
+
+
 mlUnit 2.2 (2025-07-25)
 -----------------------
 

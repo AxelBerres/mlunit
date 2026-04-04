@@ -33,6 +33,7 @@ end
 % TODO: anything possible about that GUI test itself?
 % TODO: Make message more prominent and distinguish it from the stack trace
 % TODO: Fix awkward wrap behaviour for running '1'
+% TODO: Add version to title
 
 function update_progress_bar(self)
 
