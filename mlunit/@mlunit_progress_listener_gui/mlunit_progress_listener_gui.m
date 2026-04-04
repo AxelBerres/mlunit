@@ -30,5 +30,3 @@ self.num_failures = 0;
 self.num_skipped = 0;
 
 self = class(self, 'mlunit_progress_listener_gui', mlunit_progress_listener);
-
-reset_display(self, 0);

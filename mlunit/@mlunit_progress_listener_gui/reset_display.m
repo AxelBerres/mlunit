@@ -9,7 +9,7 @@
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
-function self = reset_display(self, num_progress_suites)
+function reset_display(self, num_progress_suites)
 
 mlunit_narginchk(2, 2, nargin);
 
@@ -26,11 +26,26 @@ set(self.error_listbox, 'Value', 0);
 function reset_progress_bar(self, num_progress_suites)
 
     xlimit = max(1, num_progress_suites);
-    barh(self.progress_bar, 1, xlimit, 'FaceColor', [1 1 1]);
+    
+    graphicObjects = get(self.progress_bar, 'Children');
+    if isempty(graphicObjects)
+        % The actually moving part of the progress bar is just a rectangle
+        patch( ...                          % draw a rectangle
+            [0 xlimit xlimit 0], ...        % x values of vertices
+            [0.6 0.6 1.4 1.4], ...          % y values of vertices
+            [1 1 1], ...                    % color
+            'Parent', self.progress_bar, ...% embed in parent
+            'AlignVertexCenters', 'on');    % prevent blurry lines
+    end
+
+    % set display area
     set(self.progress_bar, 'XLim', [0 xlimit]);
     set(self.progress_bar, 'YLim', [0.6 1.4]);
+    
+    % remove axis ticks and labels
     set(self.progress_bar, 'XTick', [], 'XTickLabel', []);
     set(self.progress_bar, 'YTick', [], 'YTickLabel', []);
+    
     drawnow;
 
     

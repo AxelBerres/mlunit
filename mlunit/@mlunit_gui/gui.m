@@ -44,7 +44,7 @@ else
     gui_mainfcn(gui_state, varargin{:});
 end
 
-function gui_openingfcn(hobject, eventdata, handles, varargin) %#ok
+function gui_openingfcn(hobject, eventdata, handles, varargin)
 
 global self;
 
@@ -54,8 +54,9 @@ guidata(hobject, handles);
 self.handle = handles.gui_window;
 self.handles = handles;
 
-set(handles.gui_progress_bar, 'XTick', [], 'XTickLabel', []);
-set(handles.gui_progress_bar, 'YTick', [], 'YTickLabel', []);
+set(handles.gui_progress_bar, 'XTick', [], 'XTickLabel', [], 'XTickMode', 'manual', 'XTickLabelMode', 'manual');
+set(handles.gui_progress_bar, 'YTick', [], 'YTickLabel', [], 'YTickMode', 'manual', 'YTickLabelMode', 'manual');
+set(handles.gui_progress_bar, 'Box', 'on');
 
 menu = uicontextmenu;
 set(self.handle, 'UIContextMenu', menu);

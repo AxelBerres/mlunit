@@ -14,12 +14,18 @@ function update_display(self)
 
 update_progress_bar(self);
 texts(self);
-drawnow;
 
-% TODO: render quicker
-%   About 4s for D:\repos\mlunit\test\utils in GUI
-%   About 2s for D:\repos\mlunit\test\utils in Console
-%   That's 2s overhead for 60 updates.
+% Force MATLAB to draw now.
+% Draw precisely for the first two and last two suites,
+% so that the user perceives progress, even when running just a few tests.
+% Skimp on in-between results by using limitrate to reduce drawing overhead
+% for runs that have many results.
+if self.num_suites > 2 && self.num_suites <= self.max_num_suites - 2
+    drawnow('limitrate', 'nocallbacks');
+else
+    drawnow('nocallbacks');
+end
+
 % TODO: disable Run button
 % TODO: fix Show button
 % TODO: make error output selectable and copyable
@@ -38,14 +44,22 @@ function update_progress_bar(self)
         color = [0 1 0]; % green
     end
     
-    % draw bar
-    barh(self.progress_bar, 1, self.num_suites - 1 + (self.num_results/self.max_num_results), 'FaceColor', color);
-
-    xlimit = max(1, self.max_num_suites);
-    set(self.progress_bar, 'XLim', [0 xlimit]);
-    set(self.progress_bar, 'YLim', [0.6 1.4]);
-    set(self.progress_bar, 'XTick', [], 'XTickLabel', []);
-    set(self.progress_bar, 'YTick', [], 'YTickLabel', []);
+    % calculate bar position
+    if self.num_suites == 0
+        position = 0;
+    else
+        position = self.num_suites - 1 + (self.num_results/self.max_num_results);
+    end
+    
+    % update bar
+    graphicObjects = get(self.progress_bar, 'Children');
+    if ~isempty(graphicObjects)
+        % first object is the resizing progress rectangle
+        rect = graphicObjects(1);
+        
+        set(rect, 'XData', [0 position position 0]);
+        set(rect, 'FaceColor', color);
+    end
 
     
 function texts(self)
