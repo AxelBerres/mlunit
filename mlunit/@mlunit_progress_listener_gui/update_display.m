@@ -29,6 +29,10 @@ end
 % TODO: disable Run button
 % TODO: fix Show button
 % TODO: make error output selectable and copyable
+% TODO: maintain a recently used list somehow
+% TODO: anything possible about that GUI test itself?
+% TODO: Make message more prominent and distinguish it from the stack trace
+% TODO: Fix awkward wrap behaviour for running '1'
 
 function update_progress_bar(self)
 
