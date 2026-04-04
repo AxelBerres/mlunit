@@ -110,18 +110,30 @@ if nargin>=3 && ~isempty(handles)
        position(3) = 50;
    end
 
-   space = position(4) - 30.0;
+   flexible_space = position(4) - 14;
+   fullwidth = position(3) - 5;
+   rightborder = position(3) - 2.5;
 
-   set(handles.gui_text_name, 'Position', [2.5 position(4) - 2.5 20.0 1]);
-   set(handles.gui_test_case, 'Position', [2.5 position(4) - 4.5 position(3) - 15 1.6]);
-   set(handles.gui_run, 'Position', [position(3) - 12.5 position(4) - 4.5 10.0 1.6]);
-   set(handles.gui_show, 'Position', [position(3) - 12.5 position(4) - 28.8 - space 10.0 1.6]);
-   set(handles.gui_progress_bar, 'Position', [2.5 position(4) - 7.5 position(3) - 5.0 1.6]);
-   set(handles.gui_text_runs, 'Position', [2.5 position(4) - 9.5 40.0 1]);
-   set(handles.gui_text_error_list, 'Position', [2.5 position(4) - 12 20.0 1]);
-   set(handles.gui_error_list, 'Position', [2.5 position(4) - 19.5 - space / 2 position(3) - 5.0 7 + space / 2]);
-   set(handles.gui_error, 'Position', [2.5 position(4) - 27 - space position(3) - 5.0 7 + space / 2]);
-   set(handles.gui_text_time, 'Position', [2.5 1.0 48.0 1]);
+   set(handles.gui_text_name, 'Position', ...
+       [2.5, position(4) - 2, 20.0, 1]);
+   set(handles.gui_test_case, 'Position', ...
+       [2.5, position(4) - 4, fullwidth - 10, 1.6]);
+   set(handles.gui_run, 'Position', ...
+       [rightborder - 10, position(4) - 4, 10.0, 1.6]);
+   set(handles.gui_progress_bar, 'Position', ...
+       [2.5, position(4) - 7, fullwidth, 1.6]);
+   set(handles.gui_text_runs, 'Position', ...
+       [2.5, position(4) - 9, fullwidth, 1]);
+   set(handles.gui_text_error_list, 'Position', ...
+       [2.5, position(4) - 11, 20.0, 1]);
+   set(handles.gui_error_list, 'Position', ...
+       [2.5, 3 + flexible_space / 2, fullwidth, flexible_space / 2 - 0.4]);
+   set(handles.gui_error, 'Position', ...
+       [2.5, 3, fullwidth, flexible_space / 2 - 0.4]);
+   set(handles.gui_text_time, 'Position', ...
+       [2.5, 1.0, 48.0, 1]);
+   set(handles.gui_show, 'Position', ...
+       [rightborder - 10, 0.7, 10.0, 1.6]);
 end
 
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
@@ -267,3 +279,53 @@ else
     tokens{3} = clock;
     set(hObject, 'UserData', tokens);
 end
+
+% Relevant gui.fig contents
+%
+% figure
+% FileName            D:\repos\mlunit\mlunit\@mlunit_gui\gui.fig
+% KeyPressFcn         gui(mlunit_gui(1), 'gui_test_case_callback',gcbo,[],guidata(gcbo))
+% Name                mlUnit
+% ResizeFcn           gui(mlunit_gui(1), 'gui_resize_callback',gcbo,[],guidata(gcbo))
+% Tag                 mlunit_gui_window
+% 
+%     uicontrol/text
+%     Tag             gui_text_name
+%     String          Test Object:
+% 
+%     uicontrol/edit
+%     Callback        gui(mlunit_gui(1), 'gui_test_case_callback',gcbo,[],guidata(gcbo))
+%     CreateFcn       gui(mlunit_gui(1), 'gui_test_case_createfcn',gcbo,[],guidata(gcbo))
+%     Tag             gui_test_case
+% 
+%     uicontrol/pushbutton
+%     Callback        gui(mlunit_gui(1), 'gui_run_callback',gcbo,[],guidata(gcbo))
+%     String          Run
+%     Tag             gui_run
+% 
+%     axes
+%     Tag             gui_progress_bar
+% 
+%     uicontrol/text
+%     String          Tests: 0 / Errors: 0 / Failures: 0 / Skipped: 0
+%     Tag             gui_text_runs
+% 
+%     uicontrol/text
+%     String          Errors / Failures:
+%     Tag             gui_text_error_list
+% 
+%     uicontrol/listbox
+%     Callback        gui(mlunit_gui(1), 'gui_error_list_callback',gcbo,[],guidata(gcbo))
+%     CreateFcn       gui(mlunit_gui(1), 'gui_error_list_createfcn',gcbo,[],guidata(gcbo))
+%     Tag             gui_error_list
+% 
+%     uicontrol/edit
+%     CreateFcn       gui(mlunit_gui(1), 'gui_error_createfcn',gcbo,[],guidata(gcbo))
+%     Tag             gui_error
+% 
+%     uicontrol/text
+%     Tag             gui_text_time
+% 
+%     uicontrol/pushbutton
+%     Callback        gui(mlunit_gui(1), 'gui_show_Callback',gcbo,[],guidata(gcbo))
+%     Tag             gui_show

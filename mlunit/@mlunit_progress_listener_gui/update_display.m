@@ -35,7 +35,8 @@ end
 % TODO: Fix awkward wrap behaviour for running '1'
 % TODO: reenable saving mechanism?
 % TODO: What's the shorten directory names mechanism?
-% TODO: Support docked any more? Yes, do we need it?
+% TODO: Support docked any more? Yes, do we need it? Yes, it's nice.
+%       But the functionality is hidden. Can we make it visible somehow?
 
 function update_progress_bar(self)
 
