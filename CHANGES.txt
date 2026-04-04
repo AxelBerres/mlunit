@@ -16,6 +16,7 @@ mlUnit 2.3 (in development)
     This used to be a horizontal bar chart, and is now just a resizing rectangle.
     Also, don't force drawnow all the time, but only
     for the very first and very last suites.
+  - Display mlUnit version in GUI title.
   - Update some GUI labels to newer nomenclature.
 
 

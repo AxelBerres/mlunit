@@ -16,6 +16,6 @@ function self = get_object(self) %#ok
 
 shh = builtin('get', 0, 'ShowHiddenHandles');
 set(0, 'ShowHiddenHandles', 'on');
-handle = findall(0, 'Name', 'mlUnit');
+handle = findall(0, 'Tag', 'mlunit_gui_window');
 self = builtin('get', handle, 'UserData');
 set(0, 'ShowHiddenHandles', shh);

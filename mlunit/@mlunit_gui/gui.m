@@ -22,7 +22,7 @@ if ((object.callback ~= 1) && (isempty(self) || (isempty(get_object(self)))))
 elseif ((object.callback == 1) && (isempty(self)))
     handles = guidata(gcbo);
     try
-        self = builtin('get', handles.gui_window, 'UserData');
+        self = builtin('get', handles.mlunit_gui_window, 'UserData');
     catch
     end
 end
@@ -51,8 +51,10 @@ global self;
 handles.output = hobject;
 guidata(hobject, handles);
 
-self.handle = handles.gui_window;
+self.handle = handles.mlunit_gui_window;
 self.handles = handles;
+
+set(self.handle, 'Name', ['mlUnit ' ver(mlunit, true)]);
 
 set(handles.gui_progress_bar, 'XTick', [], 'XTickLabel', [], 'XTickMode', 'manual', 'XTickLabelMode', 'manual');
 set(handles.gui_progress_bar, 'YTick', [], 'YTickLabel', [], 'YTickMode', 'manual', 'YTickLabelMode', 'manual');
@@ -66,7 +68,7 @@ self.handles.menu_shorten = uimenu(menu, 'Label', 'Short Directory Names', 'Call
     @(hobject, eventdata)gui(mlunit_gui(1), 'gui_shorten_callback', hobject, [], handles)); 
 
 if (~isempty(self.dock) && isnumeric(self.dock) && self.dock)
-    set(handles.gui_window, 'WindowStyle', 'Docked');
+    set(handles.mlunit_gui_window, 'WindowStyle', 'Docked');
     set(self.handles.menu_dock, 'Label', 'Undock Window');
 end
 
@@ -85,6 +87,7 @@ if (ischar(test_str) && ~isempty(test_str))
     self.test_case = '';
 end
 
+% Save handle to be recovered later on.
 set(self.handle, 'UserData', self);
 
 function varargout = gui_outputfcn(hobject, eventdata, handles) %#ok
@@ -124,7 +127,7 @@ end
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
 % accept enter to run immediately
-if (double(builtin('get', handles.gui_window, 'CurrentCharacter')) == 13)
+if (double(builtin('get', handles.mlunit_gui_window, 'CurrentCharacter')) == 13)
     gui_run_callback(hobject, eventdata, handles);
 end
 
@@ -221,17 +224,17 @@ function gui_dock_callback(hObject, eventdata, handles) %#ok
 
 global self;
 
-docked = builtin('get', handles.gui_window, 'WindowStyle');
+docked = builtin('get', handles.mlunit_gui_window, 'WindowStyle');
 if (strcmp(docked, 'docked'))
-    set(handles.gui_window, 'WindowStyle', 'Normal');
+    set(handles.mlunit_gui_window, 'WindowStyle', 'Normal');
     set(self.handles.menu_dock, 'Label', 'Dock Window');
     self.dock = 0;
 else
-    set(handles.gui_window, 'WindowStyle', 'Docked');
+    set(handles.mlunit_gui_window, 'WindowStyle', 'Docked');
     set(self.handles.menu_dock, 'Label', 'Undock Window');
     self.dock = 1;
 end
-set(handles.gui_window, 'UserData', self);
+set(handles.mlunit_gui_window, 'UserData', self);
 
 function gui_shorten_callback(hObject, eventdata, handles) %#ok
 
@@ -244,7 +247,7 @@ else
     self.shorten = 0;
     set(self.handles.menu_shorten, 'Label', 'Short Directory Names');
 end
-set(handles.gui_window, 'UserData', self);
+set(handles.mlunit_gui_window, 'UserData', self);
 
 gui_error_list_callback(hObject, eventdata, self.handles);
 

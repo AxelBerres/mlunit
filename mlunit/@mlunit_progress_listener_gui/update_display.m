@@ -33,7 +33,9 @@ end
 % TODO: anything possible about that GUI test itself?
 % TODO: Make message more prominent and distinguish it from the stack trace
 % TODO: Fix awkward wrap behaviour for running '1'
-% TODO: Add version to title
+% TODO: reenable saving mechanism?
+% TODO: What's the shorten directory names mechanism?
+% TODO: Support docked any more? Yes, do we need it?
 
 function update_progress_bar(self)
 
