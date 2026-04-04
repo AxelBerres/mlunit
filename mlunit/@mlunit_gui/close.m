@@ -19,5 +19,5 @@ if (~isempty(object) && (strcmp('mlunit_gui', class(object))))
     handle = get_handle(object);
     if (~isempty(handle))
         close(handle);
-    end;
-end;
+    end
+end

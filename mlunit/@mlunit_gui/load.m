@@ -21,5 +21,4 @@ try
     set(object.handles.gui_test_case, 'String', saved.test_case_name);
     delete('mlunit.tmp');
 catch
-end;
-
+end

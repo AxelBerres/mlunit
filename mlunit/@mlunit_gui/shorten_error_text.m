@@ -19,13 +19,13 @@ function shortened_text = shorten_error_text(self, error_text)
 if (self.shorten == 0)
     shortened_text = error_text;
     return;
-end;
+end
 
 error_lines = strread(error_text, '%s', 'delimiter', '\n'); %regexp(error_text, '(.*)', 'tokens', 'dotexceptnewline');
 if (isempty(error_lines))
     shortened_text = error_text;
     return;
-end;
+end
 
 shortened_text = '';
 for i = 1:length(error_lines)
@@ -35,26 +35,26 @@ for i = 1:length(error_lines)
         token = tokens{1};
         token = strrep(token, '\', '/');
         str = cell(1);
-        [str{1}, rem] = strtok(token, '\/'); %#ok
+        [str{1}, rem] = strtok(token, '\/');
         j = 2;
         while (length(rem) > 0)
             [str{j}, rem] = strtok(rem, '\/'); %#ok
             j = j + 1;
-        end;
+        end
         if (length(str) > 1)
             if (strcmp(token(1), '/'))
                 line = ['/', str{1}, '/../', str{end - 1}, '/', str{end}];
             else
                 line = [str{1}, '/../', str{end - 1}, '/', str{end}];
-            end;
+            end
         else
             line = str(1);
-        end;
+        end
         line = sprintf('  In %s at line %s', char(line), tokens{2});
-    end;
+    end
     if (isempty(shortened_text))
         shortened_text = char(line);
     else
         shortened_text = sprintf('%s\n%s', char(shortened_text), char(line));
-    end;
-end;
+    end
+end

@@ -16,8 +16,8 @@ function save(self)
 
 object = get_object(self);
 if (strcmp(class(object), 'mlunit_gui')) 
-    dock = object.dock; %#ok
-    shorten = object.shorten; %#ok
-    test_case_name = builtin('get', object.handles.gui_test_case, 'String'); %#ok
+    dock = object.dock;
+    shorten = object.shorten;
+    test_case_name = builtin('get', object.handles.gui_test_case, 'String');
     save('mlunit.tmp', 'dock', 'shorten', 'test_case_name');
-end;
+end

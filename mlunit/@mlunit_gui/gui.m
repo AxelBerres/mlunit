@@ -44,6 +44,7 @@ else
     gui_mainfcn(gui_state, varargin{:});
 end
 
+
 function gui_openingfcn(hobject, eventdata, handles, varargin)
 
 global self;
@@ -90,9 +91,11 @@ end
 % Save handle to be recovered later on.
 set(self.handle, 'UserData', self);
 
+
 function varargout = gui_outputfcn(hobject, eventdata, handles) %#ok
 
 varargout{1} = handles.output;
+
 
 function gui_resize_callback(hobject, eventdata, handles) %#ok
 
@@ -136,12 +139,14 @@ if nargin>=3 && ~isempty(handles)
        [rightborder - 10, 0.7, 10.0, 1.6]);
 end
 
+
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
 % accept enter to run immediately
 if (double(builtin('get', handles.mlunit_gui_window, 'CurrentCharacter')) == 13)
     gui_run_callback(hobject, eventdata, handles);
 end
+
 
 function gui_test_case_createfcn(hobject, eventdata, handles) %#ok
 
@@ -220,11 +225,13 @@ if ~isempty(data)
     end
 end
 
+
 function gui_error_list_createfcn(hobject, eventdata, handles) %#ok
 
 if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'defaultUicontrolBackgroundColor'))
     set(hobject,'BackgroundColor','white');
 end
+
 
 function gui_error_createfcn(hobject, eventdata, handles) %#ok
 

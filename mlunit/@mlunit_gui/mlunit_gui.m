@@ -18,7 +18,8 @@ function self = mlunit_gui(callback)
 
 if (nargin == 0)
     callback = 0;
-end;
+end
+
 self = struct();
 self.callback = callback;
 self.handle = 0;

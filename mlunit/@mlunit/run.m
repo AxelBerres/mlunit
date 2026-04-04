@@ -18,6 +18,6 @@ function self = run(self, dock)
 
 if (nargin == 1)
     dock = 0;
-end;
+end
 
 run(mlunit_gui, '', dock);

@@ -26,7 +26,8 @@ elseif (nargin == 2)
     shorten = 0;
 elseif (nargin == 3)
     shorten = 0;
-end;
+end
+
 self.test_case = test;
 self.dock = dock;
 self.shorten = shorten;
