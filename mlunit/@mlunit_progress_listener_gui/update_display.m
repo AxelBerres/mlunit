@@ -28,12 +28,11 @@ end
 
 % TODO: disable Run button
 % TODO: make error output selectable and copyable
-% TODO: maintain a recently used list somehow
+% TODO: save a recently used list instead of just the last item
 % TODO: Make message more prominent and distinguish it from the stack trace
 % TODO: Fix awkward wrap behaviour for running '1'
-% TODO: reenable saving mechanism?
-% TODO: The shorten directory names mechanism eats white space. Fix it or drop it.
-% TODO: Support docked any more? Yes, do we need it? Yes, it's nice.
+% TODO: The shorten directory names mechanism eats white space. Drop it.
+% TODO: Support for docking is nice.
 %       But the functionality is hidden. Can we make it visible somehow?
 
 function update_progress_bar(self)

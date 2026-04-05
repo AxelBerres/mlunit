@@ -73,23 +73,26 @@ if (~isempty(self.dock) && isnumeric(self.dock) && self.dock)
     set(self.handles.menu_dock, 'Label', 'Undock Window');
 end
 
-if (~ischar(self.test_case))
+if (~ischar(self.initial_test_case))
     try
-        test_str = str(self.test_case);
+        test_str = str(self.initial_test_case);
     catch
         test_str = '';
     end
 else
-    test_str = self.test_case;
+    test_str = self.initial_test_case;
 end
-if (ischar(test_str) && ~isempty(test_str))
+
+if ischar(test_str) && ~isempty(test_str)
     set(handles.gui_test_case, 'String', test_str);
-    gui_run_callback(hobject, eventdata, handles);
-    self.test_case = '';
 end
 
 % Save handle to be recovered later on.
 set(self.handle, 'UserData', self);
+
+if self.jumpstart
+    gui_run_callback(hobject, eventdata, handles);
+end
 
 
 function varargout = gui_outputfcn(hobject, eventdata, handles) %#ok
@@ -142,8 +145,9 @@ end
 
 function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
-% accept enter to run immediately
-if (double(builtin('get', handles.mlunit_gui_window, 'CurrentCharacter')) == 13)
+% accept enter to run immediately, but only if not currently closing
+if ~isempty(findobj(handles.mlunit_gui_window)) && ...
+        13 == double(builtin('get', handles.mlunit_gui_window, 'CurrentCharacter'))
     gui_run_callback(hobject, eventdata, handles);
 end
 
@@ -155,14 +159,34 @@ if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'
 end
 
 
-% Called when the user hits the run button
+% Called when the user hits the run button, or pressed enter.
 function gui_run_callback(hobject, eventdata, handles) %#ok
 
 set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
+
 test_case = builtin('get', handles.gui_test_case, 'String');
+
+if isempty(test_case)
+    answer = questdlg('Run all tests in the current directory?', 'mlUnit', 'Yes', 'No', 'Yes');
+    if strcmp('Yes', answer)
+        test_case = pwd;
+        builtin('set', handles.gui_test_case', 'String', test_case);
+    end
+end
+
+% save general GUI state
+self = get(handles.mlunit_gui_window, 'UserData');
+if ~isempty(self) && isa(self, 'mlunit_gui')
+    mlunit_save_mru_file(test_case, self.dock, self.shorten);
+end
+
+% Allow user to save an empty test_case name, but don't run it.
+if isempty(test_case)
+    return
+end
 
 % constructor also resets the display
 listener = mlunit_progress_listener_gui(...
@@ -254,6 +278,11 @@ else
     set(self.handles.menu_dock, 'Label', 'Undock Window');
     self.dock = 1;
 end
+
+% save only docking state
+mlunit_save_mru_file([], self.dock);
+
+% cache object
 set(handles.mlunit_gui_window, 'UserData', self);
 
 

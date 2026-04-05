@@ -21,10 +21,16 @@ if (nargin == 0)
 end
 
 self = struct();
+
+% resident states
 self.callback = callback;
 self.handle = 0;
 self.handles = 0;
-self.test_case = '';
-self.dock = -1;
+self.dock = 0;
 self.shorten = 0;
+
+% start configuration
+self.jumpstart = false;
+self.initial_test_case = '';
+
 self = class(self, 'mlunit_gui');

@@ -17,20 +17,25 @@ function self = run(self, test, dock, shorten)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: run.m 166 2007-01-04 21:19:31Z thomi $
 
-if (nargin == 1)
-    test = '';
-    dock = 0;
-    shorten = 0;
-elseif (nargin == 2)
-    dock = 0;
-    shorten = 0;
-elseif (nargin == 3)
-    shorten = 0;
+[recent_test, recent_dock, recent_shorten] = mlunit_load_mru_file();
+
+if nargin < 4 || isempty(shorten), shorten = recent_shorten; end
+if nargin < 3 || isempty(dock), dock = recent_dock; end
+if nargin < 2 || isempty(test)
+    test = recent_test;
+    jumpstart = false;
+else
+    jumpstart = true;
 end
 
-self.test_case = test;
+self.jumpstart = jumpstart;
+self.initial_test_case = test;
 self.dock = dock;
 self.shorten = shorten;
 self.callback = 0;
+
+% start gui
 gui(self);
+
+% collect actual handle from the gui_openingfcn callback
 self.handle = get_handle(get_object(self));

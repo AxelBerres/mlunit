@@ -16,8 +16,8 @@ function self = run(self, dock)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: run.m 160 2007-01-03 21:56:21Z thomi $
 
-if (nargin == 1)
-    dock = 0;
+if (nargin <= 1)
+    run(mlunit_gui, '');
+else
+    run(mlunit_gui, '', dock);
 end
-
-run(mlunit_gui, '', dock);
