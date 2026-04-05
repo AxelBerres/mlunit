@@ -10,6 +10,8 @@ mlUnit 2.3 (in development)
     The input field now allows not only single test suites,
     but also an absolute directory. It then runs all tests
     from that directory, much like recursive_test_run.
+  - With an empty input field, allow to run all test suites on
+    the current working directory.
   - Allow the GUI to run just a single test case from a test suite.
     Use the same argument naming as with mlunit_single.
   - Improve rendering of the GUI's progress bar.
@@ -18,15 +20,19 @@ mlUnit 2.3 (in development)
     for the very first and very last suites.
   - Display mlUnit version in GUI title.
   - Update some GUI labels to newer nomenclature.
+  - Remember some GUI parameters between GUI restarts.
+    Particularly, the latest test object, and the docking mode.
   - Improve GUI resize calculation.
   - Show button can now open class methods.
+
+  - Fix: Using the View button triggered an error when the target
+    file is not on the MATLAB path.
 
 
 mlUnit 2.2 (2025-07-25)
 -----------------------
 
   - Select discovery of MATLAB unit tests in Ant automation.
-
     Allow setting the includematlabtests flag to false
     in test environments where no MATLAB unit tests are present.
 
