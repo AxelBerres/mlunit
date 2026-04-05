@@ -65,8 +65,8 @@ menu = uicontextmenu;
 set(self.handle, 'UIContextMenu', menu);
 self.handles.menu_dock = uimenu(menu, 'Label', 'Dock Window', 'Callback', ...
     @(hobject, eventdata)gui(mlunit_gui(1), 'gui_dock_callback', hobject, [], handles));
-self.handles.menu_shorten = uimenu(menu, 'Label', 'Short Directory Names', 'Callback', ...
-    @(hobject, eventdata)gui(mlunit_gui(1), 'gui_shorten_callback', hobject, [], handles)); 
+self.handles.menu_about = uimenu(menu, 'Label', 'About mlUnit', 'Callback', ...
+    @(hobject, eventdata)gui(mlunit_gui(1), 'gui_about_callback', hobject, [], handles)); 
 
 if (~isempty(self.dock) && isnumeric(self.dock) && self.dock)
     set(handles.mlunit_gui_window, 'WindowStyle', 'Docked');
@@ -182,7 +182,7 @@ end
 % save general GUI state
 self = get(handles.mlunit_gui_window, 'UserData');
 if ~isempty(self) && isa(self, 'mlunit_gui')
-    mlunit_save_mru_file(test_case, self.dock, self.shorten);
+    mlunit_save_mru_file(test_case, self.dock);
 end
 
 % Allow user to save an empty test_case name, but don't run it.
@@ -239,7 +239,7 @@ selected = builtin('get', handles.gui_error_list, 'Value');
 % only proceed if we actually recorded errors
 if ~isempty(data)
     % set appropriate error message from pool of available messages
-    set(handles.gui_error, 'String', shorten_error_text(self, data{selected}));
+    set(handles.gui_error, 'String', data{selected});
     
     % (de)activate the show button; function name and line go into its UserData
     [tokens] = regexp(data{selected}, get_line_expression(self), 'tokens', 'once'); %, 'dotexceptnewline');
@@ -288,20 +288,18 @@ mlunit_save_mru_file([], self.dock);
 set(handles.mlunit_gui_window, 'UserData', self);
 
 
-function gui_shorten_callback(hObject, eventdata, handles) %#ok
+function gui_about_callback(hObject, eventdata, handles) %#ok
 
-global self;
-
-if (self.shorten == 0)
-    self.shorten = 1;
-    set(self.handles.menu_shorten, 'Label', 'Long Directory Names');
-else
-    self.shorten = 0;
-    set(self.handles.menu_shorten, 'Label', 'Short Directory Names');
-end
-set(handles.mlunit_gui_window, 'UserData', self);
-
-gui_error_list_callback(hObject, eventdata, self.handles);
+version = ver('mlunit');
+text = {...
+    [version.Name ' ' version.Version], ...
+    [version.Date], ...
+    ['Supports MATLAB ' version.Release], ...
+    '', ...
+    'See CHANGES.txt over at', ...
+    'https://github.com/AxelBerres/mlunit', ...
+    };
+msgbox(text, 'About mlUnit', 'help');
 
 
 function gui_show_Callback(hObject, eventdata, handles) %#ok

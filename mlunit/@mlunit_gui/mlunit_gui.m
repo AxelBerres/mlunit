@@ -27,7 +27,6 @@ self.callback = callback;
 self.handle = 0;
 self.handles = 0;
 self.dock = 0;
-self.shorten = 0;
 
 % start configuration
 self.jumpstart = false;

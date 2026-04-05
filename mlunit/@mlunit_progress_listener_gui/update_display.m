@@ -28,8 +28,6 @@ end
 
 % TODO: Improvements
 % - Make message more prominent and distinguish it from the stack trace
-% - The shorten directory names mechanism eats white space. Drop it.
-%   With mlunit_param('abbrev_trace', 1), shortening isn't needed anymore.
 
 % TODO: New Features
 % - file/directory selector dialog button

@@ -1,4 +1,4 @@
-function self = run(self, test, dock, shorten)
+function self = run(self, test, dock)
 %mlunit_gui/run is an alternative method to execute the graphical 
 %user interface of mlUnit. 
 %
@@ -17,9 +17,8 @@ function self = run(self, test, dock, shorten)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: run.m 166 2007-01-04 21:19:31Z thomi $
 
-[recent_test, recent_dock, recent_shorten] = mlunit_load_mru_file();
+[recent_test, recent_dock] = mlunit_load_mru_file();
 
-if nargin < 4 || isempty(shorten), shorten = recent_shorten; end
 if nargin < 3 || isempty(dock), dock = recent_dock; end
 if nargin < 2 || isempty(test)
     test = recent_test;
@@ -31,7 +30,6 @@ end
 self.jumpstart = jumpstart;
 self.initial_test_case = test;
 self.dock = dock;
-self.shorten = shorten;
 self.callback = 0;
 
 % start gui
