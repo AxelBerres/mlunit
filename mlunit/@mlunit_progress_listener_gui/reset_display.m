@@ -30,12 +30,17 @@ function reset_progress_bar(self, num_progress_suites)
     graphicObjects = get(self.progress_bar, 'Children');
     if isempty(graphicObjects)
         % The actually moving part of the progress bar is just a rectangle
-        patch( ...                          % draw a rectangle
+        rect = patch( ...                   % draw a rectangle
             [0 xlimit xlimit 0], ...        % x values of vertices
             [0.6 0.6 1.4 1.4], ...          % y values of vertices
             [1 1 1], ...                    % color
-            'Parent', self.progress_bar, ...% embed in parent
-            'AlignVertexCenters', 'on');    % prevent blurry lines
+            'Parent', self.progress_bar);   % embed in parent
+
+        isR2015bOrNewer = ~verLessThan('matlab', '8.6');
+        if isR2015bOrNewer
+            % prevent blurry lines
+            set(rect, 'AlignVertexCenters', 'on');
+        end
     end
 
     % set display area

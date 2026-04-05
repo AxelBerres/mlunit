@@ -12,6 +12,11 @@
 
 function update_display(self)
 
+persistent isR2015bOrNewer
+if isempty(isR2015bOrNewer)
+    isR2015bOrNewer = ~verLessThan('matlab', '8.6');
+end
+
 update_progress_bar(self);
 texts(self);
 
@@ -21,13 +26,24 @@ texts(self);
 % Skimp on in-between results by using limitrate to reduce drawing overhead
 % for runs that have many results.
 if self.num_suites > 2 && self.num_suites <= self.max_num_suites - 2
-    drawnow('limitrate', 'nocallbacks');
+    % limited redraw
+    if isR2015bOrNewer
+        drawnow('limitrate', 'nocallbacks');
+    else
+        drawnow('expose');
+    end
 else
-    drawnow('nocallbacks');
+    % detailed redraw
+    if isR2015bOrNewer
+        drawnow('nocallbacks');
+    else
+        drawnow();
+    end
 end
 
 % TODO: Improvements
 % - Make message more prominent and distinguish it from the stack trace
+% - Improve data handling in GUI.
 
 % TODO: New Features
 % - file/directory selector dialog button
