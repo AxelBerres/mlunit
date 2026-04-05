@@ -312,7 +312,11 @@ line = tokens{2};
 % opentoline struggles with class methods. Help it find them.
 mfile = which(mfile);
 
-opentoline(mfile, str2double(line));
+if isempty(mfile)
+    msgbox({[tokens{1} ' cannot be found,'], 'because it is not on the MATLAB path.'}, 'mlUnit', 'warn');
+else
+    opentoline(mfile, str2double(line));
+end
 
 
 % Relevant gui.fig contents
