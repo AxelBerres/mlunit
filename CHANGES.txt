@@ -24,6 +24,7 @@ mlUnit 2.3 (in development)
     Particularly, the latest test object, and the docking mode.
   - Improve GUI resize calculation.
   - Show button can now open class methods.
+  - Disable Run button during test runs.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.

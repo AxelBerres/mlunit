@@ -26,14 +26,21 @@ else
     drawnow('nocallbacks');
 end
 
-% TODO: disable Run button
-% TODO: make error output selectable and copyable
-% TODO: save a recently used list instead of just the last item
-% TODO: Make message more prominent and distinguish it from the stack trace
-% TODO: Fix awkward wrap behaviour for running '1'
-% TODO: The shorten directory names mechanism eats white space. Drop it.
-% TODO: Support for docking is nice.
-%       But the functionality is hidden. Can we make it visible somehow?
+% TODO: Improvements
+% - Make message more prominent and distinguish it from the stack trace
+% - The shorten directory names mechanism eats white space. Drop it.
+%   With mlunit_param('abbrev_trace', 1), shortening isn't needed anymore.
+
+% TODO: New Features
+% - file/directory selector dialog button
+% - save a recently used list instead of just the last item
+% - Support for docking is nice.
+%   But the functionality is hidden. Can we make it visible somehow?
+
+% TODO: Probably Not Possible
+% - make error output selectable and copyable, but still not editable
+% - Fix awkward wrap behaviour for running '1'
+
 
 function update_progress_bar(self)
 

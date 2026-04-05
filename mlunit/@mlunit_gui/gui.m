@@ -166,6 +166,8 @@ set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
+set(handles.gui_run, 'Enable', 'off');
+cleanup = onCleanup(@() set(handles.gui_run, 'Enable', 'on'));
 
 test_case = builtin('get', handles.gui_test_case, 'String');
 
