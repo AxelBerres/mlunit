@@ -29,6 +29,7 @@ mlUnit 2.3 (in development)
   - Remove GUI menu item for shortening directory names in the error display.
     With mlunit_param('abbrev_trace', 1), shortening isn't needed anymore.
   - Add a shortcut to start the mlUnit GUI: >> mlunit
+    Allow the shortcut to run a specific test object right away.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.

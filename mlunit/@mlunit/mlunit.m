@@ -10,8 +10,10 @@ function self = mlunit(initial_test_object)
 %
 %  Just start mlUnit:
 %       mlunit;
-%  Run a specific test right away:
+%  Start mlUnit and run a specific test right away:
 %       mlunit('test_test_case');
+%  Start mlUnit and run all tests in the current folder right away:
+%       mlunit(pwd);
 %  Just start mlUnit, but the old way.
 %
 %  See also mlunit_gui.

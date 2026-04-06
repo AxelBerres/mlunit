@@ -100,14 +100,16 @@ end
 % Save handle to be recovered later on.
 set(self.handle, 'UserData', self);
 
+
+function varargout = gui_outputfcn(hobject, eventdata, handles)
+
+global self;
+
+varargout{1} = handles.output;
+
 if self.jumpstart
     gui_run_callback(hobject, eventdata, handles);
 end
-
-
-function varargout = gui_outputfcn(hobject, eventdata, handles) %#ok
-
-varargout{1} = handles.output;
 
 
 function gui_resize_callback(hobject, eventdata, handles) %#ok
