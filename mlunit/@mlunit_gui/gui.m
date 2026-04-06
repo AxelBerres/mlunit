@@ -75,7 +75,7 @@ end
 
 if (~ischar(self.initial_test_case))
     try
-        test_str = str(self.initial_test_case);
+        test_str = class(self.initial_test_case);
     catch
         test_str = '';
     end
@@ -163,7 +163,6 @@ end
 function gui_run_callback(hobject, eventdata, handles) %#ok
 
 set(handles.gui_show, 'Enable', 'off');
-set(handles.gui_error, 'String', '');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
 set(handles.gui_run, 'Enable', 'off');
