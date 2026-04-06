@@ -238,8 +238,6 @@ gui_error_list_callback(handles.gui_error_list, eventdata, handles);
 % Called when the user selects an error in the list
 function gui_error_list_callback(hobject, eventdata, handles) %#ok
 
-global self;
-
 % cell array of error messages
 data = builtin('get', handles.gui_error_list, 'UserData');
 % which item the user selected
@@ -251,7 +249,7 @@ if ~isempty(data)
     set(handles.gui_error, 'String', data{selected});
     
     % (de)activate the show button; function name and line go into its UserData
-    [tokens] = regexp(data{selected}, get_line_expression(self), 'tokens', 'once'); %, 'dotexceptnewline');
+    [tokens] = regexp(data{selected}, get_line_expression(), 'tokens', 'once'); %, 'dotexceptnewline');
     if (length(tokens) == 2)
         set(handles.gui_show, 'Enable', 'on');
         set(handles.gui_show, 'UserData', tokens);

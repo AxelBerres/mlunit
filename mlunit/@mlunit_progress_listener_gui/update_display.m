@@ -54,6 +54,7 @@ end
 % - Make message more prominent and distinguish it from the stack trace
 % - Improve data handling in GUI.
 % - Reflect test suite name in results.
+% - When calling by shortcut "mlunit", make GUI appear before actually running the tests.
 
 % TODO: New Features
 % - file/directory selector dialog button. Just a thin button called "...", or with a
