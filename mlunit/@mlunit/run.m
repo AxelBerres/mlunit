@@ -1,5 +1,6 @@
-function self = run(self, dock)
+function self = run(self, initial_test_object, dock)
 %mlunit/run executes the the graphical user interface of mlUnit.
+%  Alternatively, just use mlunit.
 %
 %  EXAMPLE
 %  =======
@@ -16,8 +17,10 @@ function self = run(self, dock)
 %  §Author: Thomas Dohmke <thomas@dohmke.de> §
 %  $Id: run.m 160 2007-01-03 21:56:21Z thomi $
 
-if (nargin <= 1)
-    run(mlunit_gui, '');
+if nargin >= 3
+    run(mlunit_gui, initial_test_object, dock);
+elseif nargin >= 2
+    run(mlunit_gui, initial_test_object);
 else
-    run(mlunit_gui, '', dock);
+    run(mlunit_gui);
 end

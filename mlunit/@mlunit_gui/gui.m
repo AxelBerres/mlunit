@@ -15,6 +15,16 @@ function varargout = gui(object, varargin)
 %  
 %  Author: Thomas Dohmke <thomas@dohmke.de>
 
+% Maintenance:
+% - The eventdata variable has never been used and can be removed.
+%   It needs to be removed from the function argument lists and the .fig calls.
+% - gui(..) isn't really an instance method, but a class method.
+%   It doesn't use any data outside of its own global variable.
+% - The global "self" variable is mainly used for remembering the figure's handles.
+% - The figure's UserData property is used for communicating the value of the global
+%   "self" variable from the gui_openingfcn callback.
+% - It's all a bit of a mess.
+
 global self;
 
 if ((object.callback ~= 1) && (isempty(self) || (isempty(get_object(self)))))
