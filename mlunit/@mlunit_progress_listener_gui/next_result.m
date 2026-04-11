@@ -25,21 +25,21 @@ has_skipped = ~isempty(result.skipped);
 
 if has_failed
     self.num_failures = self.num_failures + 1;
-    add_to_errorlist(self, 'FAIL', result.name, result.failure);
+    self = add_to_errorlist(self, 'FAIL', result.name, result.failure);
 end
 
 if has_skipped
     self.num_skipped = self.num_skipped + 1;
-    add_to_errorlist(self, 'SKIPPED', result.name, result.skipped);
+    self = add_to_errorlist(self, 'SKIPPED', result.name, result.skipped);
 end
 
 if has_errors
     self.num_errors = self.num_errors + 1;
-    add_to_errorlist(self, 'ERROR', result.name, errmessages);
+    self = add_to_errorlist(self, 'ERROR', result.name, errmessages);
 end
 
 if mlunit_param('verbose') && ~has_errors && ~has_failed
-    add_to_errorlist(self, 'ok', result.name, 'success');
+    self = add_to_errorlist(self, 'ok', result.name, 'success');
 end
 
 update_display(self);

@@ -15,3 +15,9 @@
 function self = next_suite(self, name)
 
 self.num_suites = self.num_suites + 1;
+
+% normalize test class names
+if strncmp('@', name, 1)
+    name(1) = [];
+end
+self.current_suite = name;

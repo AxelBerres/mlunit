@@ -53,7 +53,6 @@ end
 % TODO: Improvements
 % - Make message more prominent and distinguish it from the stack trace
 % - Improve data handling in GUI.
-% - Reflect test suite name in results.
 
 % TODO: New Features
 % - file/directory selector dialog button. Just a thin button called "...", or with a

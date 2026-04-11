@@ -13,7 +13,7 @@
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
-function add_to_errorlist(self, prefix, testname, errmsg)
+function self = add_to_errorlist(self, prefix, testname, errmsg)
 
 mlunit_narginchk(4, 4, nargin);
 
@@ -25,8 +25,15 @@ if isempty(list)
     data = cell(0);
 end
 
+% add testsuite once
+if ~isempty(self.current_suite)
+    list{end+1} = self.current_suite;
+    data{end+1} = '';
+    self.current_suite = '';
+end
+
 % add current error
-list{end+1} = sprintf('%s: %s', prefix, testname);
+list{end+1} = sprintf('      %s: %s', prefix, testname);
 data{end+1} = errmsg;
 
 % write back

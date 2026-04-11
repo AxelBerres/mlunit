@@ -23,6 +23,7 @@ self.text_time = text_time;
 self.max_num_suites = 0;
 self.max_num_results = 0;
 self.num_suites = 0;
+self.current_suite = '';
 self.num_results = 0;
 self.num_all_results = 0;
 self.num_errors = 0;

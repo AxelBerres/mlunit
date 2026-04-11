@@ -30,6 +30,8 @@ mlUnit 2.3 (in development)
     With mlunit_param('abbrev_trace', 1), shortening isn't needed anymore.
   - Add a shortcut to start the mlUnit GUI: >> mlunit
     Allow the shortcut to run a specific test object right away.
+  - Establish a simple tree structure in the error list,
+    so that failures/errors/skips also show their corresponding test suite.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.
