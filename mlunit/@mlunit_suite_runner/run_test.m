@@ -43,8 +43,8 @@ function [result, self, test] = run_test(self, test)
     previous_environment = mlunit_environment();
     
     % execute set_up fixture
-    test_failure = '';
-    test_skipped = '';
+    test_failure = [];
+    test_skipped = [];
     errors = {};
     outputSetup = '';
     try
@@ -54,18 +54,13 @@ function [result, self, test] = run_test(self, test)
             test = set_up(test);
         end
     catch
-        err = lasterror;
-        errorinfo = mlunit_errorinfo(err);
+        errorinfo = mlunit_errorinfo(lasterror);
         if is_failure(errorinfo)
-            errorinfo = set_additional_cause(errorinfo, 'In set_up fixture:');
-            test_failure = get_message_with_stack(errorinfo);
+            test_failure = set_additional_cause(errorinfo, 'In set_up fixture:');
         elseif is_skipped(errorinfo)
-            errorinfo = set_additional_cause(errorinfo, 'In set_up fixture:');
-            test_skipped = filter_lasterror_wraps(errorinfo);
+            test_skipped = set_additional_cause(errorinfo, 'In set_up fixture:');
         else
-            legacy_stack_handling(err);
-            errorinfo = set_additional_cause(errorinfo, 'Error in set_up fixture:');
-            errors{end+1} = errorinfo;
+            errors{end+1} = set_additional_cause(errorinfo, 'Error in set_up fixture:');
         end
     end
 
@@ -83,14 +78,12 @@ function [result, self, test] = run_test(self, test)
                 test = eval([method, '(test);']);
             end
         catch
-            err = lasterror;
-            errorinfo = mlunit_errorinfo(err);
+            errorinfo = mlunit_errorinfo(lasterror);
             if is_failure(errorinfo)
-                test_failure = get_message_with_stack(errorinfo);
+                test_failure = errorinfo;
             elseif is_skipped(errorinfo)
-                test_skipped = filter_lasterror_wraps(errorinfo);
+                test_skipped = errorinfo;
             else
-                legacy_stack_handling(err);
                 errors{end+1} = errorinfo;
             end
         end
@@ -156,7 +149,7 @@ function result = construct_disabled_result(test)
     result = struct();
     result.name = get_function_name(test);
     result.errors = {};
-    result.failure = '';
+    result.failure = [];
     [dummy, reason] = get_disabled(test);
     if isempty(reason)
        reason = 'Test disabled.';
@@ -180,15 +173,4 @@ function prepended_text = prepend(text, pretext)
             prepended_lines{end} = '';
         end
         prepended_text = mlunit_strjoin(prepended_lines, char(10));
-    end
-
-function legacy_stack_handling(err)
-        
-    % Previous code added some stack if the field was missing.
-    % But why would it be missing?
-    if (~isfield(err, 'stack'))
-        warning('MLUNIT:unexpectedExecution', 'This code seems deprecated, but we did not know when it activated. Please report this bug along with the circumstance in which it occurred.');
-%         err.stack(1).file = char(which(method));
-%         err.stack(1).line = '1';
-%         err.stack = vertcat(err.stack, dbstack('-completenames'));
     end

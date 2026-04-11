@@ -25,12 +25,20 @@ has_skipped = ~isempty(result.skipped);
 
 if has_failed
     self.num_failures = self.num_failures + 1;
-    self = add_to_errorlist(self, 'FAIL', result.name, result.failure);
+    failmsg = '';
+    if ~isempty(result.failure)
+        failmsg = get_message_with_stack(result.failure);
+    end
+    self = add_to_errorlist(self, 'FAIL', result.name, failmsg);
 end
 
 if has_skipped
     self.num_skipped = self.num_skipped + 1;
-    self = add_to_errorlist(self, 'SKIPPED', result.name, result.skipped);
+    skipmsg = '';
+    if ~isempty(result.skipped)
+        skipmsg = get_message_with_stack(result.skipped);
+    end
+    self = add_to_errorlist(self, 'SKIPPED', result.name, skipmsg);
 end
 
 if has_errors

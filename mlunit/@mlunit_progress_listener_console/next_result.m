@@ -38,14 +38,16 @@ if has_variations
 end
 
 if has_skipped
+    skipmsg = filter_lasterror_wraps(result.skipped);
     msg = sprintf('\n  %s SKIPPED', result.name);
-    if ~strcmp('(no message available)', result.skipped)
-        msg = [msg sprintf(':\n%s', indent(result.skipped))];
+    if ~strcmp('(no message available)', skipmsg)
+        msg = [msg sprintf(':\n%s', indent(skipmsg))];
     end
     report = [report msg];
     
 elseif has_failed
-    report = [report sprintf('\n  %s FAIL:\n%s%s', result.name, variation_info, indent(result.failure))];
+    failmsg = get_message_with_stack(result.failure);
+    report = [report sprintf('\n  %s FAIL:\n%s%s', result.name, variation_info, indent(failmsg))];
 end
 
 if has_errors

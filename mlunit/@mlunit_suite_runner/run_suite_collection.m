@@ -248,10 +248,16 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       testcase.name = results(t).name;
       testcase.classname = suiteresult.name;
       testcase.time = results(t).time;
-      msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
-      testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
-      testcase.failure = results(t).failure;
-      testcase.skipped = results(t).skipped;
+      error_msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
+      testcase.error = mlunit_strjoin(error_msg_and_stack_list, sprintf('\n'));
+      testcase.failure = '';
+      if ~isempty(results(t).failure)
+         testcase.failure = get_message_with_stack(results(t).failure);
+      end
+      testcase.skipped = '';
+      if ~isempty(results(t).skipped)
+         testcase.skipped = filter_lasterror_wraps(results(t).skipped);
+      end
       testcase.console = clearFormattingMarkers(results(t).console);
       
       % save into list of testcases results
@@ -279,8 +285,14 @@ function suiteresult = build_suiteresult_matlab(results, suitespec)
       testcase.time = results(t).time;
       msg_and_stack_list = cellfun(@(e) get_message_with_stack(e), results(t).errors, 'UniformOutput', false);
       testcase.error = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
-      testcase.failure = results(t).failure;
-      testcase.skipped = results(t).skipped;
+      testcase.failure = '';
+      if ~isempty(results(t).failure)
+         testcase.failure = get_message_with_stack(results(t).failure);
+      end
+      testcase.skipped = '';
+      if ~isempty(results(t).skipped)
+         testcase.skipped = get_message_with_stack(results(t).skipped);
+      end
       testcase.console = clearFormattingMarkers(results(t).console);
             
       % save into list of testcases results
@@ -378,15 +390,15 @@ function [suiteresult, self] = runMatlabTestsuite(self, suitespec, targetdir)
         end
 
         if matlab_results(t).Failed && ~matlab_results(t).Incomplete
-            result.failure = matlab_results(t).Details.DiagnosticRecord.Report;
+            result.failure = mlunit_errorinfo(struct('message', {matlab_results(t).Details.DiagnosticRecord.Report}));
         else
-            result.failure = '';
+            result.failure = [];
         end
 
         if ~matlab_results(t).Failed && matlab_results(t).Incomplete
-            result.skipped = matlab_results(t).Details.DiagnosticRecord.Report;
+            result.skipped = mlunit_errorinfo(struct('message', {matlab_results(t).Details.DiagnosticRecord.Report}));
         else
-            result.skipped = '';
+            result.skipped = [];
         end
 
         % pretend this was just executed

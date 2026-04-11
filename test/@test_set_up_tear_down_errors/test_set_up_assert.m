@@ -7,4 +7,6 @@ expected_msg = sprintf([...
     'This is an assert_* call in set_up.' ...
     ]);
 expected_len = numel(expected_msg);
-assert_equals(expected_msg, results(1).failure(1:expected_len));
+
+actual_msg = get_message_with_stack(results(1).failure);
+assert_equals(expected_msg, actual_msg(1:expected_len));
