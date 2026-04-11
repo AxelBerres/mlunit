@@ -159,7 +159,7 @@ function gui_test_case_callback(hobject, eventdata, handles) %#ok
 
 % accept enter to run immediately, but only if not currently closing
 if ~isempty(findobj(handles.mlunit_gui_window)) && ...
-        13 == double(builtin('get', handles.mlunit_gui_window, 'CurrentCharacter'))
+        isequal(13, double(builtin('get', handles.mlunit_gui_window, 'CurrentCharacter')))
     gui_run_callback(hobject, eventdata, handles);
 end
 

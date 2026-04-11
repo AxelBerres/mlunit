@@ -35,6 +35,7 @@ mlUnit 2.3 (in development)
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.
+  - Fix: Using Alt+Tab to switch away from mlUnit resulted in a runtime error.
 
 
 mlUnit 2.2 (2025-07-25)
