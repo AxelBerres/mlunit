@@ -13,7 +13,7 @@ mlUnit 2.3 (in development)
   - With an empty input field, allow to run all test suites on
     the current working directory.
   - Allow the GUI to run just a single test case from a test suite.
-    Use the same argument naming as with mlunit_single.
+    Use the same argument syntax as with mlunit_single.
   - Improve rendering of the GUI's progress bar.
     This used to be a horizontal bar chart, and is now just a resizing rectangle.
     Also, don't force drawnow all the time, but only
@@ -23,8 +23,8 @@ mlUnit 2.3 (in development)
   - Remember some GUI parameters between GUI restarts.
     Particularly, the latest test object, and the docking mode.
   - Improve GUI resize calculation.
-  - Show button can now open class methods.
-  - Disable Run button during test runs.
+  - The Show button can now open class methods.
+  - Disable the Run button during test runs.
   - Add an About dialog to the GUI menu.
   - Remove GUI menu item for shortening directory names in the error display.
     With mlunit_param('abbrev_trace', 1), shortening isn't needed anymore.
