@@ -251,7 +251,8 @@ if ~isempty(data)
     set(handles.gui_error, 'String', data{selected});
     
     % (de)activate the show button; function name and line go into its UserData
-    [tokens] = regexp(data{selected}, get_line_expression(), 'tokens', 'once'); %, 'dotexceptnewline');
+    line_expression = 'In ([\w\ \.,$&/\\:@]*.m) at line (\w*)';
+    [tokens] = regexp(data{selected}, line_expression, 'tokens', 'once'); %, 'dotexceptnewline');
     if (length(tokens) == 2)
         set(handles.gui_show, 'Enable', 'on');
         set(handles.gui_show, 'UserData', tokens);
