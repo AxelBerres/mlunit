@@ -59,6 +59,10 @@ end
 % - Fix awkward wrap behaviour for running '1'. Fiddle with Max and Min parameters!
 %   Try inputting different formats: char vector, char matrix, cellstr, string array
 
+% TODO: Known Issues
+% - When changing the error item during a test run, the mlUnit GUI may be in a drawnow
+%   call and thereby reset the selection to the previous state.
+
 % TODO: Non-GUI Features
 % - In case of suite_set_up or suite_tear_down errors, don't introduce new results,
 %   but add errors to single test results.

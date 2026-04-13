@@ -177,7 +177,6 @@ function gui_run_callback(hobject, eventdata, handles) %#ok
 set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
-set(handles.gui_error_list, 'Enable', 'off');
 set(handles.gui_run, 'Enable', 'off');
 cleanup = onCleanup(@() set(handles.gui_run, 'Enable', 'on'));
 
@@ -232,8 +231,6 @@ end
 % reset previous state
 mlunit_param('linked_trace', prev_linktrace_state);
 
-% reenable
-set(handles.gui_error_list, 'Enable', 'on');
 % set focus
 value = get(handles.gui_error_list, 'Value');
 set(handles.gui_error_list, 'Value', value);
