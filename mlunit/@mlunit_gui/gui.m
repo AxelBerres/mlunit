@@ -288,6 +288,18 @@ if ispc && isequal(builtin('get', hobject,'BackgroundColor'), builtin('get', 0,'
     set(hobject,'BackgroundColor','white');
 end
 
+% register keypess callback
+set(hobject, 'KeyPressFcn', @gui_error_list_keypress);
+
+
+function gui_error_list_keypress(hobject, keyevent)
+
+if isequal(13, keyevent.Character)
+    % trigger Show event
+    current_guidata = guidata(hobject);
+    gui_show_Callback(current_guidata.gui_show, [], current_guidata);
+end
+
 
 function gui_error_createfcn(hobject, eventdata, handles) %#ok
 
