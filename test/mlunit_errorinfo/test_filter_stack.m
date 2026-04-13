@@ -4,13 +4,18 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 function test = test_filter_stack %#ok<STOUT>
 
 output_tests_from_mfile;
-    
+
+
+function set_up
+
+    % Make private functions known for testing (cannot use addpath).
+    mlunit_errorinfo_classdir = fileparts(which('mlunit_errorinfo'));
+    private_dir = fullfile(mlunit_errorinfo_classdir, 'private');
+    cd(private_dir);
 
 function test_empty_stack
 

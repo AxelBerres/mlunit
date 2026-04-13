@@ -38,7 +38,7 @@ if has_variations
 end
 
 if has_skipped
-    skipmsg = filter_lasterror_wraps(result.skipped);
+    skipmsg = get_message(result.skipped);
     msg = sprintf('\n  %s SKIPPED', result.name);
     if ~strcmp('(no message available)', skipmsg)
         msg = [msg sprintf(':\n%s', indent(skipmsg))];

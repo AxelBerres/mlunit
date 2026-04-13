@@ -256,7 +256,7 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       end
       testcase.skipped = '';
       if ~isempty(results(t).skipped)
-         testcase.skipped = filter_lasterror_wraps(results(t).skipped);
+         testcase.skipped = get_message(results(t).skipped);
       end
       testcase.console = clearFormattingMarkers(results(t).console);
       

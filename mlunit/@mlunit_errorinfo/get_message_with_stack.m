@@ -14,7 +14,7 @@
 function message = get_message_with_stack(self)
 
 % obtain message and stack
-[message, stack] = get_message_and_stack(self);
+[message, stack] = get_message(self);
 
 % put message and stack together
 message = [message, mlunit_print_stack(stack)];

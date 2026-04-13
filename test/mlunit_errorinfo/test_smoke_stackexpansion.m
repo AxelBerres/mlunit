@@ -5,8 +5,6 @@
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
-%  
-%  $Id$
 
 function test = test_smoke_stackexpansion %#ok<STOUT>
 
@@ -54,7 +52,7 @@ function stack = loc_catch_error(evalstring)
 
     assert_not_empty(einfo);
 
-    stack = loc_get_message_with_stack_clone(einfo);
+    [~, stack] = get_message(einfo);
 
 
 function stack = loc_get_message_with_stack_clone(self)
