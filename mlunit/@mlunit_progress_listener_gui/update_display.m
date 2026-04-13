@@ -53,6 +53,8 @@ end
 % TODO: Improvements
 % - Make message more prominent and distinguish it from the stack trace
 % - Improve data handling in GUI.
+% - On Run, put keyboard focus into error list
+% - In error list, perform "Show" upon Enter.
 
 % TODO: New Features
 % - file/directory selector dialog button. Just a thin button called "...", or with a
@@ -61,8 +63,6 @@ end
 %   clicking on the edit field or pressing the down key.
 % - Support for docking is nice.
 %   But the functionality is hidden. Can we make it visible somehow?
-% - Try to find fail/error target for View button if not on path. Is there something in
-%   the listener's results that can be used?
 
 % TODO: Probably Not Possible
 % - make error output selectable and copyable, but still not editable
@@ -71,6 +71,11 @@ end
 %   Tooltip? "Click to copy"
 % - Fix awkward wrap behaviour for running '1'. Fiddle with Max and Min parameters!
 %   Try inputting different formats: char vector, char matrix, cellstr, string array
+
+% TODO: Non-GUI Features
+% - In case of suite_set_up or suite_tear_down errors, don't introduce new results,
+%   but add errors to single test results.
+
 
 
 function update_progress_bar(self)

@@ -6,12 +6,14 @@
 %  message = get_message_with_stack(self) returns a char array containing the
 %  message and stack.
 %
-%  The stack format can be changed by the mlUnit parameter 'linked_trace'.
+%  [message, stack] = get_message_with_stack(self) additionally returns the stack.
+%
+%  The stack display format can be changed by the mlUnit parameter 'linked_trace'.
 
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
-function message = get_message_with_stack(self)
+function [message, stack] = get_message_with_stack(self)
 
 % obtain message and stack
 [message, stack] = get_message(self);

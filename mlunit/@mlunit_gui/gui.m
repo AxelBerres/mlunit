@@ -177,6 +177,7 @@ function gui_run_callback(hobject, eventdata, handles) %#ok
 set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
+set(handles.gui_error_list, 'Enable', 'off');
 set(handles.gui_run, 'Enable', 'off');
 cleanup = onCleanup(@() set(handles.gui_run, 'Enable', 'on'));
 
@@ -231,31 +232,53 @@ end
 % reset previous state
 mlunit_param('linked_trace', prev_linktrace_state);
 
-% execution time gets displayed in the finalize_execution handler
+% reenable
+set(handles.gui_error_list, 'Enable', 'on');
+% set focus
+value = get(handles.gui_error_list, 'Value');
+set(handles.gui_error_list, 'Value', value);
 
 % pretend the user selected one of the errors in order to display something
-gui_error_list_callback(handles.gui_error_list, eventdata, handles);
+%gui_error_list_callback(handles.gui_error_list, eventdata, handles, true);
 
 
 % Called when the user selects an error in the list
-function gui_error_list_callback(hobject, eventdata, handles) %#ok
+function gui_error_list_callback(hobject, eventdata, handles, preselection) %#ok
+
+if nargin < 4, preselection = false; end
 
 % cell array of error messages
 data = builtin('get', handles.gui_error_list, 'UserData');
-% which item the user selected
-selected = builtin('get', handles.gui_error_list, 'Value');
 
 % only proceed if we actually recorded errors
 if ~isempty(data)
+    
+    if preselection
+        % If just one entry, select that.
+        % Otherwise, select the first test, which will be the second item.
+        index = min(2, numel(data));
+        % Match selection
+        set(handles.gui_error_list, 'Value', index);
+    else
+        % which item the user selected
+        index = builtin('get', handles.gui_error_list, 'Value');
+    end
+    
+    errobj = data{index};
+    if isempty(errobj)
+        errobj = struct();
+        errobj.text = '';
+        errobj.file = '';
+        errobj.line = [];
+    end
+    
     % set appropriate error message from pool of available messages
-    set(handles.gui_error, 'String', data{selected});
+    set(handles.gui_error, 'String', errobj.text);
     
     % (de)activate the show button; function name and line go into its UserData
-    line_expression = 'In ([\w\ \.,$&/\\:@]*.m) at line (\w*)';
-    [tokens] = regexp(data{selected}, line_expression, 'tokens', 'once'); %, 'dotexceptnewline');
-    if (length(tokens) == 2)
+    if ~isempty(errobj.file) && ~isempty(errobj.line)
         set(handles.gui_show, 'Enable', 'on');
-        set(handles.gui_show, 'UserData', tokens);
+        set(handles.gui_show, 'UserData', errobj);
     else
         set(handles.gui_show, 'Enable', 'off');
     end
@@ -314,18 +337,19 @@ msgbox(text, 'About mlUnit', 'help');
 
 function gui_show_Callback(hObject, eventdata, handles) %#ok
 
-tokens = builtin('get', hObject, 'UserData');
+errobj = builtin('get', hObject, 'UserData');
 
-mfile = tokens{1};
-line = tokens{2};
+mfile = errobj.file;
+line = errobj.line;
 
 % opentoline struggles with class methods. Help it find them.
 mfile = which(mfile);
 
-if isempty(mfile)
-    msgbox({[tokens{1} ' cannot be found,'], 'because it is not on the MATLAB path.'}, 'mlUnit', 'warn');
+if ~isempty(mfile)
+    opentoline(mfile, line);
 else
-    opentoline(mfile, str2double(line));
+    % should not occur any more
+    msgbox({[errobj.file ' cannot be found,'], 'because it is not on the MATLAB path.'}, 'mlUnit', 'warn');
 end
 
 

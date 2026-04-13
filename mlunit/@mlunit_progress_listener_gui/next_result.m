@@ -22,29 +22,40 @@ has_skipped = ~isempty(result.skipped);
 if has_failed
     self.num_failures = self.num_failures + 1;
     failmsg = '';
+    stack = [];
     if ~isempty(result.failure)
-        failmsg = get_message_with_stack(result.failure);
+        [failmsg, stack] = get_message_with_stack(result.failure);
     end
-    self = add_to_errorlist(self, 'FAIL', result.name, failmsg);
+    self = add_to_errorlist(self, 'FAIL', result.name, failmsg, stack);
 end
 
 if has_skipped
     self.num_skipped = self.num_skipped + 1;
     skipmsg = '';
+    stack = [];
     if ~isempty(result.skipped)
-        skipmsg = get_message_with_stack(result.skipped);
+        [skipmsg, stack] = get_message_with_stack(result.skipped);
     end
-    self = add_to_errorlist(self, 'SKIPPED', result.name, skipmsg);
+    self = add_to_errorlist(self, 'SKIPPED', result.name, skipmsg, stack);
 end
 
 if has_errors
     self.num_errors = self.num_errors + 1;
     
     % consolidate multiple errors into single string
-    msg_and_stack_list = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);
-    errmessages = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
+    [msg_list, stack_list] = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);
+    errmessages = mlunit_strjoin(msg_list, sprintf('\n'));
     
-    self = add_to_errorlist(self, 'ERROR', result.name, errmessages);
+    % use the first non-empty stack found for populating the View button
+    stack = [];
+    for i = 1:numel(stack_list)
+        if ~isempty(stack_list{i})
+            stack = stack_list{i};
+            break;
+        end
+    end
+    
+    self = add_to_errorlist(self, 'ERROR', result.name, errmessages, stack);
 end
 
 if mlunit_param('verbose') && ~has_errors && ~has_failed

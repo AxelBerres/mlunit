@@ -32,6 +32,7 @@ mlUnit 2.3 (in development)
     Allow the shortcut to run a specific test object right away.
   - Establish a simple tree structure in the error list,
     so that failures/errors/skips also show their corresponding test suite.
+  - The Show button can now show error, failure, and skipped locations.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.
