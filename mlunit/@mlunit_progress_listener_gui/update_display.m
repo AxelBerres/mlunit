@@ -40,7 +40,6 @@ end
 % TODO: Improvements
 % - Make message more prominent and distinguish it from the stack trace
 % - Improve data handling in GUI.
-% - On Run, put keyboard focus into error list
 
 % TODO: New Features
 % - file/directory selector dialog button. Just a thin button called "...", or with a

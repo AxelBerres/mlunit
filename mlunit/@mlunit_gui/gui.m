@@ -178,6 +178,8 @@ set(handles.gui_show, 'Enable', 'off');
 set(handles.gui_error, 'String', '');
 set(handles.gui_text_time, 'String', '');
 set(handles.gui_run, 'Enable', 'off');
+% set keyboard focus to error list, so users can navigate results
+uicontrol(handles.gui_error_list);
 cleanup = onCleanup(@() set(handles.gui_run, 'Enable', 'on'));
 
 test_case = builtin('get', handles.gui_test_case, 'String');
