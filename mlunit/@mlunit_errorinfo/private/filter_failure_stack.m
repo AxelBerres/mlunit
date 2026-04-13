@@ -23,7 +23,8 @@ end
 % the names of the files each function call occurred, stack.name are the
 % names of each (sub)function, which we do not know or want to filter by.
 for f=1:numel(stack)
-    [fpath fname] = fileparts(stack(f).file);
+    % dropping the extension
+    [~, fname, ~] = fileparts(stack(f).file);
     stack(f).filename = fname;
 end
 

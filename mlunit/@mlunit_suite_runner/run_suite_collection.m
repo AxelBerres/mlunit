@@ -122,15 +122,16 @@ function suitespecs = loc_determine_suites(testobj, include_matlab_tests)
 
     % in case of dir, go down recursively
     if ~isFileTestObj && isDirTestObj
-        [dirpath, dirname] = fileparts(testobj);
-        if dirname(1) ~= '@'
+        [dirpath, dirname, dirext] = fileparts(testobj);
+        if isempty(dirname) || dirname(1) ~= '@'
             % Get test files. They may be in basedir or its subdirectories.
             suitespecs = getNestedTestFiles(testobj, include_matlab_tests);
             return
         end
         
         % delegate to constructor method
-        testobj = fullfile(testobj, dirname(2:end));
+        fulldirname = [dirname, dirext];
+        testobj = fullfile(testobj, fulldirname(2:end));
     end
 
     % tokenize path to existing file

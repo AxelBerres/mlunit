@@ -67,7 +67,7 @@ elseif length(tokens_syntax) == num_captures_syntax_err
     if isempty(fullname), fullname = file; end
 
     % drop .m extension
-    [fpath, fname, fext] = fileparts(file);
+    [~, fname, ~] = fileparts(file);
     
     % push reconstructed call location onto stack
     stackitem = struct('file', {fullname}, 'line', {line}, 'name', {fname});
