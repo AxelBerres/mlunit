@@ -59,5 +59,5 @@ if numel(data) <= 2
     % but for abnormal executions, we only have one item containing a meta error.
     set(self.error_listbox, 'Value', numel(data));
     % Make the selection appear to have focus and show the error text.
-    eval(get(self.error_listbox, 'Callback'));
+    gui(mlunit_gui(1), 'gui_error_list_callback', self.error_listbox, [], guidata(self.error_listbox));
 end
