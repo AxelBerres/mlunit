@@ -18,13 +18,10 @@ function self = next_result(self, result)
 mlunit_narginchk(2, 2, nargin);
 if ~isstruct(result), error('result argument need be struct'); end
 
-% consolidate multiple errors into single string
-msg_and_stack_list = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);
-errmessages = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
-
-has_errors = ~isempty(errmessages);
+has_errors = ~isempty(result.errors);
 has_failed = ~isempty(result.failure);
 has_skipped = ~isempty(result.skipped);
+
 num_variations = 0;
 if isfield(result, 'variations') && numel(result.variations) > 0
     num_variations = sum([result.variations.variations]);
@@ -56,6 +53,11 @@ if has_errors
         % test case
         report = [report sprintf('\n')];
     end
+    
+    % consolidate multiple errors into single string
+    msg_and_stack_list = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);
+    errmessages = mlunit_strjoin(msg_and_stack_list, sprintf('\n'));
+
     report = [report sprintf('\n  %s ERROR:\n%s%s', result.name, variation_info, indent(errmessages))];
 end
 
