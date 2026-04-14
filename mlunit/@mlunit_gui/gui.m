@@ -297,9 +297,15 @@ set(hobject, 'KeyPressFcn', @gui_error_list_keypress);
 function gui_error_list_keypress(hobject, keyevent)
 
 if isequal(13, keyevent.Character)
-    % trigger Show event
+    
     current_guidata = guidata(hobject);
-    gui_show_Callback(current_guidata.gui_show, [], current_guidata);
+    
+    isviewable = strcmpi('on', get(current_guidata.gui_show, 'Enable'));
+    
+    if isviewable
+        % trigger Show event
+        gui_show_Callback(current_guidata.gui_show, [], current_guidata);
+    end
 end
 
 

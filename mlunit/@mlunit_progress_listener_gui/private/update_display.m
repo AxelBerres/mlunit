@@ -35,10 +35,7 @@ else
     drawnow();
 end
 
-% TODO: Caption: "GUI quality-of-life updates"
-
-% TODO: Improvements
-% - Improve data handling in GUI.
+% Caption: "GUI quality-of-life updates"
 
 % TODO: New Features
 % - file/directory selector dialog button. Just a thin button called "...", or with a
@@ -47,20 +44,26 @@ end
 %   clicking on the edit field or pressing the down key.
 % - Support for docking is nice.
 %   But the functionality is hidden. Can we make it visible somehow?
+% - Support param abbrev_trace in GUI by right-click menu
 
-% TODO: Probably Not Possible
+% TODO: Non-GUI
+% - Make clear that some mlunit_param entries are console output only
+% - Structure latest CHANGES entry.
+
+% Check: Probably Not Feasible
 % - make error output selectable and copyable, but still not editable
 %   However, registering the figure's WindowButtonDownFcn can mask the edit field
 %   and copy on click. Question is how to make the user recognize that happened.
 %   Tooltip? "Click to copy"
 % - Fix awkward wrap behaviour for running '1'. Fiddle with Max and Min parameters!
 %   Try inputting different formats: char vector, char matrix, cellstr, string array
+% - Improve data handling in GUI.
 
-% TODO: Known Issues
+% Known Issues
 % - When changing the error item during a test run, the mlUnit GUI may be in a drawnow
 %   call and thereby reset the selection to the previous state.
 
-% TODO: Non-GUI Features
+% Non-GUI Features
 % - In case of suite_set_up or suite_tear_down errors, don't introduce new results,
 %   but add errors to single test results.
 
@@ -68,9 +71,6 @@ end
 
 function update_progress_bar(self)
 
-    % make progress bar current axis/object
-    %axes(self.progress_bar);
-    
     % choose color
     if self.num_suites == 0
         color = [1 1 1]; % white
