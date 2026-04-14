@@ -51,10 +51,6 @@ end
 % - Structure latest CHANGES entry.
 
 % Check: Probably Not Feasible
-% - make error output selectable and copyable, but still not editable
-%   However, registering the figure's WindowButtonDownFcn can mask the edit field
-%   and copy on click. Question is how to make the user recognize that happened.
-%   Tooltip? "Click to copy"
 % - Fix awkward wrap behaviour for running '1'. Fiddle with Max and Min parameters!
 %   Try inputting different formats: char vector, char matrix, cellstr, string array
 % - Improve data handling in GUI.

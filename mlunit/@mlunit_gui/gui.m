@@ -83,6 +83,11 @@ if (~isempty(self.dock) && isnumeric(self.dock) && self.dock)
     set(self.handles.menu_dock, 'Label', 'Undock Window');
 end
 
+copymenu = uicontextmenu;
+set(self.handles.gui_error, 'UIContextMenu', copymenu);
+self.handles.menu_copyerror = uimenu(copymenu, 'Label', 'Copy', 'Callback', ...
+    @(hobject, eventdata)gui(mlunit_gui(1), 'gui_copy_callback', hobject, [], handles));
+
 if (~ischar(self.initial_test_case))
     try
         test_str = class(self.initial_test_case);
@@ -350,6 +355,13 @@ text = {...
     'https://github.com/AxelBerres/mlunit', ...
     };
 msgbox(text, 'About mlUnit', 'help');
+
+
+function gui_copy_callback(hObject, eventdata, handles) %#ok
+
+char_matrix = get(handles.gui_error, 'String');
+text = mlunit_strjoin(cellstr(char_matrix), char(10)); %#ok<CHARTEN>
+clipboard('copy', text);
 
 
 function gui_show_Callback(hObject, eventdata, handles) %#ok

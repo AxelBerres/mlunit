@@ -35,7 +35,8 @@ mlUnit 2.3 (in development)
   - The Show button can now show error, failure, and skipped locations.
   - In error list, perform "Show" upon Enter.
   - On run, set keyboard focus to error list, so users can navigate results.
-  - Make message more prominent and distinguish it from the stack trace
+  - Make message more prominent and distinguish it from the stack trace.
+  - Copy the output of a test into the clipboard by use of a menu.
 
   - The current directory "." can be used as test object.
 
