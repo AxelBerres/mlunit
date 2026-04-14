@@ -33,9 +33,11 @@ mlUnit 2.3 (in development)
   - Establish a simple tree structure in the error list,
     so that failures/errors/skips also show their corresponding test suite.
   - The Show button can now show error, failure, and skipped locations.
-  - The current directory "." can be used as test object.
   - In error list, perform "Show" upon Enter.
   - On run, set keyboard focus to error list, so users can navigate results.
+  - Make message more prominent and distinguish it from the stack trace
+
+  - The current directory "." can be used as test object.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.

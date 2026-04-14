@@ -38,7 +38,6 @@ end
 % TODO: Caption: "GUI quality-of-life updates"
 
 % TODO: Improvements
-% - Make message more prominent and distinguish it from the stack trace
 % - Improve data handling in GUI.
 
 % TODO: New Features

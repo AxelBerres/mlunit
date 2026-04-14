@@ -21,30 +21,35 @@ has_skipped = ~isempty(result.skipped);
 
 if has_failed
     self.num_failures = self.num_failures + 1;
-    failmsg = '';
-    stack = [];
-    if ~isempty(result.failure)
-        [failmsg, stack] = get_message_with_stack(result.failure);
-    end
-    self = add_to_errorlist(self, 'FAIL', result.name, failmsg, stack);
+    self = add_all(self, 'FAIL', result.name, {result.failure});
 end
 
 if has_skipped
     self.num_skipped = self.num_skipped + 1;
-    skipmsg = '';
-    stack = [];
-    if ~isempty(result.skipped)
-        [skipmsg, stack] = get_message_with_stack(result.skipped);
-    end
-    self = add_to_errorlist(self, 'SKIPPED', result.name, skipmsg, stack);
+    self = add_all(self, 'SKIPPED', result.name, {result.skipped});
 end
 
 if has_errors
     self.num_errors = self.num_errors + 1;
-    
+    self = add_all(self, 'ERROR', result.name, result.errors);
+end
+
+if mlunit_param('verbose') && ~has_errors && ~has_failed && ~has_skipped
+    self = add_to_errorlist(self, 'ok', result.name, 'success');
+end
+
+update_display(self);
+
+
+function self = add_all(self, result, name, errorinfo_list)
+
     % consolidate multiple errors into single string
-    [msg_list, stack_list] = cellfun(@get_message_with_stack, result.errors, 'UniformOutput', false);
-    errmessages = mlunit_strjoin(msg_list, sprintf('\n'));
+    %#ok<*CHARTEN> newline isn't on all supported MATLAB releases
+    [msg_list, stack_list] = cellfun( ...
+        @(ei) get_message_with_stack(ei, char(10)), ...
+        errorinfo_list, ...
+        'UniformOutput', false);
+    message = mlunit_strjoin(msg_list, char(10));
     
     % use the first non-empty stack found for populating the View button
     stack = [];
@@ -55,11 +60,4 @@ if has_errors
         end
     end
     
-    self = add_to_errorlist(self, 'ERROR', result.name, errmessages, stack);
-end
-
-if mlunit_param('verbose') && ~has_errors && ~has_failed
-    self = add_to_errorlist(self, 'ok', result.name, 'success');
-end
-
-update_display(self);
+    self = add_to_errorlist(self, result, name, message, stack);
