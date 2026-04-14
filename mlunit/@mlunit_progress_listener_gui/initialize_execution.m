@@ -12,4 +12,4 @@
 
 function self = initialize_execution(self, test_object)
 
-
+set(self.text_time, 'String', 'Running...');
