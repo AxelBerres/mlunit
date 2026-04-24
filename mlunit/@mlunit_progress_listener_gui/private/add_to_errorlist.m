@@ -1,10 +1,8 @@
 %Add an entry to the GUI's error list.
-%  add_to_errorlist(SELF, PREFIX, TESTNAME, ERRMSG, STACK) adds an error to the GUI's
+%  add_to_errorlist(SELF, PREFIX, TESTNAME, ERROBJS) adds an error to the GUI's
 %  error list. SELF is an mlunit_progress_listener_gui instance. PREFIX is supposed to be
 %  either 'ERROR' or 'FAIL', depending on the error type. TESTNAME is a string,
-%  used for display in the error list. ERRMSG is the full error message (with
-%  stack) that will be displayed in the error detail box. STACK is a struct array of stack
-%  items from which the first will be selected as jumping point for the View button.
+%  used for display in the error list. ERROBJS is a cell array of error objects.
 %
 %  This is an mlunit_progress_listener_gui internal method and should not be called from
 %  the outside.
@@ -14,18 +12,16 @@
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
-function self = add_to_errorlist(self, prefix, testname, errmsg, stack)
+function self = add_to_errorlist(self, prefix, testname, errobjs)
 
-mlunit_narginchk(4, 5, nargin);
-
-if nargin < 5, stack = []; end
+mlunit_narginchk(4, 4, nargin);
 
 % get existing error list
 list = builtin('get', self.error_listbox, 'String');
 data = builtin('get', self.error_listbox, 'UserData');
 if isempty(list)
-    list = cell(0);
-    data = cell(0);
+    list = {};
+    data = {};
 end
 
 % add testsuite once
@@ -35,19 +31,18 @@ if ~isempty(self.current_suite)
     self.current_suite = '';
 end
 
-% data item consists of the display text, and the jumping point for the View button
-errobj = struct();
-errobj.text = errmsg;
-errobj.file = '';
-errobj.line = [];
-if ~isempty(stack)
-    errobj.file = stack(1).file;
-    errobj.line = stack(1).line;
+% normalize errobjs
+if ischar(errobjs)
+    errobjs = {mlunit_errorinfo(struct('message', errobjs))};
+elseif isobject(errobjs)
+    errobjs = {errobjs};
+elseif ~iscell(errobjs)
+    errobjs = {mlunit_errorinfo(struct('message', 'Argument errobjs is not of a recognized type.'), 'Internal mlUnit error.')};
 end
 
 % add current error
 list{end+1} = sprintf('      %s: %s', prefix, testname);
-data{end+1} = errobj;
+data{end+1} = errobjs;
 
 % write back
 set(self.error_listbox, 'String', list);

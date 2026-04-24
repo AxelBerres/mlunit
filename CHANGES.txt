@@ -26,8 +26,8 @@ mlUnit 2.3 (in development)
   - The Show button can now open class methods.
   - Disable the Run button during test runs.
   - Add an About dialog to the GUI menu.
-  - Remove GUI menu item for shortening directory names in the error display.
-    With mlunit_param('abbrev_trace', 1), shortening isn't needed anymore.
+  - Refactor GUI menu item for shortening directory names in the error display.
+    The text is now generated directly, instead of fiddling with the text.
   - Add a shortcut to start the mlUnit GUI: >> mlunit
     Allow the shortcut to run a specific test object right away.
   - Establish a simple tree structure in the error list,

@@ -15,8 +15,7 @@ if ~loc_iserror(meta_error), error('meta_error argument need be error struct'); 
 
 % don't reset any current gui state; it might be helpful to know how many
 % testcases executed before breakdown
-[errmsg, stack] = get_message_with_stack(mlunit_errorinfo(meta_error));
-add_to_errorlist(self, 'ERROR', 'mlunit_gui', errmsg, stack);
+add_to_errorlist(self, 'ERROR', 'mlunit_gui', mlunit_errorinfo(meta_error));
 update_display(self);
 
 

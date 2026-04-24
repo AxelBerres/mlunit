@@ -75,6 +75,8 @@ menu = uicontextmenu;
 set(self.handle, 'UIContextMenu', menu);
 self.handles.menu_dock = uimenu(menu, 'Label', 'Dock Window', 'Callback', ...
     @(hobject, eventdata)gui(mlunit_gui(1), 'gui_dock_callback', hobject, [], handles));
+self.handles.menu_shorten = uimenu(menu, 'Label', shorten_menu_text(self.shorten), 'Callback', ...
+    @(hobject, eventdata)gui(mlunit_gui(1), 'gui_shorten_callback', hobject, [], handles));
 self.handles.menu_about = uimenu(menu, 'Label', 'About mlUnit', 'Callback', ...
     @(hobject, eventdata)gui(mlunit_gui(1), 'gui_about_callback', hobject, [], handles)); 
 
@@ -216,9 +218,6 @@ listener = mlunit_progress_listener_gui(...
     handles.gui_text_time);
 suite_runner = add_listener(mlunit_suite_runner, listener);
 
-% disable html links in stack trace, because they won't display in an edit box
-prev_linktrace_state = mlunit_param('linked_trace', false);
-
 % Wrap single test specifications if not a valid file/dir.
 % Single test specifications contain a dot and their first part needs to be an m file.
 test_case_parts = mlunit_strsplit(test_case, '.');
@@ -235,19 +234,15 @@ catch
     display_meta_error(listener, lasterror);
 end
 
-% reset previous state
-mlunit_param('linked_trace', prev_linktrace_state);
-
 % set focus
 value = get(handles.gui_error_list, 'Value');
 set(handles.gui_error_list, 'Value', value);
 
-% pretend the user selected one of the errors in order to display something
-%gui_error_list_callback(handles.gui_error_list, eventdata, handles, true);
-
 
 % Called when the user selects an error in the list
 function gui_error_list_callback(hobject, eventdata, handles, preselection) %#ok
+
+global self;
 
 if nargin < 4, preselection = false; end
 
@@ -269,23 +264,50 @@ if ~isempty(data)
     end
     
     errobj = data{index};
-    if isempty(errobj)
-        errobj = struct();
-        errobj.text = '';
-        errobj.file = '';
-        errobj.line = [];
-    end
+
+    [errortext, stackobj] = process_errors(errobj, self.shorten);
     
     % set appropriate error message from pool of available messages
-    set(handles.gui_error, 'String', errobj.text);
+    set(handles.gui_error, 'String', errortext);
     
     % (de)activate the show button; function name and line go into its UserData
-    if ~isempty(errobj.file) && ~isempty(errobj.line)
+    if ~isempty(stackobj)
         set(handles.gui_show, 'Enable', 'on');
-        set(handles.gui_show, 'UserData', errobj);
+        set(handles.gui_show, 'UserData', stackobj);
     else
         set(handles.gui_show, 'Enable', 'off');
     end
+end
+
+
+function [errortext, stackobj] = process_errors(errorinfo_list, shorten)
+
+% consolidate multiple errors into single string
+%#ok<*CHARTEN> newline isn't on all supported MATLAB releases
+msg_list = cell(size(errorinfo_list));
+stack_list = cell(size(errorinfo_list));
+for i = 1:numel(errorinfo_list)
+    ei = errorinfo_list{i};
+    if ischar(ei)
+        msg_list{i} = ei;
+    else
+        [msg_list{i}, stack_list{i}] = get_message_with_stack(ei, char(10), false, shorten);
+    end
+end
+errortext = mlunit_strjoin(msg_list, char(10));
+
+% use the first non-empty stack found for populating the View button
+stack = [];
+for i = 1:numel(stack_list)
+    if ~isempty(stack_list{i})
+        stack = stack_list{i};
+        break;
+    end
+end
+
+stackobj = struct('file', {}, 'line', {});
+if ~isempty(stack)
+    stackobj = stack(1);
 end
 
 
@@ -343,6 +365,30 @@ mlunit_save_mru_file([], self.dock);
 set(handles.mlunit_gui_window, 'UserData', self);
 
 
+function gui_shorten_callback(hObject, eventdata, handles) %#ok
+
+global self;
+
+self.shorten = ~self.shorten;
+set(self.handles.menu_shorten, 'Label', shorten_menu_text(self.shorten));
+set(handles.mlunit_gui_window, 'UserData', self);
+
+gui_error_list_callback(hObject, eventdata, self.handles);
+
+% save only shorten state
+mlunit_save_mru_file([], [], self.shorten);
+
+
+function text = shorten_menu_text(shorten)
+
+% The text is flipped, because it describes what the user can switch to.
+if shorten
+    text = 'Long Stack Paths';
+else
+    text = 'Short Stack Names';
+end
+
+
 function gui_about_callback(hObject, eventdata, handles) %#ok
 
 version = ver('mlunit');
@@ -351,7 +397,7 @@ text = {...
     [version.Date], ...
     ['Supports MATLAB ' version.Release], ...
     '', ...
-    'See CHANGES.txt over at', ...
+    'See CHANGES.txt at', ...
     'https://github.com/AxelBerres/mlunit', ...
     };
 msgbox(text, 'About mlUnit', 'help');
@@ -360,7 +406,7 @@ msgbox(text, 'About mlUnit', 'help');
 function gui_copy_callback(hObject, eventdata, handles) %#ok
 
 char_matrix = get(handles.gui_error, 'String');
-text = mlunit_strjoin(cellstr(char_matrix), char(10)); %#ok<CHARTEN>
+text = mlunit_strjoin(cellstr(char_matrix), char(10));
 clipboard('copy', text);
 
 

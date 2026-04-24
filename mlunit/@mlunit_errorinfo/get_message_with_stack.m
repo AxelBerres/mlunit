@@ -13,12 +13,14 @@
 %  This Software and all associated files are released unter the 
 %  GNU General Public License (GPL), see LICENSE for details.
 
-function [message, stack] = get_message_with_stack(self, separator)
+function [message, stack] = get_message_with_stack(self, separator, with_links, abbreviate)
 
 if nargin < 2 || isempty(separator), separator = ''; end
+if nargin < 3 || isempty(with_links), with_links = []; end
+if nargin < 4 || isempty(abbreviate), abbreviate = []; end
 
 % obtain message and stack
 [message, stack] = get_message(self);
 
 % put message and stack together
-message = [message, separator, mlunit_print_stack(stack)];
+message = [message, separator, mlunit_print_stack(stack, with_links, abbreviate)];

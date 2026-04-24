@@ -1,4 +1,4 @@
-function [test_case_name, docked] = mlunit_load_mru_file()
+function [test_case_name, docked, shorten] = mlunit_load_mru_file()
 %mlunit_load_mru_file returns the mlunit GUI config file content.
 
 %  This Software and all associated files are released unter the 
@@ -7,6 +7,7 @@ function [test_case_name, docked] = mlunit_load_mru_file()
 % default values
 test_case_name = '';
 docked = 0;
+shorten = mlunit_param('abbrev_trace');
 
 config_file = mlunit_get_mru_file();
 
@@ -18,6 +19,7 @@ try
     saved = load(config_file, '-mat');
     test_case_name = saved.test_case_name;
     docked = saved.dock;
+    shorten = saved.shorten;
 catch
     % delete inconsistent file
     delete(config_file);
