@@ -1,0 +1,319 @@
+Time flies like an arrow.
+Fruit flies like a banana.
+
+Why do programmers prefer dark mode?
+Because the bugs are harder to see!
+
+Every cloud hides a silver lining.
+
+Good ideas look brilliant
+until you try to explain them.
+
+Whether you think you can
+or you think you can't,
+you're right.
+    -- Henry Ford
+
+The secret of getting ahead is
+getting started.
+    -- Mark Twain
+
+Experience is simply the name
+we give our mistakes.
+    -- Oscar Wilde
+
+No one can make you feel inferior
+without your consent.
+    -- Eleanor Roosevelt
+
+Wouldn't the sentence "I want to put a hyphen
+between the words Fish and And and And and
+Chips in my Fish-And-Chips sign" have been
+clearer if quotation marks had been placed
+before Fish, and between Fish and and,
+and and and And, and And and and, and and
+and And, and And and and, and and and Chips,
+as well as after Chips?
+    -- Martin Gardner
+
+The question of whether computers can think is
+like the question whether submarines can swim.
+    -- Edsger Dijkstra
+
+Should array indices start at 0 or 1?
+My compromise of 0.5 was rejected without,
+I thought, proper consideration.
+    -- Stan Kelly-Bootle
+
+Inside every large program is a small program
+struggling to get out.
+    -- Tony Hoare
+
+UNIX was not designed to stop its users
+from doing stupid things, as that would
+also stop them from doing clever things.
+    -- Doug Gwyn
+
+The object-oriented model makes it easy
+to build up programs by accretion.
+What this often means, in practice,
+is that it provides a structured way
+to write spaghetti code.
+    -- Paul Graham
+
+Normal people believe that if it ain't broke,
+don't fix it.
+Engineers believe that if it ain't broke,
+it doesn't have enough features yet.
+    -- Scott Adams
+
+There's nothing in computing that can't
+be broken by another level of indirection.
+    -- Rob Pike
+
+Such is modern computing:
+everything simple is made too complicated
+because it's easy to fiddle with;
+everything complicated stays complicated
+because it's hard to fix.
+    -- Rob Pike
+
+The trick is to fix the problem you have,
+rather than the problem you want.
+    -- Bram Cohen
+
+The most expensive words in engineering are
+"It would be cool if-".
+    -- Jean-Louis Gassée
+
+Programming today is a race between
+software engineers striving to build
+bigger and better idiot-proof programs,
+and the universe trying to build
+bigger and better idiots.
+So far, the universe is winning.
+    -- Rick Cook
+
+Walking on water and developing
+software from a specification
+are easy if both are frozen.
+    -- Edward V Berard
+
+I have always wished for my computer
+to be as easy to use as my telephone.
+My wish has come true because
+I can no longer figure out
+how to use my telephone.
+    -- Bjarne Stroustrup
+
+The object-oriented version of spaghetti code
+is, of course, lasagna code.
+Too many layers.
+    -- Roberto Waltman
+
+Perfection [in design] is achieved,
+not when there is nothing more to add,
+but when there is nothing left to take away.
+    -- Antoine de Saint-Exupéry
+
+Beware of bugs in the above code.
+I have only proved it correct, not tried it.
+    -- Donald E. Knuth
+
+Debugging is twice as hard
+as writing the code in the first place.
+Therefore, if you write the code as cleverly
+as possible, you are, by definition,
+not smart enough to debug it.
+    -- Brian W. Kernighan
+
+The trouble with programmers is that
+you can never tell what a programmer is doing
+until it's too late.
+    -- Seymour Cray
+
+Always code as if the guy who ends up
+maintaining your code will be a violent
+psychopath who knows where you live.
+    -- Martin Golding
+
+There are two ways
+of constructing a software design.
+One way is to make it so simple
+that there are obviously no deficiencies.
+And the other way is to make it so complicated
+that there are no obvious deficiencies.
+    -- C.A.R. Hoare
+
+Ceci n'est pas un résultat de test.
+
+The five stages of dealing with tests:
+1. Denial
+2. Anger
+3. Bargaining
+4. Depression
+5. Acceptance.
+
+A patch is a piece of software
+which replaces old bugs with new bugs.
+
+Writing the code takes 90% of the project time,
+testing it takes the other 90%.
+
+A bank is a place that will lend you money
+if you can prove that you don't need it.
+
+My bed is a magical place where I suddenly
+remember everything I was supposed to do.
+
+When life gives you melons,
+you might be dyslexic.
+
+If you think nobody cares if you're alive,
+try missing a couple of payments.
+
+I'm on a seafood diet -- I see food and I eat it.
+
+Give a man a fish and you feed him for a day.
+Teach him to fish and you can get rid of him
+for the whole weekend.
+
+Always borrow money from a pessimist.
+They don't expect it back.
+
+Change is inevitable.
+Except from a vending machine.
+
+Artificial intelligence is
+no match for natural stupidity.
+
+Never argue with an idiot.
+They will drag you down to their level
+and beat you with experience.
+
+The road to success is dotted with
+many tempting parking spaces.
+    -- Will Rogers
+
+A clear conscience is usually the sign
+of a bad memory.
+    -- Steven Wright
+
+I used to think I was indecisive.
+Now I'm not so sure.
+
+I told my friend she was drawing her eyebrows
+too high. She looked surprised.
+
+Support: "Press any key to continue."
+Customer: Presses the power button.
+
+A user interface is like a joke.
+If you have to explain it, it's not that good.
+
+Recruiter: "Would you like to join
+a fast paced and dynamic team?"
+Me: "That sounds all very stressful. Do you
+have a slow and chilled out team available?"
+
+I could tell you a joke about testing,
+but it might not pass.
+
+There are only two hard things
+in Computer Science: cache invalidation,
+naming things, and off-by-one errors.
+
+Java is a DSL for converting
+XML into stacktraces.
+
+Real programmers don't comment their code.
+It was hard to write,
+it should be hard to understand.
+
+Why do it by hand in ten minutes,
+when you can automate it in ten hours?
+
+See daddy?
+All the keys are in alphabetical order now.
+
+Failure is not an option.
+It comes bundled with Windows.
+
+My software never has bugs.
+It just develops random features.
+
+The only problem with troubleshooting is
+that sometimes trouble shoots back.
+
+Relax, its only ONES and ZEROS!
+
+The great thing about object oriented code is
+that it can make small, simple problems look
+like large, complex ones.
+
+If brute force doesn't solve your problems,
+then you aren't using enough.
+
+What's the difference
+between a virus and windows?
+Viruses rarely fail.
+
+Helpdesk: "There is an icon on your computer
+labeled 'My Computer'. Double click on it."
+User: "What's your computer doing on mine?"
+
+If debugging is the process of removing bugs,
+then programming must be the process
+of putting them in.
+
+Any fool can use a computer.
+Many do.
+
+Hardware: The parts of a computer system
+that can be kicked.
+
+Unix is user-friendly.
+It's just very selective
+about who its friends are.
+
+Yesterday it worked.
+Today it is not working.
+Windows is like that.
+
+A crash reduces
+your expensive computer
+to a simple stone.
+
+A software tester walks into a bar.
+Runs into a bar.
+Crawls into a bar.
+Dances into a bar.
+Flies into a bar.
+Jumps into a bar.
+And orders:
+a beer.
+2 beers.
+0 beers.
+99999999 beers.
+a lizard in a beer glass.
+-1 beer.
+"qwertyuiop" beers.
+Testing complete.
+A real customer walks into the bar
+and asks where the bathroom is.
+The bar goes up in flames.
+
+A working program is one
+that has only unobserved bugs.
+
+If a project is completed on schedule,
+it wasn't debugged/tested properly.
+
+There is no such thing
+as a bug free application. But yes,
+bugs do come free with every application.
+
+Only thirty percent of your effort is spent
+in detecting bugs. The remaining seventy
+goes in convincing developers and
+project managers that it is actually a bug.

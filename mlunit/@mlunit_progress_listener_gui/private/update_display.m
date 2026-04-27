@@ -39,7 +39,6 @@ end
 
 % TODO: New Features
 % - Rerun single suites by right-click in the error list
-% - mlunit quip on successful outcome (when gui_error_list is empty)
 
 % TODO: Non-GUI
 % - Make clear that some mlunit_param entries are console output only

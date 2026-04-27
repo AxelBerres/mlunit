@@ -27,3 +27,23 @@
 function self = finalize_execution(self, results, execution_time)
 
 set(self.text_time, 'String', sprintf('Finished: %.3fs.\n', execution_time));
+
+% Return early if there is normal test output.
+items = get(self.error_listbox, 'String');
+if ~isempty(items)
+    return;
+end
+
+% Show some special text if there's nothing else to show.
+actualResults = any(cellfun(@(r)r.tests > 0, results));
+if actualResults
+    specialtext = sprintf('%s\n%s\n\n%s', ...
+        'All tests pass!', ...
+        'If there''s nothing else to do, enjoy this:', ...
+        random_quip());
+else
+    specialtext = 'No tests were run.';
+end
+
+handles = guidata(self.error_listbox);
+set(handles.gui_error, 'String', specialtext);
