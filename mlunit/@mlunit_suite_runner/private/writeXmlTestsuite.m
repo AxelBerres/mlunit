@@ -81,15 +81,17 @@ function xml = printXmlTestsuite(suiteresult)
 %     .console    the console output of the test. Empty string if no output.
 function xml = printXmlTestcase(testcase)
 
-   newline = sprintf('\n');
-
    attributes = {'classname', testcase.classname, ...
                  'name', testcase.name, ...
                  'time', num2str(testcase.time)}; % includes set_up and tear_down time
 
    content = '';
    if ~isempty(testcase.error)
-      content = [content xmlTag('error', {}, testcase.error, true)];
+      errorattributes = {};
+      if ~isempty(testcase.errorid)
+         errorattributes = {'type', testcase.errorid};
+      end
+      content = [content xmlTag('error', errorattributes, testcase.error, true)];
    end
    if ~isempty(testcase.failure)
       content = [content xmlTag('failure', {}, testcase.failure, true)];
@@ -104,7 +106,7 @@ function xml = printXmlTestcase(testcase)
    xml = xmlTag('testcase', attributes, content);
    
    
-%% provide HTML-safe version of a message
+%% provide HTML-safe version of a message as tag content
 function message = sanitizeHtml(message)
    
    message = ['<![CDATA[' message ']]>'];

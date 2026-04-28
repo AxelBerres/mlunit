@@ -40,6 +40,7 @@ mlUnit 2.3 (in development)
   - Show a witty quip on an all-successful outcome (when gui_error_list is empty).
 
   - The current directory "." can be used as test object.
+  - Include error id as type attribute in JUnit XML report.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.

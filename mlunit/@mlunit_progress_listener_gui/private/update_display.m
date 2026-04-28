@@ -37,14 +37,13 @@ end
 
 % Caption: "GUI quality-of-life updates"
 
-% TODO: New Features
-% - Rerun single suites by right-click in the error list
-
 % TODO: Non-GUI
 % - Make clear that some mlunit_param entries are console output only
 % - Structure latest CHANGES entry.
+% - Remove this list.
 
 % Shelved for now
+% - Rerun single suites by right-click in the error list
 % - Improve data handling in GUI.
 % - remember dialog size if not docked
 % - save a recently used list instead of just the last item. As a dropdown menu when
