@@ -13,12 +13,12 @@
 %                      assert_equals and assert_not_equals calls. Logical false
 %                      handles NaNs not equal to each other. Defaults to false.
 %     'linked_trace' - Logical true displays stack trace items as html links.
-%                      Logical false displays them unlinked, as absolute path.
-%                      Defaults to true.
+%                      Logical false displays them unlinked, as text.
+%                      Defaults to true. Applies to console output.
 %     'abbrev_trace' - Logical true lets stack trace items display only their
 %                      file name, omitting the directory path. Defaults to true.
 %                      Can be mixed with linked_trace to display linked absolute
-%                      trace paths.
+%                      trace paths. Applies to console output.
 %     'verbose'      - Logical false displays errors and failures only.
 %                      Defaults to false. Logical true also displays successful
 %                      test cases. Use for debugging.

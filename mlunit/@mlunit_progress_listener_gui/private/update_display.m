@@ -35,41 +35,6 @@ else
     drawnow();
 end
 
-% Caption: "GUI quality-of-life updates"
-
-% TODO: Non-GUI
-% - Make clear that some mlunit_param entries are console output only
-% - Structure latest CHANGES entry.
-% - Remove this list.
-
-% Shelved for now
-% - Rerun single suites by right-click in the error list
-% - Improve data handling in GUI.
-% - remember dialog size if not docked
-% - save a recently used list instead of just the last item. As a dropdown menu when
-%   clicking on the edit field or pressing the down key. Dropdown ui element uidropdown is
-%   available only from R2016a.
-% - Support for docking is nice.
-%   But the functionality is hidden. Can we make it visible somehow?
-
-% Known Issues
-% - When changing the error item during a test run, the mlUnit GUI may be in a drawnow
-%   call and thereby reset the selection to the previous state.
-% - Awkward wrap behaviour for long texts. If a long line wraps, short lines do, too.
-%   R2011b ok, R2013b ok, R2015b bad, R2019b bad, R2024b bad, R2025b ok
-%   Finally fixed this 10 year bug.
-% - No file/directory selector button. 
-%   MATLAB can only choose a directory OR a file, not any/both with the same dialog.
-%   Also, users are currently expected to manage their test paths themselves,
-%   or run a whole directory. With specific files, additional logic would be needed
-%   adding them to the path or for changing dirs so that the files become visible.
-%   Further, the edit box content could get very long; normally it should be flush left,
-%   but on long input the interesting bit is on the right. This all plays out very poorly.
-
-% Non-GUI Features
-% - In case of suite_set_up or suite_tear_down errors, don't introduce new results,
-%   but add errors to single test results.
-
 
 function update_progress_bar(self)
 

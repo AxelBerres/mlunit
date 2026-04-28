@@ -6,6 +6,8 @@
 mlUnit 2.3 (in development)
 -----------------------
 
+GUI updates
+
   - Allow the GUI to run several test suites.
     The input field now allows not only single test suites,
     but also an absolute directory. It then runs all tests
@@ -14,30 +16,36 @@ mlUnit 2.3 (in development)
     the current working directory.
   - Allow the GUI to run just a single test case from a test suite.
     Use the same argument syntax as with mlunit_single.
+
+  - Add a shortcut to start the mlUnit GUI: >> mlunit
+    Allow the shortcut to run a specific test object right away.
+  - Disable the Run button during test runs.
+
+  - Establish a simple tree structure in the error list,
+    so that failures/errors/skips also show their corresponding test suite.
+  - During a run, set keyboard focus to error list, so users can navigate results.
+  - In the error list, perform "Show" upon Enter.
+  - Make message more prominent and distinguish it from the stack trace.
+  - Copy the output of a test into the clipboard by use of a menu.
+  - The Show button can now show error, failure, and skipped locations.
+  - The Show button can now open class methods.
+  - Show a witty quip on an all-successful outcome.
+
+  - Display the mlUnit version in the GUI title.
+  - Update some GUI labels to newer nomenclature.
+  - Remember some GUI parameters between GUI restarts.
+    Particularly, the latest test object, and the docking mode.
+  - Refactor GUI menu item for shortening directory names in the error display.
+    The text is now generated directly, instead of fiddling with the text.
+  - Add an About dialog to the GUI menu.
+
   - Improve rendering of the GUI's progress bar.
     This used to be a horizontal bar chart, and is now just a resizing rectangle.
     Also, don't force drawnow all the time, but only
     for the very first and very last suites.
-  - Display mlUnit version in GUI title.
-  - Update some GUI labels to newer nomenclature.
-  - Remember some GUI parameters between GUI restarts.
-    Particularly, the latest test object, and the docking mode.
   - Improve GUI resize calculation.
-  - The Show button can now open class methods.
-  - Disable the Run button during test runs.
-  - Add an About dialog to the GUI menu.
-  - Refactor GUI menu item for shortening directory names in the error display.
-    The text is now generated directly, instead of fiddling with the text.
-  - Add a shortcut to start the mlUnit GUI: >> mlunit
-    Allow the shortcut to run a specific test object right away.
-  - Establish a simple tree structure in the error list,
-    so that failures/errors/skips also show their corresponding test suite.
-  - The Show button can now show error, failure, and skipped locations.
-  - In error list, perform "Show" upon Enter.
-  - On run, set keyboard focus to error list, so users can navigate results.
-  - Make message more prominent and distinguish it from the stack trace.
-  - Copy the output of a test into the clipboard by use of a menu.
-  - Show a witty quip on an all-successful outcome (when gui_error_list is empty).
+
+Other updates
 
   - The current directory "." can be used as test object.
   - Include error id as type attribute in JUnit XML report.
