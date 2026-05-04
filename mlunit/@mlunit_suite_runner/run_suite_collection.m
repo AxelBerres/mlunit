@@ -259,6 +259,12 @@ function suiteresult = build_suiteresult(results, time, suitespec)
       if ~isempty(results(t).skipped)
          testcase.skipped = get_message(results(t).skipped);
       end
+      testcase.errorid = '';
+      if ~isempty(results(t).errors)
+         testcase.errorid = get_identifier(results(t).errors{1});
+      elseif ~isempty(results(t).failure)
+         testcase.errorid = get_identifier(results(t).failure);
+      end
       testcase.console = clearFormattingMarkers(results(t).console);
       
       % save into list of testcases results
@@ -293,6 +299,12 @@ function suiteresult = build_suiteresult_matlab(results, suitespec)
       testcase.skipped = '';
       if ~isempty(results(t).skipped)
          testcase.skipped = get_message_with_stack(results(t).skipped);
+      end
+      testcase.errorid = '';
+      if ~isempty(results(t).errors)
+         testcase.errorid = get_identifier(results(t).errors{1});
+      elseif ~isempty(results(t).failure)
+         testcase.errorid = get_identifier(results(t).failure);
       end
       testcase.console = clearFormattingMarkers(results(t).console);
             
@@ -385,7 +397,7 @@ function [suiteresult, self] = runMatlabTestsuite(self, suitespec, targetdir)
         result.variations = [];
 
         if matlab_results(t).Failed && matlab_results(t).Incomplete
-            result.errors = {mlunit_errorinfo(struct('message', {matlab_results(t).Details.DiagnosticRecord.Report}))};
+            result.errors = {mlunit_errorinfo(struct('message', {matlab_results(t).Details.DiagnosticRecord.Report}, 'identifier', {matlab_results(t).Details.DiagnosticRecord.Exception.identifier}))};
         else
             result.errors = {};
         end
