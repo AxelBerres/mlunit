@@ -3,7 +3,7 @@
 =====================================
 
 
-mlUnit 2.3 (in development)
+mlUnit 2.3 (2026-05-04)
 -----------------------
 
 GUI updates
@@ -48,7 +48,7 @@ GUI updates
 Other updates
 
   - The current directory "." can be used as test object.
-  - Include error id as type attribute in JUnit XML report.
+  - Include error id as type attribute for errors in JUnit XML report.
 
   - Fix: Using the View button triggered an error when the target
     file is not on the MATLAB path.
