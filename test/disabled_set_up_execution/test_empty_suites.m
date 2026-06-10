@@ -74,7 +74,7 @@ function assert_skips(skipmsg, results)
 
     if ischar(skipmsg)
         assert_equals(1, numel(idx_skips));
-        assert_equals(skipmsg, results(idx_skips).skipped);
+        assert_equals(skipmsg, get_message(results(idx_skips).skipped));
     else
         error('Unexpected calling format');
     end
