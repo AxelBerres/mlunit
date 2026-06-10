@@ -3,6 +3,13 @@
 =====================================
 
 
+mlUnit 2.4 (2026-06-10)
+-----------------------
+
+  - Fix: Runtime error when using static skip definitions
+    with function test cases (regression).
+
+
 mlUnit 2.3 (2026-05-04)
 -----------------------
 

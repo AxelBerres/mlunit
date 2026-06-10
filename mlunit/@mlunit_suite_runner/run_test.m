@@ -154,7 +154,7 @@ function result = construct_disabled_result(test)
     if isempty(reason)
        reason = 'Test disabled.';
     end
-    result.skipped = reason;
+    result.skipped = mlunit_errorinfo(struct('message', reason));
     result.time = 0;
     result.console = '';
     result.variations = [];
